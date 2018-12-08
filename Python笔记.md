@@ -33,7 +33,11 @@ os.path.splitunc(path)  #把路径分割为加载点与文件
 os.path.walk(path, visit, arg)  #遍历path，进入每个目录都调用visit函数，visit函数必须有3个参数(arg, dirname, names)，dirname表示当前目录的目录名，names代表当前目录下的所有文件名，args则为walk的第三个参数os.path.supports_unicode_filenames  #设置是否支持unicode路径名
 ```
 
+
+
 ##### 2.__ init __方法
+
+> 可以直接理解成在类初始化的时候，创造或者带入一个或者几个类的全局变量。
 
 
 
@@ -144,6 +148,24 @@ class Person:
 p1 = Person(‘张三‘ , 20)
 p1.instance_fun()
 Person.instance_fun(p1) #通过类访问实例方法时，必须显式地将实例当做参数传入
+```
+
+
+
+##### 4.super()方法的使用
+
+如果在子类中也定义了构造器，即__ init __()函数，那么基类的构造器该如何调用呢？
+
+```python
+方法一：明确指定，在子类的构造器中明确地指明调用基类的构造器
+class C(P):
+    def __init__(self):
+        P.__init__(self)
+
+方法二：使用super()方法，该方法的漂亮之处在于不需要在定义子类构造器的时候，明确指定子类的基类并显式地调用，即不需要明确地提供父类，这样做的好处就是如果你改变了继承的父类，你只需要修改一行代码，而不需要在大量代码中查找那个要修改的基类，另外一方面代码的可移植性和重用性也更高。
+class C(P):
+    def __init__(self):
+        super(C，self).__init__()
 ```
 
 
