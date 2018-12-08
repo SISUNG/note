@@ -33,5 +33,14 @@ os.path.splitunc(path)  #把路径分割为加载点与文件
 os.path.walk(path, visit, arg)  #遍历path，进入每个目录都调用visit函数，visit函数必须有3个参数(arg, dirname, names)，dirname表示当前目录的目录名，names代表当前目录下的所有文件名，args则为walk的第三个参数os.path.supports_unicode_filenames  #设置是否支持unicode路径名
 ```
 
+##### 2."__init__"方法
+
+##### 3.类对象、实例对象、类变量、实例变量、类方法、实例方法、静态方法各个概念的解析
+
+```python
+类对象和实例对象
+#Python中一切皆为对象，类本身也是一种对象，类定义完成后，会在当前作用域中定义
+```
+
 
 
