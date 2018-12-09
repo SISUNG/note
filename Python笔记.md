@@ -170,3 +170,362 @@ class C(P):
 
 
 
+##### 5.os模块
+
+官方解释：This module provides a portable way of using operating system dependent functionality，该模块提供了一种方便的使用操作系统函数的方法。也就是说，os模块负责程序与操作系统的交互，提供了访问操作系统底层的接口。
+
+```python
+os常用方法
+os.remove()#删除文件
+os.rename()#重命名文件
+os.walk()#生成目录树下的所有文件名
+os.chdir()#改变目录
+os.mkdir()/os.mkdirs()#创建目录、创建多层目录
+os.rmdir()/os.rmdirs()#删除目录、删除多层目录
+os.listdir()#列出指定目录的文件
+os.getcwd()#返回当前工作目录
+os.chmod()#改变目录权限
+os.path.basename() #去掉目录路径，返回文件名
+os.path.dirname() #去掉文件名，返回目录路径
+os.path.join() #将分离的各部分组合成一个路径名
+os.path.split() #返回( dirname(), basename())元组
+os.path.splitext() #返回 (filename, extension) 元组
+os.path.getatime\ctime\mtime #分别返回最近访问、创建、修改时间
+os.path.getsize() #返回文件大小
+os.path.exists() #是否存在
+os.path.isabs() #是否为绝对路径
+os.path.isdir() #是否为目录
+os.path.isfile() #是否为文件
+os.system('cmd') #可以直接在python里调用第三方程序，如matlab，notepad++，在写脚本的时候很方便。
+os.access(path,mode) #检验权限模式
+os.chflags(path,flags) #设置路径的标记为数字标记
+```
+
+
+
+##### 6.sys模块
+
+官方解释：This module provides access to some variables used or maintained by the interpreter and to functions that interact strongly with the interpreter.这个模块可供访问由解释器访问或维护的变量和与解释器进行交互的函数。也就是说，sys模块负责程序与Python解释器的交互，提供了一系列的函数和变量，用于操纵python的运行时环境。
+
+> import sys
+>
+> dir(sys) #可以通过dir()方法查看模块中可用的方法。
+
+```python
+sys.argv #命令行参数List，第一个元素是程序本身路径
+sys.modules.keys() #返回所有已经导入的模块列表
+sys.exc_info() #获取当前正在处理的异常类,exc_type、exc_value、exc_traceback当前处理的异常详细信息
+sys.exit(n) #退出程序，正常退出时exit(0)。当然也可以用字符串参数，表示错误不成功的报错信息。
+sys.hexversion #获取Python解释程序的版本值，16进制格式如：0x020403F0
+sys.version #获取Python解释程序的版本信息
+sys.maxint #最大的Int值
+sys.maxunicode #最大的Unicode值
+sys.modules #返回系统导入的模块字段，key是模块名，value是模块
+sys.path #返回模块的搜索路径，初始化时使用PYTHONPATH环境变量的值
+sys.path.append('自定义模块路径') #自定义添加模块路径
+sys.platform #返回操作系统平台名称
+
+sys.stdout #标准输出
+#print('Hello World!\n')等效于sys.stdout.write('Hello World!\n')
+
+sys.stdin #标准输入
+#input('Please enter your name：')等效于sys.stdin.readline()[:-1]
+
+sys.stderr #错误输出
+sys.exc_clear() #用来清除当前线程所出现的当前的或最近的错误信息
+sys.exec_prefix #返回平台独立的python文件安装的位置
+sys.byteorder #本地字节规则的指示器，big-endian平台的值是'big',little-endian平台的值是'little'
+sys.copyright #记录python版权相关的东西
+sys.api_version #解释器的C的API版本
+sys.modules #其是一个全局字典，该字典是python启动后就加载在内存中，每当程序员导入新的模块，sys.modules将自动记录该模块。当第二次再导入该模块时，python会直接在字典中查找，从而加快了程序运行的速度，它拥有字典所拥有的一切方法。
+sys.getdefaultencoding()#获取系统当前编码，一般默认为ASCII
+sys.setdefaultencoding()#设置系统默认编码，执行dir（sys）时不会看到这个方法，在解释器中执行不通过，可以先执行reload(sys)，再执行 setdefaultencoding(‘utf8’)，此时将系统默认编码设置为'utf-8'。
+sys.getfilesystemencoding() #获取文件系统使用编码方式，Windows下返回’mbcs’，mac下返回’utf-8’
+
+import sys
+def exitfunc(value):
+    print (value)
+    sys.exit(0)
+print("hello")
+try:
+    sys.exit(90)
+except SystemExit as value:
+    exitfunc(value)   
+print("come?")
+运行结果
+hello
+90
+#程序首先打印hello，再执行exit（90），抛异常把90传给values，values在传进函数中执行，打印90，程序退出。后面的”come?”因为已经退出所以不会被打印. 而此时如果把exitfunc函数里面的sys.exit(0)去掉,那么程序会继续执行到输出”come?”。
+```
+
+
+
+##### 7.处理日期和时间的模块：time模块、calendar模块、datetime模块、pytz模块、dateutil模块
+
+- [x] time模块
+
+```python
+获取当前时间戳 time.time() #时间戳单位最适合用于做日期运算。但是1970年之前的日期就无法用此表示了，太遥远的日期也不行，Unix和Windows只支持到2038年。
+
+时间元组 #字段(4位数年，月，日，时，分，秒，一周的第几日，一年的第几日，夏令时)
+		#属性（tm_year,tm_mon,tm_mday,tm_hour,tm_min,tm_sec,tm_wday,tm_yday,tm_isdst)
+    
+获取当前时间 time.localtime(time.time())返回一个时间元组
+
+获取格式化的时间 time.asctime(time.localtime(time.time()))
+
+格式化日期 time.strftime(format[,t])
+# 格式化成2016-03-20 11:45:39形式
+print time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()) 
+# 格式化成Sat Mar 28 22:24:24 2016形式
+print time.strftime("%a %b %d %H:%M:%S %Y", time.localtime())  
+# 将格式字符串转换为时间戳
+a = "Sat Mar 28 22:24:24 2016"
+print time.mktime(time.strptime(a,"%a %b %d %H:%M:%S %Y"))
+
+python中时间日期格式化符号：
+%y 两位数的年份表示（00-99）
+%Y 四位数的年份表示（000-9999）
+%m 月份（01-12）
+%d 月内中的一天（0-31）
+%H 24小时制小时数（0-23）
+%I 12小时制小时数（01-12）
+%M 分钟数（00=59）
+%S 秒（00-59）
+%a 本地简化星期名称
+%A 本地完整星期名称
+%b 本地简化的月份名称
+%B 本地完整的月份名称
+%c 本地相应的日期表示和时间表示
+%j 年内的一天（001-366）
+%p 本地A.M.或P.M.的等价符
+%U 一年中的星期数（00-53）星期天为星期的开始
+%w 星期（0-6），星期天为星期的开始
+%W 一年中的星期数（00-53）星期一为星期的开始
+%x 本地相应的日期表示
+%X 本地相应的时间表示
+%Z 当前时区的名称
+%% %号本身
+```
+
+- [ ] calendar模块
+- [x] datetime模块
+
+```python
+datetime.date.today() 本地日期对象,(用str函数可得到它的字面表示(2014-03-24))
+datetime.date.isoformat(obj) 当前[年-月-日]字符串表示(2014-03-24)
+datetime.date.fromtimestamp() 返回一个日期对象，参数是时间戳,返回 [年-月-日]
+datetime.date.weekday(obj) 返回一个日期对象的星期数,周一是0
+datetime.date.isoweekday(obj) 返回一个日期对象的星期数,周一是1
+datetime.date.isocalendar(obj) 把日期对象返回一个带有年月日的元组
+datetime对象：
+datetime.datetime.today() 返回一个包含本地时间(含微秒数)的datetime对象 2014-03-24 23:31:50.419000
+datetime.datetime.now([tz]) 返回指定时区的datetime对象 2014-03-24 23:31:50.419000
+datetime.datetime.utcnow() 返回一个零时区的datetime对象
+datetime.fromtimestamp(timestamp[,tz]) 按时间戳返回一个datetime对象，可指定时区,可用于strftime转换为日期表示 
+datetime.utcfromtimestamp(timestamp) 按时间戳返回一个UTC-datetime对象
+datetime.datetime.strptime(‘2014-03-16 12:21:21‘,”%Y-%m-%d %H:%M:%S”) 将字符串转为datetime对象
+datetime.datetime.strftime(datetime.datetime.now(), ‘%Y%m%d %H%M%S‘) 将datetime对象转换为str表示形式
+datetime.date.today().timetuple() 转换为时间戳datetime元组对象，可用于转换时间戳
+datetime.datetime.now().timetuple()
+time.mktime(timetupleobj) 将datetime元组对象转为时间戳
+```
+
+
+
+- [ ] pytz模块
+- [ ] dateutil模块
+
+
+
+##### 8.math模块与cmath模块
+
+```python
+ceil:取大于等于x的最小的整数值，如果x是一个整数，则返回x
+copysign:把y的正负号加到x前面，可以使用0
+cos:求x的余弦，x必须是弧度
+degrees:把x从弧度转换成角度
+e:表示一个常量
+exp:返回math.e,也就是2.71828的x次方
+expm1:返回math.e的x(其值为2.71828)次方的值减１
+fabs:返回x的绝对值
+factorial:取x的阶乘的值
+floor:取小于等于x的最大的整数值，如果x是一个整数，则返回自身
+fmod:得到x/y的余数，其值是一个浮点数
+frexp:返回一个元组(m,e),其计算方式为：x分别除0.5和1,得到一个值的范围
+fsum:对迭代器里的每个元素进行求和操作
+gcd:返回x和y的最大公约数
+hypot:如果x是不是无穷大的数字,则返回True,否则返回False
+isfinite:如果x是正无穷大或负无穷大，则返回True,否则返回False
+isinf:如果x是正无穷大或负无穷大，则返回True,否则返回False
+isnan:如果x不是数字True,否则返回False
+ldexp:返回x*(2**i)的值
+log:返回x的自然对数，默认以e为基数，base参数给定时，将x的对数返回给定的base,计算式为：log(x)/log(base)
+log10:返回x的以10为底的对数
+log1p:返回x+1的自然对数(基数为e)的值
+log2:返回x的基2对数
+modf:返回由x的小数部分和整数部分组成的元组
+pi:数字常量，圆周率
+pow:返回x的y次方，即x**y
+radians:把角度x转换成弧度
+sin:求x(x为弧度)的正弦值
+sqrt:求x的平方根
+tan:返回x(x为弧度)的正切值
+trunc:返回x的整数部分
+```
+
+
+
+##### 9.re模块
+
+```python
+一.常用正则表达式符号和语法：
+'.' 匹配所有字符串，除\n以外
+‘-’ 表示范围[0-9]
+'*' 匹配前面的子表达式零次或多次。要匹配 * 字符，请使用 \*。
+'+' 匹配前面的子表达式一次或多次。要匹配 + 字符，请使用 \+
+'^' 匹配字符串开头
+‘$’ 匹配字符串结尾 re
+'\' 转义字符， 使后一个字符改变原来的意思，如果字符串中有字符*需要匹配，可以\*或者字符集[*] re.findall(r'3\*','3*ds')结['3*']
+'*' 匹配前面的字符0次或多次 re.findall("ab*","cabc3abcbbac")结果：['ab', 'ab', 'a']
+‘?’ 匹配前一个字符串0次或1次 re.findall('ab?','abcabcabcadf')结果['ab', 'ab', 'ab', 'a']
+'{m}' 匹配前一个字符m次 re.findall('cb{1}','bchbchcbfbcbb')结果['cb', 'cb']
+'{n,m}' 匹配前一个字符n到m次 re.findall('cb{2,3}','bchbchcbfbcbb')结果['cbb']
+'\d' 匹配数字，等于[0-9] re.findall('\d','电话:10086')结果['1', '0', '0', '8', '6']
+'\D' 匹配非数字，等于[^0-9] re.findall('\D','电话:10086')结果['电', '话', ':']
+'\w' 匹配字母和数字，等于[A-Za-z0-9] re.findall('\w','alex123,./;;;')结果['a', 'l', 'e', 'x', '1', '2', '3']
+'\W' 匹配非英文字母和数字,等于[^A-Za-z0-9] re.findall('\W','alex123,./;;;')结果[',', '.', '/', ';', ';', ';']
+'\s' 匹配空白字符 re.findall('\s','3*ds \t\n')结果[' ', '\t', '\n']
+'\S' 匹配非空白字符 re.findall('\s','3*ds \t\n')结果['3', '*', 'd', 's']
+'\A' 匹配字符串开头
+'\Z' 匹配字符串结尾
+'\b' 匹配单词的词首和词尾，单词被定义为一个字母数字序列，因此词尾是用空白符或非字母数字符来表示的
+'\B' 与\b相反，只在当前位置不在单词边界时匹配
+'(?P<name>...)' 分组，除了原有编号外在指定一个额外的别名 re.search("(?P<province>[0-9]{4})(?P<city>[0-9]{2})(?P<birthday>[0-9]{8})","371481199306143242").groupdict("city") 结果{'province': '3714', 'city': '81', 'birthday': '19930614'}
+[] 是定义匹配的字符范围。比如 [a-zA-Z0-9] 表示相应位置的字符要匹配英文字符和数字。[\s*]表示空格或者*号。
+
+二.常用的re函数：
+方法/属性 作用
+re.match(pattern, string, flags=0) 从字符串的起始位置匹配，如果起始位置匹配不成功的话，match()就返回none
+re.search(pattern, string, flags=0) 扫描整个字符串并返回第一个成功的匹配
+re.findall(pattern, string, flags=0) 找到RE匹配的所有字符串，并把他们作为一个列表返回
+re.finditer(pattern, string, flags=0) 找到RE匹配的所有字符串，并把他们作为一个迭代器返回
+re.sub(pattern, repl, string, count=0, flags=0) 替换匹配到的字符串
+```
+
+
+
+##### 10.urllib模块
+
+```python
+urllib.quote(string[,safe]) 对字符串进行编码。参数safe指定了不需要编码的字符
+urllib.unquote(string) 对字符串进行解码
+urllib.quote_plus(string[,safe]) 与urllib.quote类似，但这个方法用‘+‘来替换‘ ‘，而quote用‘%20‘来代替‘ ‘
+urllib.unquote_plus(string ) 对字符串进行解码
+urllib.urlencode(query[,doseq]) 将dict或者包含两个元素的元组列表转换成url参数。
+例如 字典{‘name‘:‘wklken‘,‘pwd‘:‘123‘}将被转换为”name=wklken&pwd=123″
+urllib.pathname2url(path) 将本地路径转换成url路径
+urllib.url2pathname(path) 将url路径转换成本地路径
+urllib.urlretrieve(url[,filename[,reporthook[,data]]]) 下载远程数据到本地
+filename：指定保存到本地的路径（若未指定该，urllib生成一个临时文件保存数据）
+reporthook：回调函数，当连接上服务器、以及相应的数据块传输完毕的时候会触发该回调
+data：指post到服务器的数据
+rulrs = urllib.urlopen(url[,data[,proxies]]) 抓取网页信息，[data]post数据到Url,proxies设置的代理
+urlrs.readline() 跟文件对象使用一样
+urlrs.readlines() 跟文件对象使用一样
+urlrs.fileno() 跟文件对象使用一样
+urlrs.close() 跟文件对象使用一样
+urlrs.info() 返回一个httplib.HTTPMessage对象，表示远程服务器返回的头信息
+urlrs.getcode() 获取请求返回状态HTTP状态码
+urlrs.geturl() 返回请求的URL
+```
+
+
+
+##### 11.string模块
+
+```python
+str.capitalize() 把字符串的第一个字符大写
+str.center(width) 返回一个原字符串居中，并使用空格填充到width长度的新字符串
+str.ljust(width) 返回一个原字符串左对齐，用空格填充到指定长度的新字符串
+str.rjust(width) 返回一个原字符串右对齐，用空格填充到指定长度的新字符串
+str.zfill(width) 返回字符串右对齐，前面用0填充到指定长度的新字符串
+str.count(str,[beg,len]) 返回子字符串在原字符串出现次数，beg,len是范围
+str.decode(encodeing[,replace]) 解码string,出错引发ValueError异常
+str.encode(encodeing[,replace]) 解码string
+str.endswith(substr[,beg,end]) 字符串是否以substr结束，beg,end是范围
+str.startswith(substr[,beg,end]) 字符串是否以substr开头，beg,end是范围
+str.expandtabs(tabsize = 8) 把字符串的tab转为空格，默认为8个
+str.find(str,[stat,end]) 查找子字符串在字符串第一次出现的位置，否则返回-1
+str.index(str,[beg,end]) 查找子字符串在指定字符中的位置，不存在报异常
+str.isalnum() 检查字符串是否以字母和数字组成，是返回true否则False
+str.isalpha() 检查字符串是否以纯字母组成，是返回true,否则false
+str.isdecimal() 检查字符串是否以纯十进制数字组成，返回布尔值
+str.isdigit() 检查字符串是否以纯数字组成，返回布尔值
+str.islower() 检查字符串是否全是小写，返回布尔值
+str.isupper() 检查字符串是否全是大写，返回布尔值
+str.isnumeric() 检查字符串是否只包含数字字符，返回布尔值
+str.isspace() 如果str中只包含空格，则返回true,否则FALSE
+str.title() 返回标题化的字符串（所有单词首字母大写，其余小写）
+str.istitle() 如果字符串是标题化的(参见title())则返回true,否则false
+str.join(seq) 以str作为连接符，将一个序列中的元素连接成字符串
+str.split(str=‘‘,num) 以str作为分隔符，将一个字符串分隔成一个序列，num是被分隔的字符串
+str.splitlines(num) 以行分隔，返回各行内容作为元素的列表
+str.lower() 将大写转为小写
+str.upper() 转换字符串的小写为大写
+str.swapcase() 翻换字符串的大小写
+str.lstrip() 去掉字符左边的空格和回车换行符
+str.rstrip() 去掉字符右边的空格和回车换行符
+str.strip() 去掉字符两边的空格和回车换行符
+str.partition(substr) 从substr出现的第一个位置起，将str分割成一个3元组。
+str.replace(str1,str2,num) 查找str1替换成str2，num是替换次数
+str.rfind(str[,beg,end]) 从右边开始查询子字符串
+str.rindex(str,[beg,end]) 从右边开始查找子字符串位置 
+str.rpartition(str) 类似partition函数，不过从右边开始查找
+str.translate(str,del=‘‘) 按str给出的表转换string的字符，del是要过虑的字符
+```
+
+
+
+##### 12.random模块
+
+```python
+random.random() 产生0-1的随机浮点数
+random.uniform(a, b) 产生指定范围内的随机浮点数
+random.randint(a, b) 产生指定范围内的随机整数
+random.randrange([start], stop[, step]) 从一个指定步长的集合中产生随机数
+random.choice(sequence) 从序列中产生一个随机数
+random.shuffle(x[, random]) 将一个列表中的元素打乱
+random.sample(sequence, k) 从序列中随机获取指定长度的片断
+```
+
+
+
+##### 13.stat模块
+
+```python
+描述os.stat()返回的文件属性列表中各值的意义
+fileStats = os.stat(path) 获取到的文件属性列表
+fileStats[stat.ST_MODE] 获取文件的模式
+fileStats[stat.ST_SIZE] 文件大小
+fileStats[stat.ST_MTIME] 文件最后修改时间
+fileStats[stat.ST_ATIME] 文件最后访问时间
+fileStats[stat.ST_CTIME] 文件创建时间
+stat.S_ISDIR(fileStats[stat.ST_MODE]) 是否目录
+stat.S_ISREG(fileStats[stat.ST_MODE]) 是否一般文件
+stat.S_ISLNK(fileStats[stat.ST_MODE]) 是否连接文件
+stat.S_ISSOCK(fileStats[stat.ST_MODE]) 是否COCK文件
+stat.S_ISFIFO(fileStats[stat.ST_MODE]) 是否命名管道
+stat.S_ISBLK(fileStats[stat.ST_MODE]) 是否块设备
+stat.S_ISCHR(fileStats[stat.ST_MODE]) 是否字符设置
+```
+
+
+
+##### 14.内置函数总结
+
+```python
+abs() #返回数字的绝对值
+
+```
+
