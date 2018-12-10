@@ -122,3 +122,7 @@ cond(no)->op
 
 [Markdown emoji代码大全集](https://www.cnblogs.com/chenych/p/8623353.html)
 
+##### 18.字体颜色
+
+<font color=red>内容</font>
+
