@@ -120,3 +120,5 @@ cond(no)->op
 
 :blush:
 
+[Markdown emoji代码大全集](https://www.cnblogs.com/chenych/p/8623353.html)
+
