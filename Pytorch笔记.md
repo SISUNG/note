@@ -1,6 +1,18 @@
 ##### ==import torch as t==
 
+torch.save()
 
+torch.load()
+
+torch.sigmoid()
+
+torch.max()
+
+torch.min()
+
+torch.clamp()
+
+torch.utils.data.DataLoader()
 
 ##### ==import torch.nn as nn==
 
@@ -23,17 +35,53 @@ class Conv2d(_ConvNd):
           padding=0, dilation=1, groups=1, bias=True):
 ```
 
+##### nn.BatchNorm2d()
 
+
+
+##### nn.LeakyReLU()
+
+##### nn.MSELoss()
+
+##### nn.BCELoss()
 
 ##### ==import torch.nn.functional as F==
 
 
+
+##### ==import torch.optim as optim==
+
+optim.Adam(params, weight_decay=)
+
+optim.Adam(params,weight_decay=, amsgrad=)
+
+optim.RMSprop(params, weight_decay=)
+
+optim.SGD(params, momentum=, weight_decay, nesterov)
+
+optim.lr_scheduler.StepLR()
+
+optimizer.zero_grad()
+
+loss.backward()
+
+optimizer.step()
+
+optimizer.param_groups[]
+
+lr_schedular.step()
 
 ##### ==import torchvision==
 
 
 
 ##### ==import torchvision.transforms as transforms==
+
+
+
+##### ==from tensorboardX import SummaryWriter==
+
+config['tensorboard_writer'].add_scalar()
 
 
 

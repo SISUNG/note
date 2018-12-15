@@ -549,3 +549,32 @@ sorted() #对所有可迭代的对象进行排序操作。sorted(iterable[, cmp[
 tuple() #将列表转换为元组
 ```
 
+
+
+##### 15.logging模块
+
+```python
+logging.info()
+logging.basicConfig()
+logging.error()
+```
+
+
+
+##### 16.importlib模块
+
+```
+importlib.import_module()
+```
+
+
+
+##### 17.collections模块
+
+```python
+from collections import OrderedDict
+```
+
+
+
+python中的map()和filter()函数
