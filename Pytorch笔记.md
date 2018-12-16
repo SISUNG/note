@@ -51,7 +51,7 @@ class Conv2d(_ConvNd):
 
 ##### nn.BatchNorm2d()
 
-
+nn.ModuleList()
 
 ##### nn.LeakyReLU()
 
@@ -116,3 +116,7 @@ torch.from_numpy()
 sequeeze()
 
 unsequence()
+
+model.load_state_dict(torch.load(pretrained))
+
+.repeat()
