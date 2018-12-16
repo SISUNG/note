@@ -1,5 +1,9 @@
 ##### ==import torch as t==
 
+torch.zeros()
+
+torch.ones()
+
 torch.save()
 
 torch.load()
@@ -12,7 +16,17 @@ torch.min()
 
 torch.clamp()
 
+torch.sigmoid()
+
+torch.cat()
+
+torch.FloatTensor
+
+torch.cuda.FloatTensor
+
 torch.utils.data.DataLoader()
+
+from troch.utils.data import Dataset
 
 ##### ==import torch.nn as nn==
 
@@ -83,5 +97,22 @@ lr_schedular.step()
 
 config['tensorboard_writer'].add_scalar()
 
+___
 
+##### ==其余杂项==
 
+.new()
+
+torch.from_numpy()
+
+.size(0)
+
+.view().permute().contiguous()
+
+.data
+
+.cuda()
+
+sequeeze()
+
+unsequence()
