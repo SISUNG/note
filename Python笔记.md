@@ -534,13 +534,17 @@ delattr() #用于删除属性。delattr(x,'foobar')相当于del x.foobar
 dir() #该函数不带参数时，返回当前范围内的变量、方法和定义的类型列表；带参数时，返回参数的属性、方法列表。如果参数包含方法__dir__(),该方法将被调用。如果参数不包含__dir__(),该方法将最大限度地收集参数信息。
 divmod() #该函数把除数和余数运算结果结合起来，返回一个包含商和余数的元组（a//b,a % b)
 enumerate() #该函数用于将一个可遍历的数据对象（如列表、元组或字符串）组合为一个索引序列，同时列出数据和数据下标，一般用在for循环当中。语法为enumerate（sequence，[start=0]),sequence表示一个序列、迭代器或其他支持迭代对象，start表示下标起始位置。
-eval() #用来执行一个字符串表达式，并返回表达式的值。eval(expression[, globals[, locals]])。expression为表达式，globals为变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。locals为变量作用域，局部命名空间，如果被提供，可以是任何映射对象。
+eval() #用来执行一个字符串表达式，并返回表达式的值。eval(expression[, globals[, locals]])。expression为表达式，globals为变量作用域，全局命名空间，如果被提供，则必须是一个字典对象。locals为变量作用域，局部命名空间，如果被提供，可以是任何映射对象。将字符串str当成有效的表达式来求值并返回计算结果，可以把list,tuple,dict和string相互转化
+filter() #对sequence中的item依次执行function(item),将执行结果为True的item组成一个List、String、Tuple进行返回
 id() #用于获取对象的内存地址
 int() #用于将一个字符串或数字转换为整型。class int(x, base=10)，x表示字符串或数字，base表示进制数，默认为十进制。
+lambda() #这是python支持的一种有趣的语法，它允许你快速定义单行的最小函数，类似于C语言中的宏，这些叫做lambda的函数，是从LISP借用来的，可以用在任何需要函数的地方。
 list() #将元组转换为列表。
+map() #map(f,iterable)基本上等于，[f(x) for x in iterable]
 ord() #ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。
 oct() #将一个整数转换成8进制字符串。
 reverse() #用于反向列表中的元素。
+reduce(function,sequence,starting_value) #对sequence中的item顺讯迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和。
 vars() #返回对象object的属性和属性值的字典对象。如果没有参数，就打印当前调用位置的属性和属性值，类似locals()。
 string() #将对象转化为适于人阅读的形式。
 set() #创建一个无序不重复元素集，可进行关系测试，删除重复数据，还可以计算交集、差集、并集等。
