@@ -538,6 +538,7 @@ eval() #用来执行一个字符串表达式，并返回表达式的值。eval(e
 id() #用于获取对象的内存地址
 int() #用于将一个字符串或数字转换为整型。class int(x, base=10)，x表示字符串或数字，base表示进制数，默认为十进制。
 list() #将元组转换为列表。
+map() #map(f,iterable)基本上等于，[f(x) for x in iterable]
 ord() #ord() 函数是 chr() 函数（对于8位的ASCII字符串）或 unichr() 函数（对于Unicode对象）的配对函数，它以一个字符（长度为1的字符串）作为参数，返回对应的 ASCII 数值，或者 Unicode 数值，如果所给的 Unicode 字符超出了你的 Python 定义范围，则会引发一个 TypeError 的异常。
 oct() #将一个整数转换成8进制字符串。
 reverse() #用于反向列表中的元素。
