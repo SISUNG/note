@@ -55,9 +55,31 @@ nn.ModuleList()
 
 ##### nn.LeakyReLU()
 
-##### nn.MSELoss()
+##### ==Loss function总结==
 
-##### nn.BCELoss()
+```python
+nn.L1Loss()
+
+nn.SmoothL1Loss()
+
+nn.MSELoss() 
+
+nn.BCELoss()
+nn.BCEWithLogitsLoss()
+nn.CrossEntropyLoss()
+nn.NLLLoss() #用于多分类的负对数似然损失函数
+nn.NLLLoss2d()
+nn.KLDivLoss() #KL散度
+nn.MarginRankingLoss() #评价相似度的损失
+nn.MultiMarginLoss() #多分类的Hinge损失
+nn.SoftMarginLoss() #多标签二分类损失
+nn.MultiLabelSoftMarginLoss() #上面的多分类版本
+nn.CosineEmbeddingLoss() #余弦相似度的损失
+nn.HingeEmbeddingLoss()
+nn.TripleMarginLoss() #我也不知道这是什么鬼东西？？？
+```
+
+
 
 ##### ==import torch.nn.functional as F==
 
