@@ -580,5 +580,3 @@ from collections import OrderedDict
 ```
 
 
-
-python中的map()和filter()函数
