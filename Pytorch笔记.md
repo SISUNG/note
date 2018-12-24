@@ -489,7 +489,61 @@ net.load_state_dict(net_state_dict)
 
 ##### 3.3PyTorch的十个优化器
 
+##### 1.torch.optim.SGD
+
+##### 2.torch.optim.ASGD
+
+##### 3.torch.optim.Rprop
+
+##### 4.torch.optim.Adagrad
+
+##### 5.torch.optim.Adadelta
+
+##### 6.torch.optim.RMSprop
+
+##### 7.torch.optim.Adam(AMSGrad)
+
+##### 8.torch.optim.Adamax
+
+##### 9.torch.optim.SparseAdam
+
+##### 10.torch.optim.LBFGS
+
 ##### 3.4 PyTorch的六个学习率调整方法
+
+##### 1.lr_scheduler.StepLR
+
+```python
+class torch.optim.lr_scheduler.StepLR(optimizer,step_size,gamma=0.1,
+                                     last_epoch=-1)
+功能：等间隔调整学习率，调整倍数为gamma倍，调整间隔为step_size。间隔单位是step。需要注意的是，step通常是指epoch，不要弄成iteration
+```
+
+##### 2.lr_scheduler_MultiStepLR
+
+```python
+class torch.optim.lr_scheduler.MultiStepLR(optimizer,milestones,gamma=0.1,
+                                           last_epoch=-1) 
+功能：按设定的间隔调整学习率。这个方法适合后期调试使用，观察loss曲线，为每个实验定制学习率调整时机
+```
+
+##### 3.lr_scheduler.ExponentialLR
+
+```python
+class torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma, 
+                                             last_epoch=-1)
+功能：按指数衰减调整学习率
+```
+
+##### 4.lr_scheduler.CosineAnnealingLR
+
+##### 5.lr_scheduler.ReduceLROnPlateau
+
+##### 6.lr_scheduler.LambdaLR
+
+##### 学习率调整小结
+
+> 可分为三大类，分别是：有序调整；自适应调整；自定义调整
 
 
 
