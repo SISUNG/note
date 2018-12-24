@@ -580,3 +580,15 @@ from collections import OrderedDict
 ```
 
 
+
+##### 18.pickle模块
+
+##### 19.Python字符串前面加u、r、b的含义
+
+##### 20.glob模块
+
+##### 21.shutil模块
+
+##### 22.PIL模块
+
+##### 23.闭包
