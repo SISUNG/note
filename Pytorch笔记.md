@@ -515,23 +515,201 @@ net.load_state_dict(net_state_dict)
 >
 > tensorboardX最早叫tensorboard，但此名易引起混淆，之后改成tensorboardX
 
+##### 代码实现
 
+>先运行1_tensorboardX_demo.py，并且打开terminal，进入相应的虚拟环境，进入到/Result/文件夹，执行：tensorboard --logdir=runs
+>
+>然后到浏览器中打开：localhost：6006
+
+##### tensorboardX的函数
+
+##### 1.add_scalar()
+
+```python
+add_scalar(tag,scalar_value,global_step=None,walltime=None)
+功能：在一个图表中记录一个标量的变化，常用于Loss和Accuracy曲线的记录
+```
+
+##### 2.add_scalars()
+
+```python
+add_scalars(main_tag,tag_scalar_dict,global_step=None,walltime=None)
+功能：在一个图表中记录多个标量的变化，常用于对比，如trainloss和validloss的比较等
+```
+
+##### 3.add_histogram()
+
+```python
+add_histogram(tag,values,global_step=None,bins='tensorflow',walltime=None)
+功能：绘制直方图和多分位数折线图，常用于监测权值及梯度的分布变化情况，便于诊断网络更新方向是否正确
+for name, param in resnet18.named_parameters():
+    writer.add_histogram(name,param.clone().cpu().data.numpy(),n_iter)
+可以得到以下两种图分别在HISTOGRAMS和DISTRIBUTIONS里面
+```
+
+##### 4.add_image()
+
+```
+add_image(tag,img_tensor,global_step=None,walltime=None)
+功能：绘制图片，可用于检查模型的输入，监测feature map的变化，或是观察weight
+shape = [C, H, W]
+```
+
+通常会借助torchvision.utils.make_grid()将一组图片绘制到一个窗口
+
+##### 补充torchvision.utils.make_grid()
+
+```python
+torchvision.utils.make_grid(tensor,nrow=8,padding=2,normalize=False,range=None,scale_each=False,pad_value=0)
+功能：将一组图片拼接成一张图片，便于可视化
+import torchvision.utils as vutils
+dummy_img = torch.rand(32,3,64,64)
+if n_iter % 10 == 0:
+    x = vutils.make_grid(dummy_img, normalize=True, scale_each=True)
+    writer.add_image('Image', x, n_iter)	#x.size=(3,266,530)
+```
+
+##### 5.add_graph()
+
+```python
+add_graph(model,input_to_model=None,verbose=False, **kwargs)
+功能：绘制网络结构拓扑图
+import torchvision.models as models
+resnet18 = models.resnet18(False)
+dummy_input = torch.rand(6,3,224,224)
+writer.add_graph(resnet18, dummy_input)
+```
+
+##### 6.add_embedding()
+
+```python
+add_embedding(mat,metadata=None,label_img=None,global_step=None,tag='default',metadata_header=None)
+功能：在三维空间或二维空间展示数据分布，可选T-SNE、PCA、和CUSTOM方法
+```
+
+##### 7.add_text()
+
+```python
+add_text(tag, text_string,global_step=None,walltime=None)
+功能：记录文字
+```
+
+##### 8.add_video()
+
+```python
+add_video(tag,vid_tensor,global_step=None,fps=4,walltime=None)
+功能：记录video	
+```
+
+##### 9.add_figure()
+
+```python
+add_figure(tag,figure,global_step=None,close=True,walltime=None)
+功能：添加matplotlib图片到图像中         
+```
+
+##### 10.add_image_with_boxes()
+
+```python
+add_image_with_boxes(tag,img_tensor,box_tensor,global_step=None,
+                     walltime=None, **kwargs)
+功能：图像中绘制Box，目标检测中会用到
+```
+
+##### 11.add_pr_curve()
+
+```python
+add_pr_curve(tag,labels,predictions,global_step=None,num_thresholds=127,
+            weights=None, walltime=None)
+功能：绘制PR曲线
+```
+
+##### 12.add_pr_curve_raw()
+
+```python
+add_pr_curve_raw(tag,...)
+功能：从原始数据上绘制PR曲线
+```
+
+##### 13.export_scalars_to_json()
+
+```python
+export_scalars_to_json(path)
+功能：将scalars信息保存到json文件，便于后期使用
+```
 
 ##### 4.2 卷积核可视化
 
+- 可视化原理很简单，对单个卷积核进行“归一化”至0-255，然后将其展现出来即可，这一系列操作可以借助TensorboardX的add_image来实现
+- 具体卷积核过程可以观察下图，输入通道数为4，输出通道数为2，卷积层卷积核有8个2*2的卷积核
+
+##### 代码实现：
+
+```python
+执行：tensorboard --logdir=visual_weights
+进入浏览器，打开网页：http://localhost:6006/
+```
+
 ##### 4.3 特征图可视化
+
+##### 基本思路：
+
+```python
+1.获取图片，将其转换成模型输入前的数据格式，即一系列transform
+2.获取模型各层操作，手动执行每一层操作，拿到所需的feature maps
+3.借助tensorboardX进行绘制
+```
+
+##### Tips:
+
+```python
+此处获取模型各层操作是__ init __()中定义的操作，然而模型真实运行采用的是forward(),所以需要人工对比两者差异。本例的差异是，__ init __()中缺少激活函数relu
+```
 
 ##### 4.4 梯度及权值分布可视化
 
+- 在网络训练过程中，我们常常会遇到梯度消失、梯度爆炸等问题，我们可以通过记录每个epoch的梯度的值来监测梯度的情况，还可以记录权值，分析权值更新的方向是否符合规律
+
+##### 可视化分析：
+
+```python
+1.权值weights的监控
+若权值太大容易导致过拟合，因为模型的输出值会被该特征所主导，从而引起过拟合现象，这个可以通过权值衰减(weight_decay)来缓解
+2.偏置bias的监控
+通常会监控输出层的bias的大小，若有特别大或者特别小的bias，那么这一类别的召回率可能会很低，可以通过观察输出层的bias来诊断是否在这一环节出问题
+3.梯度的监控
+倘若前面几层的梯度非常小，那么就是梯度流通不畅导致的，可以考虑残差结构或者辅助损失层等trick来解决梯度消失
+```
+
 ##### 4.5混淆矩阵及其可视化
+
+- 在分类任务中，个人十分喜欢混淆矩阵，通过混淆矩阵可以看出模型的偏好，而且对每一个类别的分类情况都了如指掌，为模型的优化提供很大帮助
+
+##### 1.混淆矩阵概念
+
+> 混淆矩阵（confusion matrix）常用来观察分类结果，其中一个N*N的方阵，N表示类别数。混淆矩阵的行表示真实类别，列表示预测类别。
+>
+> 召回率（Recall）
+>
+> 精确率（Precision）
+>
+> 准确率（Accuracy）
+
+##### 2.混淆矩阵的统计
+
+> 第一步：创建混淆矩阵，获取类别数，创建N*N的零矩阵
+>
+> 第二步：获取真实标签和预测标签，labels为真实标签，通常为一个batch的标签；predicted为预测类别，与labels同长度
+>
+> 第三步：依据标签为混淆矩阵计数
+
+##### 3.混淆矩阵可视化
 
 
 
 ##### 结束语
 
-
-
-
+> 内容到此结束，希望本教程能给大家带来帮助！
 
 ##### ==import torch as t==
 
