@@ -592,3 +592,19 @@ from collections import OrderedDict
 ##### 22.PIL模块
 
 ##### 23.闭包
+
+> 一个函数和它的环境变量合在一起，就构成了一个闭包(closure)
+>
+> 在python中，所谓的闭包是一个包含有环境变量取值的函数对象
+>
+> python中的闭包从表现形式上定义为：如果在一个内部函数里，对在外部作用域（但不是在全局作用域）的变量进行引用，那么内部函数就被认为是闭包（closure）
+>
+> 闭包=函数块+定义函数时的变量
+>
+> 闭包中是不能修改外部作用域的局部变量的
+
+##### 24.NameError: name 'reduce' is not defined
+
+> reduce函数在python3的内建函数移除了，放入了functools模块
+>
+> from functools import reduce
