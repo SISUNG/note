@@ -120,3 +120,16 @@ Step Out:当单步执行到子函数内时，用Step out就可以执行完子函
 
 Ctrl+R
 
+##### 23.更改配色方案
+
+> 1.打开网址http://www.easycolor.cc/intelliJidea/list.html
+>
+> 2.下载自己喜欢的方案
+>
+> 3.在pycharm中：file-import该配色方案的jar包-重启即可
+
+> 1.源文件下载https://github.com/d1ffuz0r/pycharm-themes
+>
+> 2.复制到C:\Users\23842\.PyCharmCE2018.1\config\colors
+>
+> 3.在pycharm的file->Setting->Editor->Colors & Fonts里就可以看到刚刚下载的颜色字体主题包

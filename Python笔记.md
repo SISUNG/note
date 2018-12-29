@@ -647,3 +647,8 @@ pickle.load(file)	#从file中读取一个字符串，并将它重构为原来的
 > reduce函数在python3的内建函数移除了，放入了functools模块
 >
 > from functools import reduce
+
+##### 25.正则表达式re
+
+[Python实用（正则表达式）](https://www.jianshu.com/p/5b7adc5403c5)
+
