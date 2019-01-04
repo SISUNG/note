@@ -652,6 +652,8 @@ pickle.load(file)	#从file中读取一个字符串，并将它重构为原来的
 
 [Python实用（正则表达式）](https://www.jianshu.com/p/5b7adc5403c5)
 
+[python核心编程](https://www.cnblogs.com/bovenson/p/9118894.html)
+
 > match;search;
 >
 > match()函数从起始位开始匹配
