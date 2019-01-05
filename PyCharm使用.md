@@ -133,3 +133,5 @@ Ctrl+R
 > 2.复制到C:\Users\23842\.PyCharmCE2018.1\config\colors
 >
 > 3.在pycharm的file->Setting->Editor->Colors & Fonts里就可以看到刚刚下载的颜色字体主题包
+
+24.structure;rename;console;cmd'
