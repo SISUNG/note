@@ -9,21 +9,21 @@ conda install pytorch-cpu
 
 ##### PyTorch常用模块整理
 
-| 主模块           | 子模块     |                                                              |
-| ---------------- | ---------- | ------------------------------------------------------------ |
-| torch.utils.data | Dataset    |                                                              |
-|                  | DataLoader |                                                              |
-|                  |            |                                                              |
-|                  |            |                                                              |
-| torchvision      | models     | from .alexnet import * <br />from .resnet import * <br />from .vgg import * <br />from .squeezenet import * <br />from .inception import * <br />from .densenet import * |
-|                  | datasets   | from .lsun import LSUN, LSUNClass <br />from .folder import ImageFolder, DatasetFolder <br />from .coco import CocoCaptions, CocoDetection <br />from .cifar import CIFAR10, CIFAR100 <br />from .stl10 import STL10 <br />from .mnist import MNIST, EMNIST, FashionMNIST <br />from .svhn import SVHN <br />from .phototour import PhotoTour <br />from .fakedata import FakeData <br />from .semeion import SEMEION <br />from .omniglot import Omniglot |
-|                  | transforms |                                                              |
-|                  | utils      | make_grid<br />save_image                                    |
-|                  |            |                                                              |
-|                  |            |                                                              |
-|                  |            |                                                              |
-|                  |            |                                                              |
-|                  |            |                                                              |
+| 主模块                   | 子模块     |                                                              |
+| ------------------------ | ---------- | ------------------------------------------------------------ |
+| torch.utils.data         | Dataset    |                                                              |
+|                          | DataLoader |                                                              |
+| troch.utils.data.sampler | Sampler    |                                                              |
+|                          |            |                                                              |
+| torchvision              | models     | from .alexnet import * <br />from .resnet import * <br />from .vgg import * <br />from .squeezenet import * <br />from .inception import * <br />from .densenet import * |
+|                          | datasets   | from .lsun import LSUN, LSUNClass <br />from .folder import ImageFolder, DatasetFolder <br />from .coco import CocoCaptions, CocoDetection <br />from .cifar import CIFAR10, CIFAR100 <br />from .stl10 import STL10 <br />from .mnist import MNIST, EMNIST, FashionMNIST <br />from .svhn import SVHN <br />from .phototour import PhotoTour <br />from .fakedata import FakeData <br />from .semeion import SEMEION <br />from .omniglot import Omniglot |
+|                          | transforms |                                                              |
+|                          | utils      | make_grid<br />save_image                                    |
+|                          |            |                                                              |
+|                          |            |                                                              |
+|                          |            |                                                              |
+|                          |            |                                                              |
+|                          |            |                                                              |
 
 
 

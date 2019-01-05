@@ -652,6 +652,8 @@ pickle.load(file)	#从file中读取一个字符串，并将它重构为原来的
 
 [Python实用（正则表达式）](https://www.jianshu.com/p/5b7adc5403c5)
 
+[python核心编程](https://www.cnblogs.com/bovenson/p/9118894.html)
+
 > match;search;
 >
 > match()函数从起始位开始匹配
@@ -671,4 +673,36 @@ pickle.load(file)	#从file中读取一个字符串，并将它重构为原来的
 > 匹配字符串起始和结尾
 >
 > 使用findall()、finditer()查找每一次出现的位置：findall()以列表的形式返回所有能匹配的结果；finditer()返回一个顺序访问每一个匹配结果的迭代器
+
+##### 26.argparse模块
+
+> argparse是python用于解析命令行参数和选项的标准模块
+
+```python
+import argparse	#导入该模块
+parser = argparse.ArgumentParser()	#创建一个解析对象
+parser.add_argument()	#向该对象中添加需要关注的命令行参数和选项，每一个add_argument方法对应一个你要关注的参数或选项
+args = parser.parse_args()	#进行解析
+```
+
+##### 27.glob模块
+
+```
+glob是python自带的一个文件操作相关模块，用它可以查找符合自己目的的文件，支持通配符操作，*，？，[]这三个通配符，*代表0个或多个字符，？代表一个字符，[]匹配指定范围内的字符，如[0-9]匹配数字
+方法一：glob.glob()	#该方法返回所有匹配的文件路径列表，该方法需要一个参数用来指定匹配的路径字符串（本字符串可以为绝对路径也可以为相对路径），其返回的文件名只包含当前目录里的文件名，不包含子文件夹里的文件
+方法二：glob.iglob()	#获得一个可遍历对象，使用它可以逐个获得匹配的文件路径名
+```
+
+##### 28.csv模块
+
+```python
+import csv
+csv_file_r = open('*.csv', 'r')
+reader = csv.reader(csv_file_r, delimiter==',')#新建对象reader
+csv_file_a = open('*.csv', 'a')
+writer = csv.writer(csv_file_a)#新建对象writer
+add_info = ['Zhu', 120]
+writer.writerrow(add_info)
+#第一行是属性行，最后一行是空白行
+```
 
