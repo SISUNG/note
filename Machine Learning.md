@@ -20,5 +20,17 @@
 
 
 
+##### 损失函数
 
+> [方差（variance）、标准差（Standard Deviation）、均方差、均方根值（RMS）、均方误差（MSE）、均方根误差（RMSE）](https://blog.csdn.net/cqfdcw/article/details/78173839)
+>
+> 方差、标准差、均方差、均方根值指的是估计值的一些统计量
+>
+> 均方误差、均方根误差指的是估计值和真实值之间的关系                                                                                                                                                                                                                                                   
+
+
+
+##### 不同梯度训练算法比较
+
+[batch mini-batch stochastic online](http://www.cnblogs.com/richqian/p/4549590.html)
 
