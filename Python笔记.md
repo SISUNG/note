@@ -674,3 +674,18 @@ pickle.load(file)	#从file中读取一个字符串，并将它重构为原来的
 >
 > 使用findall()、finditer()查找每一次出现的位置：findall()以列表的形式返回所有能匹配的结果；finditer()返回一个顺序访问每一个匹配结果的迭代器
 
+##### 26.argparse模块
+
+> argparse是python用于解析命令行参数和选项的标准模块
+
+```python
+import argparse	#导入该模块
+parser = argparse.ArgumentParser()	#创建一个解析对象
+parser.add_argument()	#向该对象中添加需要关注的命令行参数和选项，每一个add_argument方法对应一个你要关注的参数或选项
+args = parser.parse_args()	#进行解析
+```
+
+
+
+
+
