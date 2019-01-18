@@ -14,15 +14,17 @@
 | 选中内容+Tab         | 整行缩进                   | 选中内容+Shift+Tab       | 取消整行缩进                                      |
 | Ctrl+[               | 快速定位到代码块开始       | Ctrl+]                   | 快速定位到代码块结尾                              |
 | Home                 | 一键到行首                 | End                      | 一键到行尾                                        |
-| Ctrl+D               | 快速复制当前行或者选中内容 | Ctrl+R                   | 替换                                              |
+| Ctrl+D               | 快速复制当前行或者选中内容 | Ctrl+R                   | 批量替换                                          |
 | Ctrl+Shift+L         | 快速整理代码               | Ctrl+Insert              | 选中当前行                                        |
 | Ctrl+Home            | 快速调到文件头部           | Ctrl+End                 | 快速调到文件尾部                                  |
 | Shift+F6             | 更改变量/方法名字          | Ctrl+J                   | 输入模板                                          |
 | Ctrl+F12             | 快速调到List               | Ctrl+Q                   | 查看参数；查看文档字符串                          |
-| Alt+Left（Right）    | 切换文件                   |                          |                                                   |
-|                      |                            |                          |                                                   |
+| Alt+Left（Right）    | 切换文件                   | Ctrl+W                   | 对象扩展选择                                      |
+| Ctrl+F               | 快速搜索                   |                          |                                                   |
 
+##### 2.Smart Keys
 
+3.
 
 ##### 20.编码设置
 
