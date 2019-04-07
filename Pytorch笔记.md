@@ -25,6 +25,78 @@ conda install pytorch-cpu
 |                          |            |                                                              |
 |                          |            |                                                              |
 
+==gather()操作和scatter_()操作==
+
+> 索引相关
+
+==import torch.nn as nn和import torch.nn.functional as F的区别==
+
+> nn.functional中的都是没有副作用无状态的函数，也就是说function内部一定是没有Variable的，只是纯粹从输入到输出的一个变换。nn下面的可能有可能没有，一般都是nn.Module的子类，可以借助nn.Module的父方法方便地管理各种需要的变量
+
+```python
+#torch.nn下的Conv1d
+class Conv1d(_ConvNd):
+    def __init__(self, in_channels, out_channels, kernel_size, stride=1,
+                 padding=0, dilation=1, groups=1, bias=True):
+        kernel_size = _single(kernel_size)
+        stride = _single(stride)
+        padding = _single(padding)
+        dilation = _single(dilation)
+        super(Conv1d, self).__init__(
+            in_channels, out_channels, kernel_size, stride, padding, dilation,
+            False, _single(0), groups, bias)
+
+    def forward(self, input):
+        return F.conv1d(input, self.weight, self.bias, self.stride,
+                        self.padding, self.dilation, self.groups)
+    
+#torch.nn.functional下的conv1d
+def conv1d(input, weight, bias=None, stride=1, padding=0, dilation=1,
+           groups=1):
+    if input is not None and input.dim() != 3:
+        raise ValueError("Expected 3D tensor as input, got {}D tensor instead.".format(input.dim()))
+
+    f = ConvNd(_single(stride), _single(padding), _single(dilation), False,
+               _single(0), groups, torch.backends.cudnn.benchmark,
+               torch.backends.cudnn.deterministic, torch.backends.cudnn.enabled)
+    return f(input, weight, bias)
+
+#定制版
+class Model(nn.Module):
+    def __init__(self):
+        super(Model, self).__init__()
+
+        self.weight = nn.Parameter(torch.Tensor(10,10,3,3))
+    
+    def forward(self, x):
+        x_1 = F.conv2d(x, self.weight,dilation=1, padding=1)
+        x_2 = F.conv2d(x, self.weight,dilation=2, padding=2)
+        return x_1 + x_2
+```
+
+==张量维度操作（拼接、维度扩展、压缩、转置、重复...）==
+
+```python
+torch.cat()	#沿指定维度拼接张量
+torch.squeeze()	#压缩张量
+torch.unsqueeze()	#解压缩张量
+torch.Tensor.expand()	#返回张量的一个新视图，可以将张量的单个维度扩大为更大的尺寸
+torch.Tensor.repeat()	#沿着指定的维度重复张量
+torch.Tensor.unfold()	#看不懂
+<font color='red>'```
+import torch
+x = torch.arange(1,10,2)    #tensor([1, 3, 5, 7, 9])
+print(x.unfold(0,4,1))
+#tensor([[1, 3, 5, 7],
+        [3, 5, 7, 9]])
+​```</font>
+torch.Tensor.narrow(dimension,start,length)	#缩小张量
+torch.Tensor.view()	#返回一个有相同数据但是不同形状的新的向量
+torch.Tensor.resize_()	#重新设置张量大小
+torch.Tensor.permute()	#置换张量的维度
+torch.Tensor.element_size()	#查看张量单个元素的字节数
+```
+
 
 
 ___
@@ -803,7 +875,7 @@ torch.sigmoid()
 
 torch.cat()
 
-torch.FloatTensor
+torch.FloatTensor()
 
 torch.cuda.FloatTensor
 
@@ -811,11 +883,9 @@ torch.utils.data.DataLoader()
 
 from troch.utils.data import Dataset
 
-torch.nn
 
-torch.nn.functional
 
-##### ==import torch.nn as nn==
+##### 
 
 ##### nn.Linear()
 
@@ -866,9 +936,13 @@ nn.HingeEmbeddingLoss()
 nn.TripleMarginLoss() #我也不知道这是什么鬼东西？？？
 ```
 
-
+##### ==import torch.nn as nn==
 
 ##### ==import torch.nn.functional as F==
+
+```python
+
+```
 
 
 
