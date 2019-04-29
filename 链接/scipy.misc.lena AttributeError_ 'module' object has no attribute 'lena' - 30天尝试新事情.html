@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1" />
+<meta name="renderer" content="webkit" />
+<title>scipy.misc.lena AttributeError: 'module' object has no attribute 'lena' - 30天尝试新事情</title>
+<meta name="keywords" content="scipy.misc.lena,attributeerror,module,object,attribute,lena" />
+<meta name="description" content="scipy.misc.lena AttributeError: 'module' object has no attribute 'lena' - 在数据可视化的那本书上看到的demo，不过运行不通过，然后出现上面的那个错误，lena函数看起来被移除了。
+ 
+	import scipy.misc
+	lena=scipy.misc.lena()
+	plt.gray()
+	plt.imshow(lena)..."  />
+<base href="http://30daydo.com/" /><!--[if IE]></base><![endif]-->
+<link href="http://30daydo.com/static/css/default/img/favicon.ico?v=20150226" rel="shortcut icon" type="image/x-icon" />
+
+<link rel="stylesheet" type="text/css" href="http://30daydo.com/static/css/bootstrap.css" />
+<link rel="stylesheet" type="text/css" href="http://30daydo.com/static/css/icon.css" />
+
+<link href="http://30daydo.com/static/css/default/common.css?v=20150226" rel="stylesheet" type="text/css" />
+<link href="http://30daydo.com/static/css/default/link.css?v=20150226" rel="stylesheet" type="text/css" />
+<link href="http://30daydo.com/static/js/plug_module/style.css?v=20150226" rel="stylesheet" type="text/css" />
+
+
+<script type="text/javascript">
+	var _3B52159EECF4955F819CCDD8CDDE2A65="";
+	var G_POST_HASH=_3B52159EECF4955F819CCDD8CDDE2A65;
+	var G_INDEX_SCRIPT = "";
+	var G_SITE_NAME = "30天尝试新事情";
+	var G_BASE_URL = "http://30daydo.com";
+	var G_STATIC_URL = "http://30daydo.com/static";
+	var G_UPLOAD_URL = "http://www.30daydo.com/uploads";
+	var G_USER_ID = "";
+	var G_USER_NAME = "";
+	var G_UPLOAD_ENABLE = "N";
+	var G_UNREAD_NOTIFICATION = 0;
+	var G_NOTIFICATION_INTERVAL = 100000;
+	var G_CAN_CREATE_TOPIC = "";
+	var G_ADVANCED_EDITOR_ENABLE = "Y";
+
+	</script>
+<script src="http://30daydo.com/static/js/jquery.2.js?v=20150226" type="text/javascript"></script>
+<script src="http://30daydo.com/static/js/jquery.form.js?v=20150226" type="text/javascript"></script>
+<script src="http://30daydo.com/static/js/plug_module/plug-in_module.js?v=20150226" type="text/javascript"></script>
+<script src="http://30daydo.com/static/js/aws.js?v=20150226" type="text/javascript"></script>
+<script src="http://30daydo.com/static/js/aw_template.js?v=20150226" type="text/javascript"></script>
+<script src="http://30daydo.com/static/js/app.js?v=20150226" type="text/javascript"></script>
+<script type="text/javascript" src="http://30daydo.com/static/js/compatibility.js"></script>
+<!--[if lte IE 8]>
+	<script type="text/javascript" src="http://30daydo.com/static/js/respond.js"></script>
+<![endif]-->
+</head>
+<noscript unselectable="on" id="noscript">
+    <div class="aw-404 aw-404-wrap container">
+        <img src="http://30daydo.com/static/common/no-js.jpg">
+        <p>你的浏览器禁用了JavaScript, 请开启后刷新浏览器获得更好的体验!</p>
+    </div>
+</noscript>
+<body>
+	<div class="aw-top-menu-wrap">
+		<div class="container">
+			<!-- logo -->
+			<div class="aw-logo hidden-xs">
+				<a href="http://30daydo.com"></a>
+			</div>
+			<!-- end logo -->
+			<!-- 搜索框 -->
+			<div class="aw-search-box  hidden-xs hidden-sm">
+				<form class="navbar-search" action="http://30daydo.com/search/" id="global_search_form" method="post">
+					<input class="form-control search-query" type="text" placeholder="搜索问题、话题或人" autocomplete="off" name="q" id="aw-search-query" />
+					<span title="搜索" id="global_search_btns" onClick="$('#global_search_form').submit();"><i class="icon icon-search"></i></span>
+					<div class="aw-dropdown">
+						<div class="mod-body">
+							<p class="title">输入关键字进行搜索</p>
+							<ul class="aw-dropdown-list collapse"></ul>
+							<p class="search"><span>搜索:</span><a onClick="$('#global_search_form').submit();"></a></p>
+						</div>
+						<div class="mod-footer">
+							<a href="http://30daydo.com/publish" onClick="$('#header_publish').click();" class="pull-right btn btn-mini btn-success publish">发起问题</a>
+						</div>
+					</div>
+				</form>
+			</div>
+			<!-- end 搜索框 -->
+			<!-- 导航 -->
+			<div class="aw-top-nav navbar">
+				<div class="navbar-header">
+				  <button  class="navbar-toggle pull-left">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				</div>
+				<nav role="navigation" class="collapse navbar-collapse bs-navbar-collapse">
+				  <ul class="nav navbar-nav">
+										<li><a href="http://30daydo.com" class=""><i class="icon icon-list"></i> 发现</a></li>
+
+					<!-- <li><a href="http://30daydo.com/question/" class="">问题</a></li>
+
+					<li><a href="http://30daydo.com/article/" class="active">文章</a></li> -->
+
+					<li><a href="http://30daydo.com/topic/" ><i class="icon icon-topic"></i> 话题</a></li>
+															<li>
+						<a style="font-weight:bold;">· · ·</a>
+						<div class="dropdown-list pull-right">
+							<ul id="extensions-nav-list">
+																							</ul>
+						</div>
+					</li>
+				  </ul>
+				</nav>
+			</div>
+			<!-- end 导航 -->
+			<!-- 用户栏 -->
+			<div class="aw-user-nav">
+				<!-- 登陆&注册栏 -->
+									<a class="login btn btn-normal btn-primary" href="http://30daydo.com/login/">登录</a>
+					<a class="register btn btn-normal btn-success" href="http://30daydo.com/account/register/">注册</a>								<!-- end 登陆&注册栏 -->
+			</div>
+			<!-- end 用户栏 -->
+			<!-- 发起 -->
+						<!-- end 发起 -->
+		</div>
+	</div>
+	
+
+<div class="aw-container-wrap">
+    <div class="container">
+        <div class="row">
+            <div class="aw-content-wrap clearfix">
+                <div class="col-sm-12 col-md-9 aw-main-content aw-article-content">
+                    <div class="aw-mod aw-topic-bar" id="question_topic_editor" data-type="article" data-id="259">
+                        <div class="tag-bar clearfix">
+                                                                                    <span class="topic-tag" data-id="8">
+                                <a class="text" href="http://30daydo.com/topic/python">python</a>
+                            </span>
+                                                        
+                                                    </div>
+                    </div>
+                    <div class="aw-mod aw-question-detail">
+                        <div class="mod-head">
+                            <h1>
+                                scipy.misc.lena AttributeError: 'module' object has no attribute 'lena'                            </h1>
+
+                                                    </div>
+                        <div class="mod-body">
+                            <div class="content markitup-box">
+                                在数据可视化的那本书上看到的demo，不过运行不通过，然后出现上面的那个错误，lena函数看起来被移除了。<br />
+ <br />
+<pre>	import scipy.misc<br />
+	lena=scipy.misc.lena()<br />
+	plt.gray()<br />
+	plt.imshow(lena)<br />
+	plt.colorbar()<br />
+	plt.show()</pre><br />
+Error：<br />
+lena=scipy.misc.lena()<br />
+AttributeError: 'module' object has no attribute 'lena'<br />
+  <br />
+定位到scipy包的位置<br />
+/usr/local/lib/python2.7/dist-packages/scipy/misc<br />
+然后根据文本查找一下： find -name '*.py' | xargs grep 'lena'<br />
+ <br />
+果然，没有返回相关的字段。 看样子在scipy 1.0.0版本上已经移除了lena图的数据了。 <br />
+ <br />
+不过替换了一张其他的图片。 在misc目录下看到一个叫ascent的data， 替换这个函数后： <br />
+scipy.misc.ascent()<br />
+后，显示一个楼梯的图片。只能凑合着用吧。 lena图自己上网找一张然后数字化就好了。<br />
+ <br />
+ 
+                                
+                                                            </div>
+                            <div class="meta clearfix">
+                                <div class="aw-article-vote pull-left disabled">
+                                    <a href="javascript:;" class="agree" onclick="AWS.User.article_vote($(this), 259, 1);"><i class="icon icon-agree"></i> <b>0</b></a>
+                                                                    </div>
+
+                                <span class="pull-right  more-operate">
+                                    
+                                    
+                                    <a class="text-color-999 dropdown-toggle" data-toggle="dropdown">
+                                        <i class="icon icon-share"></i> 分享                                    </a>
+                                    <div aria-labelledby="dropdownMenu" role="menu" class="aw-dropdown shareout pull-right">
+                                        <ul class="aw-dropdown-list">
+                                            <li><a onclick="AWS.User.share_out({webid: 'tsina', content: $(this).parents('.aw-question-detail').find('.markitup-box')});"><i class="icon icon-weibo"></i> 微博</a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'qzone', content: $(this).parents('.aw-question-detail')});"><i class="icon icon-qzone"></i> QZONE</a></li>
+											<li><a onclick="AWS.User.share_out({webid: 'weixin', content: $(this).parents('.aw-question-detail')});"><i class="icon icon-wechat"></i> 微信</a></li>
+                                        </ul>
+                                    </div>
+
+                                    <em class="text-color-999">2018-01-03</em>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="mod-footer">
+                                                    </div>
+                    </div>
+
+                    <!-- 文章评论 -->
+                    <div class="aw-mod">
+                        <div class="mod-head common-head">
+                            <h2>0 个评论</h2>
+                        </div>
+
+                        <div class="mod-body aw-feed-list">
+                                                    </div>
+
+                        
+                                            </div>
+                    <!-- end 文章评论 -->
+
+                    <!-- 回复编辑器 -->
+                    <div class="aw-mod aw-article-replay-box">
+                        <a name="answer_form"></a>
+                                                <p align="center">要回复文章请先<a href="http://30daydo.com/login/">登录</a>或<a href="http://30daydo.com/account/register/">注册</a></p>
+                                            </div>
+                    <!-- end 回复编辑器 -->
+                </div>
+                <!-- 侧边栏 -->
+                <div class="col-sm-12 col-md-3 aw-side-bar hidden-sm hidden-xs">
+                    <!-- 发起人 -->
+                                        <div class="aw-mod user-detail">
+                        <div class="mod-head">
+                            <h3>发起人</h3>
+                        </div>
+                        <div class="mod-body">
+                            <dl>
+                                <dt class="pull-left aw-border-radius-5">
+                                    <a href="http://30daydo.com/people/%E6%9D%8E%E9%AD%94%E4%BD%9B"><img alt="李魔佛" src="http://www.30daydo.com/uploads/avatar/000/00/00/03_avatar_mid.jpg" /></a>
+                                </dt>
+                                <dd class="pull-left">
+                                    <a class="aw-user-name" href="http://30daydo.com/people/%E6%9D%8E%E9%AD%94%E4%BD%9B" data-id="3">李魔佛</a>
+                                    
+                                                                        <p>左手的厨子</p>
+                                </dd>
+                            </dl>
+                        </div>
+                        <div class="mod-footer clearfix">
+                                                    </div>
+                    </div>
+                                        <!-- end 发起人 -->
+
+                                        <!-- 推荐内容 -->
+                    <div class="aw-mod">
+                        <div class="mod-head">
+                            <h3>推荐内容</h3>
+                        </div>
+                        <div class="mod-body">
+                            <ul>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/416">Linux下自制有道词典 - python 解密有道词典JS加密</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/402">python 中文图片文字识别 </a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/400">可转债价格分布堆叠图 绘制 可视化 python+pyecharts</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/286">可转债套利【一】 python找出折价可转债个股</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/181">聚币网/coinegg API使用教程 附demo代码</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/59">python 获取 中国证券网 的公告</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/56">python 批量获取色影无忌 获奖图片</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/33">抓取 知乎日报 中的 大误 系类文章，生成电子书推送到kindle </a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/31">python 爆解zip压缩文件密码</a>
+                                                                    </li>
+                                                                <li>
+                                                                        <a href="http://30daydo.com/article/26">python雪球爬虫 抓取雪球 大V的所有文章  推送到kindle</a>
+                                                                    </li>
+                                                            </ul>
+                        </div>
+                    </div>
+                    <!-- end 推荐内容 -->
+                    
+                                        <!-- 相关问题 -->
+                    <div class="aw-mod aw-text-align-justify question-related-list">
+                        <div class="mod-head">
+                            <h3>相关问题</h3>
+                        </div>
+                        <div class="mod-body font-size-12">
+                            <ul>
+                                                                <li><a href="http://30daydo.com/question/26">使用requests 访问https的网页 返回错误： InsecurePlatformWarning: A true SSLContext object is not available</a></li>
+                                                                <li><a href="http://30daydo.com/question/21">AttributeError: 'module' object has no attribute 'pyplot' </a></li>
+                                                            </ul>
+                        </div>
+                    </div>
+                    <!-- end 相关问题 -->
+                                    </div>
+                <!-- end 侧边栏 -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var ANSWER_EDIT_TIME = 5;
+
+    $(document).ready(function () {
+        if ($('.aw-article-vote.disabled').length)
+        {
+            $('.aw-article-vote.disabled a').attr('onclick', '');
+        }
+
+        AWS.at_user_lists('#wmd-input');
+
+        AWS.Init.init_article_comment_box($('.aw-article-comment'));
+    });
+</script>
+
+<div class="aw-footer-wrap">
+	<div class="aw-footer">
+		Copyright © 2019<span class="hidden-xs"> - 粤ICP备16028046号, All Rights Reserved</span>
+
+		<span class="hidden-xs"> <a href="http://30daydo.com" target="blank">30天尝试新事情 Rocky Chen</a></span>
+
+			</div>
+</div>
+
+<a class="aw-back-top hidden-xs" href="javascript:;" onclick="$.scrollTo(1, 600, {queue:true});"><i class="icon icon-up"></i></a>
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?19ef2763f5e88ffc758c9477af6ecd7a";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+<!-- DO NOT REMOVE -->
+<div id="aw-ajax-box" class="aw-ajax-box"></div>
+
+<div style="display:none;" id="__crond">
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$('#__crond').html(unescape('%3Cimg%20src%3D%22' + G_BASE_URL + '/crond/run/1555914322%22%20width%3D%221%22%20height%3D%221%22%20/%3E'));
+		});
+	</script>
+</div>
+
+<!-- Escape time: 0.11049199104309 --><!-- / DO NOT REMOVE -->
+
+</body>
+</html>

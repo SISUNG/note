@@ -1,0 +1,246 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+			<head>
+			<title>A Matlab Toolkit for Distance Metric Learning</title>
+			</head>
+
+<table cellspacing="0" cellpadding="3" width="100%" align="center" border="0" bgcolor="#FFFFFF">
+  <tr>
+      <td bgcolor="#3399FF" background="./bg.jpg" >
+      <p></p>
+      <p> </p></strong>
+      <h1 align="center"><font 
+      color=#000000><font face="Tahoma" size="5">DistLearn</font><font 
+      face=eurm5 color=#ffff00>Kit</font></font></h1>
+      <p align="center"><font size="5"><font face="Tahoma"><font size="5"><font face="Tahoma">
+  
+  </font></font>A Matlab Toolkit for Distance Metric Learning</font></font></p></td></tr>
+	</table>   
+	<p><font size="3"><font face="Tahoma"><font size="3"><font face="Tahoma">
+	<p align="center"><font color= "black" ><a href="http://www.cs.cmu.edu/~liuy/">Liu Yang</a>,      <a href="http://www.cse.msu.edu/~rongjin/">Prof. Rong Jin</a></font></p>
+		 
+	Welcome! This is a Matlab toolkit for distance metric learning, including the implementation of a number of 
+	published machine learning algorithms in this area. The first version of this toolkit 
+	has been available since Oct. 28, 2007. <p></p>
+
+	<LI><big></big>
+	This toolkit is to provide a collection of baseline methods for distance metric learning research, and to 
+	faciliate the usage of these approaches in applications. <a href="#ldm">The Local Distance Metric Learning algorithms (LDM)</a> and 
+	<a href="#BAYES+VAR">Active Distance Metric Learning (BAYES+VAR)</a>
+	were develped by the author, and the rest implementations were collected online. The toolkit does not cover all the related work in recent 
+	years. If you find other interesting approaches with its matlab implementation, <A HREF="mailto:yangliu1@cse.msu.edu">please E-mail Me</A>.
+  You contribution will be highly appreciated.     
+	<p></p>	
+	
+	<p></p>	
+	<LI><big></big>
+Depending on the availability of the training examples (or side information), most distance metric
+learning techniques can be classified into two categories: <a href="#supervised">Supervised Distance Metric Learning</a> 
+and <a href="#unsupervised">Unsupervised Distance Metric Learning</a>. Supervised distance metric learning makes use of 
+label information to identify correlations between dimensions, that are most informative to the
+classes of examples. Unsupervised distance metric aims to
+construct a low-dimensional manifold where geometric relationships between most of the
+observed data are largely preserved. We organize two categories of appraoched in the following two tables. Each table specifies a few general 
+properties for distance metric learning methods (for instance, linear vs. nonlinear, and global vs. local) and describe 
+learning strategies. Matlab implementations are available for download, accompanited with the orignal papers.
+<p></p>	
+<LI><big></big>
+For details of what is distance metric learning and the related works, 
+please refer to <a href="http://www.cse.msu.edu/~yangliu1/frame_survey_v2.pdf">A comprehensive survey on distance metric learning</a> (written in May, 2005)
+ and <a href="./dist_overview.pdf">An overview of distance metric learning</a><sup><font color="red"><b><i>new!</i></b></font></sup>(written in Oct., 2007) 
+	
+<UL type="square">
+<a name="supervised"></a>
+  <LI><big>Supervised Distance Metric Learning</big>
+	<table border="1"> can be divided into two categories: the global distance metric 
+learning, and the local distance metric learning.
+The first one learns the distance metric in a global sense, i.e., to satisfy all the pairwise
+constraints simultaneously by keeping all of the data points in each class close together
+while ensuring that data points from different classes are separated. The second approach
+is to learn a distance metric in a local setting, i.e., rather than satisfying all of the pair-wise
+constraints simultaneously, only to satisfy "local" pairwise constraints. This is particularly
+useful for information retrieval and the KNN classifiers since both methods are influenced
+most by the data instances that are close to the test/query examples.
+<p></p>
+<tr>
+<th>Methods</th>
+<th>Locality</th><br />
+<th>Linearity</th>
+<th>Learning Strategies</th>
+<th>Code Download</th>
+<th>Publication</th>
+
+</tr>
+<tr>
+<td>Probablistic Global Distance Metric Learning (PGDM)</td>
+<td>global</td>
+<td>linear</td>
+<td>constrained convex programming</td>
+<td><a href="http://www.cs.cmu.edu/%7Eepxing/papers/Old_papers/code_Metric_online.tar.gz">by Eric P. Xing</td>
+<td>[<a href="http://ai.stanford.edu/~ang/papers/nips02-metric.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<td>Relevant Components Analysis (RCA)</td>
+<td>global</td>
+<td>linear</td>
+<td>capture global structure; use equivalence constraints</td>
+<td><a href="http://www.cs.huji.ac.il/~tomboy/code/RCA.zip">by Aharon Bar-Hillel and Tomer Hertz,</td>
+<td>[<a href="http://www.cs.huji.ac.il/~tomboy/papers/RCA_ICML03.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<td>Discriminative Component Analysis (DCA)</td>
+<td>global</td>
+<td>linear</td>
+<td>improve RCA by exploring negative constraints</td>
+<td><a href="./dca.zip">by Steven C.H. Hoi</td>
+<td>[<a href="http://ieeexplore.ieee.org/iel5/10925/34374/01641007.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<td>Local Fisher Discriminant Analysis (LFDA)</td>
+<td>local</td>
+<td>linear</td>
+<td>extend LDA by assigning greater weights to closer connecting examples</td>
+<td>[<a href="http://sugiyama-www.cs.titech.ac.jp/~sugi/software/LFDA/index.html">by Masashi Sugiyama</a>]</td>
+<td>[<a href="http://sugiyama-www.cs.titech.ac.jp/~sugi/2007/LFDA.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<td>Neighborhood Component Analysis (NCA)</td>
+<td>local</td>
+<td>linear</td>
+<td>extend the nearest neighbor classifier toward metric learing</td>
+<td>[<a href="http://www.cs.berkeley.edu/~fowlkes/software/nca/">by Charless C. Fowlkes</a>]</td>
+<td>[<a href="http://www.cs.toronto.edu/~hinton/absps/nca.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<td>Large Margin NN Classifier (LMNN)</td>
+<td>local</td>
+<td>linear</td>
+<td>extend NCA through a  maximum margin framework</td>
+<td>[<a href="http://www.weinbergerweb.net/Downloads/LMNN.html">by Kilian Q. Weinberger</a>]</td>
+<td>[<a href="http://books.nips.cc/papers/files/nips18/NIPS2005_0265.pdf">pdf</a>]</td>
+</tr>
+<tr>
+<a name="ldm"></a>
+<td>Localized Distance Metric Learning (LDM)</td>
+<td>local</td>
+<td>linear</td>
+<td>optimize local compactness and local
+separability in a probabilistic framework</td>
+<td>[<a href="./ldm_scripts_2.zip">by Liu Yang</a>]</td>
+<td>[<a href="http://www.cse.msu.edu/~yangliu1/aaai2006-distance-v7.pdf">pdf</a>]</td>
+</tr>
+
+<tr>
+<td>DistBoost</td>
+<td>global</td>
+<td>linear</td>
+<td>learn distance functions by training binary classifiers with margins in a boosting framework
+</td>
+<td><a href="http://www.cs.huji.ac.il/~tomboy/code/DistBoost.zip">by Tomer Hertz and Aharon Bar-Hillel</a>
+<p></p>
+<a href="./readme_kernel_distboost.txt">notes on calling its kernel version</a>
+</td>
+<td>[<a href="http://www.cs.huji.ac.il/~tomboy/papers/RCA_ICML03.pdf">pdf</a>]
+<p></p>
+Kernel DistBoost [<a href="http://www.cs.huji.ac.il/~tomboy/papers/KernelBoost_ICML06.pdf">pdf]</a></td>
+</tr>
+
+<tr>
+<a name="BAYES+VAR"></a>																											
+<td>Active Distance Metric Learning (BAYES+VAR)</td>
+<td>global</td>
+<td>linear</td>
+<td>select example pairs with the greatest uncertainty, posterior estimation with a full Bayesian treatment</td>
+<td>[<a href="./script_bayesian_dist.zip">by Liu Yang</a>]</td>
+<td>[<a href="http://www.cse.msu.edu/~yangliu1/uai2007_bayesian.pdf">pdf</a>]</td>
+</tr>
+</table>
+<p></p>
+
+<a name="unsupervised"></a>
+  <LI><big>Unsupervised Distance Metric Learning</big>
+	<table border="1"> (manifold learning) can be categorized along the following two dimensions:
+first, the learnt embedding is linear or nonlinear; and second, the structure to be preserved
+is global or local. All the linear manifold learning methods except Multidimensional Scaling (MDS), 
+learn an explicit linear projective mapping and can be interpreted as the problem of distance metric learning; 
+and nonlinear manifold learning also has its essentially connections to
+distance metric learning.<br>See <a href="lle_isomap_metric.pdf"><i>The Connection Between Manifold Learning and
+Distance Metric Learning</i></a><sup><font color="red"><b><i>new!</i></b></font></sup>(written in Oct., 2007)
+<p></p>
+
+<tr>
+<th>Methods</th>
+<th>Locality</th>
+<th>Linearity</th>
+<th>Learning Strategies</th>
+<th>Code Download</th>
+<th>Publication</th>
+</tr>
+<tr>
+<td>Principal Component Analysis(PCA)</td>
+<td>global structure preserved</td>
+<td>linear</td>
+<td>best preserve the variance of the data</td>
+<td>[<a href="http://www.cs.uiuc.edu/homes/dengcai2/Data/code/PCA.m">by Deng Cai</a>]</td>
+<td><a href=""></a></td>
+</tr>
+
+<td>Multidimensional Scaling(MDS)</td>
+<td>global structure preserved</td>
+<td>linear</td>
+<td>best preserve inter-point distance in low-rank</td>
+<td>[<a href="http://www.cs.unimaas.nl/l.vandermaaten/Laurens_van_der_Maaten/Matlab_Toolbox_for_Dimensionality_Reduction.html">
+included in Matlab Toolbox for Dimensionality Reduction</a>]</td>
+<td><a href=""></a></td>
+</tr>
+  
+<td>ISOMAP</td>
+<td>global structure preserved</td>
+<td>nonlinear</td>
+<td>preserve the geodesic distances</td>
+<td>[<a href="http://web.mit.edu/cocosci/isomap/isomap.html">by  J. B. Tenenbaum, V. de Silva and J. C. Langford</a>]</td>
+<td>[<a href="http://web.mit.edu/cocosci/Papers/sci_reprint.pdf">pdf</a>]</td>
+</tr>
+
+<td>Laplacian Eigenamp (LE) </td>
+<td>local structure preserved</td>
+<td>nonlinear</td>
+<td>preserve local neighbor</td>
+<td>[<a href="http://people.cs.uchicago.edu/~misha/ManifoldLearning/index.html">by Mikhail Belkin</a>]</td>
+<td>[<a href="http://www.cse.ohio-state.edu/~mbelkin/papers/LEM_NIPS_01.pdf">pdf</a>]</td>
+</tr>
+
+ <td>Locality Preserving Projections (LPP)</td>
+<td>local structure preserved</td>
+<td>linear</td>
+<td>linear approximation to LE</td>
+<td>[<a href="http://www.cs.uiuc.edu/homes/dengcai2/Data/code/LPP.m">LPP by  Deng Cai</a>]
+<p></p>
+[<a href="http://www.cs.uiuc.edu/homes/dengcai2/Data/code/KLPP.m">Kernel LPP by  Deng Cai</a>]
+</td>
+<td>[<a href="http://books.nips.cc/papers/files/nips16/NIPS2003_AA20.pdf">pdf</a>]</td>
+</tr>
+
+<td>Locally Linear Embedding (LLE)</td>
+<td>local structure preserved</td>
+<td>nonlinear</td>
+<td>nonlinear preserve local neighbor</td>
+<td>[<a href="http://www.cs.toronto.edu/~roweis/lle/code.html">by Sam T. Roweis and Lawrence K. Saul</a>]
+<p></p>Hessian LLE can be found at [<a href="http://www.math.umn.edu/~wittman/mani/">MANI fold Learning Matlab Demo, by Todd Wittman</a>]</td>
+<td>[<a href="http://www.sciencemag.org/cgi/reprint/290/5500/2323.pdf">pdf</a>]</td>
+</tr>
+
+<td>Neighborhood Preserving Embedding (NPE) </td>
+<td>lobal structure preserved</td>
+<td>linear</td>
+<td>linear approximation to LLE</td>
+<td>[<a href="http://www.cs.uiuc.edu/homes/dengcai2/Data/code/NPE.m">by  Deng Cai</a>]</td>
+<td>[<a href="http://ieeexplore.ieee.org/iel5/10347/32976/01544858.pdf?arnumber=1544858">pdf</a>]</td>
+</tr>
+
+</table>
+</UL>
+</BODY>	
+	
+</html>

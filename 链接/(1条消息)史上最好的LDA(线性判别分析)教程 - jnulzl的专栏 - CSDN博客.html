@@ -1,0 +1,3437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/jnulzl/article/details/49894041"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"史上最好的LDA(线性判别分析)教程 - jnulzl的专栏"}'>
+    
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>史上最好的LDA(线性判别分析)教程 - jnulzl的专栏 - CSDN博客</title>
+
+        
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-3e5ab6fcad.min.css">
+            
+            <script type="application/ld+json">{"@context":"https:\/\/ziyuan.baidu.com\/contexts\/cambrian.jsonld","@id":"https:\/\/blog.csdn.net\/jnulzl\/article\/details\/49894041","appid":"1563894916825412","title":"\u53f2\u4e0a\u6700\u597d\u7684LDA(\u7ebf\u6027\u5224\u522b\u5206\u6790)\u6559\u7a0b - jnulzl\u7684\u4e13\u680f","images":["https:\/\/img-blog.csdn.net\/20151117214245360","https:\/\/img-blog.csdn.net\/20151117214303906","https:\/\/img-blog.csdn.net\/20151117214313824"],"pubDate":"2019-04-23T20:07:54"}</script>
+        
+          <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-b379d80735.min.css">
+        <script type="text/javascript">
+        var username = "jnulzl";
+        var userPermission = false;
+        var blog_address = "https://blog.csdn.net/jnulzl";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "sinat_31299297";
+        var currentUserPermission = false;
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/jnulzl/article/details/49894041"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "史上最好的LDA(线性判别分析)教程 - jnulzl的专栏";
+        var articleID = "49894041";
+        
+        var nickName = "jnulzl";
+        var isCorporate = false;
+        var subDomainBlogUrl = "https://blog.csdn.net/"
+        var digg_base_url = "https://blog.csdn.net/jnulzl/phoenix/comment";
+        var articleDetailUrl = "https://blog.csdn.net/jnulzl/article/details/49894041";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <script src="//g.csdnimg.cn/fixed-sidebar/1.1.3/fixed-sidebar.js" type="text/javascript"></script>
+    <!-- 新版上报 -->
+      <script src="//g.csdnimg.cn/track/1.2.4/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+
+    <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<div id="kp_box_476" data-pid="476" data-track-view='{"mod":"kp_popu_476-847","con":",,"}' data-track-click='{"mod":"kp_popu_476-847","con":",,"}'><script src="//csdnimg.cn/public/common/indexSuperise/1.0.3/indexSuperise.js?20190103190825"></script>
+<script>
+ window.csdn.indexSuperise({
+      smallMoveImg: '//img-ads.csdn.net/2019/201904192027129397.png',
+      bigMoveImg: 
+'//img-ads.csdn.net/2019/201904192027234973.png',
+     link:'//gitbook.cn/gitchat/activity/58ff5acb4a05c07036f75e1f?utm_source=blogfc190418',
+boxStyle:140,
+trackSuperId:476,
+smallMove:'notMove',  
+trackSId:847
+    });
+</script></div><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	// 容错处理
+	var NEWS_FEED = function(){}
+</script>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+			<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>	
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-2 float-left">转</span>				<h1 class="title-article">史上最好的LDA(线性判别分析)教程</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																									<span class="time">2015年11月17日 22:09:19</span>
+					<a class="follow-nickName" href="https://me.csdn.net/jnulzl" target="_blank">jnulzl</a>
+						<span class="read-count">阅读数：39020</span>
+						
+														<span class="tags-box artic-tag-box">
+								<span class="label">标签：</span>
+																<a data-track-click='{"mod":"popu_626","con":"matlab"}' data-track-view='{"mod":"popu_626","con":"matlab"}' class="tag-link" href="https://so.csdn.net/so/search/s.do?q=matlab&t=blog" target="_blank">matlab																</a>
+							</span>
+																					<div class="tags-box space">
+								<span class="label">个人分类：</span>
+																<a class="tag-link" href="https://blog.csdn.net/jnulzl/article/category/5662925"  target="_blank">matlab																</a>
+							</div>
+																								</div>
+				<div class="operating">
+									</div>
+			</div>
+		</div>
+	</div>
+	<article class="baidu_pl">
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+								            <div id="content_views" class="markdown_views prism-atom-one-dark">
+							<!-- flowchart 箭头图标 勿删 -->
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+							<h1 id="一前言">一、前言</h1>
+
+
+
+<h2 id="最近由于研究需要要用到线性判别分析lda于是找了很多资料来看结果发现大部分讲的都是理论知识因此最后还是看的一知半解后来终于找到了个英文的文档作者由pca引入lda看过后豁然开朗主要是文档中有详细的例子为了保持原版在此就直接粘贴过来了后面的例子是结合matlab实现的">最近由于研究需要，要用到线性判别分析(LDA)。于是找了很多资料来看，结果发现大部分讲的都是理论知识，因此最后还是看的一知半解，后来终于找到了个英文的文档，作者由PCA引入LDA，看过后豁然开朗，主要是文档中有详细的例子，为了保持原版在此就直接粘贴过来了——后面的例子是结合MATLAB实现的！</h2>
+
+
+
+<h1 id="二lda理论详解">二、LDA理论详解</h1>
+
+<p><img src="https://img-blog.csdn.net/20151117214245360" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214303906" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214313824" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214322452" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214335969" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214346017" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214353842" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214401149" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214409294" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214417594" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214424515" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214457046" alt="这里写图片描述" title=""></p>
+
+
+
+<h1 id="三lda实例详解">三、LDA实例详解</h1>
+
+
+
+<h1 id="下面是作者文档中配的一个具体例子其中的代码是matlab代码">下面是作者文档中配的一个具体例子，其中的代码是MATLAB代码。</h1>
+
+<p><img src="https://img-blog.csdn.net/20151117214708755" alt="17" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214725412" alt="18" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214736325" alt="19" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214745338" alt="20" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214755264" alt="21" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214809796" alt="22" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214819298" alt="23" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214831583" alt="24" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117214842983" alt="25" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117222446815" alt="26" title=""> <br>
+<img src="https://img-blog.csdn.net/20151117222504029" alt="27" title=""></p>
+
+<h1 id="四相关的中文lda资料">四、相关的中文LDA资料</h1>
+
+
+
+<h2 id="除了上面英文版的lda外我感觉以下关于lda的中文文章讲的也是挺不错的">除了上面英文版的LDA外，我感觉以下关于LDA的中文文章讲的也是挺不错的：</h2>
+
+
+
+<h2 id="1线性判别分析linear-discriminant-analysis一">1、<a href="http://www.cnblogs.com/jerrylead/archive/2011/04/21/2024384.html" rel="nofollow">线性判别分析（Linear Discriminant Analysis）（一）</a>；</h2>
+
+
+
+<h2 id="2线性判别分析linear-discriminant-analysis-lda算法分析">2、<a href="http://blog.csdn.net/szv123_rier/article/details/8766538" rel="nofollow">线性判别分析(Linear Discriminant Analysis, LDA）算法分析</a>；</h2>
+
+
+
+<h2 id="3lda-线性判别分析">3、<a href="http://blog.csdn.net/porly/article/details/8020696" rel="nofollow">LDA 线性判别分析</a>；</h2>
+
+
+
+<h2 id="4机器学习中的数学4-线性判别分析lda-主成分分析pca">4、<a href="http://www.cnblogs.com/LeftNotEasy/archive/2011/01/08/lda-and-pca-machine-learning.html" rel="nofollow">机器学习中的数学(4)-线性判别分析（LDA）, 主成分分析(PCA)</a>。</h2>
+
+
+
+<h1 id="说明题目中的史上最好当然是一种夸大的说法主要是想说明在众多的lda资料中这个算是一篇比较好文档勿喷"><strong><em>说明：题目中的“史上最好”当然是一种夸大的说法，主要是想说明在众多的LDA资料中，这个算是一篇比较好文档。勿喷！！</em></strong></h1>            </div>
+						<link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-258a4616f7.css" rel="stylesheet">
+                      </div>
+	</article>
+</div>
+
+  <div class="hide-article-box hide-article-pos text-center">
+    <div class="border"></div>
+          <a class="btn article-footer-btn" id="btn-readmore" data-track-view='{"mod":"popu_772","con":",https://blog.csdn.net/jnulzl/article/details/49894041,"}' data-track-click='{"mod":"popu_772","con":",https://blog.csdn.net/jnulzl/article/details/49894041,"}'>
+        展开阅读全文
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#csdnc-chevrondown"></use>
+        </svg>
+      </a>
+      </div>
+  
+  <script>
+  (function(){
+    function collection(){
+      if (currentUserName) {
+        var markObj = {};
+            markObj.imgUrl ='https://csdnimg.cn/release/phoenix/static_blog/images/appqr.png';
+        var markPrompt = (new window.csdn.publicPrompt).init(markObj);
+        var maeked = '您已经收藏过';
+        if (!$(this).hasClass("liked")) {
+          $.ajax({
+            url: 'https://my.csdn.net/my/favorite/do_add/2',
+            dataType: 'json',
+            type: 'POST',
+            xhrFields: {
+              withCredentials: true
+            },
+            data: {
+              title: articleTit,
+              url: 'https://blog.csdn.net/jnulzl/article/details/49894041',
+              share: 1,
+              map_name: ''
+            },
+            success: function(data) {
+              
+              if (data.succ == 1) {
+                $('.btn-bookmark').addClass("liked");
+                $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                markPrompt.show({})
+                // alert('收藏成功,可以在个人中心查看我的收藏');
+              } else {
+                if (data.msg === "您已经收藏过") {
+                  $('.btn-bookmark').addClass("liked");
+                  $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                  markPrompt.show({
+                    titleStr: maeked
+                  })
+                }else{
+                  alert(data.msg);
+                  
+                }
+              }
+            }
+          });
+        } else {
+          markPrompt.show({
+            titleStr: maeked
+          })
+        }
+      } else {
+        window.csdn.loginBox.show();
+      }
+    }
+    function permissionCheck(dom){
+      var returnData = false;
+      switch (true) {
+        case currentUserPermission && userPermission:
+          clearReadMoreBtn(dom)
+          returnData = true;
+          break;
+        case userPermission:
+          dom.text('VIP阅读');
+          returnData = false;
+          break;
+        default:
+          
+      }
+      return returnData;
+    }
+    window.csdn = window.csdn ? window.csdn : {};
+    window.csdn.articleCollection = collection;
+    function clearReadMoreBtn(dom) {
+      if(userPermission && !(dom instanceof jQuery)) {
+        window.open('https://mall.csdn.net/vip?utm_source=brv')
+        return false;
+      }
+      dom = dom instanceof jQuery ? dom : $(this);
+      $("div.article_content").removeAttr("style");
+      dom.parent().remove();
+    }
+    function setArticleH(btnReadmore,posi){
+      var winH = $(window).height();
+      var articleBox = $("div.article_content");
+      var artH = articleBox.height();
+      if(artH > winH*posi){
+        articleBox.css({
+          'height':winH*posi+'px',
+          'overflow':'hidden'
+        })
+        btnReadmore.click(clearReadMoreBtn)
+      }else{
+        btnReadmore.parent().remove()
+      }
+    }
+    var btnReadmore = $("#btn-readmore");
+    $('.article-footer-bookmark-btn').click(window.csdn.articleCollection)
+    if(btnReadmore.length>0){
+      if (permissionCheck(btnReadmore)) {
+        return false;
+      }
+      if(currentUserName){
+        setArticleH(btnReadmore,3);
+      }else{
+        setArticleH(btnReadmore,0.5);
+      }
+    }else{
+      $('.hide-article-box').addClass('hide-article-style');
+    }
+  })()
+</script>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+<div class="tool-box" data-track-view='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,"}' >
+	<ul class="meau-list">
+		<li class="btn-like-box btn-like "  data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,liked"}'>
+			<a class="btn-like-a">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<p>10</p>
+			</a>
+		</li>
+		<li class="">
+						<a class="btn-comments hover-box"  href="#commentBox" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,comments"}'>
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<p class="tool-comment-count">
+						9				</p>
+        <p class="tool-comment-text">条评论</p>
+			</a>
+		</li>
+		<li class="btn-bookmark-box">
+			<a class="btn-bookmark low-height hover-box" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,bookmark"}'>
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<div class="weixin-qr btn-comments low-height" >
+        <a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,weixinshare"}'></a>
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-share"></use>
+				</svg>
+				<span class="text">
+					分享
+				</span>
+			</div>
+		</li>
+    <li class="open-app" data-url="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,toolopenapp"}'> 
+      <div class="">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#csdnc-usephone"></use>
+        </svg>
+        <span class="text">
+          APP打开
+        </span>
+      </div>
+    </li>
+	    	    	    <li class="nextPage">
+	      <a class="btn-comments hover-box low-height" href="https://blog.csdn.net/jnulzl/article/details/50126113" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,nextPage"}'>
+	        <span class="hover-show text text3">下一篇</span>
+	      </a>
+	    </li>
+	    
+    <li class="toc-container-box" id="liTocBox">
+      <button class="btn-toc low-height hover-box" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/jnulzl/article/details/49894041,toc"}'>
+        <span class="text">目录</span>
+      </button>
+      <div class="toc-container">
+        <div class="pos-box">
+          <div class="scroll-box">
+            <div class="toc-box"></div>
+          </div>
+        </div>
+        <div class="opt-box clearfix">
+          <button class="btn-opt prev nomore" title="向上">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-chevronup"></use>
+            </svg>
+          </button>
+          <div class="icon-arrow"></div>
+          <button class="btn-opt next">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-chevrondown"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </li>
+	</ul>
+</div>
+<div class="tool-Placeholder">
+  
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+        <div id="dmp_ad_58"><div id="kp_box_58" data-pid="58" data-track-view='{"mod":"kp_popu_58-731","con":",,"}' data-track-click='{"mod":"kp_popu_58-731","con":",,"}'><div style="width:100%;padding:1%;background:#fff;">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-hp-14-2i-8t+w5"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="2593991139"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="//me.csdn.net/sinat_31299297" target="_blank">
+				<img class="" src="https://avatar.csdn.net/E/D/B/3_sinat_31299297.jpg">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="49894041">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/dulingtingzi/article/details/53104335,BlogCommendFromBaidu_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/dulingtingzi/article/details/53104335,BlogCommendFromBaidu_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/dulingtingzi/article/details/53104335" target="_blank" title="LDA算法原理及matlab实现">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>算法原理及matlab实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/dulingtingzi/article/details/53104335" target="_blank" title="LDA算法原理及matlab实现">
+							<span class="desc oneline">注：本文非笔者原创，原文转载自：http://blog.csdn.net/porly/article/details/8020696
+
+
+
+
+1. LDA是什么
+
+线性判别式分析（Linear Dis...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/dulingtingzi">来自：	<span class="blog_title"> dulingtingzi的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_20406597/article/details/80166589,BlogCommendFromBaidu_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_20406597/article/details/80166589,BlogCommendFromBaidu_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_20406597/article/details/80166589" target="_blank" title="线性判别分析（LDA）的MATLAB和Python实现">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>（<em>LDA</em>）的MATLAB和Python实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3411</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_20406597/article/details/80166589" target="_blank" title="线性判别分析（LDA）的MATLAB和Python实现">
+							<span class="desc oneline">线性判别分析（linear discriminant analysis），LDA。也称为Fisher线性判别（FLD）是模式识别的经典算法。（1）中心思想：将高维的样本投影到最佳鉴别矢量空间，来达到抽...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_20406597">来自：	<span class="blog_title"> 沐尔还吃</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/NUPTboyZHB/article/details/8856360,BlogCommendFromBaidu_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/NUPTboyZHB/article/details/8856360,BlogCommendFromBaidu_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/NUPTboyZHB/article/details/8856360" target="_blank" title="LDA源码分析（matlab版）">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>源码分析（matlab版）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/NUPTboyZHB/article/details/8856360" target="_blank" title="LDA源码分析（matlab版）">
+							<span class="desc oneline">LDA全称是Latent Dirichlet Allocation。关于LDA的理论知识，可以参见如下参考维基百科。这里具体讲解一下LDA的源码分析（matlab）
+代码原作者：Daichi Moc...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/NUPTboyZHB">来自：	<span class="blog_title"> 郑海波(莫川)的CSDN博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_59" data-pid="59" data-track-view='{"mod":"kp_popu_59-78","con":",,"}' data-track-click='{"mod":"kp_popu_59-78","con":",,"}'><script type="text/javascript" src="//rabc1.iteye.com/production/res/rxjg.js?pkcgstj=jm"></script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ds521chun/article/details/80190133,BlogCommendFromBaidu_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ds521chun/article/details/80190133,BlogCommendFromBaidu_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ds521chun/article/details/80190133" target="_blank" title="LDA算法学习和Matlab的程序学习">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>算法学习和Matlab的程序学习				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1230</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ds521chun/article/details/80190133" target="_blank" title="LDA算法学习和Matlab的程序学习">
+							<span class="desc oneline">摘自各个论坛，总结学习。LDA的定义：线性判别式分析（Linear Discriminant Analysis），简称为LDA。也称为Fisher线性判别（Fisher Linear Discrimi...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ds521chun">来自：	<span class="blog_title"> ds521chun的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/gaohong520/5017607,BlogCommendFromBaidu_4"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/gaohong520/5017607,BlogCommendFromBaidu_4"}'>
+			<a href="https://download.csdn.net/download/gaohong520/5017607" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							matlab实现<em>LDA</em>						</h4>
+						<span class="data float-right">01-22</span>
+					</div>
+					<div class="desc oneline">
+							用matlab实现的LDA,能够立即运行，需要的朋友快收起。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/tianchang2you/article/details/40187965,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/tianchang2you/article/details/40187965,BlogCommendFromBaidu_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/tianchang2you/article/details/40187965" target="_blank" title="LDA算法-matlab代码实现">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>算法-matlab代码实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7750</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/tianchang2you/article/details/40187965" target="_blank" title="LDA算法-matlab代码实现">
+							<span class="desc oneline">本文使用LDA作为分类器在matlab下做实验。
+
+　　其中投影转换矩阵W按照LDA的经典理论生成，如下的LDA函数，并返回各个类的投影后的（ｋ－１）维的类均值。
+
+LDA.m代码如下：
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/tianchang2you">来自：	<span class="blog_title"> tianchang2you的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/bitcarmanlee/article/details/52102076,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/bitcarmanlee/article/details/52102076,BlogCommendFromBaidu_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/bitcarmanlee/article/details/52102076" target="_blank" title="LDA入门浅谈">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>入门浅谈				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8707</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/bitcarmanlee/article/details/52102076" target="_blank" title="LDA入门浅谈">
+							<span class="desc oneline">1.什么是主题模型在我的博客上，有篇文章《基于双数组Trie树的Aho Corasick自动机极速多模式匹配》被归入算法目录，算法即为该文章的主题。而该文章因为涉及到中文分词，又被我归入了分词目录。所...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/bitcarmanlee">来自：	<span class="blog_title"> bitcarmanlee的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yt71656/article/details/45199603,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yt71656/article/details/45199603,BlogCommendFromBaidu_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yt71656/article/details/45199603" target="_blank" title="关于LDA学习的一些有用的博客以及大牛写的代码实现">
+				<h4 class="text-truncate oneline">
+						关于<em>LDA</em>学习的一些有用的博客以及大牛写的代码实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yt71656/article/details/45199603" target="_blank" title="关于LDA学习的一些有用的博客以及大牛写的代码实现">
+							<span class="desc oneline">1、Blei的LDA代码（C）：http://www.cs.princeton.edu/~blei/lda-c/index.html
+2、D.Bei的主页：http://www.cs.princeto...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yt71656">来自：	<span class="blog_title"> yt71656的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_60" data-pid="60" data-track-view='{"mod":"kp_popu_60-909","con":",,"}' data-track-click='{"mod":"kp_popu_60-909","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="1551928978"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/malice00/8453237,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/malice00/8453237,BlogCommendFromBaidu_8"}'>
+			<a href="https://download.csdn.net/download/malice00/8453237" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>分类器 MATLAB						</h4>
+						<span class="data float-right">02-22</span>
+					</div>
+					<div class="desc oneline">
+							LDA（Linear discriminate analysis） 分类器 。写成了MATLAB函数，效果还不错。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/todayq/article/details/19484067,BlogCommendFromBaidu_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/todayq/article/details/19484067,BlogCommendFromBaidu_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/todayq/article/details/19484067" target="_blank" title="LDA matlab code">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em> matlab code				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1695</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/todayq/article/details/19484067" target="_blank" title="LDA matlab code">
+							<span class="desc oneline">% prophet Mohammed said [ALLAH will help any one helped his/her brother/sister] PBUH
+%This code to a...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/todayq">来自：	<span class="blog_title"> todayq的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+          <div class="recommend-item-box blog-expert-recommend-box">
+				<div class="d-flex">
+					<div class="blog-expert-recommend">
+						<div class="blog-expert">
+							<div class="blog-expert-flexbox"></div>
+						</div>
+					</div>
+				</div>
+      </div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/DreamD1987/article/details/43203671,BlogCommendFromBaidu_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/DreamD1987/article/details/43203671,BlogCommendFromBaidu_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/DreamD1987/article/details/43203671" target="_blank" title="LDA Topic Model Matlab 代码简介">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em> Topic Model Matlab 代码简介				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2182</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/DreamD1987/article/details/43203671" target="_blank" title="LDA Topic Model Matlab 代码简介">
+							<span class="desc oneline">用Google搜索LDA topic模型代码似乎只有这个网址：http://psiexp.ss.uci.edu/research/programs_data/toolbox.htm
+比较靠谱。师弟在...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/DreamD1987">来自：	<span class="blog_title"> Json_Nie的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/df865017/article/details/49101623,BlogCommendFromBaidu_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/df865017/article/details/49101623,BlogCommendFromBaidu_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/df865017/article/details/49101623" target="_blank" title="15.3 LDA作为分类器在matlab下做实验">
+				<h4 class="text-truncate oneline">
+						15.3 <em>LDA</em>作为分类器在matlab下做实验				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1271</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/df865017/article/details/49101623" target="_blank" title="15.3 LDA作为分类器在matlab下做实验">
+							<span class="desc oneline">原文地址：http://www.cnblogs.com/cfantaisie/archive/2011/03/25/1995849.html　
+
+ 
+
+本文使用LDA作为分类器在matlab下做实验。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/df865017">来自：	<span class="blog_title"> df865017的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/huahualili/2604266,BlogCommendFromBaidu_12"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/huahualili/2604266,BlogCommendFromBaidu_12"}'>
+			<a href="https://download.csdn.net/download/huahualili/2604266" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>算法MATLAB代码及其结果截图						</h4>
+						<span class="data float-right">08-07</span>
+					</div>
+					<div class="desc oneline">
+							这是一个LDA算法，有实例分析，并给出数据进行验证预测。对于初学者很有帮助。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_61" data-pid="61" data-track-view='{"mod":"kp_popu_61-903","con":",,"}' data-track-click='{"mod":"kp_popu_61-903","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gw-3+1f-3d+2z"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="7373664509"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident recommend-other-item-box" data-track-view='{"mod":"popu_387","con":",http://ask.csdn.net/questions/666969,BlogCommendFromBaidu_13"}' data-track-click='{"mod":"popu_387","con":",http://ask.csdn.net/questions/666969,BlogCommendFromBaidu_13"}'>
+		<a href="http://ask.csdn.net/questions/666969" target="_blank">
+			<h4 class="text-truncate oneline">
+					用MATLAB实现<em>LDA</em>主题模型			</h4>
+			<div class="info-box d-flex align-content-center">
+					<span class="date">11-02</span>
+			</div>
+			<p class="content oneline">
+        <span class="desc oneline">-</span>
+                  <span class="type-show type-show-ask">问答</span>
+        			</p>
+		</a>
+
+	</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/s151506879/article/details/51883827,BlogCommendFromBaidu_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/s151506879/article/details/51883827,BlogCommendFromBaidu_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/s151506879/article/details/51883827" target="_blank" title="使用LDA线性判别分析进行多类的训练分类">
+				<h4 class="text-truncate oneline">
+						使用<em>LDA</em><em>线性判别分析</em>进行多类的训练分类				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4631</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/s151506879/article/details/51883827" target="_blank" title="使用LDA线性判别分析进行多类的训练分类">
+							<span class="desc oneline">转自：http://www.cnblogs.com/cfantaisie/archive/2011/03/25/1995849.html
+LDA使用条件：样本数大于特征维数，保证Sw非奇异。
+
+
+本文...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/s151506879">来自：	<span class="blog_title"> s151506879的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/bobb_bi/7964213,BlogCommendFromBaidu_15"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/bobb_bi/7964213,BlogCommendFromBaidu_15"}'>
+			<a href="https://download.csdn.net/download/bobb_bi/7964213" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em> matlab						</h4>
+						<span class="data float-right">09-23</span>
+					</div>
+					<div class="desc oneline">
+							用matlab编写程序，最终实现LDA分析，获得相应数据的结果。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/nuptboyzhb/5305145,BlogCommendFromBaidu_16"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/nuptboyzhb/5305145,BlogCommendFromBaidu_16"}'>
+			<a href="https://download.csdn.net/download/nuptboyzhb/5305145" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>的matlab版本（Latent Dirichlet Allocation）						</h4>
+						<span class="data float-right">04-26</span>
+					</div>
+					<div class="desc oneline">
+							Latent Dirichlet Allocation的matlab版本。具有很高的参考价值。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/greenchina1992/article/details/50393181,BlogCommendFromBaidu_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/greenchina1992/article/details/50393181,BlogCommendFromBaidu_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/greenchina1992/article/details/50393181" target="_blank" title="matlab LDA linear dicriminant analysis 实现">
+				<h4 class="text-truncate oneline">
+						matlab <em>LDA</em> linear dicriminant analysis 实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							841</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/greenchina1992/article/details/50393181" target="_blank" title="matlab LDA linear dicriminant analysis 实现">
+							<span class="desc oneline">LDA 中文名称线性判别分析
+最近用到LDA，因为不是数学方面出生，所以只管结果正确，不太追究具体的原理，在网上找到了一些别人的实现以及参考资料，自己实现了以下，但和OpenCV里面的LDA[1]结果...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/greenchina1992">来自：	<span class="blog_title"> greenchina1992的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_62" data-pid="62" data-track-view='{"mod":"kp_popu_62-902","con":",,"}' data-track-click='{"mod":"kp_popu_62-902","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gw-3+1f-3d+2z"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="6440814649"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhyw0601/article/details/69569334,BlogCommendFromBaidu_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhyw0601/article/details/69569334,BlogCommendFromBaidu_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhyw0601/article/details/69569334" target="_blank" title="使用LDA作为分类器在matlab下做实验">
+				<h4 class="text-truncate oneline">
+						使用<em>LDA</em>作为分类器在matlab下做实验				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1665</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhyw0601/article/details/69569334" target="_blank" title="使用LDA作为分类器在matlab下做实验">
+							<span class="desc oneline">转载自：http://www.cnblogs.com/cfantaisie/archive/2011/03/25/1995849.html
+
+
+本文使用LDA作为分类器在matlab下做实验。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhyw0601">来自：	<span class="blog_title"> zhyw0601的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/ningmengziya/8531153,BlogCommendFromBaidu_19"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/ningmengziya/8531153,BlogCommendFromBaidu_19"}'>
+			<a href="https://download.csdn.net/download/ningmengziya/8531153" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>详解及其matlab代码						</h4>
+						<span class="data float-right">03-25</span>
+					</div>
+					<div class="desc oneline">
+							主题模型（Topic Model）LDA详解及其Matlab代码					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/u010391553/7027411,BlogCommendFromBaidu_20"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/u010391553/7027411,BlogCommendFromBaidu_20"}'>
+			<a href="https://download.csdn.net/download/u010391553/7027411" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em> matlab软件包						</h4>
+						<span class="data float-right">03-12</span>
+					</div>
+					<div class="desc oneline">
+							LDA matlab软件包，标准变分贝叶斯估计					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pirage/article/details/50239125,BlogCommendFromBaidu_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pirage/article/details/50239125,BlogCommendFromBaidu_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pirage/article/details/50239125" target="_blank" title="LDA理解以及源码分析（一）">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>理解以及源码分析（一）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pirage/article/details/50239125" target="_blank" title="LDA理解以及源码分析（一）">
+							<span class="desc oneline">LDA系列的讲解分多个博文给出，主要大纲如下：
+LDA相关的基础知识 
+什么是共轭
+multinomial分布
+Dirichlet分布
+LDA in text 
+LAD的概率图模型
+LDA的参数推导
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pirage">来自：	<span class="blog_title"> 乖兔子的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/lufangbo/4738583,BlogCommendFromBaidu_22"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/lufangbo/4738583,BlogCommendFromBaidu_22"}'>
+			<a href="https://download.csdn.net/download/lufangbo/4738583" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>算法(MATLAB实现)						</h4>
+						<span class="data float-right">11-06</span>
+					</div>
+					<div class="desc oneline">
+							用matlab写的LDA代码，比较好用！					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_63" data-pid="63" data-track-view='{"mod":"kp_popu_63-908","con":",,"}' data-track-click='{"mod":"kp_popu_63-908","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="2670758893"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/s151506879/article/details/51883789,BlogCommendFromBaidu_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/s151506879/article/details/51883789,BlogCommendFromBaidu_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/s151506879/article/details/51883789" target="_blank" title="LDA算法入门">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>算法入门				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							745</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/s151506879/article/details/51883789" target="_blank" title="LDA算法入门">
+							<span class="desc oneline">转自http://blog.csdn.net/warmyellow/article/details/5454943
+
+
+
+
+
+ 
+
+一． LDA算法概述：
+
+线性判别式分析(Lin...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/s151506879">来自：	<span class="blog_title"> s151506879的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/mmc2015/article/details/45024447,BlogCommendFromBaidu_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/mmc2015/article/details/45024447,BlogCommendFromBaidu_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/mmc2015/article/details/45024447" target="_blank" title="LDA文本建模（4）——算法细节、伪代码、实现">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>文本建模（4）——算法细节、伪代码、实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5512</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/mmc2015/article/details/45024447" target="_blank" title="LDA文本建模（4）——算法细节、伪代码、实现">
+							<span class="desc oneline">上面的产生过程简单描述为：</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/mmc2015">来自：	<span class="blog_title"> mmc2015的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/u012173127/6976611,BlogCommendFromBaidu_25"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/u012173127/6976611,BlogCommendFromBaidu_25"}'>
+			<a href="https://download.csdn.net/download/u012173127/6976611" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>算法详解（英文），包括简单例子，方便理解						</h4>
+						<span class="data float-right">02-28</span>
+					</div>
+					<div class="desc oneline">
+							外国的LDA讲解资料（英文），非常详细，很好理解					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/github_36299736/article/details/54966460,BlogCommendFromBaidu_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/github_36299736/article/details/54966460,BlogCommendFromBaidu_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/github_36299736/article/details/54966460" target="_blank" title="用 Python 实现 LDA">
+				<h4 class="text-truncate oneline">
+						用 Python 实现 <em>LDA</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/github_36299736/article/details/54966460" target="_blank" title="用 Python 实现 LDA">
+							<span class="desc oneline">用 Python 实现简单的 LDA 主题模型。</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/github_36299736">来自：	<span class="blog_title"> zhurouwan的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_33761963/article/details/53945581,BlogCommendFromBaidu_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_33761963/article/details/53945581,BlogCommendFromBaidu_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sinat_33761963/article/details/53945581" target="_blank" title="王小草【机器学习】笔记--主题模型LDA实践与应用">
+				<h4 class="text-truncate oneline">
+						王小草【机器学习】笔记--主题模型<em>LDA</em>实践与应用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sinat_33761963/article/details/53945581" target="_blank" title="王小草【机器学习】笔记--主题模型LDA实践与应用">
+							<span class="desc oneline">标签（空格分隔）： 王小草机器学习笔记笔记整理时间：2016年12月30日 
+笔记整理者：王小草1. LDA的实现工具在主题模型LDA的理论篇，长篇大幅的公式与推导也许实在烦心，也不愿意自己去写代码实...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sinat_33761963">来自：	<span class="blog_title"> 【人工智能】王小草的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_64" data-pid="64" data-track-view='{"mod":"kp_popu_64-901","con":",,"}' data-track-click='{"mod":"kp_popu_64-901","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gc+3r+68-9q-29"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="4012648776"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a1368783069/article/details/52088302,BlogCommendFromBaidu_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a1368783069/article/details/52088302,BlogCommendFromBaidu_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a1368783069/article/details/52088302" target="_blank" title="gensim中实践LDA">
+				<h4 class="text-truncate oneline">
+						gensim中实践<em>LDA</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-01</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8175</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a1368783069/article/details/52088302" target="_blank" title="gensim中实践LDA">
+							<span class="desc oneline">????from sklearn import datasets
+news_dataset=datasets.fetch_20newsgroups(subset=&quot;all&quot;,remove=(&quot;head...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/a1368783069">来自：	<span class="blog_title"> a1368783069的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/brucewong0516/article/details/78684005,BlogCommendFromBaidu_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/brucewong0516/article/details/78684005,BlogCommendFromBaidu_29"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/brucewong0516/article/details/78684005" target="_blank" title="【机器学习】LDA线性判别分析原理及实例">
+				<h4 class="text-truncate oneline">
+						【机器学习】<em>LDA</em><em>线性判别分析</em>原理及实例				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-01</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3577</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/brucewong0516/article/details/78684005" target="_blank" title="【机器学习】LDA线性判别分析原理及实例">
+							<span class="desc oneline">LDA线性判别分析也是一种经典的降维方法，LDA是一种监督学习的降维技术，也就是说它的数据集的每个样本是有类别输出的。这点和PCA不同。PCA是不考虑样本类别输出的无监督降维技术。LDA的思想可以用一...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/brucewong0516">来自：	<span class="blog_title"> brucewong0516的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37052320/article/details/79117448,BlogCommendFromBaidu_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37052320/article/details/79117448,BlogCommendFromBaidu_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/m0_37052320/article/details/79117448" target="_blank" title="python LDA (Latent Dirichlet Allocation)实例讲解">
+				<h4 class="text-truncate oneline">
+						python <em>LDA</em> (Latent Dirichlet Allocation)实例讲解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3226</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/m0_37052320/article/details/79117448" target="_blank" title="python LDA (Latent Dirichlet Allocation)实例讲解">
+							<span class="desc oneline">LDA（Latent Dirichlet Allocation）是一种文档主题生成模型，也称为一个三层贝叶斯概率模型，包含词、主题和文档三层结构。所谓生成模型，就是说，我们认为一篇文章的每个词都是通过...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/m0_37052320">来自：	<span class="blog_title"> binqiang2wang</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/z_q3322183/article/details/80969570,BlogCommendFromBaidu_31"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/z_q3322183/article/details/80969570,BlogCommendFromBaidu_31"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/z_q3322183/article/details/80969570" target="_blank" title="LDA详细推导过程">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>详细推导过程				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							799</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/z_q3322183/article/details/80969570" target="_blank" title="LDA详细推导过程">
+							<span class="desc oneline">      说到LDA一直觉得自己掉进了一个大坑，研一的时候，老板叫看论文，然后给他汇报，有一次跟老板汇报文章的时候提到LDA，然后研究生三年LDA一路走到黑。一开始接触LDA，最大的难点就是那一堆复...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/z_q3322183">来自：	<span class="blog_title"> z_q3322183的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a123456ei/article/details/22767429,BlogCommendFromBaidu_32"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a123456ei/article/details/22767429,BlogCommendFromBaidu_32"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a123456ei/article/details/22767429" target="_blank" title="LDA学习总结">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>学习总结				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a123456ei/article/details/22767429" target="_blank" title="LDA学习总结">
+							<span class="desc oneline">今天晚上看了lda算法的原理，深感自己知识的缺乏啊（Dirichlet分布、多项分布、图模型、Gibbs抽样）。这也让我深感惭愧，早就意识到自己数学知识的缺乏，但是一直没有补一下。
+   好吧，简单来...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/a123456ei">来自：	<span class="blog_title"> a123456ei的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_65" data-pid="65" data-track-view='{"mod":"kp_popu_65-900","con":",,"}' data-track-click='{"mod":"kp_popu_65-900","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="4012648776"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pipisorry/article/details/52912179,BlogCommendFromBaidu_33"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pipisorry/article/details/52912179,BlogCommendFromBaidu_33"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pipisorry/article/details/52912179" target="_blank" title="Spark：聚类算法之LDA主题模型算法">
+				<h4 class="text-truncate oneline">
+						Spark：聚类算法之<em>LDA</em>主题模型算法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pipisorry/article/details/52912179" target="_blank" title="Spark：聚类算法之LDA主题模型算法">
+							<span class="desc oneline">http://blog.csdn.net/pipisorry/article/details/52912179Spark上实现LDA原理LDA主题模型算法[主题模型TopicModel：隐含狄利克雷分...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pipisorry">来自：	<span class="blog_title"> 皮皮blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/wuliaoswz/9981478,BlogCommendFromBaidu_34"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/wuliaoswz/9981478,BlogCommendFromBaidu_34"}'>
+			<a href="https://download.csdn.net/download/wuliaoswz/9981478" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>LDA</em>算法实例源代码						</h4>
+						<span class="data float-right">09-16</span>
+					</div>
+					<div class="desc oneline">
+							非常不错的LDA算法实例源代码，亲测可用。是一个实例的代码，给需要用LDA算法的人一个参考。希望对大家有用。					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/liuweiyuxiang/article/details/78874106,BlogCommendFromBaidu_35"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/liuweiyuxiang/article/details/78874106,BlogCommendFromBaidu_35"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/liuweiyuxiang/article/details/78874106" target="_blank" title="线性判别分析(LDA)">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>(<em>LDA</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/liuweiyuxiang/article/details/78874106" target="_blank" title="线性判别分析(LDA)">
+							<span class="desc oneline">前言在之前的一篇博客机器学习中的数学(7)——PCA的数学原理中深入讲解了，PCA的数学原理。谈到PCA就不得不谈LDA，他们就像是一对孪生兄弟，总是被人们放在一起学习，比较。这这篇博客中我们就来谈谈...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/liuweiyuxiang">来自：	<span class="blog_title"> Lavi的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ruthywei/article/details/83045288,BlogCommendFromBaidu_36"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ruthywei/article/details/83045288,BlogCommendFromBaidu_36"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ruthywei/article/details/83045288" target="_blank" title="线性判别分析（LDA）基本原理及实现">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>（<em>LDA</em>）基本原理及实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2710</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ruthywei/article/details/83045288" target="_blank" title="线性判别分析（LDA）基本原理及实现">
+							<span class="desc oneline">前言
+
+在主成分分析（PCA）原理总结（机器学习(27)【降维】之主成分分析(PCA)详解）中对降维算法PCA做了总结。这里就对另外一种经典的降维方法线性判别分析（Linear Discriminan...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ruthywei">来自：	<span class="blog_title"> ruthy的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/gwplovekimi/article/details/80299070,BlogCommendFromBaidu_37"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gwplovekimi/article/details/80299070,BlogCommendFromBaidu_37"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/gwplovekimi/article/details/80299070" target="_blank" title="机器学习笔记之（4）——Fisher分类器（线性判别分析，LDA）">
+				<h4 class="text-truncate oneline">
+						机器学习笔记之（4）——Fisher分类器（<em>线性判别分析</em>，<em>LDA</em>）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5105</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/gwplovekimi/article/details/80299070" target="_blank" title="机器学习笔记之（4）——Fisher分类器（线性判别分析，LDA）">
+							<span class="desc oneline">本博文为Fisher分类器的学习笔记~本博文主要参考书籍为：《Python大战机器学习》Fisher分类器也叫Fisher线性判别（Fisher Linear Discriminant），或称为线性判...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/gwplovekimi">来自：	<span class="blog_title"> gwpscut的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_66" data-pid="66" data-track-view='{"mod":"kp_popu_66-881","con":",,"}' data-track-click='{"mod":"kp_popu_66-881","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T38_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T38  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T38_render", "T38");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Mbx8X9u/article/details/78739908,BlogCommendFromBaidu_38"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Mbx8X9u/article/details/78739908,BlogCommendFromBaidu_38"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Mbx8X9u/article/details/78739908" target="_blank" title="机器学习(30)之线性判别分析(LDA)原理详解">
+				<h4 class="text-truncate oneline">
+						机器学习(30)之<em>线性判别分析</em>(<em>LDA</em>)原理详解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3068</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Mbx8X9u/article/details/78739908" target="_blank" title="机器学习(30)之线性判别分析(LDA)原理详解">
+							<span class="desc oneline">微信公众号
+关键字全网搜索最新排名
+【机器学习算法】：排名第一
+【机器学习】：排名第一
+【Python】：排名第三
+【算法】：排名第四
+前言
+在主成分分析（PCA）原理总结（机器学习(2...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Mbx8X9u">来自：	<span class="blog_title"> 机器学习算法与Python学习</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012679707/article/details/80529252,BlogCommendFromBaidu_39"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012679707/article/details/80529252,BlogCommendFromBaidu_39"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012679707/article/details/80529252" target="_blank" title="【机器学习】LDA线性判别分析">
+				<h4 class="text-truncate oneline">
+						【机器学习】<em>LDA</em><em>线性判别分析</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-31</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1758</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012679707/article/details/80529252" target="_blank" title="【机器学习】LDA线性判别分析">
+							<span class="desc oneline">【机器学习】LDA线性判别分析1. LDA的基本思想2. LDA求解方法        线性判别分析 (Linear Discriminant Analysis，LDA)是一种经典的线性学习方法，在二...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012679707">来自：	<span class="blog_title"> gogo小Sa的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_33895792/article/details/83278511,BlogCommendFromBaidu_40"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_33895792/article/details/83278511,BlogCommendFromBaidu_40"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_33895792/article/details/83278511" target="_blank" title="线性判别分析(一)">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>(一)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							105</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_33895792/article/details/83278511" target="_blank" title="线性判别分析(一)">
+							<span class="desc oneline">转自：https://www.cnblogs.com/jerrylead/archive/2011/04/21/2024384.html
+
+线性判别分析（Linear Discriminant Ana...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_33895792">来自：	<span class="blog_title"> 新起点</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/leayc/article/details/76299694,BlogCommendFromBaidu_41"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/leayc/article/details/76299694,BlogCommendFromBaidu_41"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/leayc/article/details/76299694" target="_blank" title="线性判别分析简明入门教程">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>简明入门<em>教程</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5205</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/leayc/article/details/76299694" target="_blank" title="线性判别分析简明入门教程">
+							<span class="desc oneline">LDA是脑电信号分析中最常用的分类器之一。中文网站上详细讲该算法的文章不多，也大都没有代码。于是编译了一篇LDA的简单教程。已经征得了原作者授权。转载请勿删改原文信息。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/leayc">来自：	<span class="blog_title"> AsherLee's blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_35732969/article/details/80506276,BlogCommendFromBaidu_42"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_35732969/article/details/80506276,BlogCommendFromBaidu_42"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_35732969/article/details/80506276" target="_blank" title="机器学习：线性模型-线性判别分析LDA（附代码实现）">
+				<h4 class="text-truncate oneline">
+						机器学习：线性模型-<em>线性判别分析</em><em>LDA</em>（附代码实现）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							713</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_35732969/article/details/80506276" target="_blank" title="机器学习：线性模型-线性判别分析LDA（附代码实现）">
+							<span class="desc oneline">微信交流：
+
+
+
+LDA思想：给定训练集，将训练集投影到一条直线上，相同类别的投影点尽可能近，不同类别的投影点尽可能远。在对新样本进行分类时，将新样本投影到学习到的该直线上，跟据投影点的位置确定新样的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_35732969">来自：	<span class="blog_title"> 哈皮家纺的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_67" data-pid="67" data-track-view='{"mod":"kp_popu_67-882","con":",,"}' data-track-click='{"mod":"kp_popu_67-882","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T43_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T43  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T43_render", "T43");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/kuweicai/article/details/79255270,BlogCommendFromBaidu_43"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/kuweicai/article/details/79255270,BlogCommendFromBaidu_43"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/kuweicai/article/details/79255270" target="_blank" title="主成分分析（PCA）和线性判别分析（LDA）原理简介">
+				<h4 class="text-truncate oneline">
+						主成分分析（PCA）和<em>线性判别分析</em>（<em>LDA</em>）原理简介				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5620</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/kuweicai/article/details/79255270" target="_blank" title="主成分分析（PCA）和线性判别分析（LDA）原理简介">
+							<span class="desc oneline">本文整理自下面的博客，对PCA和LDA的原理进行介绍，并对比了其不同点。1).主成分分析（PCA）原理详解2).线性判别分析LDA与主成分分析PCA3). PCA(主成成分分析)和LDA(线性判别分析...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/kuweicai">来自：	<span class="blog_title"> 生命在于折腾！</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/dhaiuda/article/details/84325203,BlogCommendFromBaidu_44"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/dhaiuda/article/details/84325203,BlogCommendFromBaidu_44"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/dhaiuda/article/details/84325203" target="_blank" title="机器学习——线性判别分析">
+				<h4 class="text-truncate oneline">
+						机器学习——<em>线性判别分析</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-21</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							221</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/dhaiuda/article/details/84325203" target="_blank" title="机器学习——线性判别分析">
+							<span class="desc oneline">文章目录什么是线性判别分析线性判别分析的作用基本思想如何将点投影到直线上二分类线性判别分析如何刻画类别的中心点之间的距离如何刻画投影后相同类别的散乱程度如何用式1.9与式1.6刻画LDA的两个关键点
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/dhaiuda">来自：	<span class="blog_title"> 菜到怀疑人生的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_29957455/article/details/79574851,BlogCommendFromBaidu_45"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_29957455/article/details/79574851,BlogCommendFromBaidu_45"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sinat_29957455/article/details/79574851" target="_blank" title="线性判别分析(LDA)降维">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>(<em>LDA</em>)降维				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3098</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sinat_29957455/article/details/79574851" target="_blank" title="线性判别分析(LDA)降维">
+							<span class="desc oneline">一、什么是线性判别分析？线性判别分析(Linear discriminant Analysis，LDA)与PCA类似也是一种特征抽取的算法，它能够提高数据分析过程中的计算效率。PCA是寻找数据集中方差...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sinat_29957455">来自：	<span class="blog_title"> 修炼之路</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhzhx0318/article/details/75000676,BlogCommendFromBaidu_46"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhzhx0318/article/details/75000676,BlogCommendFromBaidu_46"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhzhx0318/article/details/75000676" target="_blank" title="线性判别分析">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							910</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhzhx0318/article/details/75000676" target="_blank" title="线性判别分析">
+							<span class="desc oneline">概述需要注意一下，LDA有两种缩写：
+一种是线性判别分析（Linear Discriminant Analysis）
+一种是概率主题模型——隐含狄利克雷分布（Latent Dirichlet Allo...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhzhx0318">来自：	<span class="blog_title"> zhzhx0318的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/whimewcm/article/details/83120026,BlogCommendFromBaidu_47"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/whimewcm/article/details/83120026,BlogCommendFromBaidu_47"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/whimewcm/article/details/83120026" target="_blank" title="线性判别分析（(Linear Discriminant Analysis,LDA）">
+				<h4 class="text-truncate oneline">
+						<em>线性判别分析</em>（(Linear Discriminant Analysis,<em>LDA</em>）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							434</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/whimewcm/article/details/83120026" target="_blank" title="线性判别分析（(Linear Discriminant Analysis,LDA）">
+							<span class="desc oneline">        LDA用于分类问题上，在给定一个样本的情况下，将样例投影到一条直线上，使得同类样例的投影点尽可能接近，异类样例的投影点尽可能远离。那么对于一个新的样本，只要将其投影到这条直线上再根据投...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/whimewcm">来自：	<span class="blog_title"> whime</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_68" data-pid="68" data-track-view='{"mod":"kp_popu_68-883","con":",,"}' data-track-click='{"mod":"kp_popu_68-883","con":",,"}'><!-- T48 位置 -->
+<script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T48_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T48  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T48_render", "T48");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_38285131/article/details/79787115,BlogCommendFromBaidu_48"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_38285131/article/details/79787115,BlogCommendFromBaidu_48"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_38285131/article/details/79787115" target="_blank" title="scikit-learn机器学习（三）--逻辑回归和线性判别分析LDA">
+				<h4 class="text-truncate oneline">
+						scikit-learn机器学习（三）--逻辑回归和<em>线性判别分析</em><em>LDA</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1037</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_38285131/article/details/79787115" target="_blank" title="scikit-learn机器学习（三）--逻辑回归和线性判别分析LDA">
+							<span class="desc oneline">scikit-learn机器学习（一）–多元线性回归模型 
+scikit-learn机器学习（二）–岭回归，Lasso回归和ElasticNet回归 
+scikit-learn机器学习（三）–逻辑回归...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_38285131">来自：	<span class="blog_title"> 蘇丶的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/heliminlinjuan/article/details/48573277,BlogCommendFromBaidu_49"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/heliminlinjuan/article/details/48573277,BlogCommendFromBaidu_49"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/heliminlinjuan/article/details/48573277" target="_blank" title="LDA(线性判别分析)及源码实现">
+				<h4 class="text-truncate oneline">
+						<em>LDA</em>(<em>线性判别分析</em>)及源码实现				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3687</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/heliminlinjuan/article/details/48573277" target="_blank" title="LDA(线性判别分析)及源码实现">
+							<span class="desc oneline">最近要用LDA对数据进行降维，下文是对网上写的较好的关于LDA文章的整理以便于日后复习。
+
+1、LDA
+首先搞清楚判别分析？Discriminant Analysis就是根据研究对象的各种特征值判别其...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/heliminlinjuan">来自：	<span class="blog_title"> heliminlinjuan的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xiejiashu/article/details/64924006,BlogCommendHotData_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiejiashu/article/details/64924006,BlogCommendHotData_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiejiashu/article/details/64924006" target="_blank" title="基于EasyIPCamera实现的数字网络摄像机IPCamera的模拟器IPC RTSP Simulator">
+				<h4 class="text-truncate oneline">
+						基于EasyIPCamera实现的数字网络摄像机IPCamera的模拟器IPC RTSP Simulator				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7402</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiejiashu/article/details/64924006" target="_blank" title="基于EasyIPCamera实现的数字网络摄像机IPCamera的模拟器IPC RTSP Simulator">
+							<span class="desc oneline">还记得去年在北京安博会上，看到一些厂家的展示台上，各种船舶、公路、车辆的高清视频直播，好奇这些数据是怎么接到现场的，现场成百上千家展台，不可能有那么大的带宽供应，细想数据肯定不是实时的，果然，盯着看了...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiejiashu">来自：	<span class="blog_title"> Babosa的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/arcgis_all/article/details/8200220,BlogCommendHotData_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/arcgis_all/article/details/8200220,BlogCommendHotData_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/arcgis_all/article/details/8200220" target="_blank" title="如何在ArcGIS Online中构建自己的应用程序模板初级篇-显示地图">
+				<h4 class="text-truncate oneline">
+						如何在ArcGIS Online中构建自己的应用程序模板初级篇-显示地图				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-21</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/arcgis_all/article/details/8200220" target="_blank" title="如何在ArcGIS Online中构建自己的应用程序模板初级篇-显示地图">
+							<span class="desc oneline">开发ArcGIS Online应用程序模板之前，需要了解怎么使用ArcGIS API for JavaScript。
+    在ArcGIS Online当中如何构架自己的应用程序模板，我们得先要了...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/arcgis_all">来自：	<span class="blog_title"> ArcGIS产品与技术专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hankaibo/article/details/19705205,BlogCommendHotData_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hankaibo/article/details/19705205,BlogCommendHotData_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hankaibo/article/details/19705205" target="_blank" title="JSP/Servlet环境配置">
+				<h4 class="text-truncate oneline">
+						JSP/Servlet环境配置				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6720</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hankaibo/article/details/19705205" target="_blank" title="JSP/Servlet环境配置">
+							<span class="desc oneline">下载安装JDK并配置环境变量
+这里我下载安装的是jdk-7u51-windows-i586，如果你没有请到Oracle官网下载；
+【我的电脑】-【高级系统设置】-【环境变量】-系统变量中的Path添加...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/hankaibo">来自：	<span class="blog_title"> hankaibo</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/themagickeyjianan/article/details/52386981,BlogCommendHotData_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/themagickeyjianan/article/details/52386981,BlogCommendHotData_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/themagickeyjianan/article/details/52386981" target="_blank" title="python图片处理类之~PIL.Image模块(ios android icon图标自动生成处理)">
+				<h4 class="text-truncate oneline">
+						python图片处理类之~PIL.Image模块(ios android icon图标自动生成处理)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-31</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/themagickeyjianan/article/details/52386981" target="_blank" title="python图片处理类之~PIL.Image模块(ios android icon图标自动生成处理)">
+							<span class="desc oneline">1.从pyCharm提示下载PIL包
+
+ http://www.pythonware.com/products/pil/
+
+ 
+
+2.解压后，进入到目录下
+
+
+cd /Users/jianan/Dow...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/themagickeyjianan">来自：	<span class="blog_title"> 专注于cocos+unity+服务器全栈</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+				<h4 class="text-truncate oneline">
+						expat介绍文档翻译				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+							<span class="desc oneline">原文地址：http://www.xml.com/pub/a/1999/09/expat/index.html
+
+
+因为需要用，所以才翻译了这个文档。但总归赖于英语水平很有限，翻译出来的中文有可能...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ymj7150697">来自：	<span class="blog_title"> ymj7150697的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/dongcheng_/article/details/84624789,BlogCommendHotData_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/dongcheng_/article/details/84624789,BlogCommendHotData_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/dongcheng_/article/details/84624789" target="_blank" title="pandas某一列中每一行拆分成多行的方法">
+				<h4 class="text-truncate oneline">
+						pandas某一列中每一行拆分成多行的方法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1195</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/dongcheng_/article/details/84624789" target="_blank" title="pandas某一列中每一行拆分成多行的方法">
+							<span class="desc oneline">在处理数据过程中，常会遇到将一条数据拆分成多条，比如一个人的地址信息中，可能有多条地址，既有家庭地址也有工作地址，还有电话信息等等类似的情况，实际使用数据的时候又需要分开处理，这个时候就需要将这一条数...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/dongcheng_">来自：	<span class="blog_title"> dongcheng 的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lk_blog/article/details/8007777,BlogCommendHotData_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lk_blog/article/details/8007777,BlogCommendHotData_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lk_blog/article/details/8007777" target="_blank" title="配置简单功能强大的excel工具类搞定excel导入导出工具类(一)">
+				<h4 class="text-truncate oneline">
+						配置简单功能强大的excel工具类搞定excel导入导出工具类(一)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lk_blog/article/details/8007777" target="_blank" title="配置简单功能强大的excel工具类搞定excel导入导出工具类(一)">
+							<span class="desc oneline">对于J2EE项目导入导出Excel是最普通和实用功能,本工具类使用步骤简单,功能强大,只需要对实体类进行简单的注解就能实现导入导出功能,导入导出操作的都是实体对象.
+请看一下这个类都有哪些功能:
+  ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lk_blog">来自：	<span class="blog_title"> 李坤 大米时代 第五期</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhanglong_web/article/details/78649717,BlogCommendHotData_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhanglong_web/article/details/78649717,BlogCommendHotData_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhanglong_web/article/details/78649717" target="_blank" title="vue移动端flexible.js结合Muse-ui使用的小坑">
+				<h4 class="text-truncate oneline">
+						vue移动端flexible.js结合Muse-ui使用的小坑				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhanglong_web/article/details/78649717" target="_blank" title="vue移动端flexible.js结合Muse-ui使用的小坑">
+							<span class="desc oneline">因为公司有个项目有webapp的需求，在前期准备的期间考虑过使用ionic，毕竟该项目web端的框架使用的是Angular，项目组的人也都比较熟悉，但是我们毕竟只是做个移动的网页，不想用ionic那么...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhanglong_web">来自：	<span class="blog_title"> zhangl的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+				<h4 class="text-truncate oneline">
+						DirectX修复工具增强版				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							195万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+							<span class="desc oneline">最后更新：2018-12-20
+
+DirectX修复工具最新版：DirectX Repair V3.8 增强版  NEW!
+
+版本号：V3.8.0.11638
+
+大小: 107MB/7z格式压缩，18...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/VBcom">来自：	<span class="blog_title"> VBcom的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010258235/article/details/45666851,BlogCommendHotData_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010258235/article/details/45666851,BlogCommendHotData_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010258235/article/details/45666851" target="_blank" title="C语言函数操作大全----(超详细)">
+				<h4 class="text-truncate oneline">
+						C语言函数操作大全----(超详细)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010258235/article/details/45666851" target="_blank" title="C语言函数操作大全----(超详细)">
+							<span class="desc oneline">fopen（打开文件）
+相关函数 open，fclose
+表头文件 #include
+定义函数 FILE * fopen(const char * path,const char * mode)...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010258235">来自：	<span class="blog_title"> 独旅天涯</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yang_lover/article/details/45057181,BlogCommendHotData_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yang_lover/article/details/45057181,BlogCommendHotData_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yang_lover/article/details/45057181" target="_blank" title="避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新">
+				<h4 class="text-truncate oneline">
+						避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yang_lover/article/details/45057181" target="_blank" title="避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新">
+							<span class="desc oneline">1、问题症状描述
+      最近在处理一个新需求问题，代码的大致逻辑是获取一个实体对象，调用该对象的set方法设置其中的某些字段，然后把修改后的实体作为参数供其他地方调用，根据返回值来决定是否更新这...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yang_lover">来自：	<span class="blog_title"> Mr_Alex</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u011860731/article/details/48733073,BlogCommendHotData_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u011860731/article/details/48733073,BlogCommendHotData_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u011860731/article/details/48733073" target="_blank" title="ThreadLocal的设计理念与作用">
+				<h4 class="text-truncate oneline">
+						ThreadLocal的设计理念与作用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u011860731/article/details/48733073" target="_blank" title="ThreadLocal的设计理念与作用">
+							<span class="desc oneline">Java中的ThreadLocal类允许我们创建只能被同一个线程读写的变量。因此，如果一段代码含有一个ThreadLocal变量的引用，即使两个线程同时执行这段代码，它们也无法访问到对方的Thread...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u011860731">来自：	<span class="blog_title"> u011860731的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u011068702/article/details/48786525,BlogCommendHotData_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u011068702/article/details/48786525,BlogCommendHotData_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u011068702/article/details/48786525" target="_blank" title="Git的理解和使用">
+				<h4 class="text-truncate oneline">
+						Git的理解和使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-28</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3497</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u011068702/article/details/48786525" target="_blank" title="Git的理解和使用">
+							<span class="desc oneline">Git介绍
+
+Git（the stupid content tracker）是一个源自Linux内核项目的源码管理工具。和传统的CVS、SVN不同，git是一个分布式源码管理工具。
+
+
+
+
+Git命令...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u011068702">来自：	<span class="blog_title"> No talent but persistence</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pyx61198/article/details/52298037,BlogCommendHotData_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pyx61198/article/details/52298037,BlogCommendHotData_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pyx61198/article/details/52298037" target="_blank" title="GIS算法--已知一点经纬度，方位角，距离求另一点">
+				<h4 class="text-truncate oneline">
+						GIS算法--已知一点经纬度，方位角，距离求另一点				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8714</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pyx61198/article/details/52298037" target="_blank" title="GIS算法--已知一点经纬度，方位角，距离求另一点">
+							<span class="desc oneline">已知一个点A的经纬度坐标，点B相对与A的方位角，B到A的距离，求B的经纬度坐标，用Javascript语言来完成该算法，借用了一下openL
+
+
+
+CommonFunc.caculate={
+    ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pyx61198">来自：	<span class="blog_title"> 夕颜的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012667477/article/details/80940578,BlogCommendHotData_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012667477/article/details/80940578,BlogCommendHotData_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012667477/article/details/80940578" target="_blank" title="微信小程序调用微信支付接口">
+				<h4 class="text-truncate oneline">
+						微信小程序调用微信支付接口				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6645</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012667477/article/details/80940578" target="_blank" title="微信小程序调用微信支付接口">
+							<span class="desc oneline">
+前言：应项目要求，需要使用微信小程序做支付，写完后告知手续费太高方案不予通过（宝宝心里苦，但宝宝不说）。此次开发在因站在巨人的肩膀上顺利完成。
+
+
+微信支付文档传送门：https://pay.wei...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012667477">来自：	<span class="blog_title"> idwarf</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+				<h4 class="text-truncate oneline">
+						centos 查看命令源码				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+							<span class="desc oneline"># yum install yum-utils
+
+
+设置源:
+[base-src]
+name=CentOS-5.4 - Base src -
+baseurl=http://vault.ce...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/silentpebble">来自：	<span class="blog_title"> linux/unix</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/meng564764406/article/details/52444644,BlogCommendHotData_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/meng564764406/article/details/52444644,BlogCommendHotData_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/meng564764406/article/details/52444644" target="_blank" title="将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化">
+				<h4 class="text-truncate oneline">
+						将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/meng564764406/article/details/52444644" target="_blank" title="将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化">
+							<span class="desc oneline">本篇文章是根据我的上篇博客，给出的改进版，由于时间有限，仅做了一个简单的优化。相关文章：将excel导入数据库2018年4月1日，新增下载地址链接：点击打开源码下载地址十分抱歉，这个链接地址没有在这篇...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/meng564764406">来自：	<span class="blog_title"> Lynn_Blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/nuli888/article/details/52135831,BlogCommendHotData_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/nuli888/article/details/52135831,BlogCommendHotData_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/nuli888/article/details/52135831" target="_blank" title="phpmailer使用qq邮箱、163邮箱成功发送邮件实例代码">
+				<h4 class="text-truncate oneline">
+						phpmailer使用qq邮箱、163邮箱成功发送邮件实例代码				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4923</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/nuli888/article/details/52135831" target="_blank" title="phpmailer使用qq邮箱、163邮箱成功发送邮件实例代码">
+							<span class="desc oneline">以前使用qq邮箱、163服务器发送邮件，帐号直接使用密码，现在不行了，得使用授权码，简单记录下
+1、首先开通POP3/SMTP服务，qq邮箱——帐号——设置，找到POP3/SMTP点开启，输入短信会有...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/nuli888">来自：	<span class="blog_title"> 爱代码也爱生活</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zxw136511485/article/details/52759378,BlogCommendHotData_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zxw136511485/article/details/52759378,BlogCommendHotData_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zxw136511485/article/details/52759378" target="_blank" title="Android OkHttp（一）初识">
+				<h4 class="text-truncate oneline">
+						Android OkHttp（一）初识				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							890</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zxw136511485/article/details/52759378" target="_blank" title="Android OkHttp（一）初识">
+							<span class="desc oneline">目前在Android开发中，开源的网络请求框架有Android-async-http  ，Volley，Okhttp等，这几种框架都是市面上主流的，每种都有各自的优点。今天主要来看看Okhttp。之前...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zxw136511485">来自：	<span class="blog_title"> zhangxiaowei</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendHotData_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendHotData_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+				<h4 class="text-truncate oneline">
+						linux上安装Docker(非常简单的安装方法)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							22万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+							<span class="desc oneline">最近比较有空，大四出来实习几个月了，作为实习狗的我，被叫去研究Docker了，汗汗！
+
+Docker的三大核心概念：镜像、容器、仓库
+镜像：类似虚拟机的镜像、用俗话说就是安装文件。
+容器：类似一个轻量...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_36892341">来自：	<span class="blog_title"> 我走小路的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/maoyuanming0806/article/details/78067446,BlogCommendHotData_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/maoyuanming0806/article/details/78067446,BlogCommendHotData_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+				<h4 class="text-truncate oneline">
+						搭建图片服务器《二》-linux安装nginx				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+							<span class="desc oneline">nginx是个好东西，Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambl...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/maoyuanming0806">来自：	<span class="blog_title"> maoyuanming0806的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+				<h4 class="text-truncate oneline">
+						强连通分量及缩点tarjan算法解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							59万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+							<span class="desc oneline">强连通分量：
+简言之 就是找环（每条边只走一次，两两可达）
+孤立的一个点也是一个连通分量 
+ 
+使用tarjan算法 在嵌套的多个环中优先得到最大环( 最小环就是每个孤立点）
+ 
+定义：
+int Ti...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq574857122">来自：	<span class="blog_title"> 九野的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+				<h4 class="text-truncate oneline">
+						关于SpringBoot bean无法注入的问题（与文件包位置有关）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							18万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+							<span class="desc oneline">问题场景描述整个项目通过Maven构建，大致结构如下：
+核心Spring框架一个module spring-boot-base
+service和dao一个module server-core
+提供系统...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/gefangshuai">来自：	<span class="blog_title"> 开发随笔</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_24693837/article/details/70335491,BlogCommendHotData_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_24693837/article/details/70335491,BlogCommendHotData_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_24693837/article/details/70335491" target="_blank" title="Java中BIO、NIO和AIO的区别和应用场景">
+				<h4 class="text-truncate oneline">
+						Java中BIO、NIO和AIO的区别和应用场景				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-21</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_24693837/article/details/70335491" target="_blank" title="Java中BIO、NIO和AIO的区别和应用场景">
+							<span class="desc oneline">最近一直在准备面试，为了使自己的Java水平更上一个档次，拜读了李林峰老师的《Netty权威指南》，了解了Java关于IO的发展和最新的技术，真是受益匪浅，现在把我总结的关于BIO、NIO和AIO的区...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_24693837">来自：	<span class="blog_title"> 我的编程世界</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+				<h4 class="text-truncate oneline">
+						jquery/js实现一个网页同时调用多个倒计时(最新的)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							46万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+							<span class="desc oneline">jquery/js实现一个网页同时调用多个倒计时(最新的)
+
+最近需要网页添加多个倒计时. 查阅网络,基本上都是千遍一律的不好用. 自己按需写了个.希望对大家有用. 有用请赞一个哦!
+
+
+
+//js
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wuchengzeng">来自：	<span class="blog_title"> Websites</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/li346985170/article/details/26268525,BlogCommendHotData_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/li346985170/article/details/26268525,BlogCommendHotData_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/li346985170/article/details/26268525" target="_blank" title="tomcat将jsp转成java后的文件位置">
+				<h4 class="text-truncate oneline">
+						tomcat将jsp转成java后的文件位置				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1675</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/li346985170/article/details/26268525" target="_blank" title="tomcat将jsp转成java后的文件位置">
+							<span class="desc oneline">1.tomcat\work\Catalina\localhost\test\org\apache\jsp</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/li346985170">来自：	<span class="blog_title"> li346985170的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/NYS001/article/details/12637201,BlogCommendHotData_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/NYS001/article/details/12637201,BlogCommendHotData_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/NYS001/article/details/12637201" target="_blank" title="蜂窝小区最短距离的坐标系解法">
+				<h4 class="text-truncate oneline">
+						蜂窝小区最短距离的坐标系解法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/NYS001/article/details/12637201" target="_blank" title="蜂窝小区最短距离的坐标系解法">
+							<span class="desc oneline">如下图所示，蜂窝小区，以1为中心，顺时针编号，编号最大限定为100000。求任意两编号之间的最短距离。两个相邻小区的距离为1 示例：19到30的最短距离为5 实现如下三个接口： /**********...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/NYS001">来自：	<span class="blog_title"> NYS001的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendHotData_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendHotData_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+				<h4 class="text-truncate oneline">
+						SNMP协议详解&lt;二&gt;				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							13万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+							<span class="desc oneline">上一篇文章讲解了SNMP的基本架构，本篇文章将重点分析SNMP报文，并对不同版本（SNMPv1、v2c、v3）进行区别！
+
+四、SNMP协议数据单元
+
+在SNMP管理中，管理站（NMS）和代理（Age...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yu_xiaofei">来自：	<span class="blog_title"> 假装在纽约</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/makeprogresszb/article/details/17219411,BlogCommendHotData_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/makeprogresszb/article/details/17219411,BlogCommendHotData_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/makeprogresszb/article/details/17219411" target="_blank" title="oracle数据库导出ORA-39127错误解决方案">
+				<h4 class="text-truncate oneline">
+						oracle数据库导出ORA-39127错误解决方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6085</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/makeprogresszb/article/details/17219411" target="_blank" title="oracle数据库导出ORA-39127错误解决方案">
+							<span class="desc oneline">错误类型及描述:
+expdp 导出表在表分析是开始出现报错。
+ORA-39127: unexpected error from call to export_string :=SYS.DBMS_A...</span>
+						</a>
+						  <span class="blog_title_box oneline no-title">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+        <div class="recommend-item-box type_hot_word">
+            <div class="content clearfix">
+        <div class="word float-left">
+                          <span>
+            <a href="https://edu.csdn.net/courses/o5329_s5330_k " target="_blank">
+            机器学习教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o319_s339_l0_t " target="_blank">
+            DB2视频教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o7146_s7148_k " target="_blank">
+            渗透测试教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o408_s5075_l0_t " target="_blank">
+            运营管理视频教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o7115_s388_l0_t " target="_blank">
+            交互设计视频教程          </a></span>
+                        </div>
+      </div>
+                  <div class="content clearfix">
+        <div class="float-left">
+                  <span>
+            <a href="https://www.csdn.net/gather_1a/MtjaEg4sMDU2My1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            ios获取idfa</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_10/MtTaYgwsNzkyMS1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            server的安全控制模型是什么 sql</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_12/MtTakgxsODg1Ni1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            android title搜索</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_11/MtjaIgwsNzk3Ni1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            ios 动态修改约束</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/MtTaEg3sMy1lZHUO0O0O.html" target="_blank">
+            最好的python教程</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/MtzaAgwsNC1lZHUO0O0O.html" target="_blank">
+            python最好的教程</a>
+          </span>
+                </div>
+      </div>
+          </div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/jnulzl">
+                <img src="https://avatar.csdn.net/8/4/B/3_jnulzl.jpg" class="avatar_pic">
+            </a>
+            
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/jnulzl" target="_blank" class="" id="uid">jnulzl</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="38">
+                        <dt><a href="https://blog.csdn.net/jnulzl?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/jnulzl?t=1"><span class="count">38</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="141">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">141</span></dd>
+        </dl>
+        <dl class="text-center" title="67">
+            <dt>喜欢</dt>
+            <dd><span class="count">67</span></dd>
+        </dl>
+        <dl class="text-center" title="69">
+            <dt>评论</dt>
+            <dd><span class="count">69</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="506199">
+                50万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="3757">
+                3757            </dd>
+        </dl>
+        <dl title="14242">
+            <dt>排名：</dt>
+            <dd>1万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+        <div class="badge d-flex">
+                              <div class="icon-badge" title="持之以恒">
+              <div class="mouse-box">
+                  <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#csdnc-m-lasting"></use>
+                  </svg>
+                  <div class="icon-arrow"></div>
+              </div>
+              <div class="grade-detail-box">
+                  <div class="pos-box">
+                      <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                          <svg class="icon" aria-hidden="true">
+                              <use xlink:href="#csdnc-m-lasting"></use>
+                          </svg>
+                          <p>持之以恒</p>
+                      </div>
+                      <div class="right-box d-flex justify-content-center align-items-center">
+                          授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                      </div>
+                  </div>
+              </div>
+          </div>
+                                                                                          </div>
+        <script>
+            (function ($) {
+                setTimeout(function(){
+                    $('div.icon-badge.show-moment').removeClass('show-moment');
+                }, 5000);
+            })(window.jQuery)
+        </script>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_56" data-pid="56" data-track-view='{"mod":"kp_popu_56-876","con":",,"}' data-track-click='{"mod":"kp_popu_56-876","con":",,"}'><!-- 广告位：PC-博客内页左上视窗 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '6096221',
+        container: s,
+        size: '300,250',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+<script src="//dup.baidustatic.com/js/os.js"></script></div>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jnulzl/article/details/80907411" target="_blank">terminate called after throwing an instance of 'std::runtime_error'的解决方法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jnulzl/article/details/80775774" target="_blank">Xshell配置ssh免密码登录-密钥公钥(Public key)与私钥(Private Key)登录【已成功实例】</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jnulzl/article/details/80510864" target="_blank">C/C++随机生成[0,N-1]的序列</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jnulzl/article/details/79209695" target="_blank">Implement L2 Normalization Layer in Caffe</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/jnulzl/article/details/79184688" target="_blank">Hungarian algorithm(匈牙利算法)</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5634263">
+                    <span class="title oneline">Armadillo</span>
+                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5662923">
+                    <span class="title oneline">R</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5662925">
+                    <span class="title oneline">matlab</span>
+                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5680789">
+                    <span class="title oneline">opencv</span>
+                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5680791">
+                    <span class="title oneline">python</span>
+                    <span class="count float-right">14篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5757553">
+                    <span class="title oneline">C/C++</span>
+                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5789505">
+                    <span class="title oneline">c#</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5805967">
+                    <span class="title oneline">ubuntu</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5810107">
+                    <span class="title oneline">kinect</span>
+                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/5814103">
+                    <span class="title oneline">EmguCV</span>
+                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/6233834">
+                    <span class="title oneline">Deep-Learn</span>
+                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/6412493">
+                    <span class="title oneline">程序设计</span>
+                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/6478531">
+                    <span class="title oneline">数据结构</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/jnulzl/article/category/7434009">
+                    <span class="title oneline">Deep Learing</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2018/01">
+                    2018年1月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2017/04">
+                    2017年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2017/02">
+                    2017年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/10">
+                    2016年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/09">
+                    2016年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/07">
+                    2016年7月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2016/02">
+                    2016年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2015/12">
+                    2015年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2015/11">
+                    2015年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2015/09">
+                    2015年9月                    <span class="count float-right">9篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2015/08">
+                    2015年8月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/jnulzl/article/month/2015/07">
+                    2015年7月                    <span class="count float-right">20篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/jnulzl/article/details/51440055">利用卷积神经网络(CNN)提取图像特征</a>
+					<p class="read">阅读数 <span>83744</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jnulzl/article/details/52077915">Caffe  for Python 官方教程(翻译)</a>
+					<p class="read">阅读数 <span>49516</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jnulzl/article/details/49894041">史上最好的LDA(线性判别分析)教程</a>
+					<p class="read">阅读数 <span>38859</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jnulzl/article/details/51170859">MATLAB中调用Python</a>
+					<p class="read">阅读数 <span>26571</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/jnulzl/article/details/47056937">openCV—Python(4)——	基本绘图</a>
+					<p class="read">阅读数 <span>20663</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jnulzl/article/details/49894041#comments">史上最好的LDA(线性判别分析)教程</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/vbirdbest" class="user-name" target="_blank">vbirdbest：</a>666                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jnulzl/article/details/46930091#comments">Armadillo C++ lin...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/aaa550624898aaa" class="user-name" target="_blank">aaa550624898aaa：</a>[code=cpp]
+#include &lt;iostream&gt;
+#include &lt;armadillo&gt;
+using namespace arma;
+int main()
+{
+    //矩阵的各行各列最大值
+    mat A = randu&lt;mat&gt;(3, 3)*10;
+    A.print(&quot;矩阵A:\n&quot;);
+    colvec B = max(A,1);//1表示行，0表示列
+    B.print(&quot;矩阵A各行最大值：\n&quot;);
+    rowvec C = max(A,0);//1表示行，0表示列
+    C.print(&quot;矩阵A各列最大值：\n&quot;);
+
+    system&amp;#40;&quot;pause&quot;&amp;#41;;
+    return 0;
+}
+[/code]
+
+CMakeFiles/ml.dir/main.cpp.o: In function `TLS wrapper function for arma::arma_rng_cxx11_instance':
+main.cpp:(.text._ZTWN4arma23arma_rng_cxx11_instanceE[_ZTWN4arma23arma_rng_cxx11_instanceE]+0x5): undefined reference to `TLS init function for arma::arma_rng_cxx11_instance'
+main.cpp:(.text._ZTWN4arma23arma_rng_cxx11_instanceE[_ZTWN4arma23arma_rng_cxx11_instanceE]+0x15): undefined reference to `arma::arma_rng_cxx11_instance'
+
+请问这是什么问题呢？是库没安装好吗                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jnulzl/article/details/49894041#comments">史上最好的LDA(线性判别分析)教程</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/weixin_44857764" class="user-name" target="_blank">weixin_44857764：</a>请问最后的正态分布怎么做出来的                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jnulzl/article/details/49894041#comments">史上最好的LDA(线性判别分析)教程</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/hulutadie" class="user-name" target="_blank">hulutadie：</a>xuexile                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/jnulzl/article/details/51170859#comments">MATLAB中调用Python</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/weixin_42035574" class="user-name" target="_blank">weixin_42035574：</a>I read your explanations about calling Python files into MATLAB. I am working on algorithms to detect communities. I have succeeded in designing the algorithm with MATLAB but I need a Modularity-Density function tool to help me aggregate properly the quality of the discovered communities. I found this tool is only implemented in Python and not in MATALB. Is it possible for me to call this file into MATLAB and use it to calculate the qualities of the communities I have discovered with MATLAB? Thanks                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57" data-track-view='{"mod":"kp_popu_57-77","con":",,"}' data-track-click='{"mod":"kp_popu_57-77","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3163270",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<script>
+    var recommendCount = 79;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 16;
+    var articleId = "49894041";
+    var commentscount = 9;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/jnulzl/article/details/49894041";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "史上最好的LDA(线性判别分析)教程 - jnulzl的专栏";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["\u53f2\u4e0a","\u6700\u597d","lda","\u7ebf\u6027\u5224\u522b\u5206\u6790","\u6559\u7a0b"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [];
+	var articleType = 2;
+	var CopyrightContent = '';
+    var current_user_name = 'sinat_31299297';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201811201455'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+</body>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-3bc59f8f2b.js" /></script>
+	
+	<!-- <script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/markdownCopy-5c7fa7386e.js" /></script> -->
+
+
+<script src="//g.csdnimg.cn/??login-box/1.0.5/login-box.js,login-box/1.0.5/login-auto.js?t=20190307095522"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-e6b3fe420a.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-f5cc680b48.min.js"></script>
+
+	<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-f532d61321.min.js"></script>
+
+<script src="//g.csdnimg.cn/baidu-search/1.0.0/baidu-search.js"  type="text/javascript"></script>
+
+
+<!-- <script type="text/javascript" src="//g.csdnimg.cn/check-adb/1.0.2/check-adb.js"></script> -->
+
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+    </script>
+<script src="https://gh.bdstatic.com/static/gh/js/sdk/bword.min.js"></script>
+</html>

@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Reptile: A Scalable Meta-Learning Algorithm</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" type="text/css" href="/assets/styles/all.css?v=955f43d28c" />
+  
+  <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+    <link rel="canonical" href="https://openai.com/blog/reptile/" />
+    <meta name="referrer" content="no-referrer-when-downgrade" />
+    
+    <meta property="og:site_name" content="OpenAI" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Reptile: A Scalable Meta-Learning Algorithm" />
+    <meta property="og:description" content="We&#x27;ve developed a simple meta-learning algorithm called Reptile which works by
+repeatedly sampling a task, performing stochastic gradient descent on it, and
+updating the initial parameters towards the final parameters learned on that
+task. Reptile is the application of the Shortest
+[https://pdfs.semanticscholar.org/7257/eacd80458e70c74494eb1b6759b52ff21399.pdf] 
+ Descent [http://www.cnbc.cmu.edu/~plaut/thesis/plaut-thesis-ch7.relearning.pdf] 
+ algorithm to the meta-learning setting, and is mathe" />
+    <meta property="og:url" content="https://openai.com/blog/reptile/" />
+    <meta property="og:image" content="https://openai.com/content/images/2018/03/Screenshot-2018-03-07-12.04.49.png" />
+    <meta property="article:published_time" content="2018-03-07T17:06:01.000Z" />
+    <meta property="article:modified_time" content="2019-03-07T04:42:59.000Z" />
+    
+    <meta property="article:publisher" content="https://www.facebook.com/openai.research" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Reptile: A Scalable Meta-Learning Algorithm" />
+    <meta name="twitter:description" content="We&#x27;ve developed a simple meta-learning algorithm called Reptile which works by
+repeatedly sampling a task, performing stochastic gradient descent on it, and
+updating the initial parameters towards the final parameters learned on that
+task. Reptile is the application of the Shortest
+[https://pdfs.semanticscholar.org/7257/eacd80458e70c74494eb1b6759b52ff21399.pdf] 
+ Descent [http://www.cnbc.cmu.edu/~plaut/thesis/plaut-thesis-ch7.relearning.pdf] 
+ algorithm to the meta-learning setting, and is mathe" />
+    <meta name="twitter:url" content="https://openai.com/blog/reptile/" />
+    <meta name="twitter:image" content="https://openai.com/content/images/2018/03/Screenshot-2018-03-07-12.04.49.png" />
+    <meta name="twitter:label1" content="Written by" />
+    <meta name="twitter:data1" content="Alex Nichol" />
+    <meta name="twitter:label2" content="Filed under" />
+    <meta name="twitter:data2" content="" />
+    <meta name="twitter:site" content="@openai" />
+    <meta property="og:image:width" content="764" />
+    <meta property="og:image:height" content="290" />
+    
+    <script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "publisher": {
+        "@type": "Organization",
+        "name": "OpenAI",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://openai.com/content/images/2019/02/logo.png",
+            "width": 60,
+            "height": 60
+        }
+    },
+    "author": {
+        "@type": "Person",
+        "name": "Alex Nichol",
+        "url": "https://openai.com/blog/authors/alex/",
+        "sameAs": []
+    },
+    "headline": "Reptile: A Scalable Meta-Learning Algorithm",
+    "url": "https://openai.com/blog/reptile/",
+    "datePublished": "2018-03-07T17:06:01.000Z",
+    "dateModified": "2019-03-07T04:42:59.000Z",
+    "image": {
+        "@type": "ImageObject",
+        "url": "https://openai.com/content/images/2018/03/Screenshot-2018-03-07-12.04.49.png",
+        "width": 764,
+        "height": 290
+    },
+    "description": "We&#x27;ve developed a simple meta-learning algorithm called Reptile which works by\nrepeatedly sampling a task, performing stochastic gradient descent on it, and\nupdating the initial parameters towards the final parameters learned on that\ntask. Reptile is the application of the Shortest\n[https://pdfs.semanticscholar.org/7257/eacd80458e70c74494eb1b6759b52ff21399.pdf] \n Descent [http://www.cnbc.cmu.edu/~plaut/thesis/plaut-thesis-ch7.relearning.pdf] \n algorithm to the meta-learning setting, and is mathe",
+    "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://openai.com/"
+    }
+}
+    </script>
+
+    <script src="/public/ghost-sdk.min.js?v=955f43d28c"></script>
+<script>
+ghost.init({
+	clientId: "ghost-frontend",
+	clientSecret: "15131ca56980"
+});
+</script>
+    <meta name="generator" content="Ghost 2.21" />
+    <link rel="alternate" type="application/rss+xml" title="OpenAI" href="https://openai.com/blog/rss/" />
+    <style>
+.few-shot-container {
+    display: block;
+    margin: 0 auto 30px auto;
+}
+
+.few-shot-section-heading {
+    font-size: 18px;
+    font-weight: bold; /* v2: edited from `500` */
+    display: block;
+    margin-bottom: 15px;
+}
+
+.few-shot-container button {
+    position: absolute;
+    bottom: 0;
+
+    height: 35px;
+    margin: 0 !important;
+
+    background-color: #8e8e9c !important;
+    font-weight: bolder !important;
+}
+
+.few-shot-container-train-data, .few-shot-container-test-data {
+    position: relative;
+}
+
+@media (min-width: 501px) { /* v2: edited from `500px` */
+    .few-shot-container {
+        width: 481px;
+        height: 240px;
+    }
+
+    .few-shot-container::after {
+        content: ' ';
+        font-size: 0;
+        clear: both;
+        display: block;
+    }
+
+    .few-shot-container-train-data {
+        position: relative;
+        float: left;
+        width: 320px;
+        height: 100%;
+    }
+
+    .few-shot-container-test-data {
+        position: relative;
+        float: right;
+        width: 100px;
+        height: 100%;
+    }
+
+    .few-shot-separator {
+        float: left;
+        width: 1px;
+        height: 100%;
+        background-color: #ddd;
+        margin: 0 30px;
+    }
+}
+
+@media (max-width: 500px) {
+    .few-shot-container {
+        width: 320px;
+    }
+
+    .few-shot-container-train-data {
+        float: none;
+        width: 100%;
+        height: 240px;
+    }
+
+    .few-shot-container-test-data {
+        float: none;
+        width: 100%;
+        height: auto;
+    }
+
+    .few-shot-container-test-data button {
+        left: 120px;
+        bottom: 35px;
+    }
+
+    .few-shot-separator {
+        float: none;
+        width: 100%;
+        height: 1px;
+        background-color: #ddd;
+        margin: 20px 0 10px 0;
+    }
+}
+
+.few-shot-cell {
+    display: inline-block;
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+
+    background-color: #f0f0f0;
+    border-radius: 3px;
+}
+
+/* TODO: this is a hack! */
+.few-shot-cell:nth-last-of-type(2) {
+    margin-right: 0;
+}
+
+.few-shot-cell-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.few-shot-cell-empty-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    line-height: 100px;
+    text-align: center;
+    font-size: 16px;
+
+    color: #999;
+
+    pointer-events: none;
+}
+
+.few-shot-predictions {
+    display: block;
+    width: 320px;
+    margin-top: -5px;
+}
+
+.few-shot-predictions::after {
+    content: ' ';
+    clear: both;
+    font-size: 0;
+    display: block;
+}
+
+.few-shot-predictions-disabled {
+    visibility: hidden;
+}
+
+.few-shot-predictions-row {
+    width: 100px;
+    margin-right: 10px;
+    float: left;
+}
+
+.few-shot-predictions-row:last-child {
+    margin-right: 0;
+}
+
+.few-shot-predictions-percent-label {
+    font-size: 16px;
+    position: relative;
+    top: -15px;
+}
+
+.few-shot-predictions-bar-container {
+    display: inline-block;
+
+    width: 100px;
+    height: 10px;
+    margin-bottom: 3px;
+
+    background-color: #f0f0f0;
+}
+
+.few-shot-predictions-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #8e8e9c;
+}
+
+.few-shot-predictions-row-active .few-shot-predictions-bar {
+    background-color: #a5d591;
+}
+
+.few-shot-predictions-row-active .few-shot-predictions-percent-label {
+    color: #6c9d85;
+}
+/* v2: copied from v1, with some edits */
+.few-shot-container button {
+  min-height: 35px;
+  width: auto;
+  display: inline-block;
+  padding: 0 15px;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  color: #fff;
+  font-size: 11px;
+  line-height: 13px;
+  text-align: center;
+  letter-spacing: 0.04rem;
+  text-transform: uppercase;
+  text-shadow: none;
+  border-radius: 3px;
+  border: .1em solid rgba(0,0,0,.05);
+  background: #5ba4e5;
+}
+</style>
+  <link rel="shortcut icon" href="/assets/images/favicon.ico">
+  <link rel="apple-touch-icon" href="/assets/images/favicon.png">
+</head>
+<body>
+  <main>
+    
+<article class="post" id="post-reptile">
+
+  <header
+  class="post-header"
+  >
+  <nav class="nav js-nav">
+  <div class="container">
+    <div class="nav-row row d-flex justify-content-between align-items-center">
+      <div class="col-2">
+        <a href="/" class="nav-symbol fade"><svg id="openai-symbol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51 51"><path d="M47.21,20.92a12.65,12.65,0,0,0-1.09-10.38A12.78,12.78,0,0,0,32.36,4.41,12.82,12.82,0,0,0,10.64,9a12.65,12.65,0,0,0-8.45,6.13,12.78,12.78,0,0,0,1.57,15A12.64,12.64,0,0,0,4.84,40.51a12.79,12.79,0,0,0,13.77,6.13,12.65,12.65,0,0,0,9.53,4.25A12.8,12.8,0,0,0,40.34,42a12.66,12.66,0,0,0,8.45-6.13A12.8,12.8,0,0,0,47.21,20.92ZM28.14,47.57a9.46,9.46,0,0,1-6.08-2.2l.3-.17,10.1-5.83a1.68,1.68,0,0,0,.83-1.44V23.69l4.27,2.47a.15.15,0,0,1,.08.11v11.8A9.52,9.52,0,0,1,28.14,47.57ZM7.72,38.85a9.45,9.45,0,0,1-1.13-6.37l.3.18L17,38.49a1.63,1.63,0,0,0,1.65,0L31,31.37V36.3a.17.17,0,0,1-.07.13L20.7,42.33A9.51,9.51,0,0,1,7.72,38.85Zm-2.66-22a9.48,9.48,0,0,1,5-4.17v12a1.62,1.62,0,0,0,.82,1.43L23.17,33.2,18.9,35.67a.16.16,0,0,1-.15,0L8.54,29.78A9.52,9.52,0,0,1,5.06,16.8ZM40.14,25,27.81,17.84l4.26-2.46a.16.16,0,0,1,.15,0l10.21,5.9A9.5,9.5,0,0,1,41,38.41v-12A1.67,1.67,0,0,0,40.14,25Zm4.25-6.39-.3-.18L34,12.55a1.64,1.64,0,0,0-1.66,0L20,19.67V14.74a.14.14,0,0,1,.06-.13L30.27,8.72a9.51,9.51,0,0,1,14.12,9.85ZM17.67,27.35,13.4,24.89a.17.17,0,0,1-.08-.12V13a9.51,9.51,0,0,1,15.59-7.3l-.3.17-10.1,5.83a1.68,1.68,0,0,0-.83,1.44Zm2.32-5,5.5-3.17L31,22.35v6.34l-5.49,3.17L20,28.69Z"/></svg></a>
+      </div>
+      <div class="col" hidden>
+        <a href="/" class="nav-wordmark fade"><svg id="openai-wordmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 180"><path d="M410.22,41.09c-13.75,0-23.57,4.7-28.39,13.59l-2.59,4.79V43.41h-22.4v97.85H380.4V83.05c0-13.91,7.55-21.89,20.73-21.89,12.56,0,19.76,7.76,19.76,21.31v58.79h23.56v-63C444.45,55,431.65,41.09,410.22,41.09ZM296,41.09c-27.79,0-45.06,17.33-45.06,45.25v13.74c0,26.83,17.42,43.51,45.45,43.51,18.74,0,31.88-6.88,40.15-21l-14.61-8.39c-6.11,8.15-15.86,13.19-25.54,13.19-14.19,0-22.67-8.76-22.67-23.44v-3.89h65.79V83.82c0-26-17.08-42.73-43.51-42.73Zm22.08,43.14H273.72V81.89c0-16.12,7.91-25,22.28-25,13.83,0,22.08,8.76,22.08,23.44ZM678.32,27.3V8.58H596.87V27.3h28.56v95.25H596.87v18.71h81.45V122.55H649.76V27.3ZM60.67,5.87c-36.39,0-59,22.68-59,59.18V84.79c0,36.51,22.6,59.18,59,59.18s59-22.67,59-59.18V65.05C119.66,28.55,97.05,5.87,60.67,5.87ZM95.33,86.14c0,24.24-12.63,38.15-34.66,38.15S26,110.38,26,86.14V63.7c0-24.24,12.63-38.15,34.66-38.15S95.32,39.46,95.32,63.7Zm98.31-45c-12.36,0-23.07,5.11-28.64,13.69l-2.54,3.9V43.41H140.07V174.93h23.55V127.3l2.53,3.74c5.3,7.85,15.65,12.55,27.68,12.55,20.31,0,40.8-13.28,40.8-42.93V84c0-21.35-12.63-42.91-41-42.91Zm17.44,58.4c0,15.77-9.2,25.57-24,25.57-13.8,0-23.44-10.35-23.44-25.18V85.23c0-15.06,9.72-25.57,23.63-25.57,14.7,0,23.83,9.8,23.83,25.57ZM509.55,8.63,462,141.26h23.9l9.1-28.44h54.65l.09.28,9,28.16h23.93L535.08,8.58Zm-8.67,85.52L522.32,27l21.23,67.07Z"/></svg></a>
+      </div>
+      <div class="col-auto">
+        <ul class="nav-items d-none d-desktop-flex justify-content-end small-caps">
+                        
+            <li class="nav-item">
+              <a class="fade" href="/about/">About</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="fade" href="/progress/">Progress</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="fade" href="/resources/">Resources</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="fade" href="/blog/">Blog</a>
+            </li>
+        </ul>
+        <button class="nav-toggle nav-toggle--open js-mobile-nav-open fade d-desktop-none"><svg id="mobile-nav-open" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,13H2a1,1,0,0,1,0-2H22a1,1,0,0,1,0,2Z"/><path d="M22,6H2A1,1,0,0,1,2,4H22a1,1,0,0,1,0,2Z"/><path d="M22,20H2a1,1,0,0,1,0-2H22a1,1,0,0,1,0,2Z"/></svg></button>
+      </div>
+    </div>
+  </div>
+</nav>
+<nav class="mobile-nav js-mobile-nav">
+  <div class="container">
+    <div class="nav-row row d-flex justify-content-between align-items-center">
+      <div class="col-2">
+      </div>
+      <div class="col-auto">
+        <button class="nav-toggle nav-toggle--close js-mobile-nav-close"><svg id="mobile-nav-close" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path id="Glyph" d="M19.77,5.63,13.41,12l6.36,6.37a1,1,0,0,1-1.41,1.41L12,13.41,5.63,19.77a1,1,0,0,1-1.44-1.39l0,0L10.58,12,4.21,5.63a1,1,0,0,1,0-1.42,1,1,0,0,1,1.41,0l0,0L12,10.58l6.37-6.37a1,1,0,0,1,1.41,0A1,1,0,0,1,19.77,5.63Z"/></svg></button>
+      </div>
+    </div>
+  </div>
+  <div class="container font-large">
+    <ul class="mt-0.25 small-caps">
+                
+          <li>
+            <a class="fade d-block py-0.75" href="/about/">About</a>
+          </li>
+          <hr>
+        
+          <li>
+            <a class="fade d-block py-0.75" href="/progress/">Progress</a>
+          </li>
+          <hr>
+        
+          <li>
+            <a class="fade d-block py-0.75" href="/resources/">Resources</a>
+          </li>
+          <hr>
+        
+          <li>
+            <a class="fade d-block py-0.75" href="/blog/">Blog</a>
+          </li>
+          <hr>
+      <li>
+        <a class="fade d-block py-0.75" href="/jobs/">Jobs</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+
+  
+  <hr class="hr-header mb-1 js-nav-fold">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 col-md-10 offset-md-1 col-xl-8 offset-xl-2 text-md-center last-child-mb-1">
+          <div class="xsmall-caps color-fg-40 mb-0.125">
+    <time datetime="2018-03-07">March 7, 2018</time> • 
+    <span class="reading-time inline-block">4 minute read</span>
+  </div>
+          <h1 class="balance-text mb-0.5">Reptile: A Scalable Meta-Learning Algorithm</h1>
+          <div class="post-excerpt medium-copy mb-0.5 color-fg-80 js-widow">
+      
+  </div>
+              </div>
+    </div>
+    <hr class="mb-1.5">
+  </div>
+
+  
+</header>
+
+  <section class="container">
+  <div class="row">
+    <section class="content">
+      <p>We've developed a simple meta-learning algorithm called Reptile which works by repeatedly sampling a task, performing stochastic gradient descent on it, and updating the initial parameters towards the final parameters learned on that task. Reptile is the application of the <a href="https://pdfs.semanticscholar.org/7257/eacd80458e70c74494eb1b6759b52ff21399.pdf">Shortest</a> <a href="http://www.cnbc.cmu.edu/~plaut/thesis/plaut-thesis-ch7.relearning.pdf">Descent</a> algorithm to the meta-learning setting, and is mathematically similar to <a href="#jump">first-order MAML</a> (which is a version of the well-known <a href="http://bair.berkeley.edu/blog/2017/07/18/learning-to-learn/">MAML</a> algorithm) that only needs black-box access to an optimizer such as SGD or Adam, with similar computational efficiency and performance.</p>
+<section class="btns">
+<a href="https://arxiv.org/abs/1803.02999" class="btn btn-padded icon-paper">Read paper</a>
+<a href="https://github.com/openai/supervised-reptile" class="btn btn-padded icon-code">View Code</a>
+</section>
+<p>Meta-learning is the process of learning how to learn. A meta-learning algorithm takes in a distribution of tasks, where each task is a learning problem, and it produces a quick learner — a learner that can generalize from a small number of examples. One well-studied meta-learning problem is few-shot classification, where each task is a classification problem where the learner only sees 1–5 input-output examples from each class, and then it must classify new inputs. Below, you can try out our interactive demo of 1-shot classification, which uses Reptile.</p>
+<figure class="few-shot-container mb-2"></figure>
+<div class="caption">
+  Try clicking the "Edit All" button, drawing three distinct shapes or symbols, then drawing one of them again in the input field on the right, and see how well Reptile can classify it. The first three drawings are the labelled examples: each drawing defines one of the classes. The final drawing represents the unknown example, and Reptile outputs the probabilities of it belonging to each of the classes.
+</div>
+<h2 id="howreptileworks">How Reptile Works</h2>
+<p>Like MAML, Reptile seeks an initialization for the parameters of a neural network, such that the network can be fine-tuned using a small amount of data from a new task. But while MAML unrolls and differentiates through the computation graph of the gradient descent algorithm, Reptile simply performs <a href="https://en.wikipedia.org/wiki/Stochastic_gradient_descent">stochastic gradient descent (SGD)</a> on each task in a standard way — it does not unroll a computation graph or calculate any second derivatives. This makes Reptile take less computation and memory than MAML. The pseudocode is as follows:</p>
+<div class="bg-fg-5 p-1 mb-1 rounded" style="overflow: auto; white-space: pre;">Initialize $\Phi$, the initial parameter vector
+<strong>for</strong> iteration $1,2,3,\dots$ <strong>do</strong>
+  Randomly sample a task $T$
+  Perform $k > 1$ steps of SGD on task $T$, starting with parameters $\Phi$, resulting in parameters $W$
+  Update: $\Phi \gets \Phi + \epsilon (W-\Phi)$
+<strong>end for</strong>
+Return $\Phi$
+</div>
+<p>As an alternative to the last step, we can treat \(\Phi  - W\) as a gradient and plug it into a more sophisticated optimizer like <a href="https://arxiv.org/abs/1412.6980">Adam</a>.</p>
+<p>It is at first surprising that this method works at all. If \(k=1\), this algorithm would correspond to &quot;joint training&quot; — performing SGD on the mixture of all tasks. While joint training can learn a useful initialization in some cases, it learns very little when zero-shot learning is not possible (e.g. when the output labels are randomly permuted). Reptile requires \(k&gt;1\), where the update depends on the higher-order derivatives of the loss function; as we show in the paper, this behaves very differently from \(k=1\) (joint training).</p>
+<p>To analyze why Reptile works, we approximate the update using a <a href="https://en.wikipedia.org/wiki/Taylor_series">Taylor series</a>. We show that the Reptile update maximizes the inner product between gradients of different minibatches from the same task, corresponding to improved generalization. This finding may have implications outside of the meta-learning setting for explaining the generalization properties of SGD. Our analysis suggests that Reptile and MAML perform a very similar update, including the same two terms with different weights.</p>
+<p>In our experiments, we show that Reptile and MAML yield similar performance on the <a href="https://github.com/brendenlake/omniglot">Omniglot</a> and <a href="https://arxiv.org/abs/1606.04080">Mini-ImageNet</a> benchmarks for few-shot classification. Reptile also converges to the solution faster, since the update has lower variance.</p>
+<p>Our analysis of Reptile suggests a plethora of different algorithms that we can obtain using different combinations of the SGD gradients. In the figure below, assume that we perform k steps of SGD on each task using different minibatches, yielding  gradients \(g_1, g_2, \dots, g_k\). The figure below shows the learning curves on Omniglot obtained by using each sum as the meta-gradient. \(g_2\) corresponds to first-order MAML, an algorithm proposed in the original MAML paper. Including more gradients yields faster learning, due to variance reduction. Note that simply using \(g_1\) (which corresponds to \(k=1\)) yields no progress as predicted for this task since zero-shot performance cannot be improved.<br>
+<img src="https://openai.com/content/images/2018/03/reptile-chart.png" alt="reptile-chart"></p>
+<h2 id="implementations">Implementations</h2>
+<p>Our implementation of Reptile is <a href="https://github.com/openai/supervised-reptile">available on GitHub</a>. It uses TensorFlow for the computations involved, and includes code for replicating the experiments on Omniglot and Mini-ImageNet. We're also releasing <a href="https://github.com/openai/supervised-reptile/tree/master/web">a smaller JavaScript implementation</a> that fine-tunes a model pre-trained with TensorFlow — we used this to create the above demo.</p>
+<p>Finally, here's a minimal example of few-shot regression, predicting a random sine wave from 10 \((x, y)\) pairs. This one uses PyTorch and fits in a gist:</p>
+<script src="https://gist.github.com/joschu/f503500cda64f2ce87c8288906b09e2d.js"></script>
+<hr>
+<p><a name="jump"></a><br>
+Several people have pointed out to us that first-order MAML and Reptile are more closely related than MAML and Reptile. These algorithms take different perspectives on the problem, but end up computing similar updates — and specifically, Reptile's contribution builds on the history of both Shortest Descent and avoiding second derivatives <a href="https://arxiv.org/abs/1606.04474">in</a> <a href="https://openreview.net/pdf?id=rJY0-Kcll">meta</a>-<a href="https://arxiv.org/pdf/1703.03400.pdf">learning</a>. We've since updated the first paragraph to reflect this.</p>
+
+    </section>
+  </div>
+</section>
+  <footer class="post-footer post-footer--authors container js-post-footer-authors">
+  <div data-order="0">
+    <hr>
+    <div class="row">
+      <div class="col">Authors</div>
+      <div class="col">
+        <span class="post-author"><a class="fade" href="/blog/authors/alex/">Alex Nichol</a></span><span class="post-author"><a class="fade" href="/blog/authors/john/">John Schulman</a></span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</article>
+  
+
+  </main>
+  <footer>
+  <div class="container mt-2 pb-0.5 pb-lg-1">
+    <hr class="hr-strong">
+    <nav class="py-0.5 color-fg-50 small-copy">
+      <div class="row">
+
+        <div class="col-12 col-md-10 mb-0.5 col-lg mb-lg-0">
+          <ul class="list-inline">
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/about/">About</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/progress/">Progress</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/resources/">Resources</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/blog/">Blog</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/charter/">Charter</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/jobs/">Jobs</a></li>
+            <li class="d-block d-sm-inline mb-0.125 mb-sm-0"><a class="fade d-block d-sm-inline" href="/press/">Press</a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 mt-n0.2 mt-sm-0 col-sm order-sm-last col-lg-2 order-lg-first">
+          <ul class="list-inline">
+            <li><a class="fade color-fg-40 footer-icon footer-icon--twitter" href="https://twitter.com/openai"><svg id="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 18"><path class="cls-1" d="M7.86,17.93a12.84,12.84,0,0,0,13-12.63V5.11c0-.19,0-.39,0-.58A9.52,9.52,0,0,0,23.15,2.2a9.58,9.58,0,0,1-2.63.71,4.59,4.59,0,0,0,2-2.5,9.25,9.25,0,0,1-2.91,1.1A4.63,4.63,0,0,0,16.29.08a4.55,4.55,0,0,0-4.58,4.5,4.46,4.46,0,0,0,.12,1A13.05,13.05,0,0,1,2.4.91a4.46,4.46,0,0,0,1.42,6,4.52,4.52,0,0,1-2.07-.57v.06a4.53,4.53,0,0,0,3.67,4.42A5,5,0,0,1,4.21,11a4.12,4.12,0,0,1-.86-.09A4.55,4.55,0,0,0,7.62,14,9.34,9.34,0,0,1,.85,15.9a13.17,13.17,0,0,0,7,2"/></svg></a></li>
+            <li><a class="fade color-fg-40 footer-icon footer-icon--facebook" href="https://www.facebook.com/openai.research"><svg id="facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M18.9,0H1.1A1.1,1.1,0,0,0,0,1.1V18.9A1.1,1.1,0,0,0,1.1,20h9.59V12.27H8.09v-3h2.6V7a3.64,3.64,0,0,1,3.88-4,22.73,22.73,0,0,1,2.33.12v2.7H15.31c-1.25,0-1.5.59-1.5,1.47V9.23h3l-.39,3H13.79V20H18.9A1.1,1.1,0,0,0,20,18.9h0V1.1A1.1,1.1,0,0,0,18.9,0Z"/></svg></a></li>
+          </ul>
+        </div>
+
+        <div class="col-12 col-sm-auto mt-1/3 mt-sm-n0.2">
+          <label hidden>Sign up for our newsletter</label>
+          <form method="post" action="/subscribe/" id="" class="subscribe-form">
+  <input class="confirm" type="hidden" name="confirm"  /><input class="location" type="hidden" name="location"  /><input class="referrer" type="hidden" name="referrer"  />
+
+  <div class="subscribe-input-wrap d-flex">
+    <input class="subscribe-email" type="email" name="email" placeholder="Sign up for our newsletter" /><button id="" class="subscribe-button btn fade font-large color-fg-50" type="submit"><div class="icon">right</div></button>
+  </div>
+
+  
+<script>
+    (function(g,h,o,s,t){
+        var buster = function(b,m) {
+            h[o]('input.'+b).forEach(function (i) {
+                i.value=i.value || m;
+            });
+        };
+        buster('location', g.location.href);
+        buster('referrer', h.referrer);
+    })(window,document,'querySelectorAll','value');
+</script>
+
+</form>
+
+
+        </div>
+
+      </div>
+    </nav>
+  </div>
+</footer>
+  <script type="text/javascript" src="/assets/scripts/main.js?v=955f43d28c"></script>
+  
+  <script>
+    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t,e){var n=document.createElement("script");n.type="text/javascript";n.async=!0;n.src="https://cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var a=document.getElementsByTagName("script")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=e};analytics.SNIPPET_VERSION="4.1.0";
+    analytics.load("6gG9RqmGss3RlZ1wdayfXrkImRHAx0hE");
+    analytics.page();
+    }}();
+  </script>
+  
+  
+  <script src="https://d4mucfpksywv.cloudfront.net/Reptile/few-shot.js"></script>
+</body>
+</html>

@@ -1,0 +1,2876 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/u014539580/article/details/78207537"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"Matplotlib库学习（一）plt.plot - u014539580的专栏"}'>
+    
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>Matplotlib库学习（一）plt.plot - u014539580的专栏 - CSDN博客</title>
+
+        
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-644ce532b7.min.css">
+            
+            <script type="application/ld+json">{"@context":"https:\/\/ziyuan.baidu.com\/contexts\/cambrian.jsonld","@id":"https:\/\/blog.csdn.net\/u014539580\/article\/details\/78207537","appid":"1563894916825412","title":"Matplotlib\u5e93\u5b66\u4e60\uff08\u4e00\uff09plt.plot - u014539580\u7684\u4e13\u680f","images":["https:\/\/img-blog.csdn.net\/20171011191048658?watermark\/2\/text\/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70\/gravity\/SouthEast","https:\/\/img-blog.csdn.net\/20171011191119859?watermark\/2\/text\/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70\/gravity\/SouthEast","https:\/\/img-blog.csdn.net\/20171011191131914?watermark\/2\/text\/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70\/gravity\/SouthEast"],"pubDate":"2019-04-21T21:52:05"}</script>
+        
+          <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-b379d80735.min.css">
+        <script type="text/javascript">
+        var username = "u014539580";
+        var userPermission = false;
+        var blog_address = "https://blog.csdn.net/u014539580";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "sinat_31299297";
+        var currentUserPermission = false;
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/u014539580/article/details/78207537"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "Matplotlib库学习（一）plt.plot - u014539580的专栏";
+        var articleID = "78207537";
+        
+        var nickName = "L花自飘零";
+        var isCorporate = false;
+        var subDomainBlogUrl = "https://blog.csdn.net/"
+        var digg_base_url = "https://blog.csdn.net/u014539580/phoenix/comment";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <script src="//g.csdnimg.cn/fixed-sidebar/1.1.3/fixed-sidebar.js" type="text/javascript"></script>
+    <!-- 新版上报 -->
+      <script src="//g.csdnimg.cn/track/1.2.4/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+
+    <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<div id="kp_box_476" data-pid="476" data-track-view='{"mod":"kp_popu_476-865","con":",,"}' data-track-click='{"mod":"kp_popu_476-865","con":",,"}'><script src="//csdnimg.cn/public/common/indexSuperise/1.0.3/indexSuperise.js?20190103190825"></script>
+<script>
+ window.csdn.indexSuperise({
+      smallMoveImg: '//img-ads.csdn.net/2019/201904041737196130.jpg',
+      bigMoveImg: '//img-ads.csdn.net/2019/201904041737454399.jpg',
+     link:'//j.youzan.com/MZVGx9',
+boxStyle:140,
+trackSuperId:476,
+smallMove:'notMove',  
+trackSId:865
+    });
+</script></div><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	// 容错处理
+	var NEWS_FEED = function(){}
+</script>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+			<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>	
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">Matplotlib库学习（一）plt.plot</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																									<span class="time">2017年10月11日 19:44:48</span>
+					<a class="follow-nickName" href="https://me.csdn.net/u014539580" target="_blank">L花自飘零</a>
+						<span class="read-count">阅读数：9230</span>
+						
+																															</div>
+				<div class="operating">
+									</div>
+			</div>
+		</div>
+	</div>
+	<article class="baidu_pl">
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<div class="article-copyright">
+                  					<svg class="icon" title="CSDN认证原创" aria-hidden="true" style="width:53px; height: 18px; vertical-align: -4px;">
+							<use xlink:href="#CSDN_Cert"></use>
+					</svg>
+                  					
+					版权声明：本文为博主原创文章，未经博主允许不得转载。					https://blog.csdn.net/u014539580/article/details/78207537				</div>
+								<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+								            <div id="content_views" class="markdown_views prism-atom-one-dark">
+							<!-- flowchart 箭头图标 勿删 -->
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+							<p>matplotlib库是python中实现数据处理与展示的非常优秀的类库 <br>
+它提供了超过100多种的图像处理和现实方法 <br>
+<a href="http://matplotlib.org/gallery.html" rel="nofollow">官网展示的一些样例</a> <br>
+matplotlib定义了各种可视化的类 <br>
+matplotlib.pyplot是绘制各种图形的命令子库，相当于快捷方式</p>
+
+<p>通常情况下我们使用它的别名plt <br>
+import matplotlib.pyplot as plt <br>
+一些常用方法： <br>
+<strong>plt.plot(x,y,format_string,**kwargs)</strong> <br>
+x轴数据，y轴数据，format_string控制曲线的格式字串 <br>
+format_string 由颜色字符，风格字符，和标记字符 <br>
+<img src="https://img-blog.csdn.net/20171011191048658?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20171011191119859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" title=""> <br>
+<img src="https://img-blog.csdn.net/20171011191131914?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdTAxNDUzOTU4MA==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述" title=""> <br>
+可以这样使用 <br>
+plt.plot([1,2,3,6],[4,5,8,1],’g-s’)  <br>
+**kwards： <br>
+color 颜色 <br>
+linestyle 线条样式 <br>
+marker 标记风格 <br>
+markerfacecolor 标记颜色 <br>
+markersize 标记大小 等等 <br>
+plt.plot([1,2,3,6],[4,5,8,1],’-s’,color = ‘#ff0000’)  <br>
+plt.plot([5,4,3,2,1]) <br>
+plt.plot([0,2,4,6,8],[5,8,6,3,1]) //传入两个列表时第一个列表为x轴的值</p>
+
+<p><strong>plt.axis([-1,10,0,6])   //axis 函数为x轴范围【-1，10】，y【0，6】</strong> <br>
+<strong>plt.ylabel(‘sdf’)</strong> <br>
+<strong>plt.savefig(‘test’,dpi=600) //图像保存，默认为png格式</strong> <br>
+<strong>plt.show()</strong> <br>
+<strong>plt.subplot(3,2,4)   // 将图像分割为3行，两列，选择第四个区域</strong></p>            </div>
+						<link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-258a4616f7.css" rel="stylesheet">
+                      </div>
+	</article>
+</div>
+
+  <div class="hide-article-box hide-article-pos text-center">
+    <div class="border"></div>
+          <a class="btn article-footer-btn" id="btn-readmore" data-track-view='{"mod":"popu_772","con":",https://blog.csdn.net/u014539580/article/details/78207537,"}' data-track-click='{"mod":"popu_772","con":",https://blog.csdn.net/u014539580/article/details/78207537,"}'>
+        展开阅读全文
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#csdnc-chevrondown"></use>
+        </svg>
+      </a>
+      </div>
+  
+  <script>
+  (function(){
+    function collection(){
+      if (currentUserName) {
+        var markObj = {};
+            markObj.imgUrl ='https://csdnimg.cn/release/phoenix/static_blog/images/appqr.png';
+        var markPrompt = (new window.csdn.publicPrompt).init(markObj);
+        var maeked = '您已经收藏过';
+        if (!$(this).hasClass("liked")) {
+          $.ajax({
+            url: 'https://my.csdn.net/my/favorite/do_add/2',
+            dataType: 'json',
+            type: 'POST',
+            xhrFields: {
+              withCredentials: true
+            },
+            data: {
+              title: articleTit,
+              url: 'https://blog.csdn.net/u014539580/article/details/78207537',
+              share: 1,
+              map_name: ''
+            },
+            success: function(data) {
+              
+              if (data.succ == 1) {
+                $('.btn-bookmark').addClass("liked");
+                $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                markPrompt.show({})
+                // alert('收藏成功,可以在个人中心查看我的收藏');
+              } else {
+                if (data.msg === "您已经收藏过") {
+                  $('.btn-bookmark').addClass("liked");
+                  $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                  markPrompt.show({
+                    titleStr: maeked
+                  })
+                }else{
+                  alert(data.msg);
+                  
+                }
+              }
+            }
+          });
+        } else {
+          markPrompt.show({
+            titleStr: maeked
+          })
+        }
+      } else {
+        window.csdn.loginBox.show();
+      }
+    }
+    function permissionCheck(dom){
+      var returnData = false;
+      switch (true) {
+        case currentUserPermission && userPermission:
+          clearReadMoreBtn(dom)
+          returnData = true;
+          break;
+        case userPermission:
+          dom.text('VIP阅读');
+          returnData = false;
+          break;
+        default:
+          
+      }
+      return returnData;
+    }
+    window.csdn = window.csdn ? window.csdn : {};
+    window.csdn.articleCollection = collection;
+    function clearReadMoreBtn(dom) {
+      if(userPermission && !(dom instanceof jQuery)) {
+        window.open('https://mall.csdn.net/vip_code?utm_source=brv')
+        return false;
+      }
+      dom = dom instanceof jQuery ? dom : $(this);
+      $("div.article_content").removeAttr("style");
+      dom.parent().remove();
+    }
+    function setArticleH(btnReadmore,posi){
+      var winH = $(window).height();
+      var articleBox = $("div.article_content");
+      var artH = articleBox.height();
+      if(artH > winH*posi){
+        articleBox.css({
+          'height':winH*posi+'px',
+          'overflow':'hidden'
+        })
+        btnReadmore.click(clearReadMoreBtn)
+      }else{
+        btnReadmore.parent().remove()
+      }
+    }
+    var btnReadmore = $("#btn-readmore");
+    $('.article-footer-bookmark-btn').click(window.csdn.articleCollection)
+    if(btnReadmore.length>0){
+      if (permissionCheck(btnReadmore)) {
+        return false;
+      }
+      if(currentUserName){
+        setArticleH(btnReadmore,3);
+      }else{
+        setArticleH(btnReadmore,0.5);
+      }
+    }else{
+      $('.hide-article-box').addClass('hide-article-style');
+    }
+  })()
+</script>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+<div class="tool-box" data-track-view='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,"}' >
+	<ul class="meau-list">
+		<li class="btn-like-box btn-like "  data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,liked"}'>
+			<a class="btn-like-a">
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<p>5</p>
+			</a>
+		</li>
+		<li class="">
+						<a class="btn-comments hover-box"  href="#commentBox" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,comments"}'>
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<p class="tool-comment-count">
+						2条评论
+				</p>
+			</a>
+		</li>
+		<li class="btn-bookmark-box">
+			<a class="btn-bookmark low-height hover-box" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,bookmark"}'>
+				<svg class="icon active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</a>
+		</li>
+		<li class="bdsharebuttonbox">
+			<div class="weixin-qr btn-comments low-height" >
+        <a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,weixinshare"}'></a>
+				<svg class="icon" aria-hidden="true">
+					<use xlink:href="#csdnc-share"></use>
+				</svg>
+				<span class="text">
+					分享
+				</span>
+			</div>
+		</li>
+		
+	    	    	    <li class="nextPage">
+	      <a class="btn-comments hover-box low-height" href="https://blog.csdn.net/u014539580/article/details/78247864" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,nextPage"}'>
+	        <span class="hover-show text text3">下一篇</span>
+	      </a>
+	    </li>
+	    
+    <li class="toc-container-box" id="liTocBox">
+      <button class="btn-toc low-height hover-box" data-track-click='{"mod":"popu_773","con":",https://blog.csdn.net/u014539580/article/details/78207537,toc"}'>
+        <span class="text">目录</span>
+      </button>
+      <div class="toc-container">
+        <div class="pos-box">
+          <div class="scroll-box">
+            <div class="toc-box"></div>
+          </div>
+        </div>
+        <div class="opt-box clearfix">
+          <button class="btn-opt prev nomore" title="向上">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-chevronup"></use>
+            </svg>
+          </button>
+          <div class="icon-arrow"></div>
+          <button class="btn-opt next">
+            <svg class="icon" aria-hidden="true">
+              <use xlink:href="#csdnc-chevrondown"></use>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </li>
+	</ul>
+</div>
+<div class="tool-Placeholder">
+  
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+        <div id="dmp_ad_58"><div id="kp_box_58" data-pid="58" data-track-view='{"mod":"kp_popu_58-731","con":",,"}' data-track-click='{"mod":"kp_popu_58-731","con":",,"}'><div style="width:100%;padding:1%;background:#fff;">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-hp-14-2i-8t+w5"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="2593991139"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="//me.csdn.net/sinat_31299297" target="_blank">
+				<img class="" src="https://avatar.csdn.net/E/D/B/3_sinat_31299297.jpg">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="78207537">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<button class="btn btn-sm btn-link-blue" id="btnMoreComment"></button>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/cjcrxzz/article/details/79627483,BlogCommendFromBaidu_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/cjcrxzz/article/details/79627483" target="_blank" title="Python的知识点 plt.plot()函数细节">
+				<h4 class="text-truncate oneline">
+						Python的知识点 <em>plt.plot</em>()函数细节				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/cjcrxzz/article/details/79627483" target="_blank" title="Python的知识点 plt.plot()函数细节">
+							<span class="desc oneline">1、plt.plot(x,y,format_string,**kwargs) 转自点击打开链接x轴数据，y轴数据，format_string控制曲线的格式字串 format_string由颜色字符，风...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/cjcrxzz">来自：	<span class="blog_title"> cjcrxzz的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhangleaimeiling/article/details/84898335,BlogCommendFromBaidu_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhangleaimeiling/article/details/84898335" target="_blank" title="plt.plot()函数_画图">
+				<h4 class="text-truncate oneline">
+						<em>plt.plot</em>()函数_画图				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							317</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhangleaimeiling/article/details/84898335" target="_blank" title="plt.plot()函数_画图">
+							<span class="desc oneline">plt.plot()函数</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhangleaimeiling">来自：	<span class="blog_title"> Kola_Abner</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/majinlei121/article/details/83994935,BlogCommendClickRateRank_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/majinlei121/article/details/83994935" target="_blank" title="python plt 画图">
+				<h4 class="text-truncate oneline">
+						python plt 画图				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2223</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/majinlei121/article/details/83994935" target="_blank" title="python plt 画图">
+							<span class="desc oneline">使用csv数据文件在百度网盘importpandasaspdunrate=pd.read_csv('unrate.csv')#pd.to_datetime()转换成日期格式，即由1948/1/1转换为...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/majinlei121">来自：	<span class="blog_title"> 恰同学少年的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_59" data-pid="59" data-track-view='{"mod":"kp_popu_59-78","con":",,"}' data-track-click='{"mod":"kp_popu_59-78","con":",,"}'><script type="text/javascript" src="//rabc1.iteye.com/production/res/rxjg.js?pkcgstj=jm"></script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qiurisiyu2016/article/details/80187177,BlogCommendFromBaidu_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qiurisiyu2016/article/details/80187177" target="_blank" title="python基础语法（二）——— plt的一些函数使用">
+				<h4 class="text-truncate oneline">
+						python基础语法（二）——— plt的一些函数使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qiurisiyu2016/article/details/80187177" target="_blank" title="python基础语法（二）——— plt的一些函数使用">
+							<span class="desc oneline">matplotlib1、plt.plot(x,y)plt.plot(x,y,format_string,**kwargs) x轴数据，y轴数据，format_string控制曲线的格式字串 forma...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qiurisiyu2016">来自：	<span class="blog_title"> qiurisiyu的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/detaswc/article/details/81086757,BlogCommendFromBaidu_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/detaswc/article/details/81086757" target="_blank" title="转：plt.plot的颜色">
+				<h4 class="text-truncate oneline">
+						转：<em>plt.plot</em>的颜色				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							759</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/detaswc/article/details/81086757" target="_blank" title="转：plt.plot的颜色">
+							<span class="desc oneline">转载请注明出处：http://www.cnblogs.com/darkknightzh/p/6117528.html参考网址：http://stackoverflow.com/questions/22...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/detaswc">来自：	<span class="blog_title"> detaswc的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/l1159015838/article/details/81216554,BlogCommendClickRateRank_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/l1159015838/article/details/81216554" target="_blank" title="plt">
+				<h4 class="text-truncate oneline">
+						plt				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							278</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/l1159015838/article/details/81216554" target="_blank" title="plt">
+							<span class="desc oneline">defdata_show(self,data_dict):print('-------趋势图------')date_list=[]sales_list=[]fork,vindata_dict.ite...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/l1159015838">来自：	<span class="blog_title"> l1159015838的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xijuezhu8128/article/details/79931760,BlogCommendClickRateRank_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xijuezhu8128/article/details/79931760" target="_blank" title="python 保存figure图片">
+				<h4 class="text-truncate oneline">
+						python 保存figure图片				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							897</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xijuezhu8128/article/details/79931760" target="_blank" title="python 保存figure图片">
+							<span class="desc oneline">1.在 plt.show() 之前调用 plt.savefig()；　　importmatplotlib.pyplot asplt　　&amp;quot;&amp;quot;&amp;quot;一些画图代码&amp;quot;&amp;qu...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xijuezhu8128">来自：	<span class="blog_title"> 闲哲的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Strive_For_Future/article/details/81264096,BlogCommendClickRateRank_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Strive_For_Future/article/details/81264096" target="_blank" title="python 读取并显示图片，用plt 同时显示多幅图像">
+				<h4 class="text-truncate oneline">
+						python 读取并显示图片，用plt 同时显示多幅图像				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-28</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Strive_For_Future/article/details/81264096" target="_blank" title="python 读取并显示图片，用plt 同时显示多幅图像">
+							<span class="desc oneline">##plt同时显示多幅图像importmatplotlib.pyplotaspltplt.figure()plt.subplot(1,2,1)plt.imshow(images[i])plt.subp...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Strive_For_Future">来自：	<span class="blog_title"> Strive_For_Future的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_60" data-pid="60" data-track-view='{"mod":"kp_popu_60-909","con":",,"}' data-track-click='{"mod":"kp_popu_60-909","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="1551928978"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37362454/article/details/81511427,BlogCommendClickRateRank_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/m0_37362454/article/details/81511427" target="_blank" title="【Python】 【绘图】plt.figure()的使用">
+				<h4 class="text-truncate oneline">
+						【Python】 【绘图】plt.figure()的使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/m0_37362454/article/details/81511427" target="_blank" title="【Python】 【绘图】plt.figure()的使用">
+							<span class="desc oneline">1.figure语法及操作(1)figure语法说明figure(num=None,figsize=None,dpi=None,facecolor=None,edgecolor=None,frameo...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/m0_37362454">来自：	<span class="blog_title"> m0_37362454的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_25948717/article/details/82724686,BlogCommendESEnWordWeight_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_25948717/article/details/82724686" target="_blank" title="Python--Matlibplot画图功能演示">
+				<h4 class="text-truncate oneline">
+						Python--Matlibplot画图功能演示				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1637</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_25948717/article/details/82724686" target="_blank" title="Python--Matlibplot画图功能演示">
+							<span class="desc oneline">Matplotlib是Python的一个绘图库。它包含了大量的工具，你可以使用这些工具创建各种图形，包括简单的散点图，正弦曲线，甚至是三维图形。使用之前先导入：#!/usr/bin/envpython...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_25948717">来自：	<span class="blog_title"> 从前慢</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+          <div class="recommend-item-box blog-expert-recommend-box">
+				<div class="d-flex">
+					<div class="blog-expert-recommend">
+						<div class="blog-expert">
+							<div class="blog-expert-flexbox"></div>
+						</div>
+					</div>
+				</div>
+      </div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/bihehongcha/article/details/78636222,BlogCommendFromBaidu_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/bihehongcha/article/details/78636222" target="_blank" title="matplotlib设置轴标签">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>设置轴标签				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7044</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/bihehongcha/article/details/78636222" target="_blank" title="matplotlib设置轴标签">
+							<span class="desc oneline">#-*-coding:utf-8-*-importnumpyasnpimportmatplotlib.pyplotaspltdefx_y_axis_labeling(x,y,x_label,y_lab...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/bihehongcha">来自：	<span class="blog_title"> Eng1ng的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/vvyuervv/article/details/62884787,BlogCommendFromBaidu_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/vvyuervv/article/details/62884787" target="_blank" title="pyplot 基础教程">
+				<h4 class="text-truncate oneline">
+						pyplot 基础教程				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							714</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/vvyuervv/article/details/62884787" target="_blank" title="pyplot 基础教程">
+							<span class="desc oneline">importmatplotlib.pyplotaspltplt.plot([1,2,3,4])plt.ylabel('ylabel_numbers')#设置Y轴标签plt.show()如果只提供给pl...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/vvyuervv">来自：	<span class="blog_title"> vvyuervv的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u013139259/article/details/52141863,BlogCommendFromBaidu_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u013139259/article/details/52141863" target="_blank" title="Python调用Matplotlib绘制分布点并且添加标签">
+				<h4 class="text-truncate oneline">
+						Python调用<em>Matplotlib</em>绘制分布点并且添加标签				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u013139259/article/details/52141863" target="_blank" title="Python调用Matplotlib绘制分布点并且添加标签">
+							<span class="desc oneline">添加标签的目的代码截图目的上文介绍了根据图像的大小作为坐标来绘制分布点图。老大又给了我一个任务，我绘制完，每次将图保存，发给她，但是图片中的点的坐标是不能显示了，所以她让我给每个点添加个label，而...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u013139259">来自：	<span class="blog_title"> 一个想要改变世界的IT slave的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_61" data-pid="61" data-track-view='{"mod":"kp_popu_61-903","con":",,"}' data-track-click='{"mod":"kp_popu_61-903","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gw-3+1f-3d+2z"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="7373664509"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhangqilong120/article/details/72633115,BlogCommendFromBaidu_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhangqilong120/article/details/72633115" target="_blank" title="python画图matplotlib的Legend（显示图中的标签）">
+				<h4 class="text-truncate oneline">
+						python画图<em>matplotlib</em>的Legend（显示图中的标签）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhangqilong120/article/details/72633115" target="_blank" title="python画图matplotlib的Legend（显示图中的标签）">
+							<span class="desc oneline">参考：http://blog.sina.com.cn/s/blog_b09d460201019c10.html官网：http://matplotlib.org/users/legend_guide.h...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhangqilong120">来自：	<span class="blog_title"> 来自西北的杨柳</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/liu13364876993/article/details/78980131,BlogCommendFromBaidu_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/liu13364876993/article/details/78980131" target="_blank" title="plt.imshow不显示图像">
+				<h4 class="text-truncate oneline">
+						plt.imshow不显示图像				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9841</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/liu13364876993/article/details/78980131" target="_blank" title="plt.imshow不显示图像">
+							<span class="desc oneline">plt.imshow()不显示图像？解决方法:在后面加一句：plt.show()原理：plt.imshow()函数负责对图像进行处理，并显示其格式，而plt.show()则是将plt.imshow()...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/liu13364876993">来自：	<span class="blog_title"> liu13364876993的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/claroja/article/details/70792880,BlogCommendFromGuangxin_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/claroja/article/details/70792880" target="_blank" title="Python matplotlib 线图(plt.plot())">
+				<h4 class="text-truncate oneline">
+						Python <em>matplotlib</em> 线图(<em>plt.plot</em>())				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/claroja/article/details/70792880" target="_blank" title="Python matplotlib 线图(plt.plot())">
+							<span class="desc oneline">pyplot.plot（）matplotlib.pyplot很像MATLAB。它的每一个函数都会对现有的图形进行更改：比如建立一个图形（figure），创建画图区域，在画图区域做出线条，使用标签装饰。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/claroja">来自：	<span class="blog_title"> Claroja</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/mmc2015/article/details/47746195,BlogCommendFromGuangxin_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/mmc2015/article/details/47746195" target="_blank" title="scikit-learn：matplotlib.pyplot常用画图功能总结（1）">
+				<h4 class="text-truncate oneline">
+						scikit-learn：<em>matplotlib</em>.pyplot常用画图功能总结（1）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/mmc2015/article/details/47746195" target="_blank" title="scikit-learn：matplotlib.pyplot常用画图功能总结（1）">
+							<span class="desc oneline">参考：http://matplotlib.org/api/pyplot_api.html1、matplotlib.pyplot.plot(*args, **kwargs)，最简单的沿坐标轴划线函数：下...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/mmc2015">来自：	<span class="blog_title"> mmc2015的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/JudasOk/article/details/80061544,BlogCommendFromGuangxin_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/JudasOk/article/details/80061544" target="_blank" title="关于plt.plot画图的一点心得">
+				<h4 class="text-truncate oneline">
+						关于<em>plt.plot</em>画图的一点心得				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2870</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/JudasOk/article/details/80061544" target="_blank" title="关于plt.plot画图的一点心得">
+							<span class="desc oneline">1.其实plt.plot(x,y)中的x和y既可以是list类型，又可以是array类型。2.当要把一个数组a的点画在图上，该如何求这个数组的横坐标呢？（注意，list和array都可以哦！）impo...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/JudasOk">来自：	<span class="blog_title"> JudasOk的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_62" data-pid="62" data-track-view='{"mod":"kp_popu_62-902","con":",,"}' data-track-click='{"mod":"kp_popu_62-902","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gw-3+1f-3d+2z"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="6440814649"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_29232389/article/details/82221814,BlogCommendFromGuangxin_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_29232389/article/details/82221814" target="_blank" title="plt.plot">
+				<h4 class="text-truncate oneline">
+						<em>plt.plot</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							942</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_29232389/article/details/82221814" target="_blank" title="plt.plot">
+							<span class="desc oneline">官网plot转载plot</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_29232389">来自：	<span class="blog_title"> 张行者</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/szfhy/article/details/82711067,BlogCommendFromGuangxin_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/szfhy/article/details/82711067" target="_blank" title="matplotlib 配置色彩点线样式网格及图列">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em> 配置色彩点线样式网格及图列				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							899</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/szfhy/article/details/82711067" target="_blank" title="matplotlib 配置色彩点线样式网格及图列">
+							<span class="desc oneline">色彩配置importmatplotlib.pyplotaspltimportnumpyasnpy=np.arange(5)plt.plot(y,color='g')plt.plot(y+1,color...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/szfhy">来自：	<span class="blog_title"> szfhy的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_33506160/article/details/78450530,BlogCommendFromQuerySearch_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_33506160/article/details/78450530" target="_blank" title="matplotlib函数库使用plot绘制线状图">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>函数库使用plot绘制线状图				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							530</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_33506160/article/details/78450530" target="_blank" title="matplotlib函数库使用plot绘制线状图">
+							<span class="desc oneline">#coding=utf-8importmatplotlib.pyplotaspltimportnumpyasnpx=np.linspace(0,1,50)y1=2*x+1y2=x**2plt.figu...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_33506160">来自：	<span class="blog_title"> Cyber</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u014474185/article/details/81749160,BlogCommendFromQuerySearch_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u014474185/article/details/81749160" target="_blank" title="Matplotlib学习笔记（一）：plot()函数">
+				<h4 class="text-truncate oneline">
+						<em>Matplotlib</em><em>学习</em>笔记（一）：plot()函数				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							410</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u014474185/article/details/81749160" target="_blank" title="Matplotlib学习笔记（一）：plot()函数">
+							<span class="desc oneline">Matplotlib学习笔记（一）：plot()函数</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u014474185">来自：	<span class="blog_title"> baodong</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36346262/article/details/79988404,BlogCommendFromQuerySearch_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_36346262/article/details/79988404" target="_blank" title="python的Matplotlib库入门学习总结">
+				<h4 class="text-truncate oneline">
+						python的<em>Matplotlib</em>库入门<em>学习</em>总结				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							895</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_36346262/article/details/79988404" target="_blank" title="python的Matplotlib库入门学习总结">
+							<span class="desc oneline">　Matplotlib库是python中的功能全面的画图库，其基本用法如下：基本的plot函数用法如下：importmatplotlib.pyplotaspltplt.plot(x,y,format_...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_36346262">来自：	<span class="blog_title"> 落风听雨</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_63" data-pid="63" data-track-view='{"mod":"kp_popu_63-908","con":",,"}' data-track-click='{"mod":"kp_popu_63-908","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="2670758893"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jasonzhoujx/article/details/81738024,BlogCommendFromQuerySearch_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jasonzhoujx/article/details/81738024" target="_blank" title="Matplotlib学习笔记——配置图形参数">
+				<h4 class="text-truncate oneline">
+						<em>Matplotlib</em><em>学习</em>笔记——配置图形参数				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							354</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jasonzhoujx/article/details/81738024" target="_blank" title="Matplotlib学习笔记——配置图形参数">
+							<span class="desc oneline">配置图形参数使用面向对象的绘图接口时会创建figure和axes对象。figure实例可以看成是一个能够容纳各种坐标轴、图形、文字和标签的容器，axes是一个带有刻度和标签的矩形，最终会包含所有可视化...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/jasonzhoujx">来自：	<span class="blog_title"> Little Garden</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lwplwf/article/details/67634710,BlogCommendFromQuerySearch_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lwplwf/article/details/67634710" target="_blank" title="Python数据可视化-Matplotlib学习笔记（2）--画图进阶">
+				<h4 class="text-truncate oneline">
+						Python数据可视化-<em>Matplotlib</em><em>学习</em>笔记（2）--画图进阶				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-28</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7173</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lwplwf/article/details/67634710" target="_blank" title="Python数据可视化-Matplotlib学习笔记（2）--画图进阶">
+							<span class="desc oneline">1.一个区域画多个图2.一个图中画两条线3.一个图中画多条线4.在图中添加提示标签...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lwplwf">来自：	<span class="blog_title"> 对角巷</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_38340111/article/details/81022926,BlogCommendFromBaidu_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sinat_38340111/article/details/81022926" target="_blank" title="matplotlib 曲线图 和 折线图 plt.plot()">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em> 曲线图 和 折线图 <em>plt.plot</em>()				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1389</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sinat_38340111/article/details/81022926" target="_blank" title="matplotlib 曲线图 和 折线图 plt.plot()">
+							<span class="desc oneline">.绘制曲线：importtimeimportnumpyasnpimportmatplotlib.pyplotaspltx=np.linspace(0,10,500)y=np.sin(x)plt.fig...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sinat_38340111">来自：	<span class="blog_title"> sinat_38340111的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/skyli114/article/details/77508136,BlogCommendFromBaidu_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/skyli114/article/details/77508136" target="_blank" title="二、Matplotlib系列---pyplot的plot( )函数">
+				<h4 class="text-truncate oneline">
+						二、<em>Matplotlib</em>系列---pyplot的plot( )函数				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9449</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/skyli114/article/details/77508136" target="_blank" title="二、Matplotlib系列---pyplot的plot( )函数">
+							<span class="desc oneline">Matplotlib系列—pyplot的plot()函数plt.plot(x,y,format_string,**kwargs)说明：x:x轴数据，列表或数组，可选y:y轴数据，列表或数组format...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/skyli114">来自：	<span class="blog_title"> G的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hftytf/article/details/83834825,BlogCommendClickRateRank_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hftytf/article/details/83834825" target="_blank" title="plt contour 与 plt contourf">
+				<h4 class="text-truncate oneline">
+						plt contour 与 plt contourf				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							282</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hftytf/article/details/83834825" target="_blank" title="plt contour 与 plt contourf">
+							<span class="desc oneline">pltcontour与pltcontourf</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/hftytf">来自：	<span class="blog_title"> hftytf的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_64" data-pid="64" data-track-view='{"mod":"kp_popu_64-901","con":",,"}' data-track-click='{"mod":"kp_popu_64-901","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-gc+3r+68-9q-29"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="4012648776"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident recommend-other-item-box"  data-track-click='{"mod":"popu_387","con":",http://ask.csdn.net/questions/747867,BlogCommendClickRateRank_28"}'>
+		<a href="http://ask.csdn.net/questions/747867" target="_blank">
+			<h4 class="text-truncate oneline">
+					python 用plt.title()怎么把图的标题放在图的下面？或者有其他的方法解决			</h4>
+			<div class="info-box d-flex align-content-center">
+					<span class="date">01-24</span>
+			</div>
+			<p class="content oneline">
+        <span class="desc oneline">-</span>
+                  <span class="type-show type-show-ask">问答</span>
+        			</p>
+		</a>
+
+	</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident recommend-other-item-box"  data-track-click='{"mod":"popu_387","con":",http://ask.csdn.net/questions/697524,BlogCommendClickRateRank_29"}'>
+		<a href="http://ask.csdn.net/questions/697524" target="_blank">
+			<h4 class="text-truncate oneline">
+					python plt 绘图 问题 			</h4>
+			<div class="info-box d-flex align-content-center">
+					<span class="date">08-14</span>
+			</div>
+			<p class="content oneline">
+        <span class="desc oneline">-</span>
+                  <span class="type-show type-show-ask">问答</span>
+        			</p>
+		</a>
+
+	</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/WxyangID/article/details/54645355,BlogCommendClickRateRank_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/WxyangID/article/details/54645355" target="_blank" title="Python3.5 中plt无法画出图像">
+				<h4 class="text-truncate oneline">
+						Python3.5 中plt无法画出图像				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-21</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1504</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/WxyangID/article/details/54645355" target="_blank" title="Python3.5 中plt无法画出图像">
+							<span class="desc oneline">第一：sudoapt-getinstalltk-dev正在读取状态信息…完成将会同时安装下列软件：libfontconfig1-devlibfreetype6-devlibice-devlibpng1...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/WxyangID">来自：	<span class="blog_title"> WxyangID的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Augusdi/article/details/7489125,BlogCommendClickRateRank_31"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Augusdi/article/details/7489125" target="_blank" title="PLT文件格式">
+				<h4 class="text-truncate oneline">
+						PLT文件格式				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6712</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Augusdi/article/details/7489125" target="_blank" title="PLT文件格式">
+							<span class="desc oneline">PLT文件格式     PLT文件源自于 HP 绘图仪，PLT文件格式是基于矢量的，由HewlettPackard开发。在 AutoCAD/R14 版及 CorlDraw 软件中可以见到（需要导出），...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Augusdi">来自：	<span class="blog_title"> Augusdi的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/NockinOnHeavensDoor/article/details/80565764,BlogCommendFromBaidu_32"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/NockinOnHeavensDoor/article/details/80565764" target="_blank" title="matplotlib：plt.rcParams设置画图的分辨率，大小等信息">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>：plt.rcParams设置画图的分辨率，大小等信息				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9000</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/NockinOnHeavensDoor/article/details/80565764" target="_blank" title="matplotlib：plt.rcParams设置画图的分辨率，大小等信息">
+							<span class="desc oneline">摘要：主要作用是设置画的图的分辨率，大小等信息plt.rcParams['figure.figsize']=(8.0,4.0)#设置figure_size尺寸plt.rcParams['image.i...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/NockinOnHeavensDoor">来自：	<span class="blog_title"> NockinOnHeavensDoor的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_65" data-pid="65" data-track-view='{"mod":"kp_popu_65-900","con":",,"}' data-track-click='{"mod":"kp_popu_65-900","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-format="fluid"
+     data-ad-layout-key="-h5-e+23-3z+3s"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="4012648776"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/SA14023053/article/details/51835034,BlogCommendFromBaidu_33"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/SA14023053/article/details/51835034" target="_blank" title="matplotlib基本绘图参数">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>基本绘图参数				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/SA14023053/article/details/51835034" target="_blank" title="matplotlib基本绘图参数">
+							<span class="desc oneline">导入绘图包importmatplotlib.pyplotaspltimportnumpyasnp使用frompylabimport*一次导入matplotlib.pyplot和numpy也可以，但是不...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/SA14023053">来自：	<span class="blog_title"> 搬砖小工053</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/dyx1024/article/details/7296748,BlogCommendFromBaidu_34"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/dyx1024/article/details/7296748" target="_blank" title="Python:使用matplotlib绘制图表">
+				<h4 class="text-truncate oneline">
+						Python:使用<em>matplotlib</em>绘制图表				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/dyx1024/article/details/7296748" target="_blank" title="Python:使用matplotlib绘制图表">
+							<span class="desc oneline">今天看了一下使用python绘制图表的方法，有个强大的类库matplotlib,可以制作出高质量的2D和3D图形，先记录一下，以后慢慢学习。  matplotlib下载及API手册地址：http://...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/dyx1024">来自：	<span class="blog_title"> Socrates的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u014607457/article/details/51260049,BlogCommendFromBaidu_35"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u014607457/article/details/51260049" target="_blank" title="数据可视化——Matplotlib模块入门（一）">
+				<h4 class="text-truncate oneline">
+						数据可视化——<em>Matplotlib</em>模块入门（一）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5602</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u014607457/article/details/51260049" target="_blank" title="数据可视化——Matplotlib模块入门（一）">
+							<span class="desc oneline">最近想学习一下用python语言进行数据分析与挖掘，而对于数据挖掘而言前期对数据的分析十分重要，而数据可视化有助于我们对数据的更深入直观的认识，因此打算先学习一下用python可视化数据的知识。一、安...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u014607457">来自：	<span class="blog_title"> u014607457的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiaowei_cqu/article/details/8272367,BlogCommendFromBaidu_36"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiaowei_cqu/article/details/8272367" target="_blank" title="【Python】Matplotlib绘图库初探">
+				<h4 class="text-truncate oneline">
+						【Python】<em>Matplotlib</em>绘图库初探				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiaowei_cqu/article/details/8272367" target="_blank" title="【Python】Matplotlib绘图库初探">
+							<span class="desc oneline">Matplotlib是Python的2D&amp;3D绘图库，产生各种已经拷贝格式和交互幻剑中跨平台形式的印刷质量图标。Matplot语法与Matlab相似，绘图绘图功能强大，而且十分容易上手。“个人永远不能...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiaowei_cqu">来自：	<span class="blog_title"> 小魏的修行路</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Bruce_yin/article/details/77279751,BlogCommendFromQuerySearch_37"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Bruce_yin/article/details/77279751" target="_blank" title="matplotlib 详解2 -颜色、线与点">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em> 详解2 -颜色、线与点				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2003</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Bruce_yin/article/details/77279751" target="_blank" title="matplotlib 详解2 -颜色、线与点">
+							<span class="desc oneline">chapter2八种内建颜色b:blueg:greenr:redc:cyanm:magentay:yellowk:blackw:white</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Bruce_yin">来自：	<span class="blog_title"> Bruce_yin的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_66" data-pid="66" data-track-view='{"mod":"kp_popu_66-881","con":",,"}' data-track-click='{"mod":"kp_popu_66-881","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T38_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T38  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T38_render", "T38");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/helunqu2017/article/details/78629136,BlogCommendFromQuerySearch_38"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/helunqu2017/article/details/78629136" target="_blank" title="matplotlib命令与格式：设置折线与点属性">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>命令与格式：设置折线与点属性				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8372</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/helunqu2017/article/details/78629136" target="_blank" title="matplotlib命令与格式：设置折线与点属性">
+							<span class="desc oneline">1.线条名称(标签)label:给所绘制的曲线一个名字，此名字在图示/图例(legend)中显示plt.plot(x,y,'ro',color='red',label='业绩趋势走向')2.线条颜色(...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/helunqu2017">来自：	<span class="blog_title"> 开码河粉</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/x_i_y_u_e/article/details/50319267,BlogCommendFromQuerySearch_39"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/x_i_y_u_e/article/details/50319267" target="_blank" title="matplotlib 基础教程">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em> 基础教程				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8033</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/x_i_y_u_e/article/details/50319267" target="_blank" title="matplotlib 基础教程">
+							<span class="desc oneline">MatplotlibforPythonDevelopers这个教程也很不错，http://reverland.org/python/2012/09/07/matplotlib-tutorial/也可以...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/x_i_y_u_e">来自：	<span class="blog_title"> x_i_y_u_e的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sy20173081277/article/details/84672153,BlogCommendFromQuerySearch_40"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sy20173081277/article/details/84672153" target="_blank" title="用matplotlib作图的时候plot.show()时plot中的label为何显示不出来">
+				<h4 class="text-truncate oneline">
+						用<em>matplotlib</em>作图的时候plot.show()时plot中的label为何显示不出来				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-01</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2024</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sy20173081277/article/details/84672153" target="_blank" title="用matplotlib作图的时候plot.show()时plot中的label为何显示不出来">
+							<span class="desc oneline">在作图的时候，明明plt.plot()中设置了label的值，但是在图中plt.show()以后就是没有显示出来那个标签，如下图所示：此时，只需要添加一个函数plt.legend()用来标示不同图形的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sy20173081277">来自：	<span class="blog_title"> sy20173081277的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012654847/article/details/71436469,BlogCommendFromQuerySearch_41"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012654847/article/details/71436469" target="_blank" title="使用matplotlib绘图时中文字体的解决方案">
+				<h4 class="text-truncate oneline">
+						使用<em>matplotlib</em>绘图时中文字体的解决方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9172</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012654847/article/details/71436469" target="_blank" title="使用matplotlib绘图时中文字体的解决方案">
+							<span class="desc oneline">matplotlib是python中很强大的一款绘图工具包，里面提供了类似于条形图、柱状图、折线图等一系列常见的图形的绘制方法。在绘图的时候，经常要对图中的相关数据进行标识以及添加图例、标题等，但在m...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012654847">来自：	<span class="blog_title"> StepForward的主页</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_31192383/article/details/53977822,BlogCommendFromBaidu_42"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_31192383/article/details/53977822" target="_blank" title="matplotlib（一）——pyplot使用简介">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>（一）——pyplot使用简介				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_31192383/article/details/53977822" target="_blank" title="matplotlib（一）——pyplot使用简介">
+							<span class="desc oneline">pyplot介绍matplotlib.pyplot是一个有命令风格的函数集合，它看起来和MATLAB很相似。每一个pyplot函数都使一副图像做出些许改变，例如创建一幅图，在图中创建一个绘图区域，在绘...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_31192383">来自：	<span class="blog_title"> CUG_UESTC的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_67" data-pid="67" data-track-view='{"mod":"kp_popu_67-882","con":",,"}' data-track-click='{"mod":"kp_popu_67-882","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T43_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T43  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T43_render", "T43");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/NightCharm/article/details/69944136,BlogCommendFromBaidu_43"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/NightCharm/article/details/69944136" target="_blank" title="Matplotilb">
+				<h4 class="text-truncate oneline">
+						Matplotilb				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							402</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/NightCharm/article/details/69944136" target="_blank" title="Matplotilb">
+							<span class="desc oneline">Matplotilb——基础图折线图画一个最简单的折线图plotimprotmatplotilb.pyplotaspltplt.plot([1,2,3],[4,5,6])plt.showmatplot...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/NightCharm">来自：	<span class="blog_title"> 小白</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/panda1234lee/article/details/52311593,BlogCommendFromBaidu_44"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/panda1234lee/article/details/52311593" target="_blank" title="Python--matplotlib绘图可视化知识点整理">
+				<h4 class="text-truncate oneline">
+						Python--<em>matplotlib</em>绘图可视化知识点整理				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/panda1234lee/article/details/52311593" target="_blank" title="Python--matplotlib绘图可视化知识点整理">
+							<span class="desc oneline">转载自：SegmentFault本文作为学习过程中对matplotlib一些常用知识点的整理，方便查找。强烈推荐ipython无论你工作在什么项目上，IPython都是值得推荐的。利用ipython-...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/panda1234lee">来自：	<span class="blog_title"> 潘凌昀的兴趣技术杂货铺</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010436134/article/details/23101435,BlogCommendFromBaidu_45"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010436134/article/details/23101435" target="_blank" title="matplot 简单使用">
+				<h4 class="text-truncate oneline">
+						matplot 简单使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3281</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010436134/article/details/23101435" target="_blank" title="matplot 简单使用">
+							<span class="desc oneline">设置X,Y轴变量</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010436134">来自：	<span class="blog_title"> 穆若的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/farmwang/article/details/75452158,BlogCommendClickRateRank_46"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/farmwang/article/details/75452158" target="_blank" title="PLT">
+				<h4 class="text-truncate oneline">
+						PLT				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							305</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/farmwang/article/details/75452158" target="_blank" title="PLT">
+							<span class="desc oneline">PLT</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/farmwang">来自：	<span class="blog_title"> farmwang的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/CBH01050403/article/details/74928211,BlogCommendClickRateRank_47"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/CBH01050403/article/details/74928211" target="_blank" title="简单的matplotlib用法">
+				<h4 class="text-truncate oneline">
+						简单的<em>matplotlib</em>用法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1624</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/CBH01050403/article/details/74928211" target="_blank" title="简单的matplotlib用法">
+							<span class="desc oneline">要引入的库:importmatplotlib.pyplotaspltimportpandasaspdimportnumpyasnpfromnumpy.randomimportrandn一个画板多个图，...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/CBH01050403">来自：	<span class="blog_title"> 辰出灬子归</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_68" data-pid="68" data-track-view='{"mod":"kp_popu_68-883","con":",,"}' data-track-click='{"mod":"kp_popu_68-883","con":",,"}'><!-- T48 位置 -->
+<script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T48_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T48  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T48_render", "T48");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37393514/article/details/81298503,BlogCommendClickRateRank_48"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/m0_37393514/article/details/81298503" target="_blank" title="plt.scatter()">
+				<h4 class="text-truncate oneline">
+						plt.scatter()				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-31</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/m0_37393514/article/details/81298503" target="_blank" title="plt.scatter()">
+							<span class="desc oneline">总是去别人的博客里面找关于scatter散点图相关用法，想想还是自己写一个吧，下次看自己的就行。函数的原型：matplotlib.pyplot.scatter(x,y,s=None,c=None,ma...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/m0_37393514">来自：	<span class="blog_title"> coder</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sunshunli/article/details/81343812,BlogCommendClickRateRank_49"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sunshunli/article/details/81343812" target="_blank" title="matplotlib基础">
+				<h4 class="text-truncate oneline">
+						<em>matplotlib</em>基础				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-01</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							58</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sunshunli/article/details/81343812" target="_blank" title="matplotlib基础">
+							<span class="desc oneline">importmatplotlib.pyplotaspltimportmatplotlibasmplimportnumpyasnp#x=np.linspace(-1,1,50)#y=2*x+1#plt....</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sunshunli">来自：	<span class="blog_title"> sunshunli的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pipisorry/article/details/52247379,BlogCommendHotData_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pipisorry/article/details/52247379" target="_blank" title="数据标准化/归一化normalization">
+				<h4 class="text-truncate oneline">
+						数据标准化/归一化normalization				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							19万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pipisorry/article/details/52247379" target="_blank" title="数据标准化/归一化normalization">
+							<span class="desc oneline">http://blog.csdn.net/pipisorry/article/details/52247379
+
+这里主要讲连续型特征归一化的常用方法。
+
+连续型特征还有一种处理方式是，先分桶/分箱（...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pipisorry">来自：	<span class="blog_title"> 皮皮blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+				<h4 class="text-truncate oneline">
+						expat介绍文档翻译				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+							<span class="desc oneline">原文地址：http://www.xml.com/pub/a/1999/09/expat/index.html
+
+
+因为需要用，所以才翻译了这个文档。但总归赖于英语水平很有限，翻译出来的中文有可能...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ymj7150697">来自：	<span class="blog_title"> ymj7150697的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_26917383/article/details/51056068,BlogCommendHotData_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sinat_26917383/article/details/51056068" target="_blank" title="R语言︱文本挖掘之中文分词包——Rwordseg包(原理、功能、详解)">
+				<h4 class="text-truncate oneline">
+						R语言︱文本挖掘之中文分词包——Rwordseg包(原理、功能、详解)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sinat_26917383/article/details/51056068" target="_blank" title="R语言︱文本挖掘之中文分词包——Rwordseg包(原理、功能、详解)">
+							<span class="desc oneline">笔者寄语：与前面的RsowballC分词不同的地方在于这是一个中文的分词包，简单易懂，分词是一个非常重要的步骤，可以通过一些字典，进行特定分词。大致分析步骤如下：
+
+
+数据导入——选择分词字典——分词...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sinat_26917383">来自：	<span class="blog_title"> 素质云笔记/Recorder...</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010785685/article/details/52366977,BlogCommendHotData_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010785685/article/details/52366977" target="_blank" title="redis两种持久化策略">
+				<h4 class="text-truncate oneline">
+						redis两种持久化策略				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010785685/article/details/52366977" target="_blank" title="redis两种持久化策略">
+							<span class="desc oneline">reids是一个key-value存储系统，为了保证效率，缓存在内存中，但是redis会周期性的把更新的数据写入磁盘或者把修改操作写入追加的记录文件，以保证数据的持久化。
+ 
+所以：redis是一...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010785685">来自：	<span class="blog_title"> 那么好,</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+				<h4 class="text-truncate oneline">
+						DirectX修复工具增强版				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							195万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+							<span class="desc oneline">最后更新：2018-12-20
+
+DirectX修复工具最新版：DirectX Repair V3.8 增强版  NEW!
+
+版本号：V3.8.0.11638
+
+大小: 107MB/7z格式压缩，18...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/VBcom">来自：	<span class="blog_title"> VBcom的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/maoyuanming0806/article/details/78067446,BlogCommendHotData_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+				<h4 class="text-truncate oneline">
+						搭建图片服务器《二》-linux安装nginx				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+							<span class="desc oneline">nginx是个好东西，Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambl...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/maoyuanming0806">来自：	<span class="blog_title"> maoyuanming0806的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010839382/article/details/48229579,BlogCommendHotData_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010839382/article/details/48229579" target="_blank" title="非局部均值去噪（NL-means）">
+				<h4 class="text-truncate oneline">
+						非局部均值去噪（NL-means）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010839382/article/details/48229579" target="_blank" title="非局部均值去噪（NL-means）">
+							<span class="desc oneline">非局部均值（NL-means）是近年来提出的一项新型的去噪技术。该方法充分利用了图像中的冗余信息，在去噪的同时能最大程度地保持图像的细节特征。基本思想是：当前像素的估计值由图像中与它具有相似邻域结构的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010839382">来自：	<span class="blog_title"> xiaoluo91的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/flyinghearts/article/details/5898183,BlogCommendHotData_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/flyinghearts/article/details/5898183" target="_blank" title="多重背包O(N*V)算法详解（使用单调队列） ">
+				<h4 class="text-truncate oneline">
+						多重背包O(N*V)算法详解（使用单调队列） 				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/flyinghearts/article/details/5898183" target="_blank" title="多重背包O(N*V)算法详解（使用单调队列） ">
+							<span class="desc oneline">多重背包问题：有N种物品和容量为V的背包，若第i种物品，容量为v[i]，价值为w[i]，共有n[i]件。怎样装才能使背包内的物品总价值最大？网上关于“多重背包”的资料倒是不少，但是关于怎么实现O(N*...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/flyinghearts">来自：	<span class="blog_title"> flyinghearts的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yehui_qy/article/details/53787386,BlogCommendHotData_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yehui_qy/article/details/53787386" target="_blank" title="机器学习-数据归一化">
+				<h4 class="text-truncate oneline">
+						机器学习-数据归一化				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-21</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5875</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yehui_qy/article/details/53787386" target="_blank" title="机器学习-数据归一化">
+							<span class="desc oneline">定义
+数据标准化（归一化）处理是数据挖掘的一项基础工作，不同评价指标往往具有不同的量纲和量纲单位，这样的情况会影响到数据分析的结果，为了消除指标之间的量纲影响，需要进行数据标准化处理，以解决数据指标之...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yehui_qy">来自：	<span class="blog_title"> yehui_qy的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jinping_shi/article/details/59613054,BlogCommendHotData_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" title="高斯混合模型（GMM）及其EM算法的理解">
+				<h4 class="text-truncate oneline">
+						高斯混合模型（GMM）及其EM算法的理解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							10万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jinping_shi/article/details/59613054" target="_blank" title="高斯混合模型（GMM）及其EM算法的理解">
+							<span class="desc oneline">一个例子高斯混合模型（Gaussian Mixed Model）指的是多个高斯分布函数的线性组合，理论上GMM可以拟合出任意类型的分布，通常用于解决同一集合下的数据包含多个不同的分布的情况（或者是同一...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/jinping_shi">来自：	<span class="blog_title"> 小平子的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+				<h4 class="text-truncate oneline">
+						jquery/js实现一个网页同时调用多个倒计时(最新的)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							45万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+							<span class="desc oneline">jquery/js实现一个网页同时调用多个倒计时(最新的)
+
+最近需要网页添加多个倒计时. 查阅网络,基本上都是千遍一律的不好用. 自己按需写了个.希望对大家有用. 有用请赞一个哦!
+
+
+
+//js
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wuchengzeng">来自：	<span class="blog_title"> Websites</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+				<h4 class="text-truncate oneline">
+						关于SpringBoot bean无法注入的问题（与文件包位置有关）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							18万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+							<span class="desc oneline">问题场景描述整个项目通过Maven构建，大致结构如下：
+核心Spring框架一个module spring-boot-base
+service和dao一个module server-core
+提供系统...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/gefangshuai">来自：	<span class="blog_title"> 开发随笔</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xinzhangyanxiang/article/details/37317863,BlogCommendHotData_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xinzhangyanxiang/article/details/37317863" target="_blank" title="图像物体检测识别中的LBP特征">
+				<h4 class="text-truncate oneline">
+						图像物体检测识别中的LBP特征				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xinzhangyanxiang/article/details/37317863" target="_blank" title="图像物体检测识别中的LBP特征">
+							<span class="desc oneline">1996年，Ojala老大爷搞出了LBP特征，也即参考文献1。当时好像并未引发什么波澜。到了2002年的时候，老大爷又对LBP的特性进行了总结，产生了参考文献2，这篇文献目前为止引用数目4600+，足...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xinzhangyanxiang">来自：	<span class="blog_title"> 雨石</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wwj_748/article/details/30072379,BlogCommendHotData_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wwj_748/article/details/30072379" target="_blank" title="Cocos2d-x 2.2.3 使用NDK配置编译环境">
+				<h4 class="text-truncate oneline">
+						Cocos2d-x 2.2.3 使用NDK配置编译环境				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wwj_748/article/details/30072379" target="_blank" title="Cocos2d-x 2.2.3 使用NDK配置编译环境">
+							<span class="desc oneline">Cocos2d-x 2.2.3 使用NDK配置编译环境2014年6月11日 Cocos2d-x 3.0以下的开发环境的配置恐怕折磨了很多人，使用cygwin配置编译环境足够让初学者蛋疼一阵子了。本篇博...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wwj_748">来自：	<span class="blog_title"> 巫山老妖</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+				<h4 class="text-truncate oneline">
+						强连通分量及缩点tarjan算法解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							58万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+							<span class="desc oneline">强连通分量：
+简言之 就是找环（每条边只走一次，两两可达）
+孤立的一个点也是一个连通分量 
+ 
+使用tarjan算法 在嵌套的多个环中优先得到最大环( 最小环就是每个孤立点）
+ 
+定义：
+int Ti...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq574857122">来自：	<span class="blog_title"> 九野的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ch_liu23/article/details/53558549,BlogCommendHotData_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ch_liu23/article/details/53558549" target="_blank" title="YOLOv2训练自己的数据集（VOC格式）">
+				<h4 class="text-truncate oneline">
+						YOLOv2训练自己的数据集（VOC格式）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ch_liu23/article/details/53558549" target="_blank" title="YOLOv2训练自己的数据集（VOC格式）">
+							<span class="desc oneline">最近在用yolo来做视频中的人员检测，选择YOLO是从速度考虑，在训练数据集的过程中碰到很多坑，并且现在yolo又到了v2的版本，在网络和命令中都有区别...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ch_liu23">来自：	<span class="blog_title"> ch_liu23的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wang7396/article/details/49678181,BlogCommendHotData_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wang7396/article/details/49678181" target="_blank" title="10个有趣的 Linux 命令">
+				<h4 class="text-truncate oneline">
+						10个有趣的 Linux 命令				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							489</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wang7396/article/details/49678181" target="_blank" title="10个有趣的 Linux 命令">
+							<span class="desc oneline">在终端工作是一件很有趣的事情。今天，我们将会列举一些有趣得为你带来欢笑的Linux命令。
+
+1. rev
+
+创建一个文件，在文件里面输入几个单词，rev命令会将你写的东西反转输出到控制台。
+...</span>
+						</a>
+						  <span class="blog_title_box oneline no-title">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/imj060336/article/details/2032765,BlogCommendHotData_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+				<h4 class="text-truncate oneline">
+						用C语言实现有限状态机--读《C专家编程》				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+							<span class="desc oneline">        有限状态机(finite state machine)是一个数学概念，如果把它运用于程序中，可以发挥很大的作用。它是一种协议，用于有限数量的子程序(&quot;状态&quot;)的发展变化。每个子程序进行...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/imj060336">来自：	<span class="blog_title"> Stay Hungry,Stay Foolish的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix"  data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/fzd999/article/details/81289,BlogCommendHotData_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/fzd999/article/details/81289" target="_blank" title="掌柜的——写在七夕">
+				<h4 class="text-truncate oneline">
+						掌柜的——写在七夕				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1458</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/fzd999/article/details/81289" target="_blank" title="掌柜的——写在七夕">
+							<span class="desc oneline">记忆里，奶奶有生之年从未和爷爷红过脸。奶奶戏称自己是饲养员，爷爷也很幸福的当一头吃饱了睡觉的猪。于是几乎每个中午，都上演着同一幕轻喜剧：“掌柜的，来瓶啤酒！”“不许喝了，没收！”“掌柜的……”是的，岁...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/fzd999">来自：	<span class="blog_title"> 花差花差</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+        <div class="recommend-item-box type_hot_word">
+            <div class="content clearfix">
+        <div class="word float-left">
+                          <span>
+            <a href="https://edu.csdn.net/combos/o363_l0_t " target="_blank">
+            设计制作学习          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o364_s7099_l0_t " target="_blank">
+            jQuery学习          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o317_s325_l0_t " target="_blank">
+            虚拟化技术学习          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o5329_s5330_k " target="_blank">
+            机器学习教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o280_s351_k " target="_blank">
+            Objective-C培训          </a></span>
+                        </div>
+      </div>
+                  <div class="content clearfix">
+        <div class="float-left">
+                  <span>
+            <a href="https://www.csdn.net/gather_1a/MtjaEg4sMDU2My1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            ios获取idfa</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_10/MtTaYgwsNzkyMS1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            server的安全控制模型是什么 sql</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_12/MtTakgxsODg1Ni1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            android title搜索</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_11/MtjaIgwsNzk3Ni1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            ios 动态修改约束</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/NtzaYg2sOTYtZWR1.html" target="_blank">
+            java.net 库学习</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/MtjaIg3sNC1lZHUO0O0O.html" target="_blank">
+            python库学习</a>
+          </span>
+                </div>
+      </div>
+          </div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/u014539580">
+                <img src="https://avatar.csdn.net/5/C/D/3_u014539580.jpg" class="avatar_pic">
+            </a>
+            
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/u014539580" target="_blank" class="" id="uid">L花自飘零</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="33">
+                        <dt><a href="https://blog.csdn.net/u014539580?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/u014539580?t=1"><span class="count">33</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="18">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">18</span></dd>
+        </dl>
+        <dl class="text-center" title="10">
+            <dt>喜欢</dt>
+            <dd><span class="count">10</span></dd>
+        </dl>
+        <dl class="text-center" title="4">
+            <dt>评论</dt>
+            <dd><span class="count">4</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="3级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-3"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="19657">
+                1万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="530">
+                530            </dd>
+        </dl>
+        <dl title="128136">
+            <dt>排名：</dt>
+            <dd>12万+</dd>
+        </dl>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_56" data-pid="56" data-track-view='{"mod":"kp_popu_56-703","con":",,"}' data-track-click='{"mod":"kp_popu_56-703","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 博客内页左上视窗-20181120 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="7700527946"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u014539580/article/details/79489001" target="_blank">Spyder编辑器 自动代码补全 解决办法</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u014539580/article/details/79483249" target="_blank">Tensorflow 常用函数总结</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u014539580/article/details/78593999" target="_blank">EM(期望最大算法)在高斯混合模型中的python实现</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u014539580/article/details/78309404" target="_blank">简单优化的Apriori算法进行关联规则分析</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/u014539580/article/details/78264423" target="_blank">kMeans聚类的python实现</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/u014539580/article/category/7134355">
+                    <span class="title oneline">java</span>
+                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/u014539580/article/category/7184608">
+                    <span class="title oneline">LeetCode</span>
+                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/u014539580/article/category/7199411">
+                    <span class="title oneline">machine learning</span>
+                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/u014539580/article/category/7215930">
+                    <span class="title oneline">数据分析</span>
+                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/u014539580/article/category/7491850">
+                    <span class="title oneline">Deep Learning</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideArchive" class="aside-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u014539580/article/month/2018/03">
+                    2018年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u014539580/article/month/2017/11">
+                    2017年11月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u014539580/article/month/2017/10">
+                    2017年10月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u014539580/article/month/2017/09">
+                    2017年9月                    <span class="count float-right">18篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/u014539580/article/month/2017/08">
+                    2017年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/u014539580/article/details/78207537">Matplotlib库学习（一）plt.plot</a>
+					<p class="read">阅读数 <span>9196</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u014539580/article/details/78247864">matplotlib.pyplot库的中文显示，文本显示，子绘图区域</a>
+					<p class="read">阅读数 <span>2296</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u014539580/article/details/79489001">Spyder编辑器 自动代码补全 解决办法</a>
+					<p class="read">阅读数 <span>1886</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u014539580/article/details/77924413">java - 可接收  任意数量参数   的函数声明方法</a>
+					<p class="read">阅读数 <span>1036</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/u014539580/article/details/78118435">朴素贝叶斯实现的文本分类</a>
+					<p class="read">阅读数 <span>923</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u014539580/article/details/79489001#comments">Spyder编辑器 自动代码补全 ...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/sinat_34938131" class="user-name" target="_blank">sinat_34938131：</a>为什么要删除submudules？                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/u014539580/article/details/79489001#comments">Spyder编辑器 自动代码补全 ...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/e01528" class="user-name" target="_blank">e01528：</a>感谢博主～！！！                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57" data-track-view='{"mod":"kp_popu_57-707","con":",,"}' data-track-click='{"mod":"kp_popu_57-707","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 博客内页左下视窗-20181130 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="1894159733"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<script>
+    var recommendCount = 69;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 37;
+    var articleId = "78207537";
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/u014539580/article/details/78207537";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "Matplotlib库学习（一）plt.plot - u014539580的专栏";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["matplotlib","\u5b66\u4e60","plt.plot"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [{"user_name":"lwplwf","nick_name":"\u96f6\u5c3e","avatar":"https:\/\/avatar.csdn.net\/1\/F\/B\/3_lwplwf.jpg","is_expert":true,"article_count":115,"rank":"6000+"},{"user_name":"qq_33506160","nick_name":"hawkeye\u4e36","avatar":"https:\/\/avatar.csdn.net\/5\/E\/0\/3_qq_33506160.jpg","is_expert":false,"article_count":121,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"u014474185","nick_name":"zhbaodong","avatar":"https:\/\/avatar.csdn.net\/D\/E\/E\/3_u014474185.jpg","is_expert":false,"article_count":17,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"qq_36346262","nick_name":"\u6700\u5149\u9634.","avatar":"https:\/\/avatar.csdn.net\/1\/C\/C\/3_qq_36346262.jpg","is_expert":false,"article_count":76,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"jasonzhoujx","nick_name":"\u76d0\u5473\u6a59\u6c41","avatar":"https:\/\/avatar.csdn.net\/A\/C\/0\/3_jasonzhoujx.jpg","is_expert":false,"article_count":122,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"Bruce_yin","nick_name":"Bruce_yin","avatar":"https:\/\/avatar.csdn.net\/8\/B\/4\/3_bruce_yin.jpg","is_expert":false,"article_count":204,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"helunqu2017","nick_name":"\u5f00\u7801\u725b","avatar":"https:\/\/avatar.csdn.net\/C\/0\/7\/3_helunqu2017.jpg","is_expert":false,"article_count":18,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"x_i_y_u_e","nick_name":"\u5c0f\u767d\u7684\u5b66\u4e60\u7b14\u8bb0","avatar":"https:\/\/avatar.csdn.net\/0\/4\/B\/3_x_i_y_u_e.jpg","is_expert":false,"article_count":555,"rank":"2000+"},{"user_name":"sy20173081277","nick_name":"cauice","avatar":"https:\/\/avatar.csdn.net\/9\/A\/C\/3_sy20173081277.jpg","is_expert":false,"article_count":56,"rank":"\u5343\u91cc\u4e4b\u5916"},{"user_name":"u012654847","nick_name":"StepFoward","avatar":"https:\/\/avatar.csdn.net\/F\/8\/4\/3_u012654847.jpg","is_expert":false,"article_count":15,"rank":"\u5343\u91cc\u4e4b\u5916"}];
+	var articleType = 1;
+	var CopyrightContent = '本文为博主原创文章，未经博主允许不得转载。';
+    var current_user_name = 'sinat_31299297';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src='https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201811201455'></script>
+<script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+</body>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-3bc59f8f2b.js" /></script>
+	
+	<!-- <script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/markdownCopy-5c7fa7386e.js" /></script> -->
+
+
+<script src="//g.csdnimg.cn/??login-box/1.0.5/login-box.js,login-box/1.0.5/login-auto.js?t=20190307095522"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-e6b3fe420a.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-ebaf09dca8.min.js"></script>
+
+	<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-f532d61321.min.js"></script>
+
+<script src="//g.csdnimg.cn/baidu-search/1.0.0/baidu-search.js"  type="text/javascript"></script>
+
+
+<!-- <script type="text/javascript" src="//g.csdnimg.cn/check-adb/1.0.2/check-adb.js"></script> -->
+
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+    </script>
+<script src="https://gh.bdstatic.com/static/gh/js/sdk/bword.min.js"></script>
+</html>
