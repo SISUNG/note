@@ -9,7 +9,7 @@
 ##### PyQt5安装与PyCharm配置
 
 > [pyqt5安装与pycharm配置](https://blog.csdn.net/stormdony/article/details/80400032)
-
+> [PyQt5+Pycharm安装和配置](https://blog.csdn.net/zhangziju/article/details/80243858)
 
 
 ##### PyQt5常用模块
