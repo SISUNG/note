@@ -1,0 +1,3596 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/u014745194/article/details/70176117"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"Python中生成器和迭代器的区别 - IT晓可程序员之路"}'>
+    
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>Python中生成器和迭代器的区别 - IT晓可程序员之路 - CSDN博客</title>
+
+        
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-c9f101d6a9.min.css">
+            
+        
+          <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+        <script type="text/javascript">
+        var username = "u014745194";
+        var userPermission = false;
+        var blog_address = "https://blog.csdn.net/u014745194";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "";
+        var currentUserPermission = false;
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/u014745194/article/details/70176117"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "Python中生成器和迭代器的区别 - IT晓可程序员之路";
+        var articleID = "70176117";
+        
+        var nickName = "ITxiaoke";
+        var isCorporate = false;
+        var subDomainBlogUrl = "https://blog.csdn.net/"
+        var digg_base_url = "https://blog.csdn.net/u014745194/phoenix/comment";
+        var articleDetailUrl = "https://blog.csdn.net/u014745194/article/details/70176117";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <script src="//g.csdnimg.cn/fixed-sidebar/1.1.3/fixed-sidebar.js" type="text/javascript"></script>
+    <!-- 新版上报 -->
+      <script src="//g.csdnimg.cn/track/1.2.6/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+
+    <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<div id="kp_box_476" data-pid="476" data-track-view='{"mod":"kp_popu_476-847","con":",,"}' data-track-click='{"mod":"kp_popu_476-847","con":",,"}'><script src="//csdnimg.cn/public/common/indexSuperise/1.0.7/indexSuperise.js?20190508180304"></script>
+<script>
+window.csdn.indexSuperise({
+zIndex:11000,
+      smallMoveImg: '//img-ads.csdn.net/2019/201904241424443296.png',
+      bigMoveImg: 
+'//img-ads.csdn.net/2019/201904241424252132.png',
+     link:'//gitbook.cn/gitchat/column/5c91c813968b1d64b1e08fde?utm_source=blogfc190423',
+boxStyle:140,
+trackSuperId:476,
+smallMove:'notMove',  
+trackSId:847
+    });
+</script></div><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	// 容错处理
+	var NEWS_FEED = function(){}
+</script>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+			<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>	
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">Python中生成器和迭代器的区别</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																									<span class="time">2017年04月14日 21:20:03</span>
+					<a class="follow-nickName" href="https://me.csdn.net/u014745194" target="_blank">ITxiaoke</a>
+						<span class="read-count">阅读数：20302</span>
+						
+																															</div>
+				<div class="operating">
+									</div>
+			</div>
+		</div>
+	</div>
+	<article class="baidu_pl">
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<div class="article-copyright">
+                  					<svg class="icon" title="CSDN认证原创" aria-hidden="true" style="width:53px; height: 18px; vertical-align: -4px;">
+							<use xlink:href="#CSDN_Cert"></use>
+					</svg>
+                  					
+					版权声明：本文为博主原创文章，未经博主允许不得转载。					https://blog.csdn.net/u014745194/article/details/70176117				</div>
+								<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+        <a href='https://h5.youzan.com/v2/goods/3nj52dd9seo3z'><img src='https://img-blog.csdnimg.cn/2019042818380821.jpg' /></a>								            <div id="content_views" class="markdown_views prism-atom-one-dark">
+							<!-- flowchart 箭头图标 勿删 -->
+							<svg xmlns="http://www.w3.org/2000/svg" style="display: none;"><path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg>
+							<h2 id="python中生成器和迭代器的区别代码在python35下测试">Python中生成器和迭代器的区别(代码在Python3.5下测试)：</h2>
+
+<h3 id="num01迭代器">Num01–&gt;迭代器</h3>
+
+
+
+<h4 id="定义">定义：</h4>
+
+<blockquote>
+  <p>对于list、string、tuple、dict等这些容器对象,使用for循环遍历是很方便的。在后台for语句对容器对象调用iter()函数。iter()是python内置函数。 <br>
+  iter()函数会返回一个定义了next()方法的迭代器对象，它在容器中逐个访问容器内的元素。next()也是python内置函数。在没有后续元素时，next()会抛出一个StopIteration异常，通知for语句循环结束。</p>
+  
+  <p>迭代器是用来帮助我们记录每次迭代访问到的位置，当我们对迭代器使用next()函数的时候，迭代器会向我们返回它所记录位置的下一个位置的数据。实际上，在使用next()函数的时候，调用的就是迭代器对象的<strong><em>_next_</em></strong>方法（Python3中是对象的<strong><em>_next_</em></strong>方法，Python2中是对象的next()方法）。所以，我们要想构造一个迭代器，就要实现它的<strong><em>_next_</em></strong>方法。但这还不够，python要求迭代器本身也是可迭代的，所以我们还要为迭代器实现<strong><em>_iter_</em></strong>方法，而<strong><em>_iter_</em></strong>方法要返回一个迭代器，迭代器自身正是一个迭代器，所以迭代器的<strong><em>_iter_</em></strong>方法返回自身self即可。</p>
+</blockquote>
+
+<h4 id="一些术语的解释">一些术语的解释：</h4>
+
+<blockquote>
+  <p>1，迭代器协议：对象需要提供next()方法，它要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代。</p>
+  
+  <p>2，可迭代对象：实现了迭代器协议对象。list、tuple、dict都是Iterable（可迭代对象），但不是Iterator（迭代器对象）。但可以使用内建函数iter()，把这些都变成Iterable（可迭代器对象）。</p>
+  
+  <p>3，for item in Iterable 循环的本质就是先通过iter()函数获取可迭代对象Iterable的迭代器，然后对获取到的迭代器不断调用next()方法来获取下一个值并将其赋值给item，当遇到StopIteration的异常后循环结束</p>
+</blockquote>
+
+<h4 id="python自带容器对象案例">Python自带容器对象案例：</h4>
+
+
+
+<pre class="prettyprint"><code class=" hljs vala"><span class="hljs-preprocessor"># 随便定义一个list</span>
+listArray=[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>]
+<span class="hljs-preprocessor"># 使用iter()函数</span>
+iterName=iter(listArray)
+print(iterName)
+<span class="hljs-preprocessor"># 结果如下：是一个列表list的迭代器</span>
+<span class="hljs-preprocessor"># &lt;list_iterator object at 0x0000017B0D984278&gt;</span>
+
+print(next(iterName))
+print(next(iterName))
+print(next(iterName))
+print(next(iterName))#没有迭代到下一个元素，直接抛出异常
+<span class="hljs-preprocessor"># 1</span>
+<span class="hljs-preprocessor"># 2</span>
+<span class="hljs-preprocessor"># 3</span>
+<span class="hljs-preprocessor"># Traceback (most recent call last):</span>
+<span class="hljs-preprocessor">#   File "Test07.py", line 32, in &lt;module&gt;</span>
+<span class="hljs-preprocessor"># StopIteration</span></code></pre>
+
+
+
+<h4 id="python中一个实现了iter方法和next方法的类对象就是迭代器如下案例是计算菲波那切数列的案例">Python中一个实现了<strong><em>_iter_</em></strong>方法和<strong><em>_next_</em></strong>方法的类对象，就是迭代器，如下案例是计算菲波那切数列的案例</h4>
+
+<pre class="prettyprint"><code class=" hljs python">
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Fib</span><span class="hljs-params">(object)</span>:</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span><span class="hljs-params">(self, max)</span>:</span>
+        super(Fib, self).__init__()
+        self.max = max
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__iter__</span><span class="hljs-params">(self)</span>:</span>
+        self.a = <span class="hljs-number">0</span>
+        self.b = <span class="hljs-number">1</span>
+        <span class="hljs-keyword">return</span> self
+
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__next__</span><span class="hljs-params">(self)</span>:</span>
+        fib = self.a
+        <span class="hljs-keyword">if</span> fib &gt; self.max:
+            <span class="hljs-keyword">raise</span> StopIteration
+        self.a, self.b = self.b, self.a + self.b
+        <span class="hljs-keyword">return</span> fib
+
+<span class="hljs-comment"># 定义一个main函数，循环遍历每一个菲波那切数</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">main</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-comment"># 20以内的数</span>
+    fib = Fib(<span class="hljs-number">20</span>)
+    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> fib:
+        print(i)
+
+<span class="hljs-comment"># 测试</span>
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">'__main__'</span>:
+    main()</code></pre>
+
+<p>解释说明：</p>
+
+<blockquote>
+  <p>在本类的实现中，定义了一个<strong><em>_iter_</em></strong>(self)方法，这个方法是在for循环遍历时被iter()调用，返回一个迭代器。因为在遍历的时候，是直接调用的python内置函数iter()，由iter()通过调用<strong><em>_iter_</em></strong>(self)获得对象的迭代器。有了迭代器，就可以逐个遍历元素了。而逐个遍历的时候，也是使用内置的next(）函数通过调用对象的<strong><em>_next_</em></strong>(self)方法对迭代器对象进行遍历。所以要实现<strong><em>_iter_</em></strong>(self)和<strong><em>_next_</em></strong>(self)这两个方法。</p>
+  
+  <p><strong>而且因为实现了<em><strong>_next_</strong></em>(self)方法，所以在实现<em><strong>_iter_</strong></em>(self)的时候，直接返回self就可以。</strong></p>
+  
+  <p>总结一句话就是： <br>
+  在循环遍历<strong>自定义容器对象</strong>时,会使用python内置函数iter()调用遍历对象的<strong><em>_iter_</em></strong>(self)获得一个迭代器,之后再循环对这个迭代器使用next()调用迭代器对象的<strong><em>_next_</em></strong>(self)。</p>
+  
+  <p>注意点：<strong><em>_iter_</em></strong>(self)只会被调用一次,而<strong><em>_next_</em></strong>(self)会被调用 n 次，直到出现StopIteration异常。</p>
+</blockquote>
+
+<h3 id="num02生成器">Num02–&gt;生成器</h3>
+
+
+
+<h4 id="作用">作用：</h4>
+
+<pre><code>&gt;延迟操作。也就是在需要的时候才产生结果，不是立即产生结果。
+</code></pre>
+
+
+
+<h4 id="注意事项">注意事项：</h4>
+
+<pre><code>&gt;生成器是只能遍历一次的。
+&gt;生成器是一类特殊的迭代器。
+</code></pre>
+
+<h4 id="分类">分类：</h4>
+
+<blockquote>
+  <p>第一类：生成器函数：还是使用  def  定义函数，但是，使用yield而不是return语句返回结果。yield语句一次返回一个结果，在每个结果中间，挂起函数的状态，以便下次从它离开的地方继续执行。</p>
+  
+  <p>如下案例加以说明：</p>
+</blockquote>
+
+
+
+<pre class="prettyprint"><code class=" hljs python"><span class="hljs-comment"># 菲波那切数列</span>
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">Fib</span><span class="hljs-params">(max)</span>:</span>
+    n, a, b = <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">1</span>
+    <span class="hljs-keyword">while</span> n &lt; max:
+        <span class="hljs-keyword">yield</span> b
+        a, b = b, a + b
+        n = n + <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'亲！没有数据了...'</span>
+<span class="hljs-comment"># 调用方法，生成出10个数来</span>
+f=Fib(<span class="hljs-number">10</span>)
+<span class="hljs-comment"># 使用一个循环捕获最后return 返回的值，保存在异常StopIteration的value中</span>
+<span class="hljs-keyword">while</span>  <span class="hljs-keyword">True</span>:
+    <span class="hljs-keyword">try</span>:
+        x=next(f)
+        print(<span class="hljs-string">"f:"</span>,x)
+    <span class="hljs-keyword">except</span> StopIteration <span class="hljs-keyword">as</span> e:
+        print(<span class="hljs-string">"生成器最后的返回值是："</span>,e.value)
+        <span class="hljs-keyword">break</span></code></pre>
+
+<blockquote>
+  <p>第二类：生成器表达式：类似于列表推导，只不过是把一对大括号[]变换为一对小括号()。但是，生成器表达式是按需产生一个生成器结果对象，要想拿到每一个元素，就需要循环遍历。</p>
+  
+  <p>如下案例加以说明：</p>
+</blockquote>
+
+
+
+<pre class="prettyprint"><code class=" hljs livecodeserver"><span class="hljs-comment"># 一个列表</span>
+xiaoke=[<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>]
+<span class="hljs-comment"># 生成器generator，类似于list，但是是把[]改为()</span>
+gen=(<span class="hljs-operator">a</span> <span class="hljs-keyword">for</span> <span class="hljs-operator">a</span>  <span class="hljs-operator">in</span> xiaoke)
+<span class="hljs-keyword">for</span>  i  <span class="hljs-operator">in</span> gen:
+    print(i)
+<span class="hljs-comment">#结果是：</span>
+<span class="hljs-number">2</span>
+<span class="hljs-number">3</span>
+<span class="hljs-number">4</span>
+<span class="hljs-number">5</span>
+
+<span class="hljs-comment"># 为什么要使用生成器？因为效率。</span>
+<span class="hljs-comment"># 使用生成器表达式取代列表推导式可以同时节省 cpu 和 内存(RAM)。</span>
+<span class="hljs-comment"># 如果你构造一个列表(list)的目的仅仅是传递给别的函数,</span>
+<span class="hljs-comment"># 比如 传递给tuple()或者set(), 那就用生成器表达式替代吧!</span>
+
+<span class="hljs-comment"># 本案例是直接把列表转化为元组</span>
+kk=tuple(<span class="hljs-operator">a</span> <span class="hljs-keyword">for</span> <span class="hljs-operator">a</span> <span class="hljs-operator">in</span> xiaoke)
+print(kk)
+<span class="hljs-comment">#结果是：</span>
+(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>)
+
+<span class="hljs-comment"># python内置的一些函数，可以识别这是生成器表达式，外面有一对小括号，就是生成器</span>
+result1=<span class="hljs-built_in">sum</span>(<span class="hljs-operator">a</span> <span class="hljs-keyword">for</span> <span class="hljs-operator">a</span> <span class="hljs-operator">in</span> range(<span class="hljs-number">3</span>))
+print(result1)
+<span class="hljs-comment"># 列表推导式</span>
+result2=<span class="hljs-built_in">sum</span>([<span class="hljs-operator">a</span> <span class="hljs-keyword">for</span> <span class="hljs-operator">a</span> <span class="hljs-operator">in</span> range(<span class="hljs-number">3</span>)])
+print(result2)</code></pre>            </div>
+						<link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-258a4616f7.css" rel="stylesheet">
+                      </div>
+	</article>
+</div>
+
+  <div class="hide-article-box hide-article-pos text-center">
+    <div class="border"></div>
+        <a class="btn article-footer-btn" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/u014745194/article/details/70176117,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/u014745194/article/details/70176117,"}'>阅读更多</a>
+        <a class="btn article-footer-btn article-footer-bookmark-btn" >
+      <svg class="icon no-active hover-hide" aria-hidden="true">
+        <use xlink:href="#csdnc-bookmark"></use>
+      </svg>
+      <span>收藏</span>
+    </a>
+    <div class="btn article-footer-btn  bds_weixin article-footer-share-btn" data-cmd="weixin" title="分享">
+      <svg class="icon no-active hover-hide" aria-hidden="true">
+        <use xlink:href="#csdnc-share"></use>
+      </svg>
+      <span>分享</span>
+      <div class="bdsharebuttonbox">
+        <a href="#"class="bds_weixin clear-share-style-article-footer" data-cmd="weixin" title="分享"></a>
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+  (function(){
+    function collection(){
+      if (currentUserName) {
+        var markObj = {};
+            markObj.imgUrl ='https://csdnimg.cn/release/phoenix/static_blog/images/appqr.png';
+        var markPrompt = (new window.csdn.publicPrompt).init(markObj);
+        var maeked = '您已经收藏过';
+        if (!$(this).hasClass("liked")) {
+          $.ajax({
+            url: 'https://my.csdn.net/my/favorite/do_add/2',
+            dataType: 'json',
+            type: 'POST',
+            xhrFields: {
+              withCredentials: true
+            },
+            data: {
+              title: articleTit,
+              url: 'https://blog.csdn.net/u014745194/article/details/70176117',
+              share: 1,
+              map_name: ''
+            },
+            success: function(data) {
+              
+              if (data.succ == 1) {
+                $('.btn-bookmark').addClass("liked");
+                $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                markPrompt.show({})
+                // alert('收藏成功,可以在个人中心查看我的收藏');
+              } else {
+                if (data.msg === "您已经收藏过") {
+                  $('.btn-bookmark').addClass("liked");
+                  $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                  markPrompt.show({
+                    titleStr: maeked
+                  })
+                }else{
+                  alert(data.msg);
+                  
+                }
+              }
+            }
+          });
+        } else {
+          markPrompt.show({
+            titleStr: maeked
+          })
+        }
+      } else {
+        window.csdn.loginBox.show();
+      }
+    }
+    function permissionCheck(dom){
+      var returnData = false;
+      switch (true) {
+        case currentUserPermission && userPermission:
+          clearReadMoreBtn(dom)
+          returnData = true;
+          break;
+        case userPermission:
+          dom.text('VIP阅读');
+          returnData = false;
+          break;
+        default:
+          
+      }
+      return returnData;
+    }
+    window.csdn = window.csdn ? window.csdn : {};
+    window.csdn.articleCollection = collection;
+    function clearReadMoreBtn(dom) {
+      if(userPermission && !(dom instanceof jQuery)) {
+        window.open('https://mall.csdn.net/vip?utm_source=brv')
+        return false;
+      }
+      dom = dom instanceof jQuery ? dom : $(this);
+      $("div.article_content").removeAttr("style");
+      dom.parent().remove();
+    }
+    function setArticleH(btnReadmore,posi){
+      var winH = $(window).height();
+      var articleBox = $("div.article_content");
+      var artH = articleBox.height();
+      if(artH > winH*posi){
+        articleBox.css({
+          'height':winH*posi+'px',
+          'overflow':'hidden'
+        })
+        btnReadmore.click(clearReadMoreBtn)
+      }else{
+        btnReadmore.parent().remove()
+      }
+    }
+    var btnReadmore = $("#btn-readmore");
+    $('.article-footer-bookmark-btn').click(window.csdn.articleCollection)
+    if(btnReadmore.length>0){
+      if (permissionCheck(btnReadmore)) {
+        return false;
+      }
+      if(currentUserName){
+        setArticleH(btnReadmore,3);
+      }else{
+        setArticleH(btnReadmore,0.5);
+      }
+    }else{
+      $('.hide-article-box').addClass('hide-article-style');
+    }
+  })()
+</script>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+        <div id="dmp_ad_58"><div id="kp_box_58" data-pid="58" data-track-view='{"mod":"kp_popu_58-402","con":",,"}' data-track-click='{"mod":"kp_popu_58-402","con":",,"}'><div style="width:100%;background:#fff;border:3px solid #fff;">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div id="three_ad1" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 100,
+                showid : 'ztvJV8',
+                placeholderId: "three_ad1",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 0,
+                    imageWidth: 90,
+                    imageHeight: 68,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft YaHei',
+                    paddingTop : 20,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 20,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script>
+</div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="javascript:void(0);" target="_blank">
+				<img class="show_loginbox" src="//g.csdnimg.cn/static/user-img/anonymous-User-img.png">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="70176117">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/jinixin/article/details/72232604,BlogCommendFromThirdService_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jinixin/article/details/72232604,BlogCommendFromThirdService_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jinixin/article/details/72232604" target="_blank" title="Python可迭代对象，迭代器，生成器的区别">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>可迭代对象，<em>迭代器</em>，生<em>成器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9154</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jinixin/article/details/72232604" target="_blank" title="Python可迭代对象，迭代器，生成器的区别">
+							<span class="desc oneline">本篇文章简单谈谈Python中可迭代对象，迭代器和生成器之间的关系。刚开始我认为这两者是等同的，但后来发现并不是这样；直接抛出结论：可迭代对象包含迭代器。如果一个对象拥有__iter__方法，其是可迭...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/jinixin">来自：	<span class="blog_title"> nxin的小抄本</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_37275405/article/details/80945446,BlogCommendFromThirdService_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_37275405/article/details/80945446,BlogCommendFromThirdService_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_37275405/article/details/80945446" target="_blank" title="生成器与迭代器">
+				<h4 class="text-truncate oneline">
+						生<em>成器</em>与<em>迭代器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							966</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_37275405/article/details/80945446" target="_blank" title="生成器与迭代器">
+							<span class="desc oneline">什么是生成器通过列表推导式，可以直接创建一个列表，但是收到内存限制，列表容量肯定是有限的而且，创建一个包含100万个元素的列表，占用很大的存储空间。如果我们仅仅需要访问前面几个元素，后面后面元素的占用...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_37275405">来自：	<span class="blog_title"> 爱python的王三金</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xiongjiezk/article/details/51186968,BlogCommendFromThirdService_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiongjiezk/article/details/51186968,BlogCommendFromThirdService_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiongjiezk/article/details/51186968" target="_blank" title="python 迭代器和生成器的区别">
+				<h4 class="text-truncate oneline">
+						<em>python</em> <em>迭代器</em>和生<em>成器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3519</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiongjiezk/article/details/51186968" target="_blank" title="python 迭代器和生成器的区别">
+							<span class="desc oneline">迭代器（iterator）是一个实现了迭代器协议的对象，python的一些内置数据类型（列表，数组，字符串，字典等）都可以通过for语句进行迭代，我们也可以自己创建一个容器，实现了迭代器协议，可以通过...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiongjiezk">来自：	<span class="blog_title"> xiongjiezk的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_59" data-pid="59" data-track-view='{"mod":"kp_popu_59-78","con":",,"}' data-track-click='{"mod":"kp_popu_59-78","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3491668",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_35187510/article/details/79594885,BlogCommendFromThirdService_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_35187510/article/details/79594885,BlogCommendFromThirdService_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_35187510/article/details/79594885" target="_blank" title="区别迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						<em>区别</em><em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							759</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_35187510/article/details/79594885" target="_blank" title="区别迭代器和生成器">
+							<span class="desc oneline">一：迭代器定义： 迭代器就是实现了迭代器协议的对象。那么小伙伴们就要问了，什么是迭代器协议呢?设计的知识点： 迭代器协议：即对象实现了__iter__()和__next__()两个方法 __iter_...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_35187510">来自：	<span class="blog_title"> qq_35187510的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wanna_gonna/article/details/83091643,BlogCommendFromThirdService_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wanna_gonna/article/details/83091643,BlogCommendFromThirdService_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wanna_gonna/article/details/83091643" target="_blank" title="迭代器与生成器的差别">
+				<h4 class="text-truncate oneline">
+						<em>迭代器</em>与生<em>成器</em>的差别				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							425</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wanna_gonna/article/details/83091643" target="_blank" title="迭代器与生成器的差别">
+							<span class="desc oneline">一直搞不清楚迭代器和生成器的区别，找到了一篇写的很好的文章，记录下。原文链接如下：大牛自己的博客  迭代器，生成器18OCT2016前言迭代器和生成器可能对于一些人来说知道是什么东东，但是并没有比较深...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wanna_gonna">来自：	<span class="blog_title"> wanna_gonna的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/rainharder/article/details/73368770,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/rainharder/article/details/73368770,BlogCommendFromBaidu_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/rainharder/article/details/73368770" target="_blank" title="详解生成器、迭代器">
+				<h4 class="text-truncate oneline">
+						详解生<em>成器</em>、<em>迭代器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2369</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/rainharder/article/details/73368770" target="_blank" title="详解生成器、迭代器">
+							<span class="desc oneline">原文：http://www.cnblogs.com/vipchenwei/p/6991204.html 本文讲述了以下几个方面:　　1.何为迭代，何为可迭代对象，何为生成器，何为迭代器？　　2.可迭代...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/rainharder">来自：	<span class="blog_title"> rainharder的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yipianfeng_ye/article/details/81095940,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yipianfeng_ye/article/details/81095940,BlogCommendFromBaidu_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yipianfeng_ye/article/details/81095940" target="_blank" title="生成器，可迭代对象，迭代器之间区别">
+				<h4 class="text-truncate oneline">
+						生<em>成器</em>，可迭代对象，<em>迭代器</em>之间<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							876</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yipianfeng_ye/article/details/81095940" target="_blank" title="生成器，可迭代对象，迭代器之间区别">
+							<span class="desc oneline">生成器，可迭代对象，迭代器之间区别对于初学者肯定会带来困惑，希望下面的文章能帮助你，彻底理解,迭代器理解迭代器作用可迭代对象，迭代器区别实现的方式下面用用一幅图来概括：迭代器理解迭代是Python最强...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yipianfeng_ye">来自：	<span class="blog_title"> yipianfeng_ye的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_30758629/article/details/80860714,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_30758629/article/details/80860714,BlogCommendFromBaidu_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_30758629/article/details/80860714" target="_blank" title="【python】迭代器和生成器的区别和联系">
+				<h4 class="text-truncate oneline">
+						【<em>python</em>】<em>迭代器</em>和生<em>成器</em>的<em>区别</em>和联系				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1438</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_30758629/article/details/80860714" target="_blank" title="【python】迭代器和生成器的区别和联系">
+							<span class="desc oneline">一.迭代器通过iter()方法获得了list的迭代器对象，然后就可以通过next()方法来访问list中的元素了。当容器中没有可访问的元素后，next()方法将会抛出一个StopIteration异常...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_30758629">来自：	<span class="blog_title"> qq_30758629的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_60" data-pid="60" data-track-view='{"mod":"kp_popu_60-43","con":",,"}' data-track-click='{"mod":"kp_popu_60-43","con":",,"}'><div id="three_ad8" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 84,
+                showid : 'Afihld',
+                placeholderId: "three_ad8",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 10,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ygdxt/article/details/84574188,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ygdxt/article/details/84574188,BlogCommendFromBaidu_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ygdxt/article/details/84574188" target="_blank" title="Python 从生成器到协程">
+				<h4 class="text-truncate oneline">
+						<em>Python</em> 从生<em>成器</em>到协程				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							112</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ygdxt/article/details/84574188" target="_blank" title="Python 从生成器到协程">
+							<span class="desc oneline">生成器通过列表生成式，我们可以直接创建一个列表。但是，受到内存限制，列表容量肯定是有限的。而且，创建一个包含100万个元素的列表，不仅占用很大的存储空间，如果我们仅仅需要访问前面几个元素，那后面绝大多...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ygdxt">来自：	<span class="blog_title"> 月小水长</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43466473/article/details/88099455,BlogCommendFromBaidu_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43466473/article/details/88099455,BlogCommendFromBaidu_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_43466473/article/details/88099455" target="_blank" title="python中生成器和迭代器的区别">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>中生</em><em>成器</em>和<em>迭代器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							66</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_43466473/article/details/88099455" target="_blank" title="python中生成器和迭代器的区别">
+							<span class="desc oneline">迭代器是一个更抽象的概念，任何对象，如果它的类有next方法和iter方法返回自己本身，对于string、list、dict、tuple等这类容器对象，使用for循环遍历是很方便的。在后台for语句对...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_43466473">来自：	<span class="blog_title"> Egret丶Lu</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+          <div class="recommend-item-box blog-expert-recommend-box">
+				<div class="d-flex">
+					<div class="blog-expert-recommend">
+						<div class="blog-expert">
+							<div class="blog-expert-flexbox"></div>
+						</div>
+					</div>
+				</div>
+      </div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/cython22/article/details/78846588,BlogCommendFromBaidu_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/cython22/article/details/78846588,BlogCommendFromBaidu_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/cython22/article/details/78846588" target="_blank" title="迭代对象、迭代器、生成器浅析">
+				<h4 class="text-truncate oneline">
+						迭代对象、<em>迭代器</em>、生<em>成器</em>浅析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							570</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/cython22/article/details/78846588" target="_blank" title="迭代对象、迭代器、生成器浅析">
+							<span class="desc oneline">迭代对象、迭代器、生成器浅析这三者都是迭代对象，可通过for循环逐个获取对象元素。生成器基本不占用内存无论有多大数据量，但是只能使用一次（也可以通过一些途径使用多次）。迭代对象iterables能一次...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/cython22">来自：	<span class="blog_title"> cython22的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34857250/article/details/78882422,BlogCommendFromBaidu_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34857250/article/details/78882422,BlogCommendFromBaidu_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_34857250/article/details/78882422" target="_blank" title="迭代器与生成器的使用">
+				<h4 class="text-truncate oneline">
+						<em>迭代器</em>与生<em>成器</em>的使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2468</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_34857250/article/details/78882422" target="_blank" title="迭代器与生成器的使用">
+							<span class="desc oneline">迭代器什么是迭代器？为什么要有迭代器可迭代的对象迭代器对象迭代器总结迭代器优缺点总结生成器什么是生成器生成器就是迭代器yield的功能yield为我们提供了一种自定义迭代器对象的方法yield与ret...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_34857250">来自：	<span class="blog_title"> kismile</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qwertyuiopasdfgg/article/details/89326025,BlogCommendFromBaidu_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qwertyuiopasdfgg/article/details/89326025,BlogCommendFromBaidu_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qwertyuiopasdfgg/article/details/89326025" target="_blank" title="python 中的容器、迭代器、生成器，之间的区别和方法。">
+				<h4 class="text-truncate oneline">
+						<em>python</em> 中的容器、<em>迭代器</em>、生<em>成器</em>，之间的<em>区别</em>和方法。				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							32</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qwertyuiopasdfgg/article/details/89326025" target="_blank" title="python 中的容器、迭代器、生成器，之间的区别和方法。">
+							<span class="desc oneline">完全理解python中的容器、迭代器、生成器容器（container）容器是一种把多个元素组织在一起的数据结构，容器中的元素可以逐个地迭代获取，可以用in,notin关键字判断元素是否包含在容器中。通...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qwertyuiopasdfgg">来自：	<span class="blog_title"> 念念不忘，必有回响。</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_61" data-pid="61" data-track-view='{"mod":"kp_popu_61-557","con":",,"}' data-track-click='{"mod":"kp_popu_61-557","con":",,"}'><div id="three_ad13" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad13",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/superfanstoprogram/article/details/83543697,BlogCommendFromBaidu_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/superfanstoprogram/article/details/83543697,BlogCommendFromBaidu_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/superfanstoprogram/article/details/83543697" target="_blank" title="用代码来解释可迭代性，迭代器，生成器的区别">
+				<h4 class="text-truncate oneline">
+						用代码来解释可迭代性，<em>迭代器</em>，生<em>成器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							146</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/superfanstoprogram/article/details/83543697" target="_blank" title="用代码来解释可迭代性，迭代器，生成器的区别">
+							<span class="desc oneline">本文将用代码来演示说明可迭代性，迭代器，生成器</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/superfanstoprogram">来自：	<span class="blog_title"> 快乐清风客的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xuexiaoyaani/article/details/79836630,BlogCommendFromBaidu_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xuexiaoyaani/article/details/79836630,BlogCommendFromBaidu_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xuexiaoyaani/article/details/79836630" target="_blank" title="列表解析式、生成器、迭代器及可迭代对象的区别和应用">
+				<h4 class="text-truncate oneline">
+						列表解析式、生<em>成器</em>、<em>迭代器</em>及可迭代对象的<em>区别</em>和应用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							760</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xuexiaoyaani/article/details/79836630" target="_blank" title="列表解析式、生成器、迭代器及可迭代对象的区别和应用">
+							<span class="desc oneline">导文语法糖(Syntacticsugar)列表生成式(listcomprehension)生成器(generator)迭代器(iterator)可迭代对象（iterable）Iterable、Iter...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xuexiaoyaani">来自：	<span class="blog_title"> 从0到1</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010844092/article/details/63685908,BlogCommendFromBaidu_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010844092/article/details/63685908,BlogCommendFromBaidu_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010844092/article/details/63685908" target="_blank" title="python 生成器和迭代器的区别">
+				<h4 class="text-truncate oneline">
+						<em>python</em> 生<em>成器</em>和<em>迭代器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							772</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010844092/article/details/63685908" target="_blank" title="python 生成器和迭代器的区别">
+							<span class="desc oneline">https://segmentfault.com/a/1190000002900850</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010844092">来自：	<span class="blog_title"> u010844092的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/miner_zhu/article/details/81076364,BlogCommendFromBaidu_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/miner_zhu/article/details/81076364,BlogCommendFromBaidu_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/miner_zhu/article/details/81076364" target="_blank" title="迭代器与生成器（python）简述">
+				<h4 class="text-truncate oneline">
+						<em>迭代器</em>与生<em>成器</em>（<em>python</em>）简述				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							311</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/miner_zhu/article/details/81076364" target="_blank" title="迭代器与生成器（python）简述">
+							<span class="desc oneline">迭代器迭代是Python最强大的功能之一，是访问集合元素的一种方式。迭代器是一个可以记住遍历的位置的对象。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。迭代...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/miner_zhu">来自：	<span class="blog_title"> miner_zhu的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Strive_0902/article/details/83008846,BlogCommendFromBaidu_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Strive_0902/article/details/83008846,BlogCommendFromBaidu_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Strive_0902/article/details/83008846" target="_blank" title="python生成器和迭代器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>生<em>成器</em>和<em>迭代器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							83</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Strive_0902/article/details/83008846" target="_blank" title="python生成器和迭代器">
+							<span class="desc oneline">1迭代第一，迭代需要重复进行某一操作。第二，本次迭代的要依赖上一次的结果继续往下做，如果中途有任何停顿，都不能算是迭代。#example1#非迭代count=0whilecount&amp;amp;lt;10...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Strive_0902">来自：	<span class="blog_title"> Strive_0902的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_62" data-pid="62" data-track-view='{"mod":"kp_popu_62-556","con":",,"}' data-track-click='{"mod":"kp_popu_62-556","con":",,"}'><div id="three_ad18" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'Afihld',
+                placeholderId: "three_ad18",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_40283816/article/details/86481304,BlogCommendFromBaidu_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_40283816/article/details/86481304,BlogCommendFromBaidu_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_40283816/article/details/86481304" target="_blank" title="python中的生成器和迭代器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>中的生<em>成器</em>和<em>迭代器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							259</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_40283816/article/details/86481304" target="_blank" title="python中的生成器和迭代器">
+							<span class="desc oneline">昨天晚上看面经的时候发现上面有提到python生成器和yield，刚才看元组生成式生成结果是一个生成器对象，这跟列表生成式还是有一定区别的。所以就干脆写下这篇文章记录一下。这也会是我总结面经的第一篇，...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_40283816">来自：	<span class="blog_title"> 不服输的南瓜的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Travelerwz/article/details/78879830,BlogCommendFromBaidu_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Travelerwz/article/details/78879830,BlogCommendFromBaidu_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Travelerwz/article/details/78879830" target="_blank" title="python迭代器和生成器 区别">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>迭代器</em>和生<em>成器</em> <em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							169</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Travelerwz/article/details/78879830" target="_blank" title="python迭代器和生成器 区别">
+							<span class="desc oneline">python迭代器和生成器区别1.迭代器就是对象提供了next方法，他只有两种方法:一是返回迭代下一项，二就是抛出异常，终指迭代2.生成器自动实现了迭代器的协议，使用yield语句而不是我们经常使用的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Travelerwz">来自：	<span class="blog_title"> Travelerwz的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/YHX0105/article/details/80502022,BlogCommendFromBaidu_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/YHX0105/article/details/80502022,BlogCommendFromBaidu_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/YHX0105/article/details/80502022" target="_blank" title="Python 迭代器与生成器异同">
+				<h4 class="text-truncate oneline">
+						<em>Python</em> <em>迭代器</em>与生<em>成器</em>异同				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							450</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/YHX0105/article/details/80502022" target="_blank" title="Python 迭代器与生成器异同">
+							<span class="desc oneline">什么是迭代器，什么是生成器。在刚开始学习的时候，总是觉得两个东西差不多，下面举两个例子来详细说明它们二者区别：生成器（generator）：斐波那契数列为例deffib(max):n,a,b=0,0,...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/YHX0105">来自：	<span class="blog_title"> YHX0105的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    			<div class="recommend-item-box recommend-box-ident recommend-download-box clearfix" data-track-view='{"mod":"popu_387","con":",https://download.csdn.net/download/weixin_42998096/10696776,BlogCommendFromBaidu_21"}' data-track-click='{"mod":"popu_387","con":",https://download.csdn.net/download/weixin_42998096/10696776,BlogCommendFromBaidu_21"}'>
+			<a href="https://download.csdn.net/download/weixin_42998096/10696776" target="_blank">
+				<div class="content clearfix">
+					<div class="">
+						<h4 class="text-truncate oneline clearfix">
+							<em>迭代器</em>和生<em>成器</em>的<em>区别</em>						</h4>
+						<span class="data float-right">09-29</span>
+					</div>
+					<div class="desc oneline">
+							什么是迭代呢，迭代也就是遍历，我们把通过for in 循环语句依次从其中取出数据的过程叫做迭代					</div>
+          <span class="type-show type-show-download">下载</span>
+				</div>
+			</a>
+		</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sibyl_pisces/article/details/78423203,BlogCommendFromBaidu_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sibyl_pisces/article/details/78423203,BlogCommendFromBaidu_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sibyl_pisces/article/details/78423203" target="_blank" title="Python中iteration(迭代)、iterator(迭代器)、generator(生成器)等相关概念的理解">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>中iteration(迭代)、iterator(<em>迭代器</em>)、generator(生<em>成器</em>)等相关概念的理解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1438</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sibyl_pisces/article/details/78423203" target="_blank" title="Python中iteration(迭代)、iterator(迭代器)、generator(生成器)等相关概念的理解">
+							<span class="desc oneline">http://blog.csdn.net/dawningblue/article/details/72629362在阅读Pythontutorial类这一章的时候出现了iterator的概念，我是一个...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sibyl_pisces">来自：	<span class="blog_title"> sibyl_pisces的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_63" data-pid="63" data-track-view='{"mod":"kp_popu_63-555","con":",,"}' data-track-click='{"mod":"kp_popu_63-555","con":",,"}'><div id="three_ad23" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad23",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhusongziye/article/details/80246910,BlogCommendFromBaidu_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhusongziye/article/details/80246910,BlogCommendFromBaidu_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhusongziye/article/details/80246910" target="_blank" title="一文读懂Python可迭代对象、迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						一文读懂<em>Python</em>可迭代对象、<em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1874</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhusongziye/article/details/80246910" target="_blank" title="一文读懂Python可迭代对象、迭代器和生成器">
+							<span class="desc oneline">我们都知道，序列可以迭代。但是，你知道为什么吗？本文来探讨一下迭代背后的原理。序列可以迭代的原因：iter函数。解释器需要迭代对象x时，会自动调用iter(x)。内置的iter函数有以下作用：(1)检...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhusongziye">来自：	<span class="blog_title"> zhusongziye的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_40388909/article/details/79717666,BlogCommendFromBaidu_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_40388909/article/details/79717666,BlogCommendFromBaidu_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_40388909/article/details/79717666" target="_blank" title="python生成器与迭代器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>生<em>成器</em>与<em>迭代器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-31</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							79</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_40388909/article/details/79717666" target="_blank" title="python生成器与迭代器">
+							<span class="desc oneline">python生成器与迭代器一、生成器列表的元素在定义的时候就放在内容中，生成器是在使用的时候采用产生。这样做的好处就是节省空间。#列表生成式a=[i*2foriinrange(10)]print(a)...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_40388909">来自：	<span class="blog_title"> keen</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/l645317186/article/details/82787311,BlogCommendFromBaidu_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/l645317186/article/details/82787311,BlogCommendFromBaidu_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/l645317186/article/details/82787311" target="_blank" title="Python迭代器与生成器">
+				<h4 class="text-truncate oneline">
+						<em>Python</em><em>迭代器</em>与生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							67</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/l645317186/article/details/82787311" target="_blank" title="Python迭代器与生成器">
+							<span class="desc oneline">迭代器迭代是Python最强大的功能之一，是访问集合元素的一种方式。迭代器是一个可以记住遍历的位置的对象。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。迭代...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/l645317186">来自：	<span class="blog_title"> LeeAmySnail----专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zkq_1986/article/details/78792351,BlogCommendFromBaidu_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zkq_1986/article/details/78792351,BlogCommendFromBaidu_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zkq_1986/article/details/78792351" target="_blank" title="【python】迭代器和生成器区别">
+				<h4 class="text-truncate oneline">
+						【<em>python</em>】<em>迭代器</em>和生<em>成器</em><em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							227</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zkq_1986/article/details/78792351" target="_blank" title="【python】迭代器和生成器区别">
+							<span class="desc oneline">迭代器和生成器区别1什么是迭代器任何实现了__iter__和__next__()方法的对象都是迭代器，__iter__返回迭代器自身，__next__返回容器中的下一个值，如果迭代器中没有更多元素了，...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zkq_1986">来自：	<span class="blog_title"> zkq_1986的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wuzhichenggo/article/details/77935135,BlogCommendFromBaidu_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuzhichenggo/article/details/77935135,BlogCommendFromBaidu_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wuzhichenggo/article/details/77935135" target="_blank" title="python迭代器与生成器">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>迭代器</em>与生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							417</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wuzhichenggo/article/details/77935135" target="_blank" title="python迭代器与生成器">
+							<span class="desc oneline">python迭代器与生成器差不多弄懂了迭代器与生成器，都是东拼西凑的，也加入了自己的理解。目录：1.迭代器（Iterator）1.1简单操作1.2用for遍历迭代对象1.3用next()遍历迭代对象2...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wuzhichenggo">来自：	<span class="blog_title"> wuzhichenggo的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_64" data-pid="64" data-track-view='{"mod":"kp_popu_64-809","con":",,"}' data-track-click='{"mod":"kp_popu_64-809","con":",,"}'><script
+    async="async"
+    charset="utf-8"
+    src="https://shared.ydstatic.com/js/yatdk/3.0.1/stream.js"
+    data-id="6cb24153a03289ff3597c7aab4b69fe9"
+    data-div-Style="width:100%;"
+data-tit-Style="margin-bottom: 6px; font-size: 18px; line-height: 24px; color: #3d3d3d;display: inline-block;font-weight:bold;"
+data-des-Style="font-size: 13px; line-height: 22px; white-space: normal; color: #999;"
+data-img-Style="float:left;margin-right:15px;width:90px;height:60px;">
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Lee_woxinyiran/article/details/80959415,BlogCommendFromBaidu_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Lee_woxinyiran/article/details/80959415,BlogCommendFromBaidu_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Lee_woxinyiran/article/details/80959415" target="_blank" title="Python中迭代器和生成器的区别与联系">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>中<em>迭代器</em>和生<em>成器</em>的<em>区别</em>与联系				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							458</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Lee_woxinyiran/article/details/80959415" target="_blank" title="Python中迭代器和生成器的区别与联系">
+							<span class="desc oneline">1.迭代器迭代器是一个可以记住遍历的位置的对象。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退。迭代器有两个基本的方法：iter()和next()。使用时首先...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Lee_woxinyiran">来自：	<span class="blog_title"> Lee_woxinyiran的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xiaoxianerqq/article/details/81475288,BlogCommendFromBaidu_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiaoxianerqq/article/details/81475288,BlogCommendFromBaidu_29"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiaoxianerqq/article/details/81475288" target="_blank" title="Python｜迭代器和生成器，简单的实例，通俗的理解">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>｜<em>迭代器</em>和生<em>成器</em>，简单的实例，通俗的理解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							258</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiaoxianerqq/article/details/81475288" target="_blank" title="Python｜迭代器和生成器，简单的实例，通俗的理解">
+							<span class="desc oneline">转自：https://www.toutiao.com/a6586438564358128136/?tt_from=mobile_qq&amp;amp;amp;utm_campaign=client_share...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiaoxianerqq">来自：	<span class="blog_title"> xiaoxianerqq的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lqian1993/article/details/80380125,BlogCommendFromBaidu_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lqian1993/article/details/80380125,BlogCommendFromBaidu_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lqian1993/article/details/80380125" target="_blank" title="python3迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>3<em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							528</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lqian1993/article/details/80380125" target="_blank" title="python3迭代器和生成器">
+							<span class="desc oneline">迭代器和生成器</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lqian1993">来自：	<span class="blog_title"> lqian1993的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yrx0619/article/details/80740767,BlogCommendFromBaidu_31"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yrx0619/article/details/80740767,BlogCommendFromBaidu_31"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yrx0619/article/details/80740767" target="_blank" title="谈谈python迭代器与生成器">
+				<h4 class="text-truncate oneline">
+						谈谈<em>python</em><em>迭代器</em>与生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							419</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yrx0619/article/details/80740767" target="_blank" title="谈谈python迭代器与生成器">
+							<span class="desc oneline">问题python为什么会有迭代器和生成器这两个东西，或者可以说这两个东西有什么优点？解答要回答问题一，首先就要知道什么是迭代器？它是一个带状态的对象，他能在你调用next()方法的时候返回容器中的下一...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yrx0619">来自：	<span class="blog_title"> yrx0619的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/simuLeo/article/details/80095358,BlogCommendFromBaidu_32"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/simuLeo/article/details/80095358,BlogCommendFromBaidu_32"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/simuLeo/article/details/80095358" target="_blank" title="[python笔记] 迭代器和生成器的区别">
+				<h4 class="text-truncate oneline">
+						[<em>python</em>笔记] <em>迭代器</em>和生<em>成器</em>的<em>区别</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							132</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/simuLeo/article/details/80095358" target="_blank" title="[python笔记] 迭代器和生成器的区别">
+							<span class="desc oneline">迭代器协议1.迭代器协议是指：对象必须提供一个next方法，执行该方法要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代（只能往后走不能往前退）2.可迭代对象：实现了迭代...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/simuLeo">来自：	<span class="blog_title"> simuLeo的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_65" data-pid="65" data-track-view='{"mod":"kp_popu_65-84","con":",,"}' data-track-click='{"mod":"kp_popu_65-84","con":",,"}'><div id="three_ad33" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad33",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zjw247296185/article/details/81023468,BlogCommendFromBaidu_33"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zjw247296185/article/details/81023468,BlogCommendFromBaidu_33"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zjw247296185/article/details/81023468" target="_blank" title="生成器、迭代器、容器和可迭代对象的区别与特征">
+				<h4 class="text-truncate oneline">
+						生<em>成器</em>、<em>迭代器</em>、容器和可迭代对象的<em>区别</em>与特征				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							169</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zjw247296185/article/details/81023468" target="_blank" title="生成器、迭代器、容器和可迭代对象的区别与特征">
+							<span class="desc oneline">	容器(container)：容器是一种把多个元素组织在一起的数据结构，容器中的元素可以逐个的迭代获取，可以用in,notin关键字判断元素是否包含在容器中，常见的容器有list,set,dict,t...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zjw247296185">来自：	<span class="blog_title"> xiaomoshu的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wo_renfanzi/article/details/51613022,BlogCommendFromBaidu_34"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wo_renfanzi/article/details/51613022,BlogCommendFromBaidu_34"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wo_renfanzi/article/details/51613022" target="_blank" title="迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						<em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1557</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wo_renfanzi/article/details/51613022" target="_blank" title="迭代器和生成器">
+							<span class="desc oneline">1、迭代器迭代器是访问集合元素的一种方式。迭代器对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退，不过这也没什么，因为人们很少在迭代途中往后退。另外，迭代器的一大优点...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wo_renfanzi">来自：	<span class="blog_title"> wo_renfanzi的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/s120922718/article/details/45026497,BlogCommendFromBaidu_35"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/s120922718/article/details/45026497,BlogCommendFromBaidu_35"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/s120922718/article/details/45026497" target="_blank" title="【Python】迭代器(iterator) vs 生成器(generator)">
+				<h4 class="text-truncate oneline">
+						【<em>Python</em>】<em>迭代器</em>(iterator) vs 生<em>成器</em>(generator)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7573</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/s120922718/article/details/45026497" target="_blank" title="【Python】迭代器(iterator) vs 生成器(generator)">
+							<span class="desc oneline">对python中的迭代器(iterator)vs生成器(generator)之间的区别和应用进行介绍。</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/s120922718">来自：	<span class="blog_title"> zwan0518的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhouguoqionghai/article/details/72771820,BlogCommendFromBaidu_36"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhouguoqionghai/article/details/72771820,BlogCommendFromBaidu_36"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhouguoqionghai/article/details/72771820" target="_blank" title="python 迭代器与生成器即迭代协议的特别说明">
+				<h4 class="text-truncate oneline">
+						<em>python</em> <em>迭代器</em>与生<em>成器</em>即迭代协议的特别说明				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3159</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhouguoqionghai/article/details/72771820" target="_blank" title="python 迭代器与生成器即迭代协议的特别说明">
+							<span class="desc oneline">python中抽象程度更高，直接在语言层面支持对容器进行迭代。C++中在泛型算法和容器之间还需要借助中间层迭代器来粘合。可迭代的是两类对象：1、包含__iter__方法的。2、包含__getitem_...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhouguoqionghai">来自：	<span class="blog_title"> zhouguoqionghai的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chenqiaolin521/article/details/79435601,BlogCommendFromBaidu_37"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chenqiaolin521/article/details/79435601,BlogCommendFromBaidu_37"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/chenqiaolin521/article/details/79435601" target="_blank" title="一张图明白python  生成器/迭代器/可迭代对象  之间的关系">
+				<h4 class="text-truncate oneline">
+						一张图明白<em>python</em>  生<em>成器</em>/<em>迭代器</em>/可迭代对象  之间的关系				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							801</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/chenqiaolin521/article/details/79435601" target="_blank" title="一张图明白python  生成器/迭代器/可迭代对象  之间的关系">
+							<span class="desc oneline">python中迭代器与生成器，相信学的时候，很多小伙伴都会感到头疼，一会迭代器，一会生成器，一会可迭代对象，一会可迭代对象用iter方法转换成迭代器.......,有没有感觉像是绕口令，那么久让我告诉...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/chenqiaolin521">来自：	<span class="blog_title"> 明天---你好</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_66" data-pid="66" data-track-view='{"mod":"kp_popu_66-881","con":",,"}' data-track-click='{"mod":"kp_popu_66-881","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T38_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T38  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T38_render", "T38");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43173892/article/details/82908595,BlogCommendFromBaidu_38"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43173892/article/details/82908595,BlogCommendFromBaidu_38"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_43173892/article/details/82908595" target="_blank" title="迭代器和生成器的理解">
+				<h4 class="text-truncate oneline">
+						<em>迭代器</em>和生<em>成器</em>的理解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							156</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_43173892/article/details/82908595" target="_blank" title="迭代器和生成器的理解">
+							<span class="desc oneline">一、迭代器协议和迭代器对象1、迭代器协议是指：对象必须提供一个next方法，执行该方法要么返回迭代中的下一项，要么就引起一个StopIteration异常，以终止迭代。只能往前走，不能往后退。2、迭代...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_43173892">来自：	<span class="blog_title"> weixin_43173892的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/iodjSVf8U1J7KYc/article/details/78967583,BlogCommendFromBaidu_39"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/iodjSVf8U1J7KYc/article/details/78967583,BlogCommendFromBaidu_39"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/iodjSVf8U1J7KYc/article/details/78967583" target="_blank" title="Python 迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						<em>Python</em> <em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1244</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/iodjSVf8U1J7KYc/article/details/78967583" target="_blank" title="Python 迭代器和生成器">
+							<span class="desc oneline">(点击上方蓝字，快速关注我们)来源：田小计划  www.cnblogs.com/wilber2013/p/4652531.html在Python中，很多对象都是可以通过for语句来直接遍历的，例如li...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/iodjSVf8U1J7KYc">来自：	<span class="blog_title"> Python开发者</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sunchengquan/article/details/84494101,BlogCommendFromBaidu_40"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sunchengquan/article/details/84494101,BlogCommendFromBaidu_40"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sunchengquan/article/details/84494101" target="_blank" title="python迭代器、生成器和装饰器">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>迭代器</em>、生<em>成器</em>和装饰器				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sunchengquan/article/details/84494101" target="_blank" title="python迭代器、生成器和装饰器">
+							<span class="desc oneline">文章目录生成器生成器表达式(generatorexpression)通过使用yield关键字定义迭代器迭代器概述iter()函数创建迭代器创建一个迭代器(类)内置迭代器工具count无限迭代器cycl...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sunchengquan">来自：	<span class="blog_title"> sunchengquan的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u013034226/article/details/82390725,BlogCommendFromBaidu_41"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u013034226/article/details/82390725,BlogCommendFromBaidu_41"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u013034226/article/details/82390725" target="_blank" title="【Python】帮你理解可迭代对象、迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						【<em>Python</em>】帮你理解可迭代对象、<em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							263</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u013034226/article/details/82390725" target="_blank" title="【Python】帮你理解可迭代对象、迭代器和生成器">
+							<span class="desc oneline">目录一．前言二．从for说起三．再讲一下可迭代对象和迭代器①iterableobject（可迭代对象）：②iteratorobject（迭代器）：③迭代器的应用场景四．为什么要来到“生成器”？①迭代器...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u013034226">来自：	<span class="blog_title"> 高岩 is me</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chszs/article/details/3852669,BlogCommendFromBaidu_42"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chszs/article/details/3852669,BlogCommendFromBaidu_42"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/chszs/article/details/3852669" target="_blank" title="Python的迭代器和生成器">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>的<em>迭代器</em>和生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/chszs/article/details/3852669" target="_blank" title="Python的迭代器和生成器">
+							<span class="desc oneline">Python的迭代器和生成器一、迭代器Iterators迭代器仅是一容器对象，它实现了迭代器协议。它有两个基本方法：1）next方法返回容器的下一个元素2）__iter__方法返回迭代器自身迭代器可使...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/chszs">来自：	<span class="blog_title"> chszs的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_67" data-pid="67" data-track-view='{"mod":"kp_popu_67-882","con":",,"}' data-track-click='{"mod":"kp_popu_67-882","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T43_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T43  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T43_render", "T43");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/he_and/article/details/80712495,BlogCommendFromBaidu_43"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/he_and/article/details/80712495,BlogCommendFromBaidu_43"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/he_and/article/details/80712495" target="_blank" title="python迭代器与解析">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>迭代器</em>与解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1051</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/he_and/article/details/80712495" target="_blank" title="python迭代器与解析">
+							<span class="desc oneline">python迭代器与解析迭代器初探可能大家都已经知道for循环语句可以作用域任何序列类型，包括列表、元组以及字符串。实际上for循环能够作用于任何可迭代的对象，除了for语句，python中所有会从左...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/he_and">来自：	<span class="blog_title"> 阿信在努力</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wang_yuewen/article/details/78847807,BlogCommendFromBaidu_44"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wang_yuewen/article/details/78847807,BlogCommendFromBaidu_44"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wang_yuewen/article/details/78847807" target="_blank" title="Python学习迭代器与生成器">
+				<h4 class="text-truncate oneline">
+						<em>Python</em>学习<em>迭代器</em>与生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							553</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wang_yuewen/article/details/78847807" target="_blank" title="Python学习迭代器与生成器">
+							<span class="desc oneline">一、迭代器一个可以记住遍历的位置的对象，对象从集合的第一个元素开始访问，直到所有的元素被访问完结束。迭代器只能往前不会后退1、iter()创建迭代器和next()输出迭代器的下一个元素&gt;&gt;&gt;list1...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wang_yuewen">来自：	<span class="blog_title"> 奔跑的蜗牛</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/youngbit007/article/details/61623139,BlogCommendFromBaidu_45"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/youngbit007/article/details/61623139,BlogCommendFromBaidu_45"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/youngbit007/article/details/61623139" target="_blank" title="python3中的迭代器与生成器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>3中的<em>迭代器</em>与生<em>成器</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3210</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/youngbit007/article/details/61623139" target="_blank" title="python3中的迭代器与生成器">
+							<span class="desc oneline">迭代器（iterator）生成器（generator）python3</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/youngbit007">来自：	<span class="blog_title"> python|大数据爱好者Alvin</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pipisorry/article/details/42085723,BlogCommendFromBaidu_46"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pipisorry/article/details/42085723,BlogCommendFromBaidu_46"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pipisorry/article/details/42085723" target="_blank" title="python迭代器、生成器和yield语句">
+				<h4 class="text-truncate oneline">
+						<em>python</em><em>迭代器</em>、生<em>成器</em>和yield语句				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4563</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pipisorry/article/details/42085723" target="_blank" title="python迭代器、生成器和yield语句">
+							<span class="desc oneline">http://blog.csdn.net/pipisorry/article/details/22107553一、迭代器(iterator)迭代器：是一个实现了迭代器协议的对象，Python中的迭代器...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pipisorry">来自：	<span class="blog_title"> 皮皮blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/IamSarah/article/details/78078179,BlogCommendFromBaidu_47"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/IamSarah/article/details/78078179,BlogCommendFromBaidu_47"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/IamSarah/article/details/78078179" target="_blank" title="python学习之迭代器、生成器和装饰器">
+				<h4 class="text-truncate oneline">
+						<em>python</em>学习之<em>迭代器</em>、生<em>成器</em>和装饰器				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							803</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/IamSarah/article/details/78078179" target="_blank" title="python学习之迭代器、生成器和装饰器">
+							<span class="desc oneline">1.迭代器表面上看是一个数据流对象或者容器，当使用其中的数据时，每次从数据流中取出一个数据，直到数据被取完，而且数据不会被重复使用。从代码的角度来看，迭代器是实现了迭代器协议方法的对象和类。迭代器协议...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/IamSarah">来自：	<span class="blog_title"> 正在努力的ICer的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_68" data-pid="68" data-track-view='{"mod":"kp_popu_68-883","con":",,"}' data-track-click='{"mod":"kp_popu_68-883","con":",,"}'><!-- T48 位置 -->
+<script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T48_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T48  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T48_render", "T48");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/bitcarmanlee/article/details/51335055,BlogCommendFromBaidu_48"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/bitcarmanlee/article/details/51335055,BlogCommendFromBaidu_48"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/bitcarmanlee/article/details/51335055" target="_blank" title="python 迭代器与生成器 详解">
+				<h4 class="text-truncate oneline">
+						<em>python</em> <em>迭代器</em>与生<em>成器</em> 详解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2237</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/bitcarmanlee/article/details/51335055" target="_blank" title="python 迭代器与生成器 详解">
+							<span class="desc oneline">在python中，我们经常使用for循环来遍历各种集合，例如最常用的有list，dict等等，这些集合都是可迭代对象。我们先来了解一下python中的迭代器(Iterator)。一、迭代器顾名思义，迭...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/bitcarmanlee">来自：	<span class="blog_title"> bitcarmanlee的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sui_yi123/article/details/81870747,BlogCommendFromBaidu_49"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sui_yi123/article/details/81870747,BlogCommendFromBaidu_49"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/sui_yi123/article/details/81870747" target="_blank" title="python的迭代器和生成器（简单的）">
+				<h4 class="text-truncate oneline">
+						<em>python</em>的<em>迭代器</em>和生<em>成器</em>（简单的）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							51</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/sui_yi123/article/details/81870747" target="_blank" title="python的迭代器和生成器（简单的）">
+							<span class="desc oneline">1迭代器：#什么是迭代器:一个实现了iter方法和next方法的对象就叫迭代器fromcollectionsimportIterable#判断对象类型使用isinstance()函数#such:pri...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/sui_yi123">来自：	<span class="blog_title"> sui_yi123的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xiejiashu/article/details/34434669,BlogCommendHotData_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiejiashu/article/details/34434669,BlogCommendHotData_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiejiashu/article/details/34434669" target="_blank" title="用live555将内网摄像机视频推送到外网服务器，附源码">
+				<h4 class="text-truncate oneline">
+						用live555将内网摄像机视频推送到外网服务器，附源码				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiejiashu/article/details/34434669" target="_blank" title="用live555将内网摄像机视频推送到外网服务器，附源码">
+							<span class="desc oneline">最近很多人问，如何将内网的摄像机流媒体数据发布到公网，如果用公网与局域网间的端口映射方式太过麻烦，一个摄像机要做一组映射，而且不是每一个局域网都是有固定ip地址，即使外网主机配置好了每一个摄像机的映射...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiejiashu">来自：	<span class="blog_title"> Babosa的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/FloraCHY/article/details/72769809,BlogCommendHotData_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/FloraCHY/article/details/72769809,BlogCommendHotData_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/FloraCHY/article/details/72769809" target="_blank" title="Python2.7.13下载安装全过程（Windows版）">
+				<h4 class="text-truncate oneline">
+						Python2.7.13下载安装全过程（Windows版）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/FloraCHY/article/details/72769809" target="_blank" title="Python2.7.13下载安装全过程（Windows版）">
+							<span class="desc oneline">前提：
+    我下载的Python是windows版本的，演示过程是在win10 64位操作系统上安装的。
+
+
+
+1、下载
+    进入官网https://www.python.org/...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/FloraCHY">来自：	<span class="blog_title"> Flora's Zone</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lk_blog/article/details/8007777,BlogCommendHotData_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lk_blog/article/details/8007777,BlogCommendHotData_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lk_blog/article/details/8007777" target="_blank" title="配置简单功能强大的excel工具类搞定excel导入导出工具类(一)">
+				<h4 class="text-truncate oneline">
+						配置简单功能强大的excel工具类搞定excel导入导出工具类(一)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lk_blog/article/details/8007777" target="_blank" title="配置简单功能强大的excel工具类搞定excel导入导出工具类(一)">
+							<span class="desc oneline">对于J2EE项目导入导出Excel是最普通和实用功能,本工具类使用步骤简单,功能强大,只需要对实体类进行简单的注解就能实现导入导出功能,导入导出操作的都是实体对象.
+请看一下这个类都有哪些功能:
+  ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lk_blog">来自：	<span class="blog_title"> 李坤 大米时代 第五期</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+				<h4 class="text-truncate oneline">
+						expat介绍文档翻译				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+							<span class="desc oneline">原文地址：http://www.xml.com/pub/a/1999/09/expat/index.html
+
+
+因为需要用，所以才翻译了这个文档。但总归赖于英语水平很有限，翻译出来的中文有可能...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ymj7150697">来自：	<span class="blog_title"> ymj7150697的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/diandianxiyu/article/details/53068012,BlogCommendHotData_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/diandianxiyu/article/details/53068012,BlogCommendHotData_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/diandianxiyu/article/details/53068012" target="_blank" title="【小程序】微信小程序开发实践">
+				<h4 class="text-truncate oneline">
+						【小程序】微信小程序开发实践				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							28万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/diandianxiyu/article/details/53068012" target="_blank" title="【小程序】微信小程序开发实践">
+							<span class="desc oneline">帐号相关流程注册范围
+企业
+政府
+媒体
+其他组织换句话讲就是不让个人开发者注册。 :)填写企业信息不能使用和之前的公众号账户相同的邮箱,也就是说小程序是和微信公众号一个层级的。填写公司机构信息,对公账...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/diandianxiyu">来自：	<span class="blog_title"> 小雨同学的技术博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/cs_assult/article/details/46495379,BlogCommendHotData_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/cs_assult/article/details/46495379,BlogCommendHotData_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/cs_assult/article/details/46495379" target="_blank" title="ucore操作系统lab2实验报告">
+				<h4 class="text-truncate oneline">
+						ucore操作系统lab2实验报告				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5447</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/cs_assult/article/details/46495379" target="_blank" title="ucore操作系统lab2实验报告">
+							<span class="desc oneline">练习1：实现 first-fit 连续物理内存分配算法
+在实现first fit 内存分配算法的回收函数时，要考虑地址连续的空闲块之间的合并操作。提示:在建立空闲页块链表时，需要按照空闲页块起始地址来...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/cs_assult">来自：	<span class="blog_title"> cs_assult的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yangwei282367751/article/details/52426911,BlogCommendHotData_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yangwei282367751/article/details/52426911,BlogCommendHotData_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yangwei282367751/article/details/52426911" target="_blank" title="关于计算时间复杂度和空间复杂度">
+				<h4 class="text-truncate oneline">
+						关于计算时间复杂度和空间复杂度				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-04</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yangwei282367751/article/details/52426911" target="_blank" title="关于计算时间复杂度和空间复杂度">
+							<span class="desc oneline">相信学习编程的同学，或多或少都接触到算法的时间复杂度和空间复杂度了，那我来讲讲怎么计算。
+       常用的算法的时间复杂度和空间复杂度 一，求解算法的时间复杂度，其具体步骤是：
+
+　　⑴ 找出算法...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yangwei282367751">来自：	<span class="blog_title"> 杨威的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/opensure/article/details/46453681,BlogCommendHotData_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/opensure/article/details/46453681,BlogCommendHotData_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/opensure/article/details/46453681" target="_blank" title="Hbase 布隆过滤器BloomFilter介绍">
+				<h4 class="text-truncate oneline">
+						Hbase 布隆过滤器BloomFilter介绍				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/opensure/article/details/46453681" target="_blank" title="Hbase 布隆过滤器BloomFilter介绍">
+							<span class="desc oneline">1、主要功能
+
+提高随机读的性能
+
+
+
+
+2、存储开销
+
+bloom filter的数据存在StoreFile的meta中，一旦写入无法更新，因为StoreFile是不可变的。Bloomfilter是...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/opensure">来自：	<span class="blog_title"> opensure的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wild46cat/article/details/54572361,BlogCommendHotData_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wild46cat/article/details/54572361,BlogCommendHotData_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wild46cat/article/details/54572361" target="_blank" title="webService学习（二）—— 调用自定义对象参数">
+				<h4 class="text-truncate oneline">
+						webService学习（二）—— 调用自定义对象参数				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wild46cat/article/details/54572361" target="_blank" title="webService学习（二）—— 调用自定义对象参数">
+							<span class="desc oneline">webService学习（二）—— 调用自定义对象参数
+本文主要内容：
+1、如何通过idea进行webService Client的简单实现（不再使用wsimport的方式，其实是ide帮我们做了...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wild46cat">来自：	<span class="blog_title">  止水的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012903992/article/details/17271929,BlogCommendHotData_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012903992/article/details/17271929,BlogCommendHotData_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012903992/article/details/17271929" target="_blank" title="Windows平台SSH服务器架设攻略">
+				<h4 class="text-truncate oneline">
+						Windows平台SSH服务器架设攻略				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1861</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012903992/article/details/17271929" target="_blank" title="Windows平台SSH服务器架设攻略">
+							<span class="desc oneline">SSH是一种以安全、加密方式连接远程主机或服务器的方法。SSH服务器接受从有SSH的客户机的连接，允许操作者象在本地一样地登录系统。你可以用SSH从远程运行shell和X程序。它是一种服务器维护管理的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012903992">来自：	<span class="blog_title"> 天涯路的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+				<h4 class="text-truncate oneline">
+						centos 查看命令源码				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							10万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+							<span class="desc oneline"># yum install yum-utils
+
+
+设置源:
+[base-src]
+name=CentOS-5.4 - Base src -
+baseurl=http://vault.ce...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/silentpebble">来自：	<span class="blog_title"> linux/unix</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/maoyuanming0806/article/details/78067446,BlogCommendHotData_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/maoyuanming0806/article/details/78067446,BlogCommendHotData_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+				<h4 class="text-truncate oneline">
+						搭建图片服务器《二》-linux安装nginx				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/maoyuanming0806/article/details/78067446" target="_blank" title="搭建图片服务器《二》-linux安装nginx">
+							<span class="desc oneline">nginx是个好东西，Nginx (engine x) 是一个高性能的HTTP和反向代理服务器，也是一个IMAP/POP3/SMTP服务器。Nginx是由伊戈尔·赛索耶夫为俄罗斯访问量第二的Rambl...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/maoyuanming0806">来自：	<span class="blog_title"> maoyuanming0806的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/jason0539/article/details/23297037,BlogCommendHotData_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jason0539/article/details/23297037,BlogCommendHotData_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jason0539/article/details/23297037" target="_blank" title="JAVA设计模式之单例模式">
+				<h4 class="text-truncate oneline">
+						JAVA设计模式之单例模式				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							77万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jason0539/article/details/23297037" target="_blank" title="JAVA设计模式之单例模式">
+							<span class="desc oneline">概念：
+　　java中单例模式是一种常见的设计模式，单例模式分三种：懒汉式单例、饿汉式单例、登记式单例三种。
+　　单例模式有一下特点：
+　　1、单例类只能有一个实例。
+　　2、单例类必须自己自己创建自...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/jason0539">来自：	<span class="blog_title"> 一个本科小生的奋斗史</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendHotData_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendHotData_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+				<h4 class="text-truncate oneline">
+						linux上安装Docker(非常简单的安装方法)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							24万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+							<span class="desc oneline">最近比较有空，大四出来实习几个月了，作为实习狗的我，被叫去研究Docker了，汗汗！
+
+Docker的三大核心概念：镜像、容器、仓库
+镜像：类似虚拟机的镜像、用俗话说就是安装文件。
+容器：类似一个轻量...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_36892341">来自：	<span class="blog_title"> 我走小路的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/meng564764406/article/details/52444644,BlogCommendHotData_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/meng564764406/article/details/52444644,BlogCommendHotData_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/meng564764406/article/details/52444644" target="_blank" title="将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化">
+				<h4 class="text-truncate oneline">
+						将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/meng564764406/article/details/52444644" target="_blank" title="将Excel文件导入数据库（POI+Excel+MySQL+jsp页面导入）第一次优化">
+							<span class="desc oneline">本篇文章是根据我的上篇博客，给出的改进版，由于时间有限，仅做了一个简单的优化。相关文章：将excel导入数据库2018年4月1日，新增下载地址链接：点击打开源码下载地址十分抱歉，这个链接地址没有在这篇...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/meng564764406">来自：	<span class="blog_title"> Lynn_Blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ganeshys2017/article/details/73694881,BlogCommendHotData_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ganeshys2017/article/details/73694881,BlogCommendHotData_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ganeshys2017/article/details/73694881" target="_blank" title="wamp黄色问题解决">
+				<h4 class="text-truncate oneline">
+						wamp黄色问题解决				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							910</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ganeshys2017/article/details/73694881" target="_blank" title="wamp黄色问题解决">
+							<span class="desc oneline">http://blog.csdn.net/qq_32429977/article/details/50452529</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ganeshys2017">来自：	<span class="blog_title"> ganeshys2017的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/jinshengtao/article/details/17797641,BlogCommendHotData_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/jinshengtao/article/details/17797641,BlogCommendHotData_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/jinshengtao/article/details/17797641" target="_blank" title="Gabor滤波器学习">
+				<h4 class="text-truncate oneline">
+						Gabor滤波器学习				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/jinshengtao/article/details/17797641" target="_blank" title="Gabor滤波器学习">
+							<span class="desc oneline">本文的目的是用C实现生成Gabor模版，并对图像卷积。并简单提一下，Gabor滤波器在纹理特征提取上的应用。
+一、什么是Gabor函数（以下内容含部分翻译自维基百科）
+  在图像处理中，Gabor...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/jinshengtao">来自：	<span class="blog_title"> Where there is life, there is hope</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/HNSD983704669/article/details/46441531,BlogCommendHotData_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/HNSD983704669/article/details/46441531,BlogCommendHotData_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/HNSD983704669/article/details/46441531" target="_blank" title="weka J48决策树学习">
+				<h4 class="text-truncate oneline">
+						weka J48决策树学习				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8312</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/HNSD983704669/article/details/46441531" target="_blank" title="weka J48决策树学习">
+							<span class="desc oneline">Weka为一个Java基础上的机器学习工具，上手简单，并提供图形化界面，提供如分类、聚类、频繁项挖掘等工具，本篇文章主要写一下分类器算法中的J48算法及其实现。
+
+
+
+
+一、算法
+
+J4...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/HNSD983704669">来自：	<span class="blog_title"> 路远，漫步前行</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/a378881925/article/details/42835497,BlogCommendHotData_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/a378881925/article/details/42835497,BlogCommendHotData_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/a378881925/article/details/42835497" target="_blank" title="Android 卸载监听详解">
+				<h4 class="text-truncate oneline">
+						Android 卸载监听详解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/a378881925/article/details/42835497" target="_blank" title="Android 卸载监听详解">
+							<span class="desc oneline">目前市场上比较多的应用在用户卸载后会弹出意见反馈界面，比如360手机卫士，腾讯手机管家，应用宝等等，虽然本人不太认同其交互方式，但是在技术实现上还是可以稍微研究下的。其实要实现这个功能，最主要的就是监...</span>
+						</a>
+						  <span class="blog_title_box oneline no-title">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hayixia606/article/details/79237220,BlogCommendHotData_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hayixia606/article/details/79237220,BlogCommendHotData_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hayixia606/article/details/79237220" target="_blank" title="微信支付V3微信公众号支付PHP教程(thinkPHP5公众号支付)/JSSDK的使用">
+				<h4 class="text-truncate oneline">
+						微信支付V3微信公众号支付PHP教程(thinkPHP5公众号支付)/JSSDK的使用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							16万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hayixia606/article/details/79237220" target="_blank" title="微信支付V3微信公众号支付PHP教程(thinkPHP5公众号支付)/JSSDK的使用">
+							<span class="desc oneline">扫二维码关注，获取更多技术分享
+
+
+  本文承接之前发布的博客《 微信支付V3微信公众号支付PHP教程/thinkPHP5公众号支付》必须阅读上篇文章后才可以阅读这篇文章。由于最近一段时间工作比较忙，...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/hayixia606">来自：	<span class="blog_title"> Marswill</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+				<h4 class="text-truncate oneline">
+						强连通分量及缩点tarjan算法解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							61万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+							<span class="desc oneline">强连通分量：
+简言之 就是找环（每条边只走一次，两两可达）
+孤立的一个点也是一个连通分量 
+ 
+使用tarjan算法 在嵌套的多个环中优先得到最大环( 最小环就是每个孤立点）
+ 
+定义：
+int Ti...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq574857122">来自：	<span class="blog_title"> 九野的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lsx991947534/article/details/45499205,BlogCommendHotData_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lsx991947534/article/details/45499205,BlogCommendHotData_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lsx991947534/article/details/45499205" target="_blank" title="servlet+jsp实现过滤器，防止用户未登录访问">
+				<h4 class="text-truncate oneline">
+						servlet+jsp实现过滤器，防止用户未登录访问				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lsx991947534/article/details/45499205" target="_blank" title="servlet+jsp实现过滤器，防止用户未登录访问">
+							<span class="desc oneline">我们可能经常会用到这一功能，比如有时，我们不希望用户没有进行登录访问后台的操作页面，而且这样的非法访问会让系统极为的不安全，所以我们常常需要进行登录才授权访问其它页面，否则只会出现登录页面，当然我的思...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lsx991947534">来自：	<span class="blog_title"> 沉默的鲨鱼的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+				<h4 class="text-truncate oneline">
+						jquery/js实现一个网页同时调用多个倒计时(最新的)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							48万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+							<span class="desc oneline">jquery/js实现一个网页同时调用多个倒计时(最新的)
+
+最近需要网页添加多个倒计时. 查阅网络,基本上都是千遍一律的不好用. 自己按需写了个.希望对大家有用. 有用请赞一个哦!
+
+
+
+//js
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wuchengzeng">来自：	<span class="blog_title"> Websites</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weiyi556/article/details/51938467,BlogCommendHotData_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weiyi556/article/details/51938467,BlogCommendHotData_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weiyi556/article/details/51938467" target="_blank" title="MyEclipse与在线SVN（taocode）的使用（二）">
+				<h4 class="text-truncate oneline">
+						MyEclipse与在线SVN（taocode）的使用（二）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2048</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weiyi556/article/details/51938467" target="_blank" title="MyEclipse与在线SVN（taocode）的使用（二）">
+							<span class="desc oneline">使用taocode作为SVN的服务器，地址http://code.taobao.org/
+
+在网站上注册和登录
+
+新建一个项目
+输入相关信息
+复制这个地址，一会要用
+下一步在MyEclipse中向SV...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weiyi556">来自：	<span class="blog_title"> weiyi556的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+				<h4 class="text-truncate oneline">
+						关于SpringBoot bean无法注入的问题（与文件包位置有关）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							21万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+							<span class="desc oneline">问题场景描述整个项目通过Maven构建，大致结构如下：
+核心Spring框架一个module spring-boot-base
+service和dao一个module server-core
+提供系统...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/gefangshuai">来自：	<span class="blog_title"> 开发随笔</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/DUANJIEFEI/article/details/46461049,BlogCommendHotData_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/DUANJIEFEI/article/details/46461049,BlogCommendHotData_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/DUANJIEFEI/article/details/46461049" target="_blank" title="算法经典面试题整理（java实现）">
+				<h4 class="text-truncate oneline">
+						算法经典面试题整理（java实现）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/DUANJIEFEI/article/details/46461049" target="_blank" title="算法经典面试题整理（java实现）">
+							<span class="desc oneline">以下从Java角度解释面试常见的算法和数据结构：字符串，链表，树，图，排序，递归 vs. 迭代，动态规划，位操作，概率问题，排列组合，以及一些需要寻找规律的题目。
+
+1. 字符串和数组
+
+字符...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/DUANJIEFEI">来自：	<span class="blog_title"> DUANJIEFEI的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Tiaaaaa/article/details/58116346,BlogCommendHotData_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Tiaaaaa/article/details/58116346,BlogCommendHotData_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Tiaaaaa/article/details/58116346" target="_blank" title="R语言逻辑回归、ROC曲线和十折交叉验证">
+				<h4 class="text-truncate oneline">
+						R语言逻辑回归、ROC曲线和十折交叉验证				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Tiaaaaa/article/details/58116346" target="_blank" title="R语言逻辑回归、ROC曲线和十折交叉验证">
+							<span class="desc oneline">自己整理编写的逻辑回归模板，作为学习笔记记录分享。数据集用的是14个自变量Xi，一个因变量Y的australian数据集。
+
+
+1. 测试集和训练集3、7分组
+australian ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Tiaaaaa">来自：	<span class="blog_title"> Tiaaaaa的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Luck_ZZ/article/details/79361497,BlogCommendHotData_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Luck_ZZ/article/details/79361497,BlogCommendHotData_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Luck_ZZ/article/details/79361497" target="_blank" title="thymeleaf模板实现html5标签的非严格检查">
+				<h4 class="text-truncate oneline">
+						thymeleaf模板实现html5标签的非严格检查				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Luck_ZZ/article/details/79361497" target="_blank" title="thymeleaf模板实现html5标签的非严格检查">
+							<span class="desc oneline">一、概述最近在springboot项目引入thymeleaf模板时，使用非严格标签时，运行会报错。默认thymeleaf模板对html5标签是严格检查的。二、在项目中加NekoHTML库在Maven中...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Luck_ZZ">来自：	<span class="blog_title"> Luck_ZZ的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/52970885,BlogCommendHotData_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/52970885,BlogCommendHotData_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xu__cg/article/details/52970885" target="_blank" title="Java设计模式学习06——静态代理与动态代理">
+				<h4 class="text-truncate oneline">
+						Java设计模式学习06——静态代理与动态代理				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xu__cg/article/details/52970885" target="_blank" title="Java设计模式学习06——静态代理与动态代理">
+							<span class="desc oneline">一、代理模式为某个对象提供一个代理，从而控制这个代理的访问。代理类和委托类具有共同的父类或父接口，这样在任何使用委托类对象的地方都可以使用代理类对象替代。代理类负责请求的预处理、过滤、将请求分配给委托...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xu__cg">来自：	<span class="blog_title"> 小小本科生成长之路</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u013224148/article/details/46400969,BlogCommendHotData_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u013224148/article/details/46400969,BlogCommendHotData_29"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u013224148/article/details/46400969" target="_blank" title="php+MySQL图书管理系统(二)">
+				<h4 class="text-truncate oneline">
+						php+MySQL图书管理系统(二)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u013224148/article/details/46400969" target="_blank" title="php+MySQL图书管理系统(二)">
+							<span class="desc oneline">第五 添加数据库管理员数据与用户数据
+这个比较无聊 用java拼接了一下sql语句 然后写入数据库
+这个放在附件上传就好了
+
+
+第六 管理员与用户的登入验证
+
+1、验证码。验证码一般就是...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u013224148">来自：	<span class="blog_title"> 得之我幸--失之我命</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Apheal/article/details/79274647,BlogCommendHotData_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Apheal/article/details/79274647,BlogCommendHotData_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Apheal/article/details/79274647" target="_blank" title="Keil 主题（配色方案）选择器 自带多适用主题">
+				<h4 class="text-truncate oneline">
+						Keil 主题（配色方案）选择器 自带多适用主题				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							9770</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Apheal/article/details/79274647" target="_blank" title="Keil 主题（配色方案）选择器 自带多适用主题">
+							<span class="desc oneline"> 花了一天！因为要用Keil，又苦于主题不好看，一个个换主题又嫌麻烦，就写了这个东西。代码有点多，先放出配置步骤，源码在文末。V1.0，没有图片预览功能，但是随插件附赠几个类似VS的配色方案。 本是按...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Apheal">来自：	<span class="blog_title"> Q1275918492</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+        <div class="recommend-item-box type_hot_word">
+            <div class="content clearfix">
+        <div class="word float-left">
+                          <span>
+            <a href="https://edu.csdn.net/combos/o363_l0_t " target="_blank">
+            设计制作学习          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o5329_s5330_k " target="_blank">
+            机器学习教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o280_s351_k " target="_blank">
+            Objective-C培训          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o7115_s388_l0_t " target="_blank">
+            交互设计视频教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/course/play/5599/104252 " target="_blank">
+            颜色模型          </a></span>
+                        </div>
+      </div>
+                  <div class="content clearfix">
+        <div class="float-left">
+                  <span>
+            <a href="https://www.csdn.net/gather_24/MtTaEg3sMDM5MS1ibG9n.html" target="_blank">
+            mysql关联查询两次本表</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_10/MtjaIg3sMTUzMy1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            native底部 react</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_1b/Ntzagg1sOTU3LWRvd25sb2Fk.html" target="_blank">
+            extjs glyph 图标</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/NtzaAg0sMzgtZWR1.html" target="_blank">
+            java迭代器学习</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/NtDakgzsNDUtZWR1.html" target="_blank">
+            大数据与深度学习区别</a>
+          </span>
+                </div>
+      </div>
+          </div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/u014745194">
+              <img src="https://avatar.csdn.net/9/6/1/3_u014745194.jpg" class="avatar_pic">
+                              <img src="https://g.csdnimg.cn/static/user-reg-year/1x/5.png" class="user-years">
+                          </a>
+            
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/u014745194" target="_blank" class="" id="uid">ITxiaoke</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="177">
+                        <dt><a href="https://blog.csdn.net/u014745194?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/u014745194?t=1"><span class="count">177</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="256">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">256</span></dd>
+        </dl>
+        <dl class="text-center" title="130">
+            <dt>喜欢</dt>
+            <dd><span class="count">130</span></dd>
+        </dl>
+        <dl class="text-center" title="33">
+            <dt>评论</dt>
+            <dd><span class="count">33</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="302707">
+                30万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="4497">
+                4497            </dd>
+        </dl>
+        <dl title="11189">
+            <dt>排名：</dt>
+            <dd>1万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+        <div class="badge d-flex">
+                              <div class="icon-badge" title="持之以恒">
+              <div class="mouse-box">
+                  <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#csdnc-m-lasting"></use>
+                  </svg>
+                  <div class="icon-arrow"></div>
+              </div>
+              <div class="grade-detail-box">
+                  <div class="pos-box">
+                      <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                          <svg class="icon" aria-hidden="true">
+                              <use xlink:href="#csdnc-m-lasting"></use>
+                          </svg>
+                          <p>持之以恒</p>
+                      </div>
+                      <div class="right-box d-flex justify-content-center align-items-center">
+                          授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！
+                      </div>
+                  </div>
+              </div>
+          </div>
+                                                                                          </div>
+        <script>
+            (function ($) {
+                setTimeout(function(){
+                    $('div.icon-badge.show-moment').removeClass('show-moment');
+                }, 5000);
+            })(window.jQuery)
+        </script>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_56" data-pid="56" data-track-view='{"mod":"kp_popu_56-876","con":",,"}' data-track-click='{"mod":"kp_popu_56-876","con":",,"}'><!-- 广告位：PC-博客内页左上视窗 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '6096221',
+        container: s,
+        size: '300,250',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+<script src="//dup.baidustatic.com/js/os.js"></script></div>    </div>
+</div>
+		    		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57" data-track-view='{"mod":"kp_popu_57-707","con":",,"}' data-track-click='{"mod":"kp_popu_57-707","con":",,"}'><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 博客内页左下视窗-20181130 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:300px;height:250px"
+     data-ad-client="ca-pub-1076724771190722"
+     data-ad-slot="1894159733"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+            <div id="dmp_ad_69"><div id="kp_box_69" data-pid="69" data-track-view='{"mod":"kp_popu_69-864","con":",,"}' data-track-click='{"mod":"kp_popu_69-864","con":",,"}'><div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://click.hm.baidu.com/clk?8e077a3bd5992761d698d2900bc960b9" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">华为开发者日南京站沙龙</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #00BFFF;padding:2px 5px 0px 5px;">
+<a href="https://edu.csdn.net/topic/ai30?utm_source=ditong" target="_blank" style="font-weight:bold;text-decoration:none;font-size:15px;">百万AI程序员现状</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://www.bagevent.com/event/2586643?bag_track=bk" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">CTA核心技术与应用峰会</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #00BFFF;padding:2px 5px 0px 5px;">
+<a href="https://gitbook.cn/gitchat/column/5cc2b3afd575995386d3abc7?utm_source=wzl190429" target="_blank" style="font-weight:bold;text-decoration:none;font-size:15px;">15天共读深度学习</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://edu.csdn.net/topic/blockchain10?utm_source=ditong" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">区块链程序员现状</a>
+</div>
+
+
+<div style="float:left;">
+<script type="text/javascript" src="//rabc1.iteye.com/common/js/ndr3h.js?b=wosyvccl"></script>
+<!-- 长文字链
+<script type="text/javascript" src="//rabc1.iteye.com/common/5klj5.js?kfxbghx=bx"></script>
+-->
+</div></div></div>            		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <div class="float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                <a class="pulllog-login">登录</a>
+            </div>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box long-width">
+			<button class=" long-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>13</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments long-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+						2				</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+		<li class="bdsharebuttonbox">
+			<div class="weixin-qr btn-comments low-height hover-box" >
+        <a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-usephone"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</div>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/u014745194/article/details/70161427" title="Python中字段(属性)、方法、特性的区别">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-chevronleft"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/u014745194/article/details/70208629" title="Python中单例设计模式">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-chevronright"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+						<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/u014745194/article/details/70161427" title="Python中字段(属性)、方法、特性的区别">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-chevronleft"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/u014745194/article/details/70208629" title="Python中单例设计模式">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronright"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 81;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 16;
+    var articleId = "70176117";
+    var commentscount = 2;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/u014745194/article/details/70176117";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "Python中生成器和迭代器的区别 - IT晓可程序员之路";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["python","\u4e2d\u751f","\u6210\u5668","\u8fed\u4ee3\u5668","\u533a\u522b"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [];
+	var articleType = 1;
+	var CopyrightContent = '本文为博主原创文章，未经博主允许不得转载。';
+    var current_user_name = '';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src="https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201904241615"></script><script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+</body>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-3bc59f8f2b.js" /></script>
+	
+	<!-- <script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/markdownCopy-5c7fa7386e.js" /></script> -->
+
+
+<script src="//g.csdnimg.cn/??login-box/1.0.5/login-box.js,login-box/1.0.5/login-auto.js?t=20190307095522"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-0100d9c3da.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-8752043e22.min.js"></script>
+
+	<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-fc7383b956.min.js"></script>
+
+<script src="//g.csdnimg.cn/baidu-search/1.0.0/baidu-search.js"  type="text/javascript"></script>
+
+
+<!-- <script type="text/javascript" src="//g.csdnimg.cn/check-adb/1.0.2/check-adb.js"></script> -->
+
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+    </script>
+<script src="https://gh.bdstatic.com/static/gh/js/sdk/bword.min.js"></script>
+</html>

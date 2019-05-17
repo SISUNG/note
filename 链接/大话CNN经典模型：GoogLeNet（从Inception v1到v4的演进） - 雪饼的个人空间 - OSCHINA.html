@@ -1,0 +1,764 @@
+<!DOCTYPE html><html><head>    <meta charset="utf-8"/>    <meta http-equiv="Content-Language" content="zh-CN">    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>    <meta name="referrer" content="always"/>    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"/>    <title>大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进） - 雪饼的个人空间 - OSCHINA</title>            <meta name="keywords" content="GoogLeNet,Inception,CNN,深度学习,卷积神经网络,雪饼,,大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进） - 雪饼的个人空间,OSCHINA博客"/>                <meta name="description" content="2014年，GoogLeNet和VGG是当年ImageNet挑战赛(ILSVRC14)的双雄，GoogLeNet获得了第一名、VGG获得了第二名，这两类模型结构的共同特点是层次更深了。VGG继承了LeNet以及AlexNet的一些框架结构（详见 大话CNN经典模型：VGGNet），而GoogLeNet则做了更加大胆的网络结构尝试，虽然深度只有22层，但大小却比AlexNet和VGG小很多..."/>        <link rel="stylesheet" type="text/css" href="https://static.oschina.net/new-osc/js/utils/semantic-ui/semantic.min.css?t=1542621653000"/>                <link type="text/css" rel="stylesheet" href="https://static.oschina.net/new-osc/dist/css/space.2532777f.css">        <script type="text/javascript">window.__STATIC_DOMAIN = "https://static.oschina.net";</script>    <script src="https://static.oschina.net/new-osc/js/utils/jquery.min.js"></script>    <link rel="shortcut icon" type="image/x-icon" href="https://static.oschina.net/new-osc/img/favicon.ico"/>    <link rel="alternate" type="application/rss+xml" title="最新开源项目" href="https://www.oschina.net/project/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新开源资讯" href="https://www.oschina.net/news/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新问题列表" href="https://www.oschina.net/question/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新翻译列表" href="https://www.oschina.net/translate/rss"/>    <link rel="alternate" type="application/rss+xml" title="最新博客列表" href="https://www.oschina.net/blog/rss"/>    <link rel="alternate" type="application/rss+xml" title="推荐博客列表" href="https://www.oschina.net/blog/rss?show=more"/>    <link rel="alternate" type="application/rss+xml" title="推荐软件列表" href="https://www.oschina.net/project/rss?show=recomms"/>    <link rel="alternate" type="application/rss+xml" title="最新代码分享列表" href="https://www.oschina.net/code/rss"/>    <link rel="alternate" type="application/rss+xml" title="OSCHINA - 源码列表" href="https://www.oschina.net/code/source_rss"/></head><body>        <val data-name="space_user_url" data-value="https://my.oschina.net/u/876354"></val>      <val data-name="g_user_url" data-value=""></val>      <val data-name="api_prefix" data-value="/action"></val>      <val data-name="g_user_code" data-value=""></val>     <val data-name="g_user_id" data-value=""></val>     <val data-name="g_user" data-value=""></val>     <val data-name="login_page" data-value="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F876354%2Fblog%2F1637819"></val>                         <val data-name="weixinAppId" data-value="wx880def15e694b905"></val>        <val data-name="weixinTimestamp" data-value="1556542302848"></val>        <val data-name="weixinNonceStr" data-value="353061fb-b4fe-4967-8cad-53a3fc429b5d"></val>        <val data-name="weixinSignature" data-value="aaa6bd290f989207443d993e10709df2593a09c8"></val>        <val data-name="weixinShareUrl" data-value="https://my.oschina.net/u/876354/blog/1637819"></val>                                             <val data-name="is_detail_page" data-value="true"></val>                <div class="ui left inverted sidebar vertical menu" id="mobileNavSidebar">        <a href="https://www.oschina.net/project" class="item project">开源软件</a>        <a href="https://www.oschina.net/question" class="item question">问答</a>        <a href="https://www.oschina.net/tweets" class="item tweet">动弹</a>        <a href="https://www.oschina.net/blog" class="item blog">博客</a>        <a href="https://www.oschina.net/translate" class="item translate">翻译</a>        <a href="https://www.oschina.net/news" class="item news">资讯</a>        <a href="https://gitee.com/?from=osc-index" class="item gitee" target="_blank">码云</a>        <a href="https://zb.oschina.net/projects/list.html" class="item" target="_blank">众包</a>        <a href="https://www.oschina.net/event/ych" class="item meetup">源创会</a>        <a href="https://www.oschina.net/event" class="item">活动</a>        <a href="https://job.oschina.net/" class="item" target="_blank">求职/招聘</a>        <a href="https://www.oschina.net/question/topic/masteronline" class="item">高手问答</a>        <a href="https://www.oschina.net/question/topic/osc-interview" class="item">开源访谈</a>        <a href="https://my.oschina.net/editorial-story" class="item">周刊</a>        <a href="https://www.oschina.net/company" class="item">公司开源导航页</a>    </div>        <div class="ui right inverted sidebar vertical menu" id="mobileUserSidebar">                    <a class="item" href="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F876354%2Fblog%2F1637819">登录</a>            <a class="item" href="https://www.oschina.net/home/reg?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F876354%2Fblog%2F1637819">注册</a>            </div>        <div class="ui vertical inverted right sidebar menu" id="sideMenu">
+    <div class="header">
+        <b>文档章节</b>
+    </div>
+    <div class="ui basic segment" id="sideMenuBody"></div>
+</div>
+<div class="ui black big launch right attached fixed button" id="sideMenuLauncher">
+    <i class="list icon"></i>
+    <span class="text">文档章节</span>
+</div>
+        <div class="pusher  mobile-disabled-fixed-menu  ">                <div class="ui secondary inverted fixed menu" id="headerNavMenu">            <a class="item logo" href="https://www.oschina.net" title="OSCHINA"><img src="https://static.oschina.net/new-osc/img/logo_new.svg" alt="OSCHINA"></a>                                                <form action="https://www.oschina.net/search" class="item search-item">                <div class="ui icon input">                    <input type="hidden" name="scope" value="blog">                    <input placeholder="大家都在搜...." id="keyword" name="q" size="24" value="" type="text"/>                    <i class="search link icon"></i>                </div>                <div class="results"></div>            </form>            <div class="item download-item">                <a class="ui primary button" id="btnDownloadApp" href="https://www.oschina.net/app" target="_blank">下载APP</a>            </div>            <div class="ui popup top left transition hidden" id="btnDownloadAppContent">                <h3 class="header">OSCHINA App —— <br/>关注技术领域的头条文章</h3>                <p>聚合全网技术文章，根据你的阅读喜好进行个性推荐</p>                <img width="200" src='https://static.oschina.net/new-osc/img/osc_app_download_qrcode.png?t=1451964198000' alt="下载APP"/>            </div>            <div class="ui secondary text menu" id="menuList">                <a href="https://www.oschina.net/project" class="item project">开源软件</a>                <a href="https://www.oschina.net/question" class="item question">问答</a>                <a href="https://www.oschina.net/tweets" class="item tweet">动弹</a>                <a href="https://www.oschina.net/blog" class="item blog">博客</a>                <a href="https://www.oschina.net/translate" class="item translate">翻译</a>                <a href="https://www.oschina.net/news" class="item news">资讯</a>                <a href="https://gitee.com/?from=osc-index" class="item gitee" target="_blank">码云<span class="floating ui red label giteetip">代码托管</span></a>                <a href="https://zb.oschina.net/projects/list.html" class="item" target="_blank">众包</a>                <a href="https://www.oschina.net/event" class="item event">活动</a>            </div>            <div class="ui dropdown item" id="moreMenu">                更多 <i class="dropdown icon"></i>                <div class="menu">                    <a href="https://www.oschina.net/event/ych" class="item meetup"><i class="world icon"></i>源创会</a>                    <a href="https://job.oschina.net/" class="item" target="_blank"><i class="address card outline icon"></i>求职/招聘</a>                    <a href="https://www.oschina.net/question/topic/masteronline" class="item"><i class="spy icon"></i>高手问答</a>                    <a href="https://www.oschina.net/question/topic/osc-interview" class="item"><i class="coffee icon"></i>开源访谈</a>                    <a href="https://my.oschina.net/editorial-story" class="item"><i class="calendar outline icon"></i>周刊</a>                    <a href="https://www.oschina.net/company" class="item"><i class="building outline icon"></i>公司开源导航页</a>                </div>            </div>            <div class="right menu">                                    <a class="item" href="https://www.oschina.net/home/login?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F876354%2Fblog%2F1637819">登录</a>                    <a class="item" href="https://www.oschina.net/home/reg?goto_page=https%3A%2F%2Fmy.oschina.net%2Fu%2F876354%2Fblog%2F1637819">注册</a>                            </div>        </div>                <div class="ui secondary inverted fixed menu" id="mobileHeaderNavMenu">            <a class="icon item toggle-mobile-nav-sidebar">                <i class="large content icon"></i>            </a>            <div class="logo back-to-top-toggle"><img src="https://static.oschina.net/new-osc/img/logo_new.svg" alt="OSCHINA"></div>            <a class="icon item toggle-mobile-user-sidebar">                                    <i class="large user outline icon"></i>                            </a>        </div>                <div id="mainScreen">            <div class="ui container">                
+
+
+
+
+
+
+
+
+
+
+
+<x-foo-define data-define="space-blog-detail"></x-foo-define> 
+<val data-name="objId" data-value="1637819"></val> <val data-name="author_id" data-value="876354"></val> <val data-name="space_user_id" data-value="876354"></val> 
+<val data-name="fetchCommentsUrl" data-value="?type=comments"></val>              <val data-name="publishCommentUrl" data-value="/space/blog/add_comment"></val>    <val data-name="replyCommentUrl" data-value="/space/blog/add_comment"></val>      <val data-name="deleteCommentUrl" data-value="/space/blog/delete_blog_comments"></val>  
+<val data-name="weixinShareTitle" data-value="大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进）"></val> <val data-name="weixinShareImgUrl" data-value="https://static.oschina.net/uploads/space/2018/0317/141419_uDBe_876354.png"></val> 
+<div class="ui internally grid blog-detail bg-wrap">
+    <div class="row">
+        <div class="two wide computer only column">
+            <div class="ui sticky float-menu" id="floatMenu">
+                <div class="ui vertical large compact menu">
+                                            <a class="item donate" donate
+                           data-id="1637819"                            data-obj-type="16344358"                            data-subject="大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进）"                            data-donater=""                            data-author="876354"                            data-return-url="https://my.oschina.net/u/876354/blog/1637819"                            data-notify-url="https://my.oschina.net/action/donate/paySuccess">                             <i class="yen icon"></i>打赏</a>
+                                        <a class="item comment-btn" href="#comments" title="共有 1 条评论"><i class="comment outline icon"></i>评论</a>
+                    <a class="item collect-btn "
+                       data-id="1637819" data-user-id="876354" data-obj-type="3" data-max="99" data-tag-required
+                       data-current-user-id=""
+                       data-recommend-tags="GoogLeNet,Inception,CNN,深度学习,卷积神经网络"><i class="star outline icon"></i>收藏</a>
+                    <a class="item like article-like " data-id="1637819"><i class="thumbs up outline icon"></i>点赞</a>
+                    <h5 class="ui item inverted brown header">分享文章</h5>
+                    <div class="bdsharebuttonbox reset left-menu" data-tag="share-news">
+                        <a class="item" data-cmd="tsina"><i class="weibo icon"></i>微博</a>
+                        <a class="item" data-cmd="sqq"><i class="qq icon"></i>QQ</a>
+                        <a class="item" data-cmd="weixin"><i class="weixin icon"></i>微信</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="twelve wide computer sixteen wide tablet sixteen wide mobile column body-container">
+            <div class="float-menu-content">
+                <div class="ui large breadcrumb">
+                    <a class="section" href="https://my.oschina.net/u/876354">雪饼的个人空间</a>
+                                                                <i class="right chevron icon divider"></i>
+                        <a class="section" href="https://my.oschina.net/u/876354?tab=newest&catalogId=273544">工作日志</a>
+                                        <i class="right chevron icon divider"></i>
+                    <div class="active section">正文</div>
+                </div>
+                <div class="article-detail">
+                                            <div class="ad-wrap">
+                                                    <div id="blog-title-ad" data-traceid="blog_ali" data-tracepid="blogup" style="">
+<script async="" src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- oschina-blog-728x90 -->
+<ins class="adsbygoogle" style="display:block;width:100%;height:90px" data-ad-client="ca-pub-7090564139599510" data-ad-slot="5590362768"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+                                    </div>
+                                        <h2 class="header">
+                        大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进）
+                                                                            <div class="ui teal label horizontal" data-tooltip="原创">原</div>
+                                                                            <div class="ui orange label horizontal" data-tooltip="推荐">荐</div>
+                                                                    </h2>
+                    <div class="extra ui horizontal list meta-wrap">
+                        <div class="item">
+                            <a href="https://my.oschina.net/u/876354" class="__user">                        <div class="osc-avatar small-portrait _35x35 avatar" title="雪饼" data-user-id="876354">
+                <img src="https://static.oschina.net/uploads/user/438/876354_50.jpeg?t=1495986908000" alt="雪饼" title="雪饼"/>
+            </div>
+            &nbsp;<span>雪饼</span></a>
+                            发布于 2018/03/17 14:20</div>
+                        <div class="item">字数 3368</div>
+                        <div class="item">阅读 17819</div>
+                        <div class="item collect-btn "
+                             data-id="1637819" data-user-id="876354" data-obj-type="3" data-max="99" data-tag-required
+                             data-current-user-id=""
+                             data-recommend-tags="GoogLeNet,Inception,CNN,深度学习,卷积神经网络">收藏 <span data-collect-count data-id="1637819" data-obj-type="3">17</span></div>
+                        <div class="item"><a class="normal like article-like " data-id="1637819">点赞 <span data-article-like-count>3</span></a></div>
+                        <div class="item comment-count"><a href="#comments" class="normal"><i class="comment outline icon"></i> 评论 <span data-article-reply-count>1</span></a></div>
+                                            </div>
+                                                                        <div class="tags">
+                                <a class="ui horizontal label" href="https://my.oschina.net/u/876354?q=GoogLeNet">GoogLeNet</a><a class="ui horizontal label" href="https://my.oschina.net/u/876354?q=Inception">Inception</a><a class="ui horizontal label" href="https://my.oschina.net/u/876354?q=CNN">CNN</a><a class="ui horizontal label" href="https://my.oschina.net/u/876354?q=深度学习">深度学习</a><a class="ui horizontal label" href="https://my.oschina.net/u/876354?q=卷积神经网络">卷积神经网络</a>                            </div>
+                                                                <div class="content" id="articleContent">
+                                                    <div class="ad-wrap">
+                                                        <p style="margin:0 0 10px 0;"><a data-traceid="blog_detail_above_text_link_1" data-tracepid="blog_detail_above_text_link" style="color:#A00;font-weight:bold;" href="https://my.oschina.net/u/2663968/blog/3041208" target="_blank">面试：你懂什么是分布式系统吗？Redis分布式锁都不会？>>> </a>  <img src="https://www.oschina.net/img/hot3.png" align="absmiddle" style="max-height: 32px; max-width: 32px;"></p>
+                                        </div>
+                                                <p><img height="352" src="https://static.oschina.net/uploads/space/2018/0317/141419_uDBe_876354.png" width="558"></p> 
+<p>2014年，GoogLeNet和VGG是当年ImageNet挑战赛(ILSVRC14)的双雄，GoogLeNet获得了第一名、VGG获得了第二名，这两类模型结构的共同特点是层次更深了。VGG继承了LeNet以及AlexNet的一些框架结构（详见&nbsp; <a href="https://my.oschina.net/u/876354/blog/1634322" rel="nofollow">大话CNN经典模型：VGGNet</a>），而GoogLeNet则做了更加大胆的网络结构尝试，虽然深度只有22层，但大小却比AlexNet和VGG小很多，GoogleNet参数为500万个，AlexNet参数个数是GoogleNet的12倍，VGGNet参数又是AlexNet的3倍，因此在内存或计算资源有限时，GoogleNet是比较好的选择；从模型结果来看，GoogLeNet的性能却更加优越。</p> 
+<p><span style="color:#FF0000">小知识：</span>GoogLeNet是谷歌（Google）研究出来的深度网络结构，为什么不叫“GoogleNet”，而叫“GoogLeNet”，据说是为了向“LeNet”致敬，因此取名为“GoogLeNet”</p> 
+<p>那么，GoogLeNet是如何进一步提升性能的呢？<br> 一般来说，提升网络性能最直接的办法就是增加网络深度和宽度，深度指网络层次数量、宽度指神经元数量。但这种方式存在以下问题：<br> （1）参数太多，如果训练数据集有限，很容易产生过拟合；<br> （2）网络越大、参数越多，计算复杂度越大，难以应用；<br> （3）网络越深，容易出现梯度弥散问题（梯度越往后穿越容易消失），难以优化模型。<br> 所以，有人调侃“深度学习”其实是“深度调参”。<br> 解决这些问题的方法当然就是在增加网络深度和宽度的同时减少参数，为了减少参数，自然就想到将全连接变成稀疏连接。但是在实现上，全连接变成稀疏连接后实际计算量并不会有质的提升，因为大部分硬件是针对密集矩阵计算优化的，稀疏矩阵虽然数据量少，但是计算所消耗的时间却很难减少。</p> 
+<p>那么，有没有一种方法既能保持网络结构的稀疏性，又能利用密集矩阵的高计算性能。大量的文献表明可以将稀疏矩阵聚类为较为密集的子矩阵来提高计算性能，就如人类的大脑是可以看做是神经元的重复堆积，因此，GoogLeNet团队提出了Inception网络结构，就是构造一种“基础神经元”结构，来搭建一个稀疏性、高计算性能的网络结构。</p> 
+<p><strong><span style="color:#FF0000">【问题来了】</span>什么是Inception呢？</strong><br> Inception历经了V1、V2、V3、V4等多个版本的发展，不断趋于完善，下面一一进行介绍</p> 
+<p><strong>一、Inception V1</strong><br> 通过设计一个稀疏网络结构，但是能够产生稠密的数据，既能增加神经网络表现，又能保证计算资源的使用效率。谷歌提出了最原始Inception的基本结构：<br> <img height="267" src="https://static.oschina.net/uploads/space/2018/0317/141510_fIWh_876354.png" width="557">&nbsp;<br> 该结构将CNN中常用的卷积（1x1，3x3，5x5）、池化操作（3x3）堆叠在一起（卷积、池化后的尺寸相同，将通道相加），一方面增加了网络的宽度，另一方面也增加了网络对尺度的适应性。<br> 网络卷积层中的网络能够提取输入的每一个细节信息，同时5x5的滤波器也能够覆盖大部分接受层的的输入。还可以进行一个池化操作，以减少空间大小，降低过度拟合。在这些层之上，在每一个卷积层后都要做一个ReLU操作，以增加网络的非线性特征。<br> 然而这个Inception原始版本，所有的卷积核都在上一层的所有输出上来做，而那个5x5的卷积核所需的计算量就太大了，造成了特征图的厚度很大，为了避免这种情况，在3x3前、5x5前、max pooling后分别加上了1x1的卷积核，以起到了降低特征图厚度的作用，这也就形成了Inception v1的网络结构，如下图所示：</p> 
+<p><img height="294" src="https://static.oschina.net/uploads/space/2018/0317/141520_31TH_876354.png" width="557"></p> 
+<p><strong>1x1的卷积核有什么用呢？</strong><br> 1x1卷积的主要目的是为了减少维度，还用于修正线性激活（ReLU）。比如，上一层的输出为100x100x128，经过具有256个通道的5x5卷积层之后(stride=1，pad=2)，输出数据为100x100x256，其中，卷积层的参数为128x5x5x256= 819200。而假如上一层输出先经过具有32个通道的1x1卷积层，再经过具有256个输出的5x5卷积层，那么输出数据仍为为100x100x256，但卷积参数量已经减少为128x1x1x32 + 32x5x5x256= 204800，大约减少了4倍。</p> 
+<p>基于Inception构建了GoogLeNet的网络结构如下（共22层）：</p> 
+<p><img alt="" height="5045" src="https://static.oschina.net/uploads/space/2018/0317/141544_FfKB_876354.jpg" width="1132"></p> 
+<p>对上图说明如下：<br> （1）GoogLeNet采用了模块化的结构（Inception结构），方便增添和修改；<br> （2）网络最后采用了average pooling（平均池化）来代替全连接层，该想法来自NIN（Network in Network），事实证明这样可以将准确率提高0.6%。但是，实际在最后还是加了一个全连接层，主要是为了方便对输出进行灵活调整；<br> （3）虽然移除了全连接，但是网络中依然使用了Dropout ;&nbsp;<br> （4）为了避免梯度消失，网络额外增加了2个辅助的softmax用于向前传导梯度（辅助分类器）。辅助分类器是将中间某一层的输出用作分类，并按一个较小的权重（0.3）加到最终分类结果中，这样相当于做了模型融合，同时给网络增加了反向传播的梯度信号，也提供了额外的正则化，对于整个网络的训练很有裨益。而在实际测试的时候，这两个额外的softmax会被去掉。</p> 
+<p>GoogLeNet的网络结构图细节如下：<br> <img height="545" src="https://static.oschina.net/uploads/space/2018/0317/141605_c1XW_876354.png" width="928">&nbsp;<br> 注：上表中的“#3x3 reduce”，“#5x5 reduce”表示在3x3，5x5卷积操作之前使用了1x1卷积的数量。</p> 
+<p>GoogLeNet网络结构明细表解析如下：<br> <strong>0、输入</strong><br> 原始输入图像为224x224x3，且都进行了零均值化的预处理操作（图像每个像素减去均值）。<br> <strong>1、第一层（卷积层）</strong><br> 使用7x7的卷积核（滑动步长2，padding为3），64通道，输出为112x112x64，卷积后进行ReLU操作<br> 经过3x3的max pooling（步长为2），输出为((112 - 3+1)/2)+1=56，即56x56x64，再进行ReLU操作<br> <strong>2、第二层（卷积层）</strong><br> 使用3x3的卷积核（滑动步长为1，padding为1），192通道，输出为56x56x192，卷积后进行ReLU操作<br> 经过3x3的max pooling（步长为2），输出为((56 - 3+1)/2)+1=28，即28x28x192，再进行ReLU操作<br> <strong>3a、第三层（Inception 3a层）</strong><br> 分为四个分支，采用不同尺度的卷积核来进行处理<br> （1）64个1x1的卷积核，然后RuLU，输出28x28x64<br> （2）96个1x1的卷积核，作为3x3卷积核之前的降维，变成28x28x96，然后进行ReLU计算，再进行128个3x3的卷积（padding为1），输出28x28x128<br> （3）16个1x1的卷积核，作为5x5卷积核之前的降维，变成28x28x16，进行ReLU计算后，再进行32个5x5的卷积（padding为2），输出28x28x32<br> （4）pool层，使用3x3的核（padding为1），输出28x28x192，然后进行32个1x1的卷积，输出28x28x32。<br> 将四个结果进行连接，对这四部分输出结果的第三维并联，即64+128+32+32=256，最终输出28x28x256<br> <strong>3b、第三层（Inception 3b层）</strong><br> （1）128个1x1的卷积核，然后RuLU，输出28x28x128<br> （2）128个1x1的卷积核，作为3x3卷积核之前的降维，变成28x28x128，进行ReLU，再进行192个3x3的卷积（padding为1），输出28x28x192<br> （3）32个1x1的卷积核，作为5x5卷积核之前的降维，变成28x28x32，进行ReLU计算后，再进行96个5x5的卷积（padding为2），输出28x28x96<br> （4）pool层，使用3x3的核（padding为1），输出28x28x256，然后进行64个1x1的卷积，输出28x28x64。<br> 将四个结果进行连接，对这四部分输出结果的第三维并联，即128+192+96+64=480，最终输出输出为28x28x480</p> 
+<p>第四层（4a,4b,4c,4d,4e）、第五层（5a,5b）……，与3a、3b类似，在此就不再重复。</p> 
+<p>从GoogLeNet的实验结果来看，效果很明显，差错率比MSRA、VGG等模型都要低，对比结果如下表所示：<br> <img height="300" src="https://static.oschina.net/uploads/space/2018/0317/141641_H28K_876354.png" width="557"></p> 
+<p><strong>二、Inception V2</strong><br> GoogLeNet凭借其优秀的表现，得到了很多研究人员的学习和使用，因此GoogLeNet团队又对其进行了进一步地发掘改进，产生了升级版本的GoogLeNet。<br> GoogLeNet设计的初衷就是要又准又快，而如果只是单纯的堆叠网络虽然可以提高准确率，但是会导致计算效率有明显的下降，所以如何在不增加过多计算量的同时提高网络的表达能力就成为了一个问题。<br> Inception V2版本的解决方案就是修改Inception的内部计算逻辑，提出了比较特殊的“卷积”计算结构。</p> 
+<p><strong>1、卷积分解（Factorizing Convolutions）</strong><br> 大尺寸的卷积核可以带来更大的感受野，但也意味着会产生更多的参数，比如5x5卷积核的参数有25个，3x3卷积核的参数有9个，前者是后者的25/9=2.78倍。因此，GoogLeNet团队提出可以用2个连续的3x3卷积层组成的小网络来代替单个的5x5卷积层，即在保持感受野范围的同时又减少了参数量，如下图：<br> <img height="358" src="https://static.oschina.net/uploads/space/2018/0317/141655_QXsH_876354.png" width="359">&nbsp;<br> 那么这种替代方案会造成表达能力的下降吗？通过大量实验表明，并不会造成表达缺失。<br> 可以看出，大卷积核完全可以由一系列的3x3卷积核来替代，那能不能再分解得更小一点呢？GoogLeNet团队考虑了nx1的卷积核，如下图所示，用3个3x1取代3x3卷积：<br> <img height="367" src="https://static.oschina.net/uploads/space/2018/0317/141700_GV5l_876354.png" width="264">&nbsp;<br> 因此，任意nxn的卷积都可以通过1xn卷积后接nx1卷积来替代。GoogLeNet团队发现在网络的前期使用这种分解效果并不好，在中度大小的特征图（feature map）上使用效果才会更好（特征图大小建议在12到20之间）。</p> 
+<p><img height="1656" src="https://static.oschina.net/uploads/space/2018/0317/141713_bGpL_876354.png" width="426"></p> 
+<p><strong>2、降低特征图大小</strong><br> 一般情况下，如果想让图像缩小，可以有如下两种方式：<br> <img height="341" src="https://static.oschina.net/uploads/space/2018/0317/141726_LQNh_876354.png" width="529">&nbsp;<br> 先池化再作Inception卷积，或者先作Inception卷积再作池化。但是方法一（左图）先作pooling（池化）会导致特征表示遇到瓶颈（特征缺失），方法二（右图）是正常的缩小，但计算量很大。为了同时保持特征表示且降低计算量，将网络结构改为下图，使用两个并行化的模块来降低计算量（卷积、池化并行执行，再进行合并）</p> 
+<p><img height="318" src="https://static.oschina.net/uploads/space/2018/0317/141734_OEPA_876354.png" width="557"></p> 
+<p>使用Inception V2作改进版的GoogLeNet，网络结构图如下：<br> <img height="541" src="https://static.oschina.net/uploads/space/2018/0317/141739_flcW_876354.png" width="557">&nbsp;<br> 注：上表中的Figure 5指没有进化的Inception，Figure 6是指小卷积版的Inception（用3x3卷积核代替5x5卷积核），Figure 7是指不对称版的Inception（用1xn、nx1卷积核代替nxn卷积核）。</p> 
+<p>经实验，模型结果与旧的GoogleNet相比有较大提升，如下表所示：<br> <img height="409" src="https://static.oschina.net/uploads/space/2018/0317/141746_Fw1D_876354.png" width="439"></p> 
+<p><strong>三、Inception V3</strong><br> Inception V3一个最重要的改进是分解（Factorization），将7x7分解成两个一维的卷积（1x7,7x1），3x3也是一样（1x3,3x1），这样的好处，既可以加速计算，又可以将1个卷积拆成2个卷积，使得网络深度进一步增加，增加了网络的非线性（每增加一层都要进行ReLU）。<br> 另外，网络输入从224x224变为了299x299。</p> 
+<p><strong>四、Inception V4</strong><br> Inception V4研究了Inception模块与残差连接的结合。ResNet结构大大地加深了网络深度，还极大地提升了训练速度，同时性能也有提升（ResNet的技术原理介绍见本博客之前的文章：<a href="https://my.oschina.net/u/876354/blog/1622896" rel="nofollow">大话深度残差网络ResNet</a>）。<br> Inception V4主要利用残差连接（Residual Connection）来改进V3结构，得到Inception-ResNet-v1，Inception-ResNet-v2，Inception-v4网络。<br> ResNet的残差结构如下：<br> <img height="463" src="https://static.oschina.net/uploads/space/2018/0317/141800_uS67_876354.png" width="286">&nbsp;<br> 将该结构与Inception相结合，变成下图：<br> <img height="566" src="https://static.oschina.net/uploads/space/2018/0317/141810_oD01_876354.png" width="552">&nbsp;<br> 通过20个类似的模块组合，Inception-ResNet构建如下：</p> 
+<p><img height="799" src="https://static.oschina.net/uploads/space/2018/0317/141818_MrSL_876354.png" width="327"></p> 
+<p>&nbsp;</p> 
+<p><span style="color:#FF0000"><strong>墙裂建议</strong></span></p> 
+<p>2014至2016年，GoogLeNet团队发表了多篇关于GoogLeNet的经典论文《Going deeper with convolutions》、《Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift》、《Rethinking the Inception Architecture for Computer Vision》、《Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning》，在这些论文中对Inception v1、Inception v2、Inception v3、Inception v4 等思想和技术原理进行了详细的介绍，建议阅读这些论文以全面了解GoogLeNet。</p> 
+<p>关注本人公众号“大数据与人工智能Lab”（BigdataAILab），然后回复“<strong>论文</strong>”关键字可在线阅读这篇经典论文的内容<strong>。</strong></p> 
+<p><img alt="" height="385" src="https://static.oschina.net/uploads/space/2018/0213/155533_IdYn_876354.jpg" width="678"></p> 
+<p>&nbsp;</p> 
+<p><strong>推荐相关阅读</strong></p> 
+<ul> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1620906" rel="nofollow">大话卷积神经网络（CNN）</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1621839" rel="nofollow">大话循环神经网络（RNN）</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1622896" rel="nofollow">大话深度残差网络（DRN）</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1626639" rel="nofollow">大话深度信念网络（DBN）</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1632862" rel="nofollow">大话CNN经典模型：LeNet</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1633143" rel="nofollow">大话CNN经典模型：AlexNet</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1634322" rel="nofollow">大话CNN经典模型：VGGNet</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1614883" rel="nofollow">浅说“迁移学习”</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1614879" rel="nofollow">什么是“强化学习”</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1594849" rel="nofollow">AlphaGo算法原理浅析</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1604254" rel="nofollow">大数据究竟有多少个V</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/993836" rel="nofollow">Apache Hadoop 2.8 完全分布式集群搭建超详细教程</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1057639" rel="nofollow">Apache Hive 2.1.1 安装配置超详细教程</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1163018" rel="nofollow">Apache HBase 1.2.6 完全分布式集群搭建超详细教程</a></li> 
+ <li><a href="https://my.oschina.net/u/876354/blog/1605320" rel="nofollow">离线安装Cloudera Manager 5和CDH5（最新版5.13.0）超详细教程</a></li> 
+</ul>
+                                                    <div class="ad-wrap" style="margin-top: 12px;">
+                                                        <div id="blog-title-ad" data-traceid="blog_ali" data-tracepid="blogdown" style="">
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- 博客详情页下方 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px"
+     data-ad-client="ca-pub-7090564139599510"
+     data-ad-slot="2321828009"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+</div>
+
+<!--
+<script>
+    function success_jsonpCallback(data) {
+        var obj = eval(data);
+        if( obj.success ){
+            var contents = eval(obj.data[0].content);
+            if(contents.length > 0){
+                var content = contents[0];
+                $('#blog-title-ad').prepend("<a  href='"+ content.url +"' target='_blank' style='max-width:780px;'><img src='"+content.img+"'/></a>");
+                $('#blog-title-ad').show();
+            }
+            
+        }else {
+            $('#blog-title-ad').hide();
+        }
+    }
+    window.addEventListener("load", function() {
+         var url="  http://clickc.admaster.com.cn/c/a116493,b2949390,c3159,i0,m101,8a1,8b2,h";
+        $.ajax({
+            type: 'POST',
+            url: url,
+            jsonp: "callback",
+            dataType: 'jsonp',
+            jsonpCallback: 'success_jsonpCallback',
+            contentType: "application/json; charset=utf-8",
+            success: function( response ) {
+                // do in callback
+            },
+            error:function(){
+                $('#blog-title-ad').hide();
+            }
+        });
+    }, false);
+</script>
+-->
+                                        </div>
+                                            </div>
+                    <div class="ui hidden divider"></div>
+                    <p style="text-align:center;">
+                                                    &copy; 著作权归作者所有
+                                            </p>
+                </div>
+
+                                <div class="ui basic center aligned segment action">
+                    <div class="ui huge buttons">
+                                                    <a class="ui green button donate" donate
+                               data-id="1637819"                                data-obj-type="16344358"                                data-subject="大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进）"                                data-donater=""                                data-author="876354"                                data-return-url="https://my.oschina.net/u/876354/blog/1637819"                                data-notify-url="https://my.oschina.net/action/donate/paySuccess">                                 <i class="yen icon"></i>打赏</a>
+                                                <a class="ui basic button like article-like " data-id="1637819">
+                            <i class="thumbs up outline icon"></i>点赞 (<span data-article-like-count>3</span>)
+                        </a>
+                        <a class="ui basic button collect-btn hover"
+                           data-id="1637819" data-user-id="876354" data-obj-type="3" data-max="99" data-tag-required
+                           data-current-user-id=""
+                           data-recommend-tags="GoogLeNet,Inception,CNN,深度学习,卷积神经网络"><i class="star outline icon"></i>收藏 (<span data-collect-count data-id="1637819" data-obj-type="3">17</span>)</a>
+                        <div class="ui basic dropdown share button bdsharebuttonbox reset dropdown-share"
+                             data-tag="share-blog">
+                            <i class="share icon"></i> <span>分享</span>
+                            <div class="menu">
+                                <a class="item" data-cmd="tsina"><i class="weibo icon"></i>微博</a>
+                                <a class="item" data-cmd="sqq"><i class="qq icon"></i>QQ</a>
+                                <a class="item" data-cmd="weixin"><i class="weixin icon"></i>微信</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui basic segment">
+                        <a class="ban" style="cursor: pointer"
+                           ban-report data-id="1637819" data-obj-type="3"
+                           data-url="https://my.oschina.net/u/876354/blog/1637819">
+                            <i class="flag red icon"></i>举报</a>
+                    </div>
+                </div>
+
+                                
+
+                                <div class="around-articles-wrap">
+                                                            <div class="around-item around-left">
+                        <i class="angle left icon"></i>
+                        <span class="text">上一篇：</span>
+                        <a class="link" href="https://my.oschina.net/u/876354/blog/1676029">机器学习的五大流派</a>
+                    </div>
+                    
+                                                            <div class="around-item around-right">
+                        <span class="text">下一篇：</span>
+                        <a class="link" href="https://my.oschina.net/u/876354/blog/1634322">大话CNN经典模型：VGGNet</a>
+                        <i class="angle right icon"></i>
+                    </div>
+                                    </div>
+
+                                <div class="ui info message author-card">
+                    <div class="ui items">
+                        <div class="item author-card-item">
+                            <a class="ui avatar tiny image" href="https://my.oschina.net/u/876354">
+                                                        <div class="osc-avatar large-portrait _80x80" title="雪饼" data-user-id="876354">
+                <img src="https://static.oschina.net/uploads/user/438/876354_200.jpeg?t=1495986908000" alt="雪饼" title="雪饼"/>
+            </div>
+                                        </a>
+                            <div class="content author-card-info">
+                                <div class="author-header clearfix">
+                                                                        <h3 class="author-name"><a class="__user" href="https://my.oschina.net/u/876354">雪饼</a></h3>
+                                                                                                                <div class="ui mini images medals">
+                                                                                                                                                                                                        <img class="ui image popup-oscer" src="https://static.oschina.net/uploads/medals/slogo1541993084965.png" alt="">
+                                                        <div class="ui flowing popup hidden items">
+                                                            <div class="medal-popup-box item">
+                                                                <img class="ui image" src="https://static.oschina.net/uploads/medals/logo1541993084863.png">
+                                                                <div class="content">
+                                                                    <h3 class="header">参与源创会</h3>
+                                                                    <div class="desc text">“<a href="http://www.oschina.net/events">源创会</a>”在线下联结了各位 OSCer，推广开源项目和理念，很荣幸有你的参与~</div>
+                                                                    <div class="extra text">
+                                                                        领取时间：2014/02/12
+                                                                        <div class="text">领取条件：参与过开源中国“源创会”的 OSCer 可以领取</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                                                                                                                                                        </div>
+                                                                    </div>
+                                <div class="ui horizontal list">
+                                    <div class="item">粉丝 <span class="followers-count" data-user-id="876354" data-followers-count="260">260</span></div>
+                                    <div class="item">博文 48</div>
+                                    <div class="item">码字总数 94669</div>
+                                    <div class="item">作品 0</div>
+                                </div>
+                                <div class="ui hidden fitted clearing divider"></div>
+                                                                                                    <div class="ui horizontal list">
+                                                                                    <div class="item"><i class="map marker alternate icon"></i> 广州</div>
+                                                                                                                    </div>
+                                                                                                    <div class="ui hidden fitted clearing divider"></div>
+                                                                                                                    <a class="ui green compact button follow-btn" data-user-id="876354" data-follow-status="1"><i class="heart outline icon"></i><span class="text">关注</span></a>
+                                                                                                            <a class="ui green basic compact button send-message-btn" data-user-id="876354"
+                                       data-user-name="雪饼"><i class="envelope outline icon"></i>私信</a>
+                                                                        <a class="ui green basic compact button" href="https://www.oschina.net/question/ask?user=876354" target="_blank"><i class="comment outline icon"></i>提问</a>
+                                                            </div>
+                            <div class="content panel-skills-radar" style="display: none">
+                                <div class="skills-radar">
+                                    <div class="radar-wrap" radar data-user-id="876354"
+                                         data-skills-num="5"
+                                         data-detail-url="https://my.oschina.net/u/876354/radar"
+                                         data-container=".panel-skills-radar">
+                                        <div class="radar-map"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                                                                    <div class="ui threaded comments secondary segment" id="commentsContainer">
+        <div class="ui inverted dimmer comments-loader">
+        <div class="ui text loader">加载中</div>
+    </div>
+
+        <div class="comments-wrap">
+                            
+
+<h3 id="comments" class="ui header">评论(<span>1</span>)</h3>
+
+                                        <div class="comment" data-comment-id="310471105"
+                     data-comment-user-id="4084800">
+                    <a class="ui circular image avatar" href="https://my.oschina.net/u/4084800" target="_blank">
+                                                <div class="osc-avatar small-portrait _35x35" title="小宋是呢" data-user-id="4084800">
+                <span class="text-portrait" style="background: #9b59b6">小</span>
+            </div>
+                                </a>
+                    <div class="content">
+                        <a class="author" href="https://my.oschina.net/u/4084800" name="rpl_310471105" target="_blank">小宋是呢</a>
+                        <div class="metadata">
+                            <span class="date">03/12 09:52</span>
+                        </div>
+                        <div class="text" data-emoji-render>
+                            1x1的卷积核有什么用呢处计算出现了小问题<br/>128x1x1x32 + 32x5x5x256= 208896<br/>不是<br/>128x1x1x32 + 32x5x5x256= 204800
+                        </div>
+                        <div class="actions">
+                                                                                    <a class="ban" ban-report data-id="310471105" data-obj-type="12"
+                               data-url="https://my.oschina.net/u/876354/blog/1637819#rpl_310471105">
+                                <i class="ban icon"></i> 举报
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                                <div class="ui basic center aligned segment pagination-wrap">
+                    </div>
+    </div>
+
+        </div>
+
+<div class="ui mini delete-comment modal">
+    <div class="header">删除一条评论</div>
+    <div class="content">
+        <p>评论删除后，数据将无法恢复</p>
+    </div>
+    <div class="actions">
+        <div class="ui positive button">取消</div>
+        <div class="ui negative button">确定</div>
+    </div>
+</div>
+
+                            </div>
+                        <div class="ui basic segment article-list">
+                <div class="scroll-tab hidden-scroll">
+                    <div class="ui green pointing secondary massive menu spaceBlog-tab">
+                        <a class="active item" data-tab="relArticleList">相关文章</a>
+                        <a class="item" data-tab="newArticleList">最新文章</a>
+                    </div>
+                </div>
+                <div class="ui basic segment active tab article-list" data-tab="relArticleList" id="relArticleList">
+                                          
+
+    <div class="ui very relaxed items list-container blog-detail-list-container">
+                                    <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="https://www.leiphone.com/news/201806/sUuRFBdicUF4MfxX.html" target="_blank" title="Inception Network 各版本演进史">Inception Network 各版本演进史</a>
+                        <div class="description">
+                            <p class="line-clamp">雷锋网按：本文为雷锋字幕组编译的技术博客 A Simple Guide to the Versions of the Inception Network，原标题，作者为 Bharath Raj。 翻译 | 胡瑛皓 乔月 整理 | 凡江 Inception 网络是卷积...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">雷锋字幕组</div>
+                                <div class="item">2018/06/20</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                                <div class="images">
+                            <a class="ui small image" href="https://www.leiphone.com/news/201806/sUuRFBdicUF4MfxX.html" target="_blank" title="Inception Network 各版本演进史">
+                                <img src="http://img.oschina.net/itags/27da94fe1c26aef08b8701f4921b010c6d3d35f3.jpeg" alt="" data-img-render>
+                            </a>
+                        </div>
+                                    </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="http://www.jianshu.com/p/57cccc799277" target="_blank" title="经典分类CNN模型系列其三：Inception v1">经典分类CNN模型系列其三：Inception v1</a>
+                        <div class="description">
+                            <p class="line-clamp">介绍 Inception 又叫Googlenet是Google于2014年为参加ILSVRC大赛而提出的CNN分类模型。它发表于2014年的CVPR上面。在深度学习领域Google出品几乎必为精品，Inception也不例外。 它乍看上去像...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">manofmountain</div>
+                                <div class="item">2018/08/11</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                                <div class="images">
+                            <a class="ui small image" href="http://www.jianshu.com/p/57cccc799277" target="_blank" title="经典分类CNN模型系列其三：Inception v1">
+                                <img src="http://img.oschina.net/itags/abb5d4b0c352f72de7dbbbaf4272517780a874ea.jpg" alt="" data-img-render>
+                            </a>
+                        </div>
+                                    </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="http://www.jianshu.com/p/424063292202" target="_blank" title="Inception模型进化史:从GoogLeNet到Inception-ResNet">Inception模型进化史:从GoogLeNet到Inception-ResNet</a>
+                        <div class="description">
+                            <p class="line-clamp">前 言 说起CNN分类网络，无法避开的是Google提出的Inception网络。Inception网络开始于2014年的GoogLeNet，并经历了几次版本的迭代，一直到目前最新的Inception-v4，每个版本在性能上都有一定...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">机器学习算法工程师</div>
+                                <div class="item">2018/12/06</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                                <div class="images">
+                            <a class="ui small image" href="http://www.jianshu.com/p/424063292202" target="_blank" title="Inception模型进化史:从GoogLeNet到Inception-ResNet">
+                                <img src="https://oscimg.oschina.net/itags/9237bf2ad2ade376e6ac7782bc2981f418f9cdd5" alt="" data-img-render>
+                            </a>
+                        </div>
+                                    </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="http://blog.csdn.net/lilai619/article/details/54601321" target="_blank" title="深度学习：SqueezeNet、GoogLenet">深度学习：SqueezeNet、GoogLenet</a>
+                        <div class="description">
+                            <p class="line-clamp">SqueezeNet paper: https://arxiv.org/abs/1602.07360 code: https://github.com/DeepScale/SqueezeNet 以下这些博文整理的以及相当全面，记录一下 1.SqueezeNet: AlexNet-level accuracy w......</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">lilai619</div>
+                                <div class="item">2017/01/18</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                        </div>
+                                                <div class="item blog-item">
+                    <div class="content">
+                        <a class="header" href="http://www.jianshu.com/p/006248a3fd7f" target="_blank" title="经典分类CNN模型系列其六：Inception v4与Inception-Resnet v1/v2">经典分类CNN模型系列其六：Inception v4与Inception-Resnet v1/v2</a>
+                        <div class="description">
+                            <p class="line-clamp">介绍 Inception系列模型设计的核心思想讲至Inception v3基本已经尽了。但2015年Resnet的提出及其在ILSVRC 2015的成功使得Google team开始重新评估CNN深度模型的设计。他们自然不肯屈服于Res...</p>
+                        </div>
+                        <div class="extra">
+                            <div class="ui horizontal list">
+                                <div class="item">manofmountain</div>
+                                <div class="item">2018/08/19</div>
+
+                                <div class="item"><i class="eye icon"></i> 0</div>
+                                <div class="item"><i class="comment outline icon"></i> 0</div>
+                            </div>
+                        </div>
+                    </div>
+                                                                <div class="images">
+                            <a class="ui small image" href="http://www.jianshu.com/p/006248a3fd7f" target="_blank" title="经典分类CNN模型系列其六：Inception v4与Inception-Resnet v1/v2">
+                                <img src="http://img.oschina.net/itags/ed6dc5300b737f8ca82d569c7b51fec8efc2516e.jpg" alt="" data-img-render>
+                            </a>
+                        </div>
+                                    </div>
+                        </div>
+    <div class="page-load-status">
+        <p class="infinite-scroll-request">
+            <i class="ui active small inline loader" style="display: none;"></i>
+        </p>
+        <p class="infinite-scroll-last">没有更多内容</p>
+        <p class="infinite-scroll-error">加载失败，请刷新页面</p>
+    </div>
+    <a class="ui fluid button load-more-button">加载更多</a>
+                <p class="pagination">
+            <a class="rel-pagination pagination__next" style="display: none" href="https://my.oschina.net/u/876354/blog/widgets/_blog_detail_list_rel?obj=1637819&p=2&type=ajax">下一页</a>
+        </p>
+                    </div>
+                <div class="ui basic segment tab article-list" data-tab="newArticleList" id="newArticleList">
+                                          
+
+    <div class="ui very relaxed items list-container blog-detail-list-container">
+                                                        <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/qwfys200/blog/3044127" target="_blank" title="SpringMVC数据验证(AOP处理Errors和方法验证)">SpringMVC数据验证(AOP处理Errors和方法验证)</a>
+                            <div class="description">
+                                <p class="line-clamp">https://www.morethink.cn/SpringMVC-Bean-Validation/</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">qwfys</div>
+                                    <div class="item">24分钟前</div>
+
+                                    <div class="item"><i class="eye icon"></i> 2</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/qwfys200/blog/3044127" target="_blank" title="SpringMVC数据验证(AOP处理Errors和方法验证)">
+                                    <img src="https://oscimg.oschina.net/oscnet/2b7665121b5cc9dc02972e649d918ad3e59.jpg" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/u/2351011/blog/3044124" target="_blank" title="bootstrap-table 设置宽度">bootstrap-table 设置宽度</a>
+                            <div class="description">
+                                <p class="line-clamp">&lt;table id=&quot;bootstrap-table&quot; data-mobile-responsive=&quot;true&quot; style=&quot;table-layout:fixed;&quot;&gt;&lt;/table&gt; {    field: &apos;startEndDate&apos;,    title: &apos;时间&apos;,    align: &apos;center&apos;,    width......</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">少年已不再年少</div>
+                                    <div class="item">28分钟前</div>
+
+                                    <div class="item"><i class="eye icon"></i> 2</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                    </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/wsxiao/blog/3044121" target="_blank" title="浏览器的缓存策略详解">浏览器的缓存策略详解</a>
+                            <div class="description">
+                                <p class="line-clamp">前端缓存策略： 已开始生产的项目，用户每次刷新的时候大多数与上次请求的数据一致。那么服务器端的数据没有更新，客户端也没有必要每次都去服务器端拉取数据，占用服务器的带宽。这时候需要...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">王双肖</div>
+                                    <div class="item">35分钟前</div>
+
+                                    <div class="item"><i class="eye icon"></i> 2</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/wsxiao/blog/3044121" target="_blank" title="浏览器的缓存策略详解">
+                                    <img src="https://oscimg.oschina.net/oscnet/662adb2f8e052e554da5d707d2d7c63edb6.jpg" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/u/4104998/blog/3044111" target="_blank" title="Python脚本转可执行程序 cx_Freeze">Python脚本转可执行程序 cx_Freeze</a>
+                            <div class="description">
+                                <p class="line-clamp">原文来自:https://www.oschina.net/p/cx_freeze 前言 感觉不错,所以分享一下 cx_Freeze 是一组脚本和模块用来将 Python 脚本封装成可执行程序，类似 py2exe 和 py2app 。不同的是，cx_Freeze...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">Python学习1</div>
+                                    <div class="item">52分钟前</div>
+
+                                    <div class="item"><i class="eye icon"></i> 1</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                    </div>
+                                                                                    <div class="item blog-item">
+                        <div class="content">
+                            <a class="header" href="https://my.oschina.net/u/4116655/blog/3044104" target="_blank" title="shiro教程">shiro教程</a>
+                            <div class="description">
+                                <p class="line-clamp">shiro简介 Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的...</p>
+                            </div>
+                            <div class="extra">
+                                <div class="ui horizontal list">
+                                    <div class="item">薛小二</div>
+                                    <div class="item">今天</div>
+
+                                    <div class="item"><i class="eye icon"></i> 3</div>
+                                    <div class="item"><i class="comment outline icon"></i> 0</div>
+                                                                    </div>
+                            </div>
+                        </div>
+                                                                            <div class="images">
+                                <a class="ui small image" href="https://my.oschina.net/u/4116655/blog/3044104" target="_blank" title="shiro教程">
+                                    <img src="https://img-blog.csdnimg.cn/20190429150907777.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzMwOTg0NTYx,size_16,color_FFFFFF,t_70" alt="" data-img-render>
+                                </a>
+                            </div>
+                                            </div>
+                                        </div>
+    <div class="page-load-status">
+        <p class="infinite-scroll-request">
+            <i class="ui active small inline loader" style="display: none"></i>
+        </p>
+        <p class="infinite-scroll-last">没有更多内容</p>
+        <p class="infinite-scroll-error">加载失败，请刷新页面</p>
+    </div>
+    <a class="ui fluid button load-more-button">加载更多</a>
+                <p class="pagination">
+            <a class="news-pagination pagination__next" style="display: none" href="https://my.oschina.net/u/876354/blog/widgets/_blog_detail_list_news?p=2&type=ajax">下一页</a>
+        </p>
+                    </div>
+            </div>
+        </div>
+        <div class="two wide computer only column">
+                        <div class="ad-wrap">
+                                        <div data-traceid="blog_left_1" data-tracepid="blog_left">
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- ios-zone-home-120x600 -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:120px;height:600px"
+     data-ad-client="ca-pub-7090564139599510"
+     data-ad-slot="7907495427"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+
+</div>
+                        </div>
+                    </div>
+    </div>
+</div>
+
+
+<div class="ui mini delete-blog modal">
+    <div class="header">删除文章</div>
+    <div class="content">
+        <p>文章删除后无法恢复，确定取消删除此文章吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui red ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-self modal">
+    <div class="header">自荐文章</div>
+    <div class="content">
+        <p>亲，自荐的博客将通过私信方式通知管理员，优秀的博客文章审核通过后将在博客推荐列表中显示</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui red ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-blog modal">
+    <div class="header">推荐文章</div>
+    <div class="content">
+        <p>确定推荐此文章吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui green ok button">确定</div>
+    </div>
+</div>
+<div class="ui mini recommend-author modal">
+    <div class="header">推荐博主</div>
+    <div class="content">
+        <p>确定推荐此博主吗？</p>
+    </div>
+    <div class="actions">
+        <div class="ui cancel button">取消</div>
+        <div class="ui green ok button">确定</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/action/visit/blog?id=1637819" defer="defer"></script>
+<script type="text/javascript" src="/action/visit/space?id=876354"></script>
+
+<script>
+    // 百度分享
+    window._bd_share_config = {
+        common : {
+            bdText : '大话CNN经典模型：GoogLeNet（从Inception v1到v4的演进） - 雪饼的个人空间 - OSCHINA',
+            bdDesc : '2014年，GoogLeNet和VGG是当年ImageNet挑战赛(ILSVRC14)的双雄，GoogLeNet获得了第一名、VGG获得了第二名，这两类模型结构的共同特点是层次更深了。VGG继承了LeNet以及AlexNet的一些框架结构（详见 大话CNN经典模型：VGGNet），而GoogLeNet则做了更加大胆的网络结构尝试，虽然深度只有22层，但大小却比AlexNet和VGG小很多...',
+            bdUrl  : 'https://my.oschina.net/u/876354/blog/1637819',
+            bdPic  : 'https://static.oschina.net/uploads/space/2018/0317/141419_uDBe_876354.png'
+        },
+        share : [{
+            bdSize : 16
+        }]
+    };
+    with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='https://static.oschina.net/new-osc/js/utils/plugins/bdshare_api/share.js?v='+~(-new Date()/36e5)];
+</script>
+    
+            </div>        </div>                <div id="footer" class="ui vertical footer segment mb-hide">
+    <div class="ui container">
+        <div class="ui grid">
+            <div class="eight wide mobile four wide tablet four wide computer column">
+                <h4 class="ui header">OSCHINA 社区</h4>
+                <div class="ui link list">
+                    <a class="item" href="https://www.oschina.net/home/aboutosc" target="_blank">关于我们</a>
+                    <a class="item" href="https://www.oschina.net/home/aboutosc" target="_blank">联系我们</a>
+                    <a class="item" href="https://www.oschina.net/home/aboutosc#partners#" target="_blank">合作伙伴</a>
+                    <a class="item" href="https://www.oschina.net/openapi" target="_blank">Open API</a>
+                </div>
+            </div>
+            <div class="eight wide mobile four wide tablet four wide computer column">
+                <h4 class="ui header">在线工具</h4>
+                <div class="ui link list">
+                    <a class="item" href="https://gitee.com/?from=osc-bottom" target="_blank">码云 Gitee.com</a>
+                    <a class="item" href="https://gitee.com/enterprises?from=osc-bottom" target="_blank">企业研发管理</a>
+                    <a class="item" href="https://copycat.gitee.com/?from=osc-bottom" target="_blank">CopyCat-代码克隆检测</a>
+                    <a class="item" href="https://tool.oschina.net" target="_blank">实用在线工具</a>
+                </div>
+            </div>
+            <div class="center aligned eight wide mobile two wide tablet two wide computer column">
+                <h4 class="ui header">微信公众号</h4>
+                <img src="https://static.oschina.net/new-osc/img/wechat_qrcode.jpg?t=1484694603000" alt="微信公众号"/>
+            </div>
+            <div class="center aligned eight wide mobile six wide tablet six wide computer column">
+                <h3 class="ui header">OSCHINA APP</h3>
+                <p>聚合全网技术文章，根据你的阅读喜好进行个性推荐</p>
+                <a href="https://www.oschina.net/app" target="_blank" class="ui large primary button">下载 APP</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="copyright">
+    <div class="ui container">
+        <div class="ui clearing basic segment">
+            <div class="ui left floated horizontal link list">
+                <div class="item">©OSCHINA(OSChina.NET)</div>
+                <div class="item mb-hide">工信部</div>
+                <a class="item mb-hide" href="http://www.copu.org.cn/" target="_blank" title="开源软件推进联盟">开源软件推进联盟</a>
+                <div class="item mb-hide">指定官方社区</div>
+            </div>
+            <div class="ui right floated horizontal link list">
+                <div class="item mb-hide">深圳市奥思网络科技有限公司版权所有</div>
+                <a href="http://beian.miit.gov.cn/" target="_blank" class="item">粤ICP备12009483号-3</a>
+            </div>
+        </div>
+    </div>
+</div>    </div>                                                        <div class="back-to-top back-to-top-toggle">        <div class="icon"><img src="https://static.oschina.net/new-osc/img/icon/back-to-top.svg" alt="返回顶部"></div>        <div class="text">顶部</div>    </div>        <script src="https://static.oschina.net/new-osc/js/utils/semantic-ui/semantic.min.js?t=1535098170000"></script>    <script src="https://static.oschina.net/new-osc/js/utils/jweixin-1.2.0.js"></script>                <script type="text/javascript" src="https://static.oschina.net/new-osc/dist/js/space.0a02abac.js"></script>                
+<script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https'){
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else{
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?a411c4d1664dd70048ee98afe7b28f0b";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+                
+<script type='text/javascript'>
+    !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
+    gio('init','89b266b986554bc7', {});
+    gio('send');
+</script>
+    </body></html>
+<!-- Generated by oschina (init:0[ms],page:127[ms],ip:211.68.3.205) //-->

@@ -1,0 +1,3538 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/sxg0205/article/details/81412921"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"git clone 解决Permission Denied (publickey)问题 - sxg0205的专栏"}'>
+    
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>git clone 解决Permission Denied (publickey)问题 - sxg0205的专栏 - CSDN博客</title>
+
+        
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-c9f101d6a9.min.css">
+            
+            <script type="application/ld+json">{"@context":"https:\/\/ziyuan.baidu.com\/contexts\/cambrian.jsonld","@id":"https:\/\/blog.csdn.net\/sxg0205\/article\/details\/81412921","appid":"1563894916825412","title":"git clone \u89e3\u51b3Permission Denied (publickey)\u95ee\u9898 - sxg0205\u7684\u4e13\u680f","images":["https:\/\/img-blog.csdn.net\/20180804171826436?watermark\/2\/text\/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70","https:\/\/img-blog.csdn.net\/20180804172820648?watermark\/2\/text\/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70","https:\/\/img-blog.csdn.net\/20180804172926782?watermark\/2\/text\/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=\/font\/5a6L5L2T\/fontsize\/400\/fill\/I0JBQkFCMA==\/dissolve\/70"],"pubDate":"2019-05-14T14:42:04"}</script>
+        
+          <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+        <script type="text/javascript">
+        var username = "sxg0205";
+        var userPermission = false;
+        var blog_address = "https://blog.csdn.net/sxg0205";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "";
+        var currentUserPermission = false;
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/sxg0205/article/details/81412921"
+        var blogUrl = "https://blog.csdn.net/";
+        //页面皮肤样式
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "git clone 解决Permission Denied (publickey)问题 - sxg0205的专栏";
+        var articleID = "81412921";
+        
+        var nickName = "scanklm";
+        var isCorporate = false;
+        var subDomainBlogUrl = "https://blog.csdn.net/"
+        var digg_base_url = "https://blog.csdn.net/sxg0205/phoenix/comment";
+        var articleDetailUrl = "https://blog.csdn.net/sxg0205/article/details/81412921";
+    </script>
+    <script type="text/javascript">
+        // Traffic Stats of the entire Web site By baidu
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?6bcd52f51e9b3dce32bec4a3997715ac";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+        // Traffic Stats of the entire Web site By baidu end
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <script src="//g.csdnimg.cn/fixed-sidebar/1.1.3/fixed-sidebar.js" type="text/javascript"></script>
+    <!-- 新版上报 -->
+      <script src="//g.csdnimg.cn/track/1.2.6/track.js" type="text/javascript"></script>
+    <!-- 新版上报end -->
+
+    <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<!-- nodata 第三栏接口无数据时样式不变 -->
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<div id="kp_box_476" data-pid="476" data-track-view='{"mod":"kp_popu_476-891","con":",,"}' data-track-click='{"mod":"kp_popu_476-891","con":",,"}'><script src="//csdnimg.cn/public/common/indexSuperise/1.0.7/indexSuperise.js?20190508180304"></script>
+<script>
+window.csdn.indexSuperise({
+zIndex:11000,
+    smallMoveImg: "//ubmcmm.baidustatic.com/media/v1/0f000ntnp0VTgAexmTK7v0.png", 
+    smallMove: "notMove", 
+    link: "//h5.youzan.com/v2/ump/promocard/fetch?alias=1eme18l51", 
+    trackSuperId: "476", 
+    trackSId: "891",
+    show360id: "t5unDb",
+    title360: "码书商店代金券" ,
+    
+});
+</script></div><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	// 容错处理
+	var NEWS_FEED = function(){}
+</script>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script type="text/javascript" src="//g.csdnimg.cn/copyright/1.0.3/copyright.js"></script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<script src="https://dup.baidustatic.com/js/ds.js"></script>
+<div class="container clearfix" id="mainBox">
+			<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>	
+    <main>
+        <div class="blog-content-box">
+	<div class="article-header-box">
+		<div class="article-header">
+			<div class="article-title-box">
+				<span class="article-type type-1 float-left">原</span>				<h1 class="title-article">git clone 解决Permission Denied (publickey)问题</h1>
+			</div>
+			<div class="article-info-box">
+				<div class="article-bar-top">
+																									<span class="time">2018年08月04日 17:34:13</span>
+					<a class="follow-nickName" href="https://me.csdn.net/sxg0205" target="_blank">scanklm</a>
+						<span class="read-count">阅读数：14394</span>
+						
+														<span class="tags-box artic-tag-box">
+								<span class="label">标签：</span>
+																<a data-track-click='{"mod":"popu_626","con":"git"}' data-track-view='{"mod":"popu_626","con":"git"}' class="tag-link" href="https://so.csdn.net/so/search/s.do?q=git&t=blog" target="_blank">git																<a data-track-click='{"mod":"popu_626","con":"permission denied"}' data-track-view='{"mod":"popu_626","con":"permission denied"}' class="tag-link" href="https://so.csdn.net/so/search/s.do?q=permission denied&t=blog" target="_blank">permission denied																</a>
+							</span>
+																					<div class="tags-box space">
+								<span class="label">个人分类：</span>
+																<a class="tag-link" href="https://blog.csdn.net/sxg0205/article/category/7906993"  target="_blank">git																</a>
+							</div>
+																								</div>
+				<div class="operating">
+									</div>
+			</div>
+		</div>
+	</div>
+	<article class="baidu_pl">
+		<div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog"  data-mod=popu_307  data-dsm = "post" >
+								<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+        								            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+						<div class="htmledit_views" id="content_views">
+                <p>原文地址：<a href="https://blog.csdn.net/sxg0205/article/details/81412921" rel="nofollow">https://blog.csdn.net/sxg0205/article/details/81412921</a></p>
+
+<p>本地git bash 使用git clone git@github.com:***.git方式下载github代码至本地时需要依赖ssh key，遇到权限不足问题时一般都是SSH key失效或者SSH key不存在，重新创建SSH key一般就可以解决问题；</p>
+
+<p><strong>步骤一、检查本地ssh key是否存在</strong></p>
+
+<p>    1、windows下 开始 -- 搜索框输入 git bash，打开git bash窗口；</p>
+
+<p>    2、git base窗口中输入指令 ls ~/.ssh/ 来检查ssh key是否存在；</p>
+
+<p>    3、如果key不存在则按照步骤二重新生成，ssh key已存在则跳过步骤二，执行步骤三；</p>
+
+<p><strong>步骤二、生成ssh key</strong></p>
+
+<p>    1、继续步骤一的git bash窗口执行指令：</p>
+
+<p>            ssh-keygen -t rsa -b 2048 -C "你自己的邮箱地址"</p>
+
+<p>           修改邮箱地址为你自己的邮箱地址，注意此处邮箱地址前后的双引号为英文格式双引号；</p>
+
+<p>    2、指令执行后页面提示：</p>
+
+<p>           <img alt="" class="has" height="50" src="https://img-blog.csdn.net/20180804171826436?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="464" /></p>
+
+<p>           Generating public/private rsa key pair.<br />
+           Enter file in which to save the key (/c/Users/***/.ssh/id_rsa):</p>
+
+<p>         ***表示你自己的当前登录用户名，不做修改直接回车，会将生成的rsa文件保存为默认名称</p>
+
+<p>         再次回车提示：</p>
+
+<p>         Enter passphrase (empty for no passphrase): <br />
+         Enter same passphrase again: <br />
+         提示设置提交/l拉取代码到Github时需要的密码及确认密码；</p>
+
+<p>         设置密码后再次回车提示Your identification has been saved in.... 即表示ssh key生成成功；</p>
+
+<p><strong>步骤三、添加sshkey至ssh-agent</strong></p>
+
+<p>    1、执行eval “$(ssh-agent -s)”确认ssh-agent处于开启状态，打印pid... 表示启用中；</p>
+
+<p>    2、执行指令ssh-add ~/.ssh/id_rsa 添加ssh key至ssh agent，此步会要求输入步骤二设置的密码；</p>
+
+<p>          需要注意的是此处可能报错：Could not open a connection to your authentication agent，我的解决办法是关掉当前git                  bash窗口，重新以管理员身份运行git bash 即解决问题；</p>
+
+<p><strong>步骤四、添加ssh key至guthub</strong></p>
+
+<p>     1、登录<a href="https://github.com/" rel="nofollow">https://github.com/</a>，在页面右上角自己头像右边箭头处右击，弹框中进入setting功能；</p>
+
+<p>            <img alt="" class="has" height="312" src="https://img-blog.csdn.net/20180804172820648?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="239" /></p>
+
+<p>     2、setting界面右边菜单选择SSH and GPG keys，选择新建SSH keys，</p>
+
+<p><img alt="" class="has" height="281" src="https://img-blog.csdn.net/20180804172926782?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="1075" /></p>
+
+<p>    <img alt="" class="has" height="410" src="https://img-blog.csdn.net/20180804173209804?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3N4ZzAyMDU=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70" width="864" /></p>
+
+<p>保存即可；</p>
+
+<p><strong>步骤五：git clone下载代码</strong></p>
+
+<p>   步骤结束，此时再尝试本地使用git clone方式下载代码即可；</p>            </div>
+                      </div>
+	</article>
+</div>
+
+  <div class="hide-article-box hide-article-pos text-center">
+    <div class="border"></div>
+        <a class="btn article-footer-btn" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/sxg0205/article/details/81412921,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/sxg0205/article/details/81412921,"}'>阅读更多</a>
+        <a class="btn article-footer-btn article-footer-bookmark-btn" >
+      <svg class="icon no-active hover-hide" aria-hidden="true">
+        <use xlink:href="#csdnc-bookmark"></use>
+      </svg>
+      <span>收藏</span>
+    </a>
+    <div class="btn article-footer-btn  bds_weixin article-footer-share-btn" data-cmd="weixin" title="分享">
+      <svg class="icon no-active hover-hide" aria-hidden="true">
+        <use xlink:href="#csdnc-share"></use>
+      </svg>
+      <span>分享</span>
+      <div class="bdsharebuttonbox">
+        <a href="#"class="bds_weixin clear-share-style-article-footer" data-cmd="weixin" title="分享"></a>
+      </div>
+    </div>
+
+  </div>
+  
+  <script>
+  (function(){
+    function collection(){
+      if (currentUserName) {
+        var markObj = {};
+            markObj.imgUrl ='https://csdnimg.cn/release/phoenix/static_blog/images/appqr.png';
+        var markPrompt = (new window.csdn.publicPrompt).init(markObj);
+        var maeked = '您已经收藏过';
+        if (!$(this).hasClass("liked")) {
+          $.ajax({
+            url: 'https://my.csdn.net/my/favorite/do_add/2',
+            dataType: 'json',
+            type: 'POST',
+            xhrFields: {
+              withCredentials: true
+            },
+            data: {
+              title: articleTit,
+              url: 'https://blog.csdn.net/sxg0205/article/details/81412921',
+              share: 1,
+              map_name: ''
+            },
+            success: function(data) {
+              
+              if (data.succ == 1) {
+                $('.btn-bookmark').addClass("liked");
+                $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                markPrompt.show({})
+                // alert('收藏成功,可以在个人中心查看我的收藏');
+              } else {
+                if (data.msg === "您已经收藏过") {
+                  $('.btn-bookmark').addClass("liked");
+                  $('.article-footer-bookmark-btn').addClass("liked").children('span').text('已收藏');
+                  markPrompt.show({
+                    titleStr: maeked
+                  })
+                }else{
+                  alert(data.msg);
+                  
+                }
+              }
+            }
+          });
+        } else {
+          markPrompt.show({
+            titleStr: maeked
+          })
+        }
+      } else {
+        window.csdn.loginBox.show();
+      }
+    }
+    function permissionCheck(dom){
+      var returnData = false;
+      switch (true) {
+        case currentUserPermission && userPermission:
+          clearReadMoreBtn(dom)
+          returnData = true;
+          break;
+        case userPermission:
+          dom.text('VIP阅读');
+          returnData = false;
+          break;
+        default:
+          
+      }
+      return returnData;
+    }
+    window.csdn = window.csdn ? window.csdn : {};
+    window.csdn.articleCollection = collection;
+    function clearReadMoreBtn(dom) {
+      if(userPermission && !(dom instanceof jQuery)) {
+        window.open('https://mall.csdn.net/vip?utm_source=brv')
+        return false;
+      }
+      dom = dom instanceof jQuery ? dom : $(this);
+      $("div.article_content").removeAttr("style");
+      dom.parent().remove();
+    }
+    function setArticleH(btnReadmore,posi){
+      var winH = $(window).height();
+      var articleBox = $("div.article_content");
+      var artH = articleBox.height();
+      if(artH > winH*posi){
+        articleBox.css({
+          'height':winH*posi+'px',
+          'overflow':'hidden'
+        })
+        btnReadmore.click(clearReadMoreBtn)
+      }else{
+        btnReadmore.parent().remove()
+      }
+    }
+    var btnReadmore = $("#btn-readmore");
+    $('.article-footer-bookmark-btn').click(window.csdn.articleCollection)
+    if(btnReadmore.length>0){
+      if (permissionCheck(btnReadmore)) {
+        return false;
+      }
+      if(currentUserName){
+        setArticleH(btnReadmore,3);
+      }else{
+        setArticleH(btnReadmore,0.5);
+      }
+    }else{
+      $('.hide-article-box').addClass('hide-article-style');
+    }
+  })()
+</script>
+<script>
+		$(".MathJax").remove();
+		if($('div.markdown_views pre.prettyprint code.hljs').length > 0 ){
+				$('div.markdown_views')[0].className = 'markdown_views';
+		}
+</script>
+        <div id="dmp_ad_58"><div id="kp_box_58" data-pid="58" data-track-view='{"mod":"kp_popu_58-402","con":",,"}' data-track-click='{"mod":"kp_popu_58-402","con":",,"}'><div style="width:100%;background:#fff;border:3px solid #fff;">
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<div id="three_ad1" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 100,
+                showid : 'ztvJV8',
+                placeholderId: "three_ad1",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 0,
+                    imageWidth: 90,
+                    imageHeight: 68,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft YaHei',
+                    paddingTop : 20,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 20,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script>
+</div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="javascript:void(0);" target="_blank">
+				<img class="show_loginbox" src="//g.csdnimg.cn/static/user-img/anonymous-User-img.png">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="81412921">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+            		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/mjlfto/article/details/54630311,BlogCommendFromThirdService_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/mjlfto/article/details/54630311,BlogCommendFromThirdService_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/mjlfto/article/details/54630311" target="_blank" title="解决git提示Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>解决</em><em>git</em>提示<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/mjlfto/article/details/54630311" target="_blank" title="解决git提示Permission denied (publickey)">
+							<span class="desc oneline">在linux装完git，然后clonegithub的项目时出问题，报以下错误。Permissiondenied(publickey).fatal:Couldnotreadfromremoterepos...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/mjlfto">来自：	<span class="blog_title"> mjlfto的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xuduorui/article/details/53612587,BlogCommendFromThirdService_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xuduorui/article/details/53612587,BlogCommendFromThirdService_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xuduorui/article/details/53612587" target="_blank" title="git出现错误：Permission denied (publickey).解决方法">
+				<h4 class="text-truncate oneline">
+						<em>git</em>出现错误：<em>Permission</em> <em>denied</em> (<em>publickey</em>).<em>解决</em>方法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xuduorui/article/details/53612587" target="_blank" title="git出现错误：Permission denied (publickey).解决方法">
+							<span class="desc oneline">最近按照主流教程添加git项目后，出现Permissiondenied(publickey)错误，验证了自己的配置流程没有问题，后来仔细检查教程的每个细节，发现问题所在。以下是教程方法：主流git教程...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xuduorui">来自：	<span class="blog_title"> uxff的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qdujunjie/article/details/41872623,BlogCommendFromThirdService_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qdujunjie/article/details/41872623,BlogCommendFromThirdService_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qdujunjie/article/details/41872623" target="_blank" title="github后台配置ssh key之后本地无法git clone的问题 Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						<em>git</em>hub后台配置ssh key之后本地无法<em>git</em> <em>clone</em>的<em>问题</em> <em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qdujunjie/article/details/41872623" target="_blank" title="github后台配置ssh key之后本地无法git clone的问题 Permission denied (publickey).">
+							<span class="desc oneline">当你在github后台添加了sshkeys之后，如果你在本地gitclonegit://www.somesite.com/test.git的时候出现了一些问题，不如accessdenied，那么你要在...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qdujunjie">来自：	<span class="blog_title"> qdujunjie的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_59" data-pid="59" data-track-view='{"mod":"kp_popu_59-78","con":",,"}' data-track-click='{"mod":"kp_popu_59-78","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3491668",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhym86848658/article/details/85239408,BlogCommendFromThirdService_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhym86848658/article/details/85239408,BlogCommendFromThirdService_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhym86848658/article/details/85239408" target="_blank" title="出现 Permission denied (publickey)的解决">
+				<h4 class="text-truncate oneline">
+						出现 <em>Permission</em> <em>denied</em> (<em>publickey</em>)的<em>解决</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1068</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhym86848658/article/details/85239408" target="_blank" title="出现 Permission denied (publickey)的解决">
+							<span class="desc oneline">【出现Permissiondenied(publickey)的解决】出现如题的报错主要还是因为公钥没有配对的缘故切换目录~/.sshssh-keygen-trsa-Cyour-mail@abc.com...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhym86848658">来自：	<span class="blog_title"> zhym86848658的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lk142500/article/details/80358941,BlogCommendFromThirdService_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lk142500/article/details/80358941,BlogCommendFromThirdService_29"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lk142500/article/details/80358941" target="_blank" title="Git clone Permission Denied Publickey解决方式">
+				<h4 class="text-truncate oneline">
+						<em>Git</em> <em>clone</em> <em>Permission</em> <em>Denied</em> <em>Publickey</em><em>解决</em>方式				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2014</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lk142500/article/details/80358941" target="_blank" title="Git clone Permission Denied Publickey解决方式">
+							<span class="desc oneline">问题描述github提示Permissiondenied(publickey)，如何才能解决？在使用Git克隆代码时，提示Permissiondenied（publickey），这是因为在当前电脑中没...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lk142500">来自：	<span class="blog_title"> 不当初</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u013894429/article/details/78960813,BlogCommendFromThirdService_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u013894429/article/details/78960813,BlogCommendFromThirdService_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u013894429/article/details/78960813" target="_blank" title="运行git push时出错，提示Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						运行<em>git</em> push时出错，提示<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u013894429/article/details/78960813" target="_blank" title="运行git push时出错，提示Permission denied (publickey)">
+							<span class="desc oneline">本文转载自博客园博主“王老头”的文章《Permissiondenied(publickey).fatal:Couldnotreadfromremoterepository.》     错误： 在终端（...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u013894429">来自：	<span class="blog_title"> 梅子微酸  - -  CSDN博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/luntan6788/article/details/79336384,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/luntan6788/article/details/79336384,BlogCommendFromBaidu_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/luntan6788/article/details/79336384" target="_blank" title="github提示Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>git</em>hub提示<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-19</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2394</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/luntan6788/article/details/79336384" target="_blank" title="github提示Permission denied (publickey)">
+							<span class="desc oneline">需要到github账号中设置ssh公钥信息。在GitHub网站中的&amp;quot;accountsettings&amp;quot;：&amp;quot;Setting-&amp;amp;gt;SSHKeys&amp;quot;-&amp;am...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/luntan6788">来自：	<span class="blog_title"> luntan6788的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wcx1293296315/article/details/88693832,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wcx1293296315/article/details/88693832,BlogCommendFromBaidu_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wcx1293296315/article/details/88693832" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>). fatal: Could not read from remote repository.				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							241</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wcx1293296315/article/details/88693832" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.">
+							<span class="desc oneline">在使用git拉取文件时说没有权限，错误如下图所示。错误原因是没有进行SSH密钥是设置。解决方法：（linux环境下），其他环境请转到它的主页面。1、检测是否存在sshkeysls-al~/.ssh如果...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wcx1293296315">来自：	<span class="blog_title"> NEVERGUVEIP的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_60" data-pid="60" data-track-view='{"mod":"kp_popu_60-43","con":",,"}' data-track-click='{"mod":"kp_popu_60-43","con":",,"}'><div id="three_ad8" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 900,
+                h : 84,
+                showid : 'Afihld',
+                placeholderId: "three_ad8",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 10,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/cxrsdn/article/details/83274333,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/cxrsdn/article/details/83274333,BlogCommendFromBaidu_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/cxrsdn/article/details/83274333" target="_blank" title="多Github账号push时提示git@github.com: Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						多<em>Git</em>hub账号push时提示<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							386</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/cxrsdn/article/details/83274333" target="_blank" title="多Github账号push时提示git@github.com: Permission denied (publickey)">
+							<span class="desc oneline">目录1.背景2.尝试过程（未成功）①删除全局配置②添加本地私钥③使用HTTPSURL进行Clone3.最终解决的方法①.在控制面板-凭据管理器中移除之前的登陆认证②.通过命名的别名Host重新clon...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/cxrsdn">来自：	<span class="blog_title"> cxrsdn的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/me_never/article/details/87310166,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/me_never/article/details/87310166,BlogCommendFromBaidu_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/me_never/article/details/87310166" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.报错处理">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>). fatal: Could not read from remote repository.报错处理				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							350</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/me_never/article/details/87310166" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.报错处理">
+							<span class="desc oneline">转载别人的，写的很不错https://www.cnblogs.com/wmr95/p/7852832.html博主在github上下载tinyface的的源代码的时候，遇到gitclone命令为：gi...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/me_never">来自：	<span class="blog_title"> me_never的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+          <div class="recommend-item-box blog-expert-recommend-box">
+				<div class="d-flex">
+					<div class="blog-expert-recommend">
+						<div class="blog-expert">
+							<div class="blog-expert-flexbox"></div>
+						</div>
+					</div>
+				</div>
+      </div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/veatheroe/article/details/87167480,BlogCommendFromBaidu_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/veatheroe/article/details/87167480,BlogCommendFromBaidu_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/veatheroe/article/details/87167480" target="_blank" title="解决git@github.com: Permission denied (publickey).问题">
+				<h4 class="text-truncate oneline">
+						<em>解决</em><em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>).<em>问题</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							311</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/veatheroe/article/details/87167480" target="_blank" title="解决git@github.com: Permission denied (publickey).问题">
+							<span class="desc oneline">Git解决小问题记录问题描述解决途径问题描述在学习Git的过程中，我创建了两个GitHub账号，一个用于学习，一个用于工作，并使用同一台电脑进行远程Git仓库的维护。由于Git的远程连接是基于SSH的...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/veatheroe">来自：	<span class="blog_title"> veatheroe的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhangzeshan/article/details/83472826,BlogCommendFromThirdService_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhangzeshan/article/details/83472826,BlogCommendFromThirdService_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhangzeshan/article/details/83472826" target="_blank" title="github拉取代码时候出现 Permission denied (publickey).的解决方法">
+				<h4 class="text-truncate oneline">
+						<em>git</em>hub拉取代码时候出现 <em>Permission</em> <em>denied</em> (<em>publickey</em>).的<em>解决</em>方法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-28</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							576</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhangzeshan/article/details/83472826" target="_blank" title="github拉取代码时候出现 Permission denied (publickey).的解决方法">
+							<span class="desc oneline">首先执行命令：ssh-keygen-trsa-C&amp;quot;你的本地git拉取代码的账号&amp;quot;输入命令后会出现类型这样的句子记住这三个句子不需要填入东西直接一直回车下去然后就会出现下面这个情况：...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhangzeshan">来自：	<span class="blog_title"> zhangzeshan的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_32623363/article/details/86496238,BlogCommendFromThirdService_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_32623363/article/details/86496238,BlogCommendFromThirdService_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_32623363/article/details/86496238" target="_blank" title="git clone提示Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>git</em> <em>clone</em>提示<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							178</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_32623363/article/details/86496238" target="_blank" title="git clone提示Permission denied (publickey)">
+							<span class="desc oneline">我的问题如图所示，我是clone自己的仓库，使用SSH。我的解决办法：改用HTTPS即可。至于原因~~不知道嘿嘿...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_32623363">来自：	<span class="blog_title"> 吟游诗人——吟唱生命的不朽</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_61" data-pid="61" data-track-view='{"mod":"kp_popu_61-809","con":",,"}' data-track-click='{"mod":"kp_popu_61-809","con":",,"}'><script
+    async="async"
+    charset="utf-8"
+    src="https://shared.ydstatic.com/js/yatdk/3.0.1/stream.js"
+    data-id="6cb24153a03289ff3597c7aab4b69fe9"
+    data-div-Style="width:100%;"
+data-tit-Style="margin-bottom: 6px; font-size: 18px; line-height: 24px; color: #3d3d3d;display: inline-block;font-weight:bold;"
+data-des-Style="font-size: 13px; line-height: 22px; white-space: normal; color: #999;"
+data-img-Style="float:left;margin-right:15px;width:90px;height:60px;">
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wtopps/article/details/79449920,BlogCommendFromThirdService_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wtopps/article/details/79449920,BlogCommendFromThirdService_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wtopps/article/details/79449920" target="_blank" title="Permission denied (publickey). SSH用户名密码登录报错">
+				<h4 class="text-truncate oneline">
+						<em>Permission</em> <em>denied</em> (<em>publickey</em>). SSH用户名密码登录报错				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wtopps/article/details/79449920" target="_blank" title="Permission denied (publickey). SSH用户名密码登录报错">
+							<span class="desc oneline">问题描述有几台生产机器需要通过jenkins部署代码，所以让开了从jenkins部署机器ssh到生产机器的网络权限。配置jenkins的时候报错了：在jenkins所在机器直接ssh登录，也报错了。P...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wtopps">来自：	<span class="blog_title"> wtopps的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43578216/article/details/85697958,BlogCommendFromThirdService_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_43578216/article/details/85697958,BlogCommendFromThirdService_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_43578216/article/details/85697958" target="_blank" title="Gitlab安装与配置，包括配置时遇到报错：Permission denied (publickey).如何解决">
+				<h4 class="text-truncate oneline">
+						<em>Git</em>lab安装与配置，包括配置时遇到报错：<em>Permission</em> <em>denied</em> (<em>publickey</em>).如何<em>解决</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							399</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_43578216/article/details/85697958" target="_blank" title="Gitlab安装与配置，包括配置时遇到报错：Permission denied (publickey).如何解决">
+							<span class="desc oneline">Linux下安装需要先安装Git依赖的库：curl、zlib、openssl、expat、libiconv。$yuminstallcurl-develexpat-develgettext-develo...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_43578216">来自：	<span class="blog_title"> weixin_43578216的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pei7932658/article/details/78783877,BlogCommendFromThirdService_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pei7932658/article/details/78783877,BlogCommendFromThirdService_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pei7932658/article/details/78783877" target="_blank" title="git@github.com: Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-12</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3533</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pei7932658/article/details/78783877" target="_blank" title="git@github.com: Permission denied (publickey).">
+							<span class="desc oneline">关于git合并代码到github时报错的问题https://help.github.com/articles/error-permission-denied-publickey/ 官网给出有几个原因，...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pei7932658">来自：	<span class="blog_title"> 一步一步走</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/dyy_csdn/article/details/81508809,BlogCommendFromBaidu_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/dyy_csdn/article/details/81508809,BlogCommendFromBaidu_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/dyy_csdn/article/details/81508809" target="_blank" title="解决码云出现git@gitee.com: Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						<em>解决</em>码云出现<em>git</em>@<em>git</em>ee.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/dyy_csdn/article/details/81508809" target="_blank" title="解决码云出现git@gitee.com: Permission denied (publickey).">
+							<span class="desc oneline">很久之前好像改了ssh的一些配置，导致现在对git进行一些操作时，就会出现当时就去百度，结果很多都是一些不太对应的解决方法，反正也没有解决，今天偶然看码云的文档才突然解决。官方解决文档：http://...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/dyy_csdn">来自：	<span class="blog_title"> dyy_csdn的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_32786873/article/details/80947195,BlogCommendFromBaidu_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_32786873/article/details/80947195,BlogCommendFromBaidu_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_32786873/article/details/80947195" target="_blank" title="git@github.com: Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3762</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_32786873/article/details/80947195" target="_blank" title="git@github.com: Permission denied (publickey)">
+							<span class="desc oneline">今天在使用命令ssh-Tgit@github.com测试公钥是否添加成功时，提示：git@github.com:Permissiondenied(publickey)解决方法方法一：使用默认名字   ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_32786873">来自：	<span class="blog_title"> 勿忘初心的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_62" data-pid="62" data-track-view='{"mod":"kp_popu_62-809","con":",,"}' data-track-click='{"mod":"kp_popu_62-809","con":",,"}'><script
+    async="async"
+    charset="utf-8"
+    src="https://shared.ydstatic.com/js/yatdk/3.0.1/stream.js"
+    data-id="6cb24153a03289ff3597c7aab4b69fe9"
+    data-div-Style="width:100%;"
+data-tit-Style="margin-bottom: 6px; font-size: 18px; line-height: 24px; color: #3d3d3d;display: inline-block;font-weight:bold;"
+data-des-Style="font-size: 13px; line-height: 22px; white-space: normal; color: #999;"
+data-img-Style="float:left;margin-right:15px;width:90px;height:60px;">
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pan_xi_yi/article/details/83513021,BlogCommendFromBaidu_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pan_xi_yi/article/details/83513021,BlogCommendFromBaidu_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pan_xi_yi/article/details/83513021" target="_blank" title="push代码，git@github.com: Permission denied (publickey).报错">
+				<h4 class="text-truncate oneline">
+						push代码，<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>).报错				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2614</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pan_xi_yi/article/details/83513021" target="_blank" title="push代码，git@github.com: Permission denied (publickey).报错">
+							<span class="desc oneline">第一步：进入要所要上传文件的目录输入命令“gitinit”第二步：创建一个本地仓库origin，使用命令“gitremoteaddorigingit@github.com:yourName/yourR...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pan_xi_yi">来自：	<span class="blog_title"> pan_xi_yi的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012279312/article/details/81662675,BlogCommendFromBaidu_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012279312/article/details/81662675,BlogCommendFromBaidu_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012279312/article/details/81662675" target="_blank" title="【转】git客户端使用&quot;git clone git@github.com:xxx.git&quot;下载git代码报错&quot;Permission denied (publickey).&quot;">
+				<h4 class="text-truncate oneline">
+						【转】<em>git</em>客户端使用&quot;<em>git</em> <em>clone</em> <em>git</em>@<em>git</em>hub.com:xxx.<em>git</em>&quot;下载<em>git</em>代码报错&quot;<em>Permission</em> <em>denied</em> (<em>publickey</em>).&quot;				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							567</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012279312/article/details/81662675" target="_blank" title="【转】git客户端使用&quot;git clone git@github.com:xxx.git&quot;下载git代码报错&quot;Permission denied (publickey).&quot;">
+							<span class="desc oneline">原文：https://blog.csdn.net/isunnyvinson/article/details/52598863使用sshkey这种方式进行clone，pullgithub上面的项目，使用...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012279312">来自：	<span class="blog_title"> u012279312的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_34348111/article/details/88195815,BlogCommendFromBaidu_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_34348111/article/details/88195815,BlogCommendFromBaidu_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/weixin_34348111/article/details/88195815" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Ple...">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>). fatal: Could not read from remote repository.  Ple...				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-17</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							109</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/weixin_34348111/article/details/88195815" target="_blank" title="git@github.com: Permission denied (publickey). fatal: Could not read from remote repository.  Ple...">
+							<span class="desc oneline">进行新项目初始化提交过程中出现了以下错误原因：电脑公钥（publickey）未添加至github,所以无法识别。因而需要获取本地电脑公钥，然后登录github账号，添加公钥至github就OK了解决方...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/weixin_34348111">来自：	<span class="blog_title"> weixin_34348111的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zxw100205/article/details/79791530,BlogCommendFromThirdService_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zxw100205/article/details/79791530,BlogCommendFromThirdService_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zxw100205/article/details/79791530" target="_blank" title="centos7 服务器ssh登录 Permission denied (publickey). 问题">
+				<h4 class="text-truncate oneline">
+						centos7 服务器ssh登录 <em>Permission</em> <em>denied</em> (<em>publickey</em>). <em>问题</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-02</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3566</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zxw100205/article/details/79791530" target="_blank" title="centos7 服务器ssh登录 Permission denied (publickey). 问题">
+							<span class="desc oneline">问题原因：.ssh文件夹和authoried_keys文件的权限问题估计这里和SELinux有关（没有细看）解决方案：             chmod700.ssh修改.ssh文件权限      ...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zxw100205">来自：	<span class="blog_title"> CBoy的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yangyangye/article/details/19814653,BlogCommendFromThirdService_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yangyangye/article/details/19814653,BlogCommendFromThirdService_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yangyangye/article/details/19814653" target="_blank" title="Redis集群方案">
+				<h4 class="text-truncate oneline">
+						Redis集群方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6973</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yangyangye/article/details/19814653" target="_blank" title="Redis集群方案">
+							<span class="desc oneline">Redis集群方案根据一些测试整理出来的一份方案：1.Redis性能对于redis的一些简单测试，仅供参考：测试环境：Redhat6.2,XeonE5520(4核)*2/8G，1000M网卡Redis...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yangyangye">来自：	<span class="blog_title"> zzhongcy的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_63" data-pid="63" data-track-view='{"mod":"kp_popu_63-809","con":",,"}' data-track-click='{"mod":"kp_popu_63-809","con":",,"}'><script
+    async="async"
+    charset="utf-8"
+    src="https://shared.ydstatic.com/js/yatdk/3.0.1/stream.js"
+    data-id="6cb24153a03289ff3597c7aab4b69fe9"
+    data-div-Style="width:100%;"
+data-tit-Style="margin-bottom: 6px; font-size: 18px; line-height: 24px; color: #3d3d3d;display: inline-block;font-weight:bold;"
+data-des-Style="font-size: 13px; line-height: 22px; white-space: normal; color: #999;"
+data-img-Style="float:left;margin-right:15px;width:90px;height:60px;">
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/peng19870724/article/details/87871850,BlogCommendFromThirdService_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/peng19870724/article/details/87871850,BlogCommendFromThirdService_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/peng19870724/article/details/87871850" target="_blank" title="Windows中Git bash安装后的配置及SSH方式clone配置方法记录">
+				<h4 class="text-truncate oneline">
+						Windows中<em>Git</em> bash安装后的配置及SSH方式<em>clone</em>配置方法记录				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							143</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/peng19870724/article/details/87871850" target="_blank" title="Windows中Git bash安装后的配置及SSH方式clone配置方法记录">
+							<span class="desc oneline">1、配置用户名和邮箱：打开gitbash，执行以下命令:gitconfig--globaluser.name your_usernamegitconfig--globaluser.emailyoure...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/peng19870724">来自：	<span class="blog_title"> Eddy的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/daisho/article/details/84917955,BlogCommendFromThirdService_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/daisho/article/details/84917955,BlogCommendFromThirdService_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/daisho/article/details/84917955" target="_blank" title="Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						<em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							257</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/daisho/article/details/84917955" target="_blank" title="Permission denied (publickey).">
+							<span class="desc oneline">今天gitclone的时候遇到一个Permissiondenied(publickey).的问题。克隆的是github上的项目。1.公钥早已添加到自己github账户sshkey中。2.用ssh-vT...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/daisho">来自：	<span class="blog_title"> daisho的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_31433709/article/details/81193732,BlogCommendFromThirdService_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_31433709/article/details/81193732,BlogCommendFromThirdService_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_31433709/article/details/81193732" target="_blank" title="idea permission denied 权限分配问题解决方案">
+				<h4 class="text-truncate oneline">
+						idea <em>permission</em> <em>denied</em> 权限分配<em>问题</em><em>解决</em>方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-24</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							986</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_31433709/article/details/81193732" target="_blank" title="idea permission denied 权限分配问题解决方案">
+							<span class="desc oneline">感谢:https://blog.csdn.net/grl18840839630/article/details/74895317/最近学go语言的时候,第一次接触到大量命令行指令,在idea中不断报出...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_31433709">来自：	<span class="blog_title"> qq_31433709的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident recommend-other-item-box" data-track-view='{"mod":"popu_387","con":",http://ask.csdn.net/questions/356494,BlogCommendFromBaidu_25"}' data-track-click='{"mod":"popu_387","con":",http://ask.csdn.net/questions/356494,BlogCommendFromBaidu_25"}'>
+		<a href="http://ask.csdn.net/questions/356494" target="_blank">
+			<h4 class="text-truncate oneline">
+					<em>git</em> <em>clone</em> 时报错<em>Permission</em> <em>denied</em> (<em>publickey</em>)			</h4>
+			<div class="info-box d-flex align-content-center">
+					<span class="date">01-07</span>
+			</div>
+			<p class="content oneline">
+        <span class="desc oneline">-</span>
+                  <span class="type-show type-show-ask">问答</span>
+        			</p>
+		</a>
+
+	</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34630887/article/details/78544129,BlogCommendFromBaidu_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_34630887/article/details/78544129,BlogCommendFromBaidu_26"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_34630887/article/details/78544129" target="_blank" title="解决方案 git@github.com出现Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>解决</em>方案 <em>git</em>@<em>git</em>hub.com出现<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							256</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_34630887/article/details/78544129" target="_blank" title="解决方案 git@github.com出现Permission denied (publickey)">
+							<span class="desc oneline">解决方案git@github.com出现Permissiondenied(publickey) ubentu13.10gitversion1.8.3.2解决方案：ssh-Tgit@github.com...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_34630887">来自：	<span class="blog_title"> 周奕儒的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_64" data-pid="64" data-track-view='{"mod":"kp_popu_64-81","con":",,"}' data-track-click='{"mod":"kp_popu_64-81","con":",,"}'><div id="three_ad28" class="mediav_ad" ></div>
+<script type="text/javascript" src="//static.mediav.com/js/mvf_news_feed.js"></script>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'Afihld',
+                placeholderId: "three_ad28",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010859650/article/details/82348705,BlogCommendFromBaidu_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010859650/article/details/82348705,BlogCommendFromBaidu_27"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u010859650/article/details/82348705" target="_blank" title="git@github.com: Permission denied (publickey)解决方案">
+				<h4 class="text-truncate oneline">
+						<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>)<em>解决</em>方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-03</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							712</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u010859650/article/details/82348705" target="_blank" title="git@github.com: Permission denied (publickey)解决方案">
+							<span class="desc oneline">执行ssh-add时出现Couldnotopenaconnectiontoyourauthenticationagent若执行ssh-add/path/to/xxx.pem是出现这个错误:Couldn...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u010859650">来自：	<span class="blog_title"> 牵着蜗牛_去散步</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_41139830/article/details/83065446,BlogCommendFromBaidu_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_41139830/article/details/83065446,BlogCommendFromBaidu_28"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_41139830/article/details/83065446" target="_blank" title="ssh -T git@github.com出现Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						ssh -T <em>git</em>@<em>git</em>hub.com出现<em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							630</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_41139830/article/details/83065446" target="_blank" title="ssh -T git@github.com出现Permission denied (publickey).">
+							<span class="desc oneline">这种情况一般是因为生成秘钥文件时对文件进行了重命名，然而你自定义的这个名字并没有和ssh内部规定的名字保持一致，所以使用ssh-Tgit@github.com报错Permissiondenied(pu...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_41139830">来自：	<span class="blog_title"> 蚂蚁的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u014103733/article/details/79212314,BlogCommendFromThirdService_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u014103733/article/details/79212314,BlogCommendFromThirdService_30"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u014103733/article/details/79212314" target="_blank" title="如何解决在homestead虚拟机中通过SSH Key 提交github失败报错！Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						如何<em>解决</em>在homestead虚拟机中通过SSH Key 提交<em>git</em>hub失败报错！<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							665</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u014103733/article/details/79212314" target="_blank" title="如何解决在homestead虚拟机中通过SSH Key 提交github失败报错！Permission denied (publickey)">
+							<span class="desc oneline">先关联上远程的GitHub仓库，执行以下git命令：gitremotermorigingitremoteaddorigingit@github.com:Eric-seven/sample.gitgit...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u014103733">来自：	<span class="blog_title"> 境由心生</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Mr_JavaScript/article/details/83787333,BlogCommendFromThirdService_31"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Mr_JavaScript/article/details/83787333,BlogCommendFromThirdService_31"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Mr_JavaScript/article/details/83787333" target="_blank" title="Git clone项目时报错Permission denied (publickey).的解决方案">
+				<h4 class="text-truncate oneline">
+						<em>Git</em> <em>clone</em>项目时报错<em>Permission</em> <em>denied</em> (<em>publickey</em>).的<em>解决</em>方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							538</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Mr_JavaScript/article/details/83787333" target="_blank" title="Git clone项目时报错Permission denied (publickey).的解决方案">
+							<span class="desc oneline">在一台新设备上首次使用gitclone克隆GitHub仓库项目时，报了这个错误，如下：git@github.com:Permissiondenied(publickey).fatal:Couldnot...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Mr_JavaScript">来自：	<span class="blog_title"> Mr_Wiill</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Augusdi/article/details/20999643,BlogCommendFromThirdService_32"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Augusdi/article/details/20999643,BlogCommendFromThirdService_32"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Augusdi/article/details/20999643" target="_blank" title="STL文件序列化读取">
+				<h4 class="text-truncate oneline">
+						STL文件序列化读取				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7690</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Augusdi/article/details/20999643" target="_blank" title="STL文件序列化读取">
+							<span class="desc oneline">//实体类classCSTLSolid{public:	//constructoranddestructor	CSTLSolid()	{		m_bInitialized=FALSE;		m_pInte...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Augusdi">来自：	<span class="blog_title"> Augusdi的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_65" data-pid="65" data-track-view='{"mod":"kp_popu_65-84","con":",,"}' data-track-click='{"mod":"kp_popu_65-84","con":",,"}'><div id="three_ad33" class="mediav_ad" ></div>
+<script>
+                                               NEWS_FEED({
+                w: 852,
+                h : 60,
+                showid : 'GNKXx7',
+                placeholderId: "three_ad33",
+                inject : 'define',
+                define : {
+                    imagePosition : 'left',
+                    imageBorderRadius : 3,
+                    imageWidth: 90,
+                    imageHeight: 60,
+                    imageFill : 'clip',
+                    displayImage : true,
+                    displayTitle : true,
+                    titleFontSize: 18,
+                    titleFontColor: '#000',
+                    titleFontFamily : 'Lato,-apple-system,SF UI Text,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif',
+                    titleFontWeight: 'bold',
+                    titlePaddingTop : 0,
+                    titlePaddingRight : 0,
+                    titlePaddingBottom : 5,
+                    titlePaddingLeft : 16,
+                    displayDesc : true,
+                    descFontSize: 14,
+                    descFontColor: '#8e959a',
+                    descFontFamily : 'Microsoft Yahei',
+                    paddingTop : 0,
+                    paddingRight : 0,
+                    paddingBottom : 0,
+                    paddingLeft : 0,
+                    backgroundColor: '#fff',
+                    hoverColor: '#000'
+                      }
+                  })
+                                        </script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/shatamadedongxi/article/details/7991603,BlogCommendFromThirdService_33"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/shatamadedongxi/article/details/7991603,BlogCommendFromThirdService_33"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/shatamadedongxi/article/details/7991603" target="_blank" title="js获取浏览器信息和客户端硬件信息（一）">
+				<h4 class="text-truncate oneline">
+						js获取浏览器信息和客户端硬件信息（一）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-18</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/shatamadedongxi/article/details/7991603" target="_blank" title="js获取浏览器信息和客户端硬件信息（一）">
+							<span class="desc oneline">最近要用js实现一个客户端采集器的功能，在网上查了一些，感觉网上的有些乱，而且也不是很全，在此做了一个整理。当前页面实现了浏览器信息的采集和客户端硬件信息的采集(cpu,硬盘，主板，键盘，光驱等)。在...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/shatamadedongxi">来自：	<span class="blog_title"> 筱筱的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/tongdanping/article/details/80806248,BlogCommendFromBaidu_34"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/tongdanping/article/details/80806248,BlogCommendFromBaidu_34"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/tongdanping/article/details/80806248" target="_blank" title="git的ssh连接问题：git@github.com: Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						<em>git</em>的ssh连接<em>问题</em>：<em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1622</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/tongdanping/article/details/80806248" target="_blank" title="git的ssh连接问题：git@github.com: Permission denied (publickey)">
+							<span class="desc oneline">首先根据点击打开链接来获取公钥并配置连接，但是在最后一步出现了git@github.com:Permissiondenied(publickey)问题，查找很久，基本的解决方案在点击打开链接但是都没有...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/tongdanping">来自：	<span class="blog_title"> tongdanping的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wang20y8/article/details/81980970,BlogCommendFromBaidu_35"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wang20y8/article/details/81980970,BlogCommendFromBaidu_35"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wang20y8/article/details/81980970" target="_blank" title="Windows10下搭建Git链接远程仓库报错$ ssh -T git@github.com git@github.com: Permission denied (publickey).">
+				<h4 class="text-truncate oneline">
+						Windows10下搭建<em>Git</em>链接远程仓库报错$ ssh -T <em>git</em>@<em>git</em>hub.com <em>git</em>@<em>git</em>hub.com: <em>Permission</em> <em>denied</em> (<em>publickey</em>).				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-23</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							863</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wang20y8/article/details/81980970" target="_blank" title="Windows10下搭建Git链接远程仓库报错$ ssh -T git@github.com git@github.com: Permission denied (publickey).">
+							<span class="desc oneline">$ssh-Tgit@github.comgit@github.com:Permissiondenied(publickey).先添加用户名和邮件(这一步我是通过eclipse完成)1、gitconfi...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wang20y8">来自：	<span class="blog_title"> wang20y8的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/isunnyvinson/article/details/52598863,BlogCommendFromBaidu_36"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/isunnyvinson/article/details/52598863,BlogCommendFromBaidu_36"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/isunnyvinson/article/details/52598863" target="_blank" title="permission denied (publickey)问题的解决 和 向github添加ssh key">
+				<h4 class="text-truncate oneline">
+						<em>permission</em> <em>denied</em> (<em>publickey</em>)<em>问题</em>的<em>解决</em> 和 向<em>git</em>hub添加ssh key				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-20</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/isunnyvinson/article/details/52598863" target="_blank" title="permission denied (publickey)问题的解决 和 向github添加ssh key">
+							<span class="desc oneline">使用sshkey这种方式进行clone，pullgithub上面的项目，使用gitcolne或者gitpulloriginmaster出现permissiondenied(publickey)，原因是...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/isunnyvinson">来自：	<span class="blog_title"> isunnyvinson的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xiaoxinxiaoyi/article/details/60965068,BlogCommendFromBaidu_37"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xiaoxinxiaoyi/article/details/60965068,BlogCommendFromBaidu_37"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xiaoxinxiaoyi/article/details/60965068" target="_blank" title="window界面下，github每次git push会出现permission denied (publickey)的解决">
+				<h4 class="text-truncate oneline">
+						window界面下，<em>git</em>hub每次<em>git</em> push会出现<em>permission</em> <em>denied</em> (<em>publickey</em>)的<em>解决</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3679</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xiaoxinxiaoyi/article/details/60965068" target="_blank" title="window界面下，github每次git push会出现permission denied (publickey)的解决">
+							<span class="desc oneline">作为一个编程小白，软件小白。这几天在写毕业论文。打算把写的东西记录在gihub上，但是今年莫名的发现每次从当地向远端push的时候总是报错permissiondenied(publickey)；结果花...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xiaoxinxiaoyi">来自：	<span class="blog_title"> xiaoxinxiaoyi的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_66" data-pid="66" data-track-view='{"mod":"kp_popu_66-881","con":",,"}' data-track-click='{"mod":"kp_popu_66-881","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T38_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T38  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T38_render", "T38");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pingnanlee/article/details/68065535,BlogCommendFromThirdService_38"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pingnanlee/article/details/68065535,BlogCommendFromThirdService_38"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pingnanlee/article/details/68065535" target="_blank" title="java session基于redis共享方案">
+				<h4 class="text-truncate oneline">
+						java session基于redis共享方案				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pingnanlee/article/details/68065535" target="_blank" title="java session基于redis共享方案">
+							<span class="desc oneline">session基于redis共享有两种基本的方案1、基于容器自身的扩展，比如tomcat的session-manage，可以参考如下地址进行配置https://github.com/jcoleman/...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pingnanlee">来自：	<span class="blog_title"> pingnanlee的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/imj060336/article/details/2032765,BlogCommendFromThirdService_39"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/imj060336/article/details/2032765,BlogCommendFromThirdService_39"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+				<h4 class="text-truncate oneline">
+						用C语言实现有限状态机--读《C专家编程》				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+							<span class="desc oneline">       有限状态机(finitestatemachine)是一个数学概念，如果把它运用于程序中，可以发挥很大的作用。它是一种协议，用于有限数量的子程序(&quot;状态&quot;)的发展变化。每个子程序进行一些处...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/imj060336">来自：	<span class="blog_title"> Stay Hungry,Stay Foolish的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chenzhen1080/article/details/73992223,BlogCommendFromThirdService_40"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chenzhen1080/article/details/73992223,BlogCommendFromThirdService_40"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/chenzhen1080/article/details/73992223" target="_blank" title="github拉代码出现Permission denied (publickey).等问题的解决">
+				<h4 class="text-truncate oneline">
+						<em>git</em>hub拉代码出现<em>Permission</em> <em>denied</em> (<em>publickey</em>).等<em>问题</em>的<em>解决</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-30</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/chenzhen1080/article/details/73992223" target="_blank" title="github拉代码出现Permission denied (publickey).等问题的解决">
+							<span class="desc oneline">这几天，调试串口需要使用到github开源的android-serialport-api网址为https://github.com/cepr/android-serialport-api再使用gith...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/chenzhen1080">来自：	<span class="blog_title"> 茫茫大士的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Mrx_Nh/article/details/79587846,BlogCommendFromThirdService_41"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Mrx_Nh/article/details/79587846,BlogCommendFromThirdService_41"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Mrx_Nh/article/details/79587846" target="_blank" title="git clone 没有权限操作仓库问题，403">
+				<h4 class="text-truncate oneline">
+						<em>git</em> <em>clone</em> 没有权限操作仓库<em>问题</em>，403				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7323</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Mrx_Nh/article/details/79587846" target="_blank" title="git clone 没有权限操作仓库问题，403">
+							<span class="desc oneline">gitclone没有权限操作仓库问题remote:Coding提示:Permissiondenied!没有权限操作此仓库fatal:unabletoaccess'https://git.coding....</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Mrx_Nh">来自：	<span class="blog_title"> Sothan</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u014571011/article/details/51089273,BlogCommendFromThirdService_42"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u014571011/article/details/51089273,BlogCommendFromThirdService_42"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u014571011/article/details/51089273" target="_blank" title="配置git时出现permission denied的一个解决方法">
+				<h4 class="text-truncate oneline">
+						配置<em>git</em>时出现<em>permission</em> <em>denied</em>的一个<em>解决</em>方法				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u014571011/article/details/51089273" target="_blank" title="配置git时出现permission denied的一个解决方法">
+							<span class="desc oneline">在Ubuntu下开始配置git前面很简单，一路输入以下指令：//安装ｇｉｔsudoapt-getinstallgitgitconfig–globaluser.name“Yourname”gitconf...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u014571011">来自：	<span class="blog_title"> u014571011的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_67" data-pid="67" data-track-view='{"mod":"kp_popu_67-882","con":",,"}' data-track-click='{"mod":"kp_popu_67-882","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T43_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T43  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T43_render", "T43");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wang975380547/article/details/78116070,BlogCommendFromBaidu_43"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wang975380547/article/details/78116070,BlogCommendFromBaidu_43"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wang975380547/article/details/78116070" target="_blank" title="关于关于ssh -T git@github.com连接GitHub失败，以及Permission denied (publickey)问题">
+				<h4 class="text-truncate oneline">
+						关于关于ssh -T <em>git</em>@<em>git</em>hub.com连接<em>Git</em>Hub失败，以及<em>Permission</em> <em>denied</em> (<em>publickey</em>)<em>问题</em>				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-27</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wang975380547/article/details/78116070" target="_blank" title="关于关于ssh -T git@github.com连接GitHub失败，以及Permission denied (publickey)问题">
+							<span class="desc oneline">这篇文章主要写利用SSH密钥与Github链接不上的问题，以及怎么解决Warnning:PermanentlyaddedtheRSAhostkeyforIPaddress'192.30.252.128...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wang975380547">来自：	<span class="blog_title"> wang975380547的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/appleyuchi/article/details/79283495,BlogCommendFromBaidu_44"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/appleyuchi/article/details/79283495,BlogCommendFromBaidu_44"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/appleyuchi/article/details/79283495" target="_blank" title="Permission denied (publickey). fatal: Could not read from remote repository.">
+				<h4 class="text-truncate oneline">
+						<em>Permission</em> <em>denied</em> (<em>publickey</em>). fatal: Could not read from remote repository.				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2324</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/appleyuchi/article/details/79283495" target="_blank" title="Permission denied (publickey). fatal: Could not read from remote repository.">
+							<span class="desc oneline">博主在github上下载tinyface的的源代码的时候，遇到gitclone命令为：gitclone--recursivegit@github.com:peiyunh/tiny.git　　而当我在t...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/appleyuchi">来自：	<span class="blog_title"> Chi Yu's Blog</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012590854/article/details/18948053,BlogCommendFromBaidu_45"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012590854/article/details/18948053,BlogCommendFromBaidu_45"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012590854/article/details/18948053" target="_blank" title="关于ssh连接主机，git连接github失败的问题：ssh -T git@github.com&amp;&amp;Permission denied (publickey)">
+				<h4 class="text-truncate oneline">
+						关于ssh连接主机，<em>git</em>连接<em>git</em>hub失败的<em>问题</em>：ssh -T <em>git</em>@<em>git</em>hub.com&amp;&amp;<em>Permission</em> <em>denied</em> (<em>publickey</em>)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012590854/article/details/18948053" target="_blank" title="关于ssh连接主机，git连接github失败的问题：ssh -T git@github.com&amp;&amp;Permission denied (publickey)">
+							<span class="desc oneline">关于ssh连接主机，git连接github失败的问题	问题：$ssh-Tgit@github.com		Permissiondenied(publickey)解析：	1、可以看出问题出在publick...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012590854">来自：	<span class="blog_title"> My Place by Sunny Potter </span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/guang_jing/article/details/47071731,BlogCommendFromBaidu_46"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/guang_jing/article/details/47071731,BlogCommendFromBaidu_46"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/guang_jing/article/details/47071731" target="_blank" title="Github 访问时出现Permission denied (public key)">
+				<h4 class="text-truncate oneline">
+						<em>Git</em>hub 访问时出现<em>Permission</em> <em>denied</em> (public key)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1227</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/guang_jing/article/details/47071731" target="_blank" title="Github 访问时出现Permission denied (public key)">
+							<span class="desc oneline">这个说明是尝试privatekey不成功，我是因为将自己的默认目录移到了其他地方，因此出了问题，所以请第一时间检查你的默认登录目录.ssh下面的id_rsa.pub是不是对应的。原文如下：一.发现问题...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/guang_jing">来自：	<span class="blog_title"> roaylchen的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendFromThirdService_47"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendFromThirdService_47"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+				<h4 class="text-truncate oneline">
+						SNMP协议详解&lt;二&gt;				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-29</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							15万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+							<span class="desc oneline">上一篇文章讲解了SNMP的基本架构，本篇文章将重点分析SNMP报文，并对不同版本（SNMPv1、v2c、v3）进行区别！四、SNMP协议数据单元在SNMP管理中，管理站（NMS）和代理（Agent）之...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yu_xiaofei">来自：	<span class="blog_title"> 假装在纽约</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    <div class="recommend-item-box recommend-ad-box"><div id="kp_box_68" data-pid="68" data-track-view='{"mod":"kp_popu_68-883","con":",,"}' data-track-click='{"mod":"kp_popu_68-883","con":",,"}'><!-- T48 位置 -->
+<script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T48_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T48  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T48_render", "T48");
+</script></div></div>
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hero_fantao/article/details/34533533,BlogCommendFromThirdService_48"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hero_fantao/article/details/34533533,BlogCommendFromThirdService_48"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hero_fantao/article/details/34533533" target="_blank" title="连续特征离散化和归一化">
+				<h4 class="text-truncate oneline">
+						连续特征离散化和归一化				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">06-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hero_fantao/article/details/34533533" target="_blank" title="连续特征离散化和归一化">
+							<span class="desc oneline">连续特征进行离散化处理。</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/hero_fantao">来自：	<span class="blog_title"> hero_fantao的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhmxy555/article/details/40955607,BlogCommendFromThirdService_49"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhmxy555/article/details/40955607,BlogCommendFromThirdService_49"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/zhmxy555/article/details/40955607" target="_blank" title="【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质">
+				<h4 class="text-truncate oneline">
+						【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/zhmxy555/article/details/40955607" target="_blank" title="【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质">
+							<span class="desc oneline">本篇文章中，我们学习了UnityShader的基本写法框架，以及学习了Shader中Properties（属性）的详细写法，光照、材质与颜色的具体写法。写了6个Shader作为本文Shader讲解的实...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/zhmxy555">来自：	<span class="blog_title"> 【浅墨的游戏编程Blog】毛星云（浅墨）的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qxs965266509/article/details/49816007,BlogCommendHotData_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qxs965266509/article/details/49816007,BlogCommendHotData_0"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qxs965266509/article/details/49816007" target="_blank" title="Alibaba-AndFix Bug热修复框架原理及源码解析">
+				<h4 class="text-truncate oneline">
+						Alibaba-AndFix Bug热修复框架原理及源码解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-13</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qxs965266509/article/details/49816007" target="_blank" title="Alibaba-AndFix Bug热修复框架原理及源码解析">
+							<span class="desc oneline">小憩之后，继续为你解读AndFix热修复框架，呵呵。上一篇Alibaba-AndFix Bug热修复框架的使用已经介绍了AndFix的使用，这篇主要介绍AndFix原理以及源码解析。AndFix原理A...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qxs965266509">来自：	<span class="blog_title"> 我是乔同学</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/iloveyin/article/details/39998651,BlogCommendHotData_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/iloveyin/article/details/39998651,BlogCommendHotData_1"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/iloveyin/article/details/39998651" target="_blank" title="腾讯视频解析接口">
+				<h4 class="text-truncate oneline">
+						腾讯视频解析接口				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/iloveyin/article/details/39998651" target="_blank" title="腾讯视频解析接口">
+							<span class="desc oneline">普通流视频（完整视频）
+
+http://vv.video.qq.com/geturl?vid=v00149uf4ir&amp;otype=json
+
+高清视频（分段视频）
+
+1080P-fhd，超...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/iloveyin">来自：	<span class="blog_title"> 专注于互联网架构技术，努力成为一名架构师</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/diandianxiyu/article/details/53068012,BlogCommendHotData_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/diandianxiyu/article/details/53068012,BlogCommendHotData_2"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/diandianxiyu/article/details/53068012" target="_blank" title="【小程序】微信小程序开发实践">
+				<h4 class="text-truncate oneline">
+						【小程序】微信小程序开发实践				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							28万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/diandianxiyu/article/details/53068012" target="_blank" title="【小程序】微信小程序开发实践">
+							<span class="desc oneline">帐号相关流程注册范围
+企业
+政府
+媒体
+其他组织换句话讲就是不让个人开发者注册。 :)填写企业信息不能使用和之前的公众号账户相同的邮箱,也就是说小程序是和微信公众号一个层级的。填写公司机构信息,对公账...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/diandianxiyu">来自：	<span class="blog_title"> 小雨同学的技术博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ymj7150697/article/details/7384126,BlogCommendHotData_3"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+				<h4 class="text-truncate oneline">
+						expat介绍文档翻译				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/ymj7150697/article/details/7384126" target="_blank" title="expat介绍文档翻译">
+							<span class="desc oneline">原文地址：http://www.xml.com/pub/a/1999/09/expat/index.html
+
+
+因为需要用，所以才翻译了这个文档。但总归赖于英语水平很有限，翻译出来的中文有可能...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/ymj7150697">来自：	<span class="blog_title"> ymj7150697的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_4"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+				<h4 class="text-truncate oneline">
+						DirectX修复工具增强版				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							200万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+							<span class="desc oneline">最后更新：2018-12-20
+
+DirectX修复工具最新版：DirectX Repair V3.8 增强版NEW!
+
+版本号：V3.8.0.11638
+
+大小: 107MB/7z格式压缩，189M...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/VBcom">来自：	<span class="blog_title"> VBcom的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/MyLinChi/article/details/78728973,BlogCommendHotData_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/MyLinChi/article/details/78728973,BlogCommendHotData_5"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/MyLinChi/article/details/78728973" target="_blank" title="LaTex各种箭头的输入">
+				<h4 class="text-truncate oneline">
+						LaTex各种箭头的输入				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8651</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/MyLinChi/article/details/78728973" target="_blank" title="LaTex各种箭头的输入">
+							<span class="desc oneline">箭头符号
+
+
+
+
+latex
+
+显示效果
+
+
+
+
+
+\uparrow
+
+↑
+
+
+
+\downarrow
+
+↓
+
+
+
+\Uparrow
+
+⇑
+
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/MyLinChi">来自：	<span class="blog_title"> MyLinChi的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/vhghhd/article/details/6853550,BlogCommendHotData_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/vhghhd/article/details/6853550,BlogCommendHotData_6"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/vhghhd/article/details/6853550" target="_blank" title="字符驱动小例子解析">
+				<h4 class="text-truncate oneline">
+						字符驱动小例子解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">10-08</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							720</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/vhghhd/article/details/6853550" target="_blank" title="字符驱动小例子解析">
+							<span class="desc oneline">1.
+ MODULE_LICENSE (&quot;GPL&quot;);
+int hello_major = 250;
+int hello_minor = 0;
+int number_of_devices = ...</span>
+						</a>
+						  <span class="blog_title_box oneline no-title">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/minyuanxiani/article/details/11138751,BlogCommendHotData_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/minyuanxiani/article/details/11138751,BlogCommendHotData_7"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/minyuanxiani/article/details/11138751" target="_blank" title="如何通过波形解析can总线数据">
+				<h4 class="text-truncate oneline">
+						如何通过波形解析can总线数据				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-05</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4325</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/minyuanxiani/article/details/11138751" target="_blank" title="如何通过波形解析can总线数据">
+							<span class="desc oneline">这里的数据使用的是标准的can设备产生的can信号（扩展帧发送数据ID=0x11121181  Data=0x06 0x08）
+
+信号的波形如图1所示，这里示波器的探头接的是CAN_H，探头的夹子...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/minyuanxiani">来自：	<span class="blog_title"> minyuanxiani的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/flysharkym/article/details/51404730,BlogCommendHotData_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/flysharkym/article/details/51404730,BlogCommendHotData_8"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/flysharkym/article/details/51404730" target="_blank" title="mybatis一级缓存(session cache)引发的问题">
+				<h4 class="text-truncate oneline">
+						mybatis一级缓存(session cache)引发的问题				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">05-14</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							3万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/flysharkym/article/details/51404730" target="_blank" title="mybatis一级缓存(session cache)引发的问题">
+							<span class="desc oneline">mybatis一级缓存(session cache)引发的问题</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/flysharkym">来自：	<span class="blog_title"> flysharkym的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_25819827/article/details/52281019,BlogCommendHotData_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_25819827/article/details/52281019,BlogCommendHotData_9"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq_25819827/article/details/52281019" target="_blank" title="CUDA（五）用deviceQuery看GPU属性">
+				<h4 class="text-truncate oneline">
+						CUDA（五）用deviceQuery看GPU属性				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							8973</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq_25819827/article/details/52281019" target="_blank" title="CUDA（五）用deviceQuery看GPU属性">
+							<span class="desc oneline">在CUDA安装好后可以用DeviceQuery看一下GPU的相关属性，从而对GPU有一定了解，有助于今后的CUDA编程。
+#include &quot;cuda_runtime.h&quot;
+#include &quot;dev...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq_25819827">来自：	<span class="blog_title"> night李的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/leolewin/article/details/48653351,BlogCommendHotData_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/leolewin/article/details/48653351,BlogCommendHotData_10"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/leolewin/article/details/48653351" target="_blank" title="加密算法介绍及加密算法的选择">
+				<h4 class="text-truncate oneline">
+						加密算法介绍及加密算法的选择				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-22</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/leolewin/article/details/48653351" target="_blank" title="加密算法介绍及加密算法的选择">
+							<span class="desc oneline">加密算法介绍
+
+一. 密码学简介
+据记载，公元前400年，古希腊人发明了置换密码。1881年世界上的第一个电话保密专利出现。在第二次世界大战期间，德国军方启用“恩尼格玛”密码机，密码学在战争中起...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/leolewin">来自：	<span class="blog_title"> leolewin的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u011860731/article/details/48733073,BlogCommendHotData_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u011860731/article/details/48733073,BlogCommendHotData_11"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u011860731/article/details/48733073" target="_blank" title="ThreadLocal的设计理念与作用">
+				<h4 class="text-truncate oneline">
+						ThreadLocal的设计理念与作用				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">09-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							7万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u011860731/article/details/48733073" target="_blank" title="ThreadLocal的设计理念与作用">
+							<span class="desc oneline">Java中的ThreadLocal类允许我们创建只能被同一个线程读写的变量。因此，如果一段代码含有一个ThreadLocal变量的引用，即使两个线程同时执行这段代码，它们也无法访问到对方的Thread...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u011860731">来自：	<span class="blog_title"> u011860731的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lutinghuan/article/details/46820023,BlogCommendHotData_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lutinghuan/article/details/46820023,BlogCommendHotData_12"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lutinghuan/article/details/46820023" target="_blank" title="4种方法让SpringMVC接收多个对象">
+				<h4 class="text-truncate oneline">
+						4种方法让SpringMVC接收多个对象				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-10</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							14万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lutinghuan/article/details/46820023" target="_blank" title="4种方法让SpringMVC接收多个对象">
+							<span class="desc oneline">问题背景： 
+我要在一个表单里同时一次性提交多名乘客的个人信息到SpringMVC，前端HTML和SpringMVC Controller里该如何处理？
+第1种方法：表单提交，以字段数组接收；
+第2种...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lutinghuan">来自：	<span class="blog_title"> 一个情绪猿的脖克...</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yang_lover/article/details/45057181,BlogCommendHotData_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yang_lover/article/details/45057181,BlogCommendHotData_13"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/yang_lover/article/details/45057181" target="_blank" title="避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新">
+				<h4 class="text-truncate oneline">
+						避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">04-15</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/yang_lover/article/details/45057181" target="_blank" title="避免 Hibernate 中用get/load方法获取的实体调用set方法后自动更新">
+							<span class="desc oneline">1、问题症状描述
+      最近在处理一个新需求问题，代码的大致逻辑是获取一个实体对象，调用该对象的set方法设置其中的某些字段，然后把修改后的实体作为参数供其他地方调用，根据返回值来决定是否更新这...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/yang_lover">来自：	<span class="blog_title"> Mr_Alex</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wild46cat/article/details/54171973,BlogCommendHotData_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wild46cat/article/details/54171973,BlogCommendHotData_14"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wild46cat/article/details/54171973" target="_blank" title="spark 存储json数据遇到问题——json4s使用（一）">
+				<h4 class="text-truncate oneline">
+						spark 存储json数据遇到问题——json4s使用（一）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">01-07</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wild46cat/article/details/54171973" target="_blank" title="spark 存储json数据遇到问题——json4s使用（一）">
+							<span class="desc oneline">spark 存储json数据遇到问题——json4s使用（一）
+在进行spark的学习过程中遇到了这样的问题。
+1、《O'REILLY Learning Spark》的书中说道能够使用spark进...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wild46cat">来自：	<span class="blog_title">  止水的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xizero00/article/details/46929261,BlogCommendHotData_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xizero00/article/details/46929261,BlogCommendHotData_15"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/xizero00/article/details/46929261" target="_blank" title="特征提取之Haar特征">
+				<h4 class="text-truncate oneline">
+						特征提取之Haar特征				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/xizero00/article/details/46929261" target="_blank" title="特征提取之Haar特征">
+							<span class="desc oneline">特征提取之Haar特征一、前言（废话）很久没有写博客了，一晃几年就过去了，为了总结一下自己看的一些论文，以后打算写一些自己读完论文的总结。那么，今天就谈一谈人脸检测最为经典的算法Haar-like特征...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/xizero00">来自：	<span class="blog_title"> 一亩半分地</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/pengjc2001/article/details/54924699,BlogCommendHotData_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/pengjc2001/article/details/54924699,BlogCommendHotData_16"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/pengjc2001/article/details/54924699" target="_blank" title="三菱FX系列PLC与PC通讯的实现之专有协议（计算机联接）的程序设计之一">
+				<h4 class="text-truncate oneline">
+						三菱FX系列PLC与PC通讯的实现之专有协议（计算机联接）的程序设计之一				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/pengjc2001/article/details/54924699" target="_blank" title="三菱FX系列PLC与PC通讯的实现之专有协议（计算机联接）的程序设计之一">
+							<span class="desc oneline">阅读内容为：FX系列微型可编程控制器用户手册（通讯篇）中计算机链接功能章节。
+采用本方法通信，pc端的实现，其实就是，把操作按照协议（2种）翻译成相应的字符串，通过串口发送给plc。
+
+
+编写一应用程...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/pengjc2001">来自：	<span class="blog_title"> pengjc2001的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/friskit/article/details/7250688,BlogCommendHotData_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/friskit/article/details/7250688,BlogCommendHotData_17"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/friskit/article/details/7250688" target="_blank" title="Bootstrap的一些笔记——form，button，etc.">
+				<h4 class="text-truncate oneline">
+						Bootstrap的一些笔记——form，button，etc.				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-11</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							2万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/friskit/article/details/7250688" target="_blank" title="Bootstrap的一些笔记——form，button，etc.">
+							<span class="desc oneline">所有标签都可以添加class=&quot;well&quot;。用来增加默认样式（白色圆角的那个）。
+
+
+标签不同于网格系统，是已经加入了可见样式的标签。可以结合google-code-prettify代码加亮。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/friskit">来自：	<span class="blog_title"> 本博客已废弃，请使用http://friskit.me</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq574857122/article/details/16361033,BlogCommendHotData_18"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+				<h4 class="text-truncate oneline">
+						强连通分量及缩点tarjan算法解析				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							61万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/qq574857122/article/details/16361033" target="_blank" title="强连通分量及缩点tarjan算法解析">
+							<span class="desc oneline">强连通分量：
+简言之 就是找环（每条边只走一次，两两可达）
+孤立的一个点也是一个连通分量 
+ 
+使用tarjan算法 在嵌套的多个环中优先得到最大环( 最小环就是每个孤立点）
+ 
+定义：
+int Ti...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/qq574857122">来自：	<span class="blog_title"> 九野的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/luyan_abaci/article/details/48014807,BlogCommendHotData_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/luyan_abaci/article/details/48014807,BlogCommendHotData_19"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/luyan_abaci/article/details/48014807" target="_blank" title="VS下生成与配置静态库与动态库（一）">
+				<h4 class="text-truncate oneline">
+						VS下生成与配置静态库与动态库（一）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">08-26</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							6426</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/luyan_abaci/article/details/48014807" target="_blank" title="VS下生成与配置静态库与动态库（一）">
+							<span class="desc oneline">此处仅以VS2010为例，详细说明一下如何在VS环境下生成和使用C++的静态库与动态库。Qt下生成和使用静态和动态库后续再讲。
+本文仅供初学者参考，如果有问题欢迎大家指正。
+       首先简单地理...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/luyan_abaci">来自：	<span class="blog_title"> luyan的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_20"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+				<h4 class="text-truncate oneline">
+						jquery/js实现一个网页同时调用多个倒计时(最新的)				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-25</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							48万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+							<span class="desc oneline">jquery/js实现一个网页同时调用多个倒计时(最新的)
+
+最近需要网页添加多个倒计时. 查阅网络,基本上都是千遍一律的不好用. 自己按需写了个.希望对大家有用. 有用请赞一个哦!
+
+
+
+//js
+...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/wuchengzeng">来自：	<span class="blog_title"> Websites</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_21"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+				<h4 class="text-truncate oneline">
+						关于SpringBoot bean无法注入的问题（与文件包位置有关）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">12-16</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							21万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+							<span class="desc oneline">问题场景描述整个项目通过Maven构建，大致结构如下：
+核心Spring框架一个module spring-boot-base
+service和dao一个module server-core
+提供系统...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/gefangshuai">来自：	<span class="blog_title"> 开发随笔</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/hubbybob1/article/details/54863662,BlogCommendHotData_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/hubbybob1/article/details/54863662,BlogCommendHotData_22"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/hubbybob1/article/details/54863662" target="_blank" title="Libusb库在Android下的使用例程">
+				<h4 class="text-truncate oneline">
+						Libusb库在Android下的使用例程				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">02-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/hubbybob1/article/details/54863662" target="_blank" title="Libusb库在Android下的使用例程">
+							<span class="desc oneline">转载请注明：http://blog.csdn.net/hubbybob1/article/details/54863662 
+阅读本文前清先了解相关基础内容，操作步骤请阅读博客：libusb1.0在a...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/hubbybob1">来自：	<span class="blog_title"> hubbybob1专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012784288/article/details/51837826,BlogCommendHotData_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012784288/article/details/51837826,BlogCommendHotData_23"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/u012784288/article/details/51837826" target="_blank" title="vs2012 MFC连接及操作access（2007）数据库（ADO）">
+				<h4 class="text-truncate oneline">
+						vs2012 MFC连接及操作access（2007）数据库（ADO）				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">07-06</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							1万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/u012784288/article/details/51837826" target="_blank" title="vs2012 MFC连接及操作access（2007）数据库（ADO）">
+							<span class="desc oneline">最近想写个图书管理软件，用到了数据库，但是由于是小白，弄了好半天才把数据库搞明白。虽然网上有一些教程，但大多都是长长的文字叙述，所以想写一个图文版的连接教程并把这两天的经验记录下来。
+1、首先打开ac...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/u012784288">来自：	<span class="blog_title"> u012784288的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Fate_fjh/article/details/53375881,BlogCommendHotData_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Fate_fjh/article/details/53375881,BlogCommendHotData_24"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/Fate_fjh/article/details/53375881" target="_blank" title="卷积神经网络CNN（2）—— BN(Batch Normalization) 原理与使用过程详解">
+				<h4 class="text-truncate oneline">
+						卷积神经网络CNN（2）—— BN(Batch Normalization) 原理与使用过程详解				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">11-28</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							4万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/Fate_fjh/article/details/53375881" target="_blank" title="卷积神经网络CNN（2）—— BN(Batch Normalization) 原理与使用过程详解">
+							<span class="desc oneline">Batch Normalization是由google提出的一种训练优化方法。网上对BN解释详细的不多，大多从原理上解释，没有说出实际使用的过程，这里从what, why, how三个角度去解释BN。...</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/Fate_fjh">来自：	<span class="blog_title"> Fate_fjh的博客</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+    		<div class="recommend-item-box recommend-box-ident type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lubiaopan/article/details/6233517,BlogCommendHotData_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lubiaopan/article/details/6233517,BlogCommendHotData_25"}'>
+			<div class="content">
+				<a href="https://blog.csdn.net/lubiaopan/article/details/6233517" target="_blank" title=".NET和java的RSA互通，仅此而已">
+				<h4 class="text-truncate oneline">
+						.NET和java的RSA互通，仅此而已				</h4>
+				<div class="info-box d-flex align-content-center">
+					<p class="date-and-readNum oneline">
+						<span class="date hover-show">03-09</span>
+						<span class="read-num hover-hide">
+              阅读数 
+							5万+</span>
+						</p>
+					</div>
+				</a>
+					<p class="content">
+						<a href="https://blog.csdn.net/lubiaopan/article/details/6233517" target="_blank" title=".NET和java的RSA互通，仅此而已">
+							<span class="desc oneline">RSA .net jva 互通 解决不能互通的问题</span>
+						</a>
+						  <span class="blog_title_box oneline ">
+							                <span class="type-show type-show-blog type-show-after">博文</span>
+                                  <a target="_blank" href="https://blog.csdn.net/lubiaopan">来自：	<span class="blog_title"> lubiaopan的专栏</span></a>
+                							              </span>
+					</p>
+			</div>
+					</div>
+	
+    
+    
+        <div class="recommend-item-box type_hot_word">
+            <div class="content clearfix">
+        <div class="word float-left">
+                          <span>
+            <a href="https://edu.csdn.net/combos/o363_l0_t " target="_blank">
+            设计制作学习          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o5329_s5330_k " target="_blank">
+            机器学习教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/courses/o280_s351_k " target="_blank">
+            Objective-C培训          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/combos/o7115_s388_l0_t " target="_blank">
+            交互设计视频教程          </a></span>
+                                  <span>
+            <a href="https://edu.csdn.net/course/play/5599/104252 " target="_blank">
+            颜色模型          </a></span>
+                        </div>
+      </div>
+                  <div class="content clearfix">
+        <div class="float-left">
+                  <span>
+            <a href="https://www.csdn.net/gather_24/MtTaEg3sMDM5MS1ibG9n.html" target="_blank">
+            mysql关联查询两次本表</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_10/MtjaIg3sMTUzMy1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+            native底部 react</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_1b/Ntzagg1sOTU3LWRvd25sb2Fk.html" target="_blank">
+            extjs glyph 图标</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/NtzaggwsMTctZWR1.html" target="_blank">
+            java的学习问题及解决</a>
+          </span>
+                  <span>
+            <a href="https://www.csdn.net/gather_4a/MtTaAg2sODUtZWR1.html" target="_blank">
+            区块链解决</a>
+          </span>
+                </div>
+      </div>
+          </div>
+
+
+            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/sxg0205">
+              <img src="https://avatar.csdn.net/B/4/E/3_sxg0205.jpg" class="avatar_pic">
+                              <img src="https://g.csdnimg.cn/static/user-reg-year/1x/8.png" class="user-years">
+                          </a>
+            
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/sxg0205" target="_blank" class="" id="uid">scanklm</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="28">
+                        <dt><a href="https://blog.csdn.net/sxg0205?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/sxg0205?t=1"><span class="count">28</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="6">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">6</span></dd>
+        </dl>
+        <dl class="text-center" title="3">
+            <dt>喜欢</dt>
+            <dd><span class="count">3</span></dd>
+        </dl>
+        <dl class="text-center" title="8">
+            <dt>评论</dt>
+            <dd><span class="count">8</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="4级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-4"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="104887">
+                10万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="1280">
+                1280            </dd>
+        </dl>
+        <dl title="54649">
+            <dt>排名：</dt>
+            <dd>5万+</dd>
+        </dl>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_56" data-pid="56" data-track-view='{"mod":"kp_popu_56-876","con":",,"}' data-track-click='{"mod":"kp_popu_56-876","con":",,"}'><!-- 广告位：PC-博客内页左上视窗 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '6096221',
+        container: s,
+        size: '300,250',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+<script src="//dup.baidustatic.com/js/os.js"></script></div>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sxg0205/article/details/88991367" target="_blank">Neo4j - reduce函数：  根据关系指定路径深度查询时设置关系查询条件</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sxg0205/article/details/86658607" target="_blank">linux安装zookeeper集群</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sxg0205/article/details/85993006" target="_blank">阿里云服务器部署kafka</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sxg0205/article/details/85850974" target="_blank">阿里云ECS服务器下hive安装与配置</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/sxg0205/article/details/85842698" target="_blank">阿里云ECS服务器安装单机hadoop</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    		    <div id="asideCategory" class="aside-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/sxg0205/article/category/5583831">
+                    <span class="title oneline">java</span>
+                    <span class="count float-right">18篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/sxg0205/article/category/5617061">
+                    <span class="title oneline">JS</span>
+                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/sxg0205/article/category/5617065">
+                    <span class="title oneline">技术</span>
+                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/sxg0205/article/category/7906993">
+                    <span class="title oneline">git</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2019/04">
+                    2019年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2019/01">
+                    2019年1月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2018/09">
+                    2018年9月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2018/08">
+                    2018年8月                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2016/06">
+                    2016年6月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2016/05">
+                    2016年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2016/04">
+                    2016年4月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2016/03">
+                    2016年3月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2016/02">
+                    2016年2月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/12">
+                    2015年12月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/11">
+                    2015年11月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/10">
+                    2015年10月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/09">
+                    2015年9月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/08">
+                    2015年8月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/06">
+                    2015年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/05">
+                    2015年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/03">
+                    2015年3月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/02">
+                    2015年2月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2015/01">
+                    2015年1月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2014/12">
+                    2014年12月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/sxg0205/article/month/2014/11">
+                    2014年11月                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/sxg0205/article/details/49002673">laydate时间控件绑定回调事件</a>
+					<p class="read">阅读数 <span>20936</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sxg0205/article/details/81412921">git clone 解决Permission Denied (publickey)问题</a>
+					<p class="read">阅读数 <span>14239</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sxg0205/article/details/50931700">nginx配置ajax请求跨域</a>
+					<p class="read">阅读数 <span>11930</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sxg0205/article/details/48731031">使用type=file 上传文件时2007后各文档如docx需配置的accept属性值</a>
+					<p class="read">阅读数 <span>9187</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/sxg0205/article/details/43795271">LINUX 设置软连接指向另一个文件夹</a>
+					<p class="read">阅读数 <span>7739</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sxg0205/article/details/81365265#comments">谷歌浏览器 69.0.3497.1...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/weixin_44012813" class="user-name" target="_blank">weixin_44012813：</a>亲测可用                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sxg0205/article/details/50219127#comments">使用SLF4J 实现热加载日志级别</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/WJB08223" class="user-name" target="_blank">WJB08223：</a>这算什么热加载啊 搞笑                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sxg0205/article/details/81365265#comments">谷歌浏览器 69.0.3497.1...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/weixin_42508025" class="user-name" target="_blank">weixin_42508025：</a>赞一个！                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sxg0205/article/details/49002673#comments">laydate时间控件绑定回调事件</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/qq_38318196" class="user-name" target="_blank">qq_38318196：</a>我想利用回调来显示选择两个日期后，在另外一个input的框里直接显示，不知道怎么写！用鼠标滑过事件可以，但是毕竟选择完毕后还要滑过一下，怎么办                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/sxg0205/article/details/48731031#comments">使用type=file 上传文件时...</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/zhangwei900808" class="user-name" target="_blank">zhangwei900808：</a>正需要，非常棒                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57" data-track-view='{"mod":"kp_popu_57-77","con":",,"}' data-track-click='{"mod":"kp_popu_57-77","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3163270",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="pulllog-box" style="display: block;">
+	<div class="pulllog clearfix">
+		<span class="text float-left">
+            <div id="dmp_ad_69"><div id="kp_box_69" data-pid="69" data-track-view='{"mod":"kp_popu_69-796","con":",,"}' data-track-click='{"mod":"kp_popu_69-796","con":",,"}'><div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://edu.csdn.net/topic/python115?utm_source=ditong" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">Python全栈训练</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #00BFFF;padding:2px 5px 0px 5px;">
+<a href="https://edu.csdn.net/topic/ai30?utm_source=ditong" target="_blank" style="font-weight:bold;text-decoration:none;font-size:15px;">AI工程师年薪！</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://www.bagevent.com/event/2586643?bag_track=bk" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">CTA核心技术与应用峰会</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #00BFFF;padding:2px 5px 0px 5px;">
+<a href="https://gitbook.cn/gitchat/column/5cc2b3afd575995386d3abc7?utm_source=wzl190429" target="_blank" style="font-weight:bold;text-decoration:none;font-size:15px;">15天共读深度学习</a>
+</div>
+
+<div style="float:left;margin-right:5px;border:0px solid #f13d3d;padding:2px 5px 0px 5px;">
+<a href="https://edu.csdn.net/huiyiCourse/detail/1000?utm_source=ditong" target="_blank" style="color:#f13d3d;font-weight:bold;text-decoration:none;font-size:15px;">数据分析训练</a>
+</div>
+
+
+<div style="float:left;">
+<script type="text/javascript" src="//rabc1.iteye.com/common/js/ndr3h.js?b=wosyvccl"></script>
+<!-- 长文字链
+<script type="text/javascript" src="//rabc1.iteye.com/common/5klj5.js?kfxbghx=bx"></script>
+-->
+</div></div></div>            		</span>
+		<div class="pulllog-btn float-right clearfix">
+            <div class="float-left csdn-tracking-statistics tracking-click" data-mod="popu_557">
+                <a class="pulllog-login">登录</a>
+            </div>
+            <div class="pulllog-sigin float-left csdn-tracking-statistics tracking-click" data-mod="popu_558">
+                <a href="https://passport.csdn.net/account/mobileregister" target="_blank">注册</a>
+            </div>
+            <button class="btn-close">
+                <svg class="icon" aria-hidden="true">
+                    <use xlink:href="#csdnc-times"></use>
+                </svg>
+            </button>
+		</div>
+	</div>
+</div>
+<div id="loginWrap" style="display:none"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box ">
+			<button class=" low-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>0</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments low-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+										</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+		<li class="bdsharebuttonbox">
+			<div class="weixin-qr btn-comments low-height hover-box" >
+        <a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-usephone"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</div>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/sxg0205/article/details/81365265" title="谷歌浏览器 69.0.3497.12版本无法拖动安装扩展程序解决办法">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-chevronleft"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/sxg0205/article/details/81448829" title="Windows部署zookeeper单点">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-chevronright"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+						<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/sxg0205/article/details/81365265" title="谷歌浏览器 69.0.3497.12版本无法拖动安装扩展程序解决办法">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-chevronleft"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/sxg0205/article/details/81448829" title="Windows部署zookeeper单点">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronright"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 76;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var articleTit = articleTitles;
+    var ChannelId = 3;
+    var articleId = "81412921";
+    var commentscount = 0;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/sxg0205/article/details/81412921";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "git clone 解决Permission Denied (publickey)问题 - sxg0205的专栏";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = '';
+		var highlight = ["git","clone","\u89e3\u51b3","permission","denied","publickey","\u95ee\u9898"];//高亮数组
+		// 相关推荐博主数据
+    var RecommendBlogExpertList = [];
+	var articleType = 1;
+	var CopyrightContent = '';
+    var current_user_name = '';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src="https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201904241615"></script><script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTit);
+        }
+    })
+</script>
+</body>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/chart/chart.css" />
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/chart/lib/chart.min.js"></script>
+	<script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/chart/widget2chart.js"></script>
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-ba4f146b41.js" /></script>
+
+	<script type="text/javascript">
+	$(function(){
+		var allEscRegex = /&(lt|gt|amp|quot|nbsp|shy|#\d{1,5});/g,
+		    namedEntities = {
+					lt: '<',
+					gt: '>',
+					amp: '&',
+					quot: '"',
+					nbsp: '\u00a0',
+					shy: '\u00ad'
+				}
+		var allEscDecode = function( match, code ) {
+				return namedEntities[ code ];
+		};
+		htmlDecodeAttr = function( text ) {
+				return text.replace( allEscRegex, allEscDecode );
+		}
+	  hljs.initHighlighting();
+	  hljs.initCopyButtonOnLoad();
+	  hljs.initLineNumbersOnLoad();
+		if($('pre .language-plain').length>0){
+			$('pre .language-plain').each(function(i,e){
+				var highlightRe = hljs.highlightAuto(htmlDecodeAttr(e.innerHTML))
+				e.innerHTML = highlightRe.value;
+				e.className = 'language-'+highlightRe.language;
+			});
+		}
+	})
+	</script>
+
+<script src="//g.csdnimg.cn/??login-box/1.0.5/login-box.js,login-box/1.0.5/login-auto.js?t=20190307095522"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-0100d9c3da.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-8752043e22.min.js"></script>
+
+	<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-fc7383b956.min.js"></script>
+
+<script src="//g.csdnimg.cn/baidu-search/1.0.0/baidu-search.js"  type="text/javascript"></script>
+
+
+<!-- <script type="text/javascript" src="//g.csdnimg.cn/check-adb/1.0.2/check-adb.js"></script> -->
+
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+    </script>
+<script src="https://gh.bdstatic.com/static/gh/js/sdk/bword.min.js"></script>
+</html>

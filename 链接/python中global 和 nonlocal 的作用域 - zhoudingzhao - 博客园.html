@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="origin" />
+    <title>python中global 和 nonlocal 的作用域 - zhoudingzhao - 博客园</title>
+<meta property="og:description" content="python引用变量的顺序：&#160;当前作用域局部变量-&gt;外层作用域变量-&gt;当前模块中的全局变量-&gt;python内置变量 。 一 global global关键字用来在函数或其他" />
+    <link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=svlZeZMvc3He7PqOD4T7SOuQn0_kIfLBYiy3idqd35Y1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore.css?v=K-SPbyFTmacJSNw1O1LzZFcIaS56dT8uEKlXYOxLR9k1"/>
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/LessIsMore/bundle-LessIsMore-mobile.css?v=Go8Bj0ZU9gZXuPSKWcSQabps3E1njgJKYz4DiOq6-N41"/>
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/z360519549/rss"/>
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/z360519549/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/z360519549/wlwmanifest.xml"/>
+    <script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script>var currentBlogId=239005;var currentBlogApp='z360519549',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="/bundles/blog-common.js?v=OFBZTzkHKauV7mtIFLF9jlqrX-sesK9-mY9KjurLrq01" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+		
+<!--done-->
+<div class="title"><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/z360519549/">zhoudingzhao</a></div>
+<div class="subtitle"></div>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li id="nav_sitehome"><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li id="nav_myhome"><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/z360519549/">首页</a></li>
+<li id="nav_newpost"><a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a></li>
+<li id="nav_contact"><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/zhoudingzhao">联系</a></li>
+<li id="nav_rss"><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/z360519549/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/z360519549/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li id="nav_admin"><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<!--done-->
+随笔-99&nbsp;
+文章-0&nbsp;
+评论-4&nbsp;
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/z360519549/p/5172020.html">python中global 和 nonlocal 的作用域</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><p>python引用变量的顺序：&nbsp;<strong>当前作用域局部变量-&gt;外层作用域变量-&gt;当前模块中的全局变量-&gt;python内置变量 。</strong></p>
+<p>一 global</p>
+<p>global关键字用来在函数或其他局部作用域中使用全局变量。但是如果不修改全局变量也可以不使用global关键字。</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;">1</span> gcount =<span style="color: #000000;"> 0
+</span><span style="color: #008080;">2</span> 
+<span style="color: #008080;">3</span> <span style="color: #0000ff;">def</span><span style="color: #000000;"> global_test():
+</span><span style="color: #008080;">4</span>     gcount+=1
+<span style="color: #008080;">5</span>     <span style="color: #0000ff;">print</span><span style="color: #000000;"> (gcount)
+</span><span style="color: #008080;">6</span> global_test()</pre>
+</div>
+<p>D:\Python34\python.exe E:/PycharmProjects/Day3/globaltest.py<br />Traceback (most recent call last):<br />  File "E:/PycharmProjects/Day3/globaltest.py", line 6, in &lt;module&gt;<br />    global_test()<br />  File "E:/PycharmProjects/Day3/globaltest.py", line 4, in global_test<br />    gcount+=1<br />UnboundLocalError: local variable 'gcount' referenced before assignment</p>
+<p>Process finished with exit code 1</p>
+<p>第一行定义了一个全局变量，（可以省略global关键字）。</p>
+<p>在global_test 函数中程序会因为&ldquo;如果内部函数有引用外部函数的同名变量或者全局变量,并且对这个变量有修改.那么python会认为它是一个局部变量,又因为函数中没有gcount的定义和赋值，所以报错。</p>
+<p>&nbsp;</p>
+<p>二、声明全局变量，如果在局部要对全局变量修改，需要在局部也要先声明该全局变量：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">gcount = 0
+
+def global_test():
+    global  gcount
+    gcount+=1
+    print (gcount)
+global_test()
+</pre>
+</div>
+<p>　　如果在函数中声明 gcount 是全局变量，即可对其进行修改。 正确输出 1 。</p>
+<p>&nbsp;</p>
+<p>三、 在局部如果不声明全局变量，并且不修改全局变量。则可以正常使用全局变量：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">gcount = 0
+
+def global_test():
+    print (gcount)
+global_test()
+</pre>
+</div>
+<p>　　如果在局部不修改全局变量，程序正确输出 0 。</p>
+<p>&nbsp;</p>
+<p>四、nonlocal关键字用来在函数或其他作用域中使用外层(非全局)变量。</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">def make_counter():  
+    count = 0  
+    def counter():  
+        nonlocal count  
+        count += 1  
+        return count  
+    return counter  
+      
+def make_counter_test():  
+  mc = make_counter()  
+  print(mc())
+  print(mc())
+  print(mc())
+
+make_counter_test()
+</pre>
+</div>
+<p>　　输出：</p>
+<p>&nbsp; &nbsp;1</p>
+<p>&nbsp; &nbsp;2</p>
+<p>&nbsp; &nbsp;3</p>
+<p>五、</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">def scope_test():
+    def do_local():
+        spam = "local spam" #此函数定义了另外的一个spam字符串变量，并且生命周期只在此函数内。此处的spam和外层的spam是两个变量，如果写出spam = spam + &ldquo;local spam&rdquo; 会报错
+    def do_nonlocal():
+        nonlocal  spam        #使用外层的spam变量
+        spam = "nonlocal spam"
+    def do_global():
+        global spam
+        spam = "global spam"
+    spam = "test spam"
+    do_local()
+    print("After local assignmane:", spam)
+    do_nonlocal()
+    print("After nonlocal assignment:",spam)
+    do_global()
+    print("After global assignment:",spam)
+
+scope_test()
+print("In global scope:",spam)
+</pre>
+</div>
+<p>　　输出是：</p>
+<p>After local assignmane: test spam<br />After nonlocal assignment: nonlocal spam<br />After global assignment: nonlocal spam<br />In global scope: global spam</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>在函数 add_b 内 global 定义的变量 b，只能在 函数 do_global 内引用， 如果要在 do_global 内修改，必须在 do_global 函数里面声明 global &nbsp;b ，表明是修改外面的 全局变量 b ：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>= b + <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(b)
+add_b()</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>global 定义的变量，表明其作用域在局部以外，即局部函数执行完之后，不销毁 函数内部以global定义的变量：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_a():
+    </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  a
+    a </span>=   <span style="color: #800080;">3</span><span style="color: #000000;">
+add_a()
+print(a)   </span></pre>
+</div>
+<p>输出 3 。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>= b + <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(b)
+add_b()
+print(b)</span></pre>
+</div>
+<p>以上代码输出：</p>
+<p>52</p>
+<p>52</p>
+<p>52</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        #</span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>= b + <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(b)
+add_b()</span></pre>
+</div>
+<p>以上代码报错：</p>
+<p>Traceback (most recent call last):<br />  File "E:/PycharmProjects/OOP/exe1.py", line 42, in &lt;module&gt;<br />    add_b()<br />  File "E:/PycharmProjects/OOP/exe1.py", line 40, in add_b<br />    do_global()<br />  File "E:/PycharmProjects/OOP/exe1.py", line 38, in do_global<br />    b = b + 10<br />UnboundLocalError: local variable 'b' referenced before assignment</p>
+<p>原因： global 定义的 b ，只能引用，不能修改。</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  a
+        a </span>= b + <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(a)
+add_b()
+print(</span><span style="color: #800000;">"</span><span style="color: #800000;">a = %s , b = %s </span><span style="color: #800000;">"</span> %(a, b))</pre>
+</div>
+<p>输出：</p>
+<p>42<br />52<br />a = 52 , b = 42</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    #</span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>=  <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(b)
+add_b()
+print(</span><span style="color: #800000;">"</span><span style="color: #800000;"> b = %s </span><span style="color: #800000;">"</span> % b)</pre>
+</div>
+<p>以上代码输出：</p>
+<p>10<br />42<br /> b = 10</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    #</span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        nonlocal  b
+        b </span>=  <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    print(b)
+add_b()</span></pre>
+</div>
+<p>以上代码输出：</p>
+<p>10</p>
+<p>10</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">def add_b():
+    #global  b
+    b = 42
+    def do_global():
+        nonlocal  b
+        b =  10
+        print(b)
+    do_global()
+    print(b)
+add_b()
+print(" b = %s " % b)
+</pre>
+</div>
+<p>　　以上代码报错：</p>
+<p> print(" b = %s " % b)<br />NameError: name 'b' is not defined</p>
+<p>说明： nonlocal &nbsp;适用于在局部函数 中 的局部函数， 把最内层的局部 变量设置成外层局部可用，但是还不是全局的。</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #000000;">def add_b():
+    #</span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+    #b </span>= <span style="color: #800080;">42</span><span style="color: #000000;">
+    def do_global():
+        nonlocal  b
+        b </span>=  <span style="color: #800080;">10</span><span style="color: #000000;">
+        print(b)
+    do_global()
+    #print(b)
+add_b()</span></pre>
+</div>
+<p>以上代码报错：</p>
+<p> File "E:/PycharmProjects/OOP/exe1.py", line 37<br />    nonlocal  b<br />SyntaxError: no binding for nonlocal 'b' found</p>
+<p>nonlocal 要绑定一个局部变量。</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">def</span><span style="color: #000000;"> add_b():
+    </span><span style="color: #008000;">#</span><span style="color: #008000;">global  b</span>
+    <span style="color: #008000;">#</span><span style="color: #008000;">b = 42</span>
+    <span style="color: #0000ff;">def</span><span style="color: #000000;"> do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>=  10
+        <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+    do_global()
+    </span><span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+add_b()
+</span><span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;"> b = %s </span><span style="color: #800000;">"</span> % b)</pre>
+</div>
+<p>以上代码输出：</p>
+<p>10<br />10<br /> b = 10</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">def</span><span style="color: #000000;"> add_b():
+    </span><span style="color: #008000;">#</span><span style="color: #008000;">global  b</span>
+    <span style="color: #008000;">#</span><span style="color: #008000;">b = 42</span>
+    <span style="color: #0000ff;">def</span><span style="color: #000000;"> do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>=  10
+        <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+    do_global()
+    </span><span style="color: #008000;">#</span><span style="color: #008000;">b  = b + 20</span>
+    <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+add_b()
+b </span>= b + 30
+<span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;"> b = %s </span><span style="color: #800000;">"</span> % b)</pre>
+</div>
+<p>以上代码输出：</p>
+<p>10<br />10<br /> b = 40 </p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">def</span><span style="color: #000000;"> add_b():
+    </span><span style="color: #008000;">#</span><span style="color: #008000;">global  b</span>
+    <span style="color: #008000;">#</span><span style="color: #008000;">b = 42</span>
+    <span style="color: #0000ff;">def</span><span style="color: #000000;"> do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>=  10
+        <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+    do_global()
+    b  </span>= b + 20
+    <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+add_b()
+b </span>= b + 30
+<span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;"> b = %s </span><span style="color: #800000;">"</span> % b)</pre>
+</div>
+<p>以上代码报错：</p>
+<p> b = b + 20<br />UnboundLocalError: local variable 'b' referenced before assignment</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">def</span><span style="color: #000000;"> add_b():
+    </span><span style="color: #008000;">#</span><span style="color: #008000;">global  b</span>
+    b = 42
+    <span style="color: #0000ff;">def</span><span style="color: #000000;"> do_global():
+        </span><span style="color: #0000ff;">global</span><span style="color: #000000;">  b
+        b </span>=  10
+        <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+    do_global()
+    b  </span>= b + 5
+    <span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+add_b()
+b </span>= b + 30
+<span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;"> b = %s </span><span style="color: #800000;">"</span> % b)</pre>
+</div>
+<p>以上代码输出：</p>
+<p>10<br />47<br /> b = 40 </p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2016-01-30 20:30</span> <a href='https://www.cnblogs.com/z360519549/'>zhoudingzhao</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=5172020" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(5172020);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=239005,cb_entryId=5172020,cb_blogApp=currentBlogApp,cb_blogUserGuid='776f9e05-0f3c-e511-b908-9dcfd8948a71',cb_entryCreatedDate='2016/1/30 20:30:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id='cnblogs_c1' class='c_ad_block'>
+    <div id='div-gpt-ad-1546353474406-0' style='height:250px; width:300px;'></div>
+</div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'>
+    <div id='div-gpt-ad-1539008685004-0' style='height:60px; width:468px;'></div>
+</div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="calendar"><div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script></div>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2019 zhoudingzhao
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+</body>
+</html>

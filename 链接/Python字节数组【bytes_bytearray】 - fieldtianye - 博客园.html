@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="referrer" content="origin" />
+    <title>Python字节数组【bytes/bytearray】 - fieldtianye - 博客园</title>
+<meta property="og:description" content="bytes bytes是byte的序列，而str是unicode的序列。 1、str 转换成 bytes 用 encode() 方法：（注意：这有个坑，str1.encode不加括号和加括号是不一样的" />
+    <link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=svlZeZMvc3He7PqOD4T7SOuQn0_kIfLBYiy3idqd35Y1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/darkgreentrip/bundle-darkgreentrip.css?v=EjExWsdi8Ql8RA7Wdq4_YaeuMVhIAL6d2BSGbilapWY1"/>
+<link type="text/css" rel="stylesheet" href="/blog/customcss/406285.css?v=t3io6Tdb0fX%2bpRjvEy5WmcgOFuU%3d"/>
+<link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/skins/darkgreentrip/bundle-darkgreentrip-mobile.css?v=UDjqx7Witj15lOavDDvYAPs4X-lKVDD-U7PDSLg1cK81"/>
+    <link title="RSS" type="application/rss+xml" rel="alternate" href="https://www.cnblogs.com/fieldtianye/rss"/>
+    <link title="RSD" type="application/rsd+xml" rel="EditURI" href="https://www.cnblogs.com/fieldtianye/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="https://www.cnblogs.com/fieldtianye/wlwmanifest.xml"/>
+    <script src="//common.cnblogs.com/scripts/jquery-2.2.0.min.js"></script>
+    <script>var currentBlogId=406285;var currentBlogApp='fieldtianye',cb_enable_mathjax=false;var isLogined=false;</script>
+    <script src="/bundles/blog-common.js?v=OFBZTzkHKauV7mtIFLF9jlqrX-sesK9-mY9KjurLrq01" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+
+<!--done-->
+<div id="home">
+<div id="header">
+	<div id="blogTitle">
+	<a id="lnkBlogLogo" href="https://www.cnblogs.com/fieldtianye/"><img id="blogLogo" src="/Skins/custom/images/logo.gif" alt="返回主页" /></a>			
+		
+<!--done-->
+<h1><a id="Header1_HeaderTitle" class="headermaintitle" href="https://www.cnblogs.com/fieldtianye/">Field's Blog</a></h1>
+<h2></h2>
+
+
+
+		
+	</div><!--end: blogTitle 博客的标题和副标题 -->
+	<div id="navigator">
+		
+<ul id="navList">
+<li><a id="blog_nav_sitehome" class="menu" href="https://www.cnblogs.com/">博客园</a></li>
+<li><a id="blog_nav_myhome" class="menu" href="https://www.cnblogs.com/fieldtianye/">首页</a></li>
+<li></li>
+<li><a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/fieldtianye">联系</a></li>
+<li><a id="blog_nav_rss" class="menu" href="https://www.cnblogs.com/fieldtianye/rss">订阅</a>
+<!--<a id="blog_nav_rss_image" class="aHeaderXML" href="https://www.cnblogs.com/fieldtianye/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>--></li>
+<li><a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a></li>
+</ul>
+		<div class="blogStats">
+			
+			<div id="blog_stats">
+<span id="stats_post_count">随笔 - 28&nbsp; </span>
+<span id="stats_article_count">文章 - 0&nbsp; </span>
+<span id="stats-comment_count">评论 - 0</span>
+</div>
+			
+		</div><!--end: blogStats -->
+	</div><!--end: navigator 博客导航栏 -->
+</div><!--end: header 头部 -->
+
+<div id="main">
+	<div id="mainContent">
+	<div class="forFlow">
+		
+        <div id="post_detail">
+<!--done-->
+<div id="topics">
+	<div class = "post">
+		<h1 class = "postTitle">
+			<a id="cb_post_title_url" class="postTitle2" href="https://www.cnblogs.com/fieldtianye/p/8276552.html">Python字节数组【bytes/bytearray】</a>
+		</h1>
+		<div class="clear"></div>
+		<div class="postBody">
+			<div id="cnblogs_post_body" class="blogpost-body"><h1>bytes</h1>
+<div class="cnblogs_code">
+<pre>&gt;&gt;&gt; type(b<span style="color: #800000;">'</span><span style="color: #800000;">xxxxx</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span>&lt;<span style="color: #0000ff;">class</span> <span style="color: #800000;">'</span><span style="color: #800000;">bytes</span><span style="color: #800000;">'</span>&gt;
+
+&gt;&gt;&gt; type(<span style="color: #800000;">'</span><span style="color: #800000;">xxxxx</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span>&lt;<span style="color: #0000ff;">class</span> <span style="color: #800000;">'</span><span style="color: #800000;">str</span><span style="color: #800000;">'</span>&gt;</pre>
+</div>
+<p>bytes是byte的序列，而str是unicode的序列。</p>
+<p>&nbsp;</p>
+<p>1、str 转换成 bytes 用 encode() 方法：<span style="color: #ff0000;">（注意：这有个坑，str1.encode不加括号和加括号是不一样的，自己试试，初学貌似2.0不影响，3.0变了，不加括号开发环境语法不报错）</span></p>
+<div class="cnblogs_code">
+<pre>str = <span style="color: #800000;">'</span><span style="color: #800000;">人生苦短，我用Python!</span><span style="color: #800000;">'</span><span style="color: #000000;">
+bytes </span>=<span style="color: #000000;"> str.encode()
+</span><span style="color: #0000ff;">print</span>(bytes)</pre>
+</div>
+<p>输出：</p>
+<div class="cnblogs_code">
+<pre>b<span style="color: #800000;">'</span><span style="color: #800000;">\xe4\xba\xba\xe7\x94\x9f\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python!</span><span style="color: #800000;">'</span></pre>
+</div>
+<p>2、好了，反转换 decode() ：</p>
+<div class="cnblogs_code">
+<pre>bytes = b<span style="color: #800000;">'</span><span style="color: #800000;">\xe4\xba\xba\xe7\x94\x9f\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python!</span><span style="color: #800000;">'</span><span style="color: #000000;">
+str </span>=<span style="color: #000000;"> bytes.decode()
+</span><span style="color: #0000ff;">print</span>(str)</pre>
+</div>
+<p>输出：</p>
+<div class="cnblogs_code">
+<pre>人生苦短，我用Python!</pre>
+</div>
+<h1 id="bytearray">bytearray</h1>
+<p>1、bytearray和bytes不一样的地方在于，bytearray是可变的。</p>
+<div class="cnblogs_code">
+<pre>str = <span style="color: #800000;">'</span><span style="color: #800000;">人生苦短，我用Python!</span><span style="color: #800000;">'</span><span style="color: #000000;">
+bytes </span>=<span style="color: #000000;"> bytearray(str.encode())
+bytes </span>= bytearray(b<span style="color: #800000;">'</span><span style="color: #800000;">\xe4\xba\xba\xe7\x94\x9f\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python!</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+str </span>=<span style="color: #000000;"> bytes.decode()
+</span><span style="color: #0000ff;">print</span>(str)</pre>
+</div>
+<p>输出：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #800000;">'</span><span style="color: #800000;">人生苦短，我用Python!</span><span style="color: #800000;">'</span></pre>
+</div>
+<p>2、改变bytearray</p>
+<div class="cnblogs_code">
+<pre>bytes[:6] = bytearray(<span style="color: #800000;">'</span><span style="color: #800000;">生命</span><span style="color: #800000;">'</span><span style="color: #000000;">.encode())
+bytes </span>= bytearray(b<span style="color: #800000;">'</span><span style="color: #800000;">\xe7\x94\x9f\xe5\x91\xbd\xe8\x8b\xa6\xe7\x9f\xad\xef\xbc\x8c\xe6\x88\x91\xe7\x94\xa8Python!</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+str </span>=<span style="color: #000000;"> bytes.decode()
+</span><span style="color: #0000ff;">print</span>(str)</pre>
+</div>
+<p>输出：</p>
+<div class="cnblogs_code">
+<pre>生命苦短，我用Python!</pre>
+</div>
+<p>各种 bytes :</p>
+<div class="cnblogs_code">
+<pre>a = bytes(<span style="color: #800000;">'</span><span style="color: #800000;">abc</span><span style="color: #800000;">'</span>, <span style="color: #800000;">'</span><span style="color: #800000;">utf-8</span><span style="color: #800000;">'</span><span style="color: #000000;">)  
+</span><span style="color: #0000ff;">print</span><span style="color: #000000;">(a)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">abc</span><span style="color: #800000;">'</span><span style="color: #000000;">
+
+b  </span>= bytes(1<span style="color: #000000;">)  
+</span><span style="color: #0000ff;">print</span><span style="color: #000000;">(b)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">\x00</span><span style="color: #800000;">'</span><span style="color: #000000;">
+
+c </span>= bytes([2,3,6,8<span style="color: #000000;">])  
+</span><span style="color: #0000ff;">print</span><span style="color: #000000;">(c)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">\x02\x03\x06\x08</span><span style="color: #800000;">'</span>
+
+<span style="color: #0000ff;">print</span>(b<span style="color: #800000;">"</span><span style="color: #800000;">Python</span><span style="color: #800000;">"</span><span style="color: #000000;">)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">Python</span><span style="color: #800000;">'</span><span style="color: #000000;">
+
+python </span>= (b<span style="color: #800000;">'</span><span style="color: #800000;">P</span><span style="color: #800000;">'</span> b<span style="color: #800000;">'</span><span style="color: #800000;">y</span><span style="color: #800000;">'</span> b<span style="color: #800000;">"</span><span style="color: #800000;">t</span><span style="color: #800000;">"</span> b<span style="color: #800000;">'</span><span style="color: #800000;">o</span><span style="color: #800000;">'</span> b<span style="color: #800000;">'</span><span style="color: #800000;">n</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span><span style="color: #0000ff;">print</span><span style="color: #000000;">(python)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">Pyton</span><span style="color: #800000;">'</span></pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;Bytes 代表的是（二进制）数字的序列，只不过在是通过&nbsp;<code>ASCII</code>&nbsp;编码之后才是我们看到的字符形式，如果我们单独取出一个字节，它仍然是一个数字：</p>
+<div class="cnblogs_Highlighter">
+<pre class="brush:python;gutter:true;">print(b"Python"[0])<br />&gt; 80</pre>
+</div>
+<p>我们可以用&nbsp;<code>b"*"</code>&nbsp;的形式创建一个字节类型，前提条件是这里的&nbsp;<code>*</code>&nbsp;必须是&nbsp;<code>ASCII</code>&nbsp;中可用的字符，否则将会超出限制：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">print</span>(b<span style="color: #800000;">"</span><span style="color: #800000;">雨</span><span style="color: #800000;">"</span><span style="color: #000000;">)
+</span>&gt; File <span style="color: #800000;">""</span>, line 1
+   <span style="color: #0000ff;">print</span>(b<span style="color: #800000;">"</span><span style="color: #800000;">雨</span><span style="color: #800000;">"</span><span style="color: #000000;">)
+         </span>^<span style="color: #000000;">
+SyntaxError: bytes can only contain ASCII literal characters.</span></pre>
+</div>
+<p>错误提示说明：字节类型只能允许 ASCII 字符（<strong>0~127~255</strong>）。<code>ASCII</code>&nbsp;表里面所有的字符只占据了&nbsp;<code>[31, 127]</code></p>
+<p>那对于这一范围之外的数字我们要怎么才能表示为字节类型？答案就是用特殊的转义符号<code>x</code>+十六进制数字 ：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">print</span>(b<span style="color: #800000;">'</span><span style="color: #800000;">xff</span><span style="color: #800000;">'</span><span style="color: #000000;">[0])
+</span>&gt; 255
+<span style="color: #0000ff;">print</span>(b<span style="color: #800000;">'</span><span style="color: #800000;">x24</span><span style="color: #800000;">'</span><span style="color: #000000;">)
+</span>&gt; b<span style="color: #800000;">'</span><span style="color: #800000;">$</span><span style="color: #800000;">'</span></pre>
+</div>
+<p>反过来我们也可以将数字（0~255）转变成转义后的字节类型：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">print</span>(bytes([24<span style="color: #000000;">]))<br />&gt; <span class="crayon-i">b<span class="crayon-s">'x18'</span></span>
+</span><span style="color: #0000ff;">print</span>(bytes([36,36,36])) <span style="color: #008000;">#</span><span style="color: #008000;"> 记住字节类型是一个序列</span></pre>
+</div>
+<p>或者直接从十六进制得来：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">print</span>(bytes.fromhex(<span style="color: #800000;">"</span><span style="color: #800000;">7b 7d</span><span style="color: #800000;">"</span><span style="color: #000000;">))
+&gt; <span class="crayon-i">b<span class="crayon-s">'{}'</span></span><br />
+</span><span style="color: #008000;">#</span><span style="color: #008000;"> 逆运算</span>
+<span style="color: #0000ff;">print</span>(b<span style="color: #800000;">'</span><span style="color: #800000;">{ }</span><span style="color: #800000;">'</span><span style="color: #000000;">.hex())<br />&gt; 7b207d
+ 
+int(b</span><span style="color: #800000;">'</span> <span style="color: #800000;">'</span>.hex(), base=16)<br />&gt; 32</pre>
+</div>
+<p>测试的一些代码：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;">$</span><span style="color: #800000;">"</span>.encode(<span style="color: #800000;">'</span><span style="color: #800000;">ascii</span><span style="color: #800000;">'</span><span style="color: #000000;">))<br />&gt; <span class="crayon-i">b<span class="crayon-s">'$'</span></span>
+</span><span style="color: #0000ff;">print</span>(<span style="color: #800000;">"</span><span style="color: #800000;">$</span><span style="color: #800000;">"</span>.encode(<span style="color: #800000;">'</span><span style="color: #800000;">ascii</span><span style="color: #800000;">'</span>)[0])<br />&gt; 36<br /><br /><span class="crayon-v"><span class="crayon-v">ba<span class="crayon-h"> <span class="crayon-o">=<span class="crayon-h"> <span class="crayon-k ">bytearray<span class="crayon-sy">(<span class="crayon-i">b<span class="crayon-s">'hello'<span class="crayon-sy">)<br />ba<span class="crayon-sy">[<span class="crayon-cn">0<span class="crayon-o">:<span class="crayon-cn">1<span class="crayon-sy">]<span class="crayon-h">&nbsp;<span class="crayon-o">=<span class="crayon-h">&nbsp;<span class="crayon-i">b<span class="crayon-s">'w'<br />print<span class="crayon-sy">(<span class="crayon-v">ba<span class="crayon-sy">)</span></span></span><br /></span></span></span></span></span></span></span></span></span></span><span class="crayon-k ">bytearray<span class="crayon-sy">(<span class="crayon-i">b<span class="crayon-s">'wello'<span class="crayon-sy">)</span></span></span></span></span> </span></span></span></span></span></span></span></span></span></span></pre>
+</div>
+<p>可是如果我们对一些奇怪的字符进行&nbsp;<code>ASCII</code>&nbsp;编码，就会发生异常：<code>ordinal not in range(128)</code></p>
+<p><img src="https://images2017.cnblogs.com/blog/157654/201801/157654-20180112170028801-861092774.png" alt="" /></p>
+<p><img src="https://images2017.cnblogs.com/blog/157654/201801/157654-20180112170042519-609564775.png" alt="" /></p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+		</div>
+		<div class = "postDesc">posted @ <span id="post-date">2018-01-12 16:39</span> <a href='https://www.cnblogs.com/fieldtianye/'>fieldtianye</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=8276552" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(8276552);return false;">收藏</a></div>
+	</div>
+	<script type="text/javascript">var allowComments=true,cb_blogId=406285,cb_entryId=8276552,cb_blogApp=currentBlogApp,cb_blogUserGuid='7665be5d-75ba-df11-ac81-842b2b196315',cb_entryCreatedDate='2018/1/12 16:39:00';loadViewCount(cb_entryId);var cb_postType=1;var isMarkdown=false;</script>
+	
+</div><!--end: topics 文章、评论容器-->
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<script async='async' src='https://www.googletagservices.com/tag/js/gpt.js'></script>
+<script>
+  var googletag = googletag || {};
+  googletag.cmd = googletag.cmd || [];
+</script>
+<script>
+  googletag.cmd.push(function() {
+        googletag.defineSlot('/1090369/C1', [300, 250], 'div-gpt-ad-1546353474406-0').addService(googletag.pubads());
+        googletag.defineSlot('/1090369/C2', [468, 60], 'div-gpt-ad-1539008685004-0').addService(googletag.pubads());
+        googletag.pubads().enableSingleRequest();
+        googletag.enableServices();
+  });
+</script>
+<div id='cnblogs_c1' class='c_ad_block'>
+    <div id='div-gpt-ad-1546353474406-0' style='height:250px; width:300px;'></div>
+</div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'>
+    <div id='div-gpt-ad-1539008685004-0' style='height:60px; width:468px;'></div>
+</div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+ if(enablePostBottom()) {
+    codeHighlight();
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverT2();
+    deliverC1();
+    deliverC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate, cb_postType);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);  
+}
+</script>
+</div>
+
+    
+	</div><!--end: forFlow -->
+	</div><!--end: mainContent 主体内容容器-->
+
+	<div id="sideBar">
+		<div id="sideBarMain">
+			
+<!--done-->
+<div class="newsItem">
+<h3 class="catListTitle">公告</h3>
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script>
+			
+			<div id="leftcontentcontainer">
+				<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script>
+			</div>
+			
+		</div><!--end: sideBarMain -->
+	</div><!--end: sideBar 侧边栏容器 -->
+	<div class="clear"></div>
+	</div><!--end: main -->
+	<div class="clear"></div>
+	<div id="footer">
+		
+<!--done-->
+Copyright &copy;2019 fieldtianye
+	</div><!--end: footer -->
+</div><!--end: home 自定义的最大容器 -->
+
+</body>
+</html>
