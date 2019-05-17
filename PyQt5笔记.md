@@ -9,8 +9,9 @@
 ##### PyQt5安装与PyCharm配置
 
 > [pyqt5安装与pycharm配置](https://blog.csdn.net/stormdony/article/details/80400032)
-
-
+> [PyQt5+Pycharm安装和配置](https://blog.csdn.net/zhangziju/article/details/80243858)
+问题：Error running 'Qt Designer': Cannot start process, the working directory ' C:\Users\SISUNG\Documents\GitHub\code\PyQt5\Weather' does not exist
+原因：$FileDir$前面存在空格所导致，去掉即可
 
 ##### PyQt5常用模块
 
