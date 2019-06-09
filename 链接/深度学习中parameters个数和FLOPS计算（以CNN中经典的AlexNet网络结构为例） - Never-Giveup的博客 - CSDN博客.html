@@ -1,0 +1,3016 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <link rel="canonical" href="https://blog.csdn.net/qq_36653505/article/details/86700885"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"深度学习中parameters个数和FLOPS计算（以CNN中经典的AlexNet网络结构为例） - Never-Giveup的博客"}'>
+    
+    <link href="https://csdnimg.cn/public/favicon.ico" rel="SHORTCUT ICON">
+    <title>深度学习中parameters个数和FLOPS计算（以CNN中经典的AlexNet网络结构为例） - Never-Giveup的博客 - CSDN博客</title>
+
+        
+                    <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/detail-7fc618a1d6.min.css">
+            
+            <script type="application/ld+json">{"@context":"https:\/\/ziyuan.baidu.com\/contexts\/cambrian.jsonld","@id":"https:\/\/blog.csdn.net\/qq_36653505\/article\/details\/86700885","appid":"1563894916825412","title":"\u6df1\u5ea6\u5b66\u4e60\u4e2dparameters\u4e2a\u6570\u548cFLOPS\u8ba1\u7b97\uff08\u4ee5CNN\u4e2d\u7ecf\u5178\u7684AlexNet\u7f51\u7edc\u7ed3\u6784\u4e3a\u4f8b\uff09 - Never-Giveup\u7684\u535a\u5ba2","images":["https:\/\/img-blog.csdnimg.cn\/20190130114708808.png?x-oss-process=image\/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70","https:\/\/img-blog.csdnimg.cn\/20190130105552321.png?x-oss-process=image\/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70","https:\/\/img-blog.csdnimg.cn\/20190130110627484.png?x-oss-process=image\/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70"],"pubDate":"2019-05-27T19:42:46"}</script>
+        
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-9b39979775.min.css">
+        <script type="text/javascript">
+        var username = "qq_36653505";
+        var blog_address = "https://blog.csdn.net/qq_36653505";
+        var static_host = "https://csdnimg.cn/release/phoenix/";
+        var currentUserName = "sinat_31299297";
+        var isShowAds = true;
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/qq_36653505/article/details/86700885"
+        var blogUrl = "https://blog.csdn.net/";
+
+        var curSkin = "skin3-template";
+        // 第四范式所需数据
+        var articleTitles = "深度学习中parameters个数和FLOPS计算（以CNN中经典的AlexNet网络结构为例） - Never-Giveup的博客";
+        
+        var nickName = "Never-Giveup";
+        var isCorporate = false;
+        var subDomainBlogUrl = "https://blog.csdn.net/"
+        var digg_base_url = "https://blog.csdn.net/qq_36653505/phoenix/comment";
+        var articleDetailUrl = "https://blog.csdn.net/qq_36653505/article/details/86700885";
+    </script>
+    <script src="https://csdnimg.cn/public/common/libs/jquery/jquery-1.9.1.min.js" type="text/javascript"></script>
+    <script src="https://csdnimg.cn/rabbit/exposure-click/main-1.0.6.js"></script>
+    <script src="//g.csdnimg.cn/??fixed-sidebar/1.1.3/fixed-sidebar.js,track/1.2.6/track.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+</head>
+<body class="nodata " > 
+    <link rel="stylesheet" href="https://csdnimg.cn/public/common/toolbar/content_toolbar_css/content_toolbar.css">
+    <script id="toolbar-tpl-scriptId" src="https://csdnimg.cn/public/common/toolbar/js/content_toolbar.js" type="text/javascript" domain="https://blog.csdn.net/"></script>
+<div id="kp_box_476" data-pid="476" data-track-view='{"mod":"kp_popu_476-923","con":",,"}' data-track-click='{"mod":"kp_popu_476-923","con":",,"}'><script src="//csdnimg.cn/public/common/indexSuperise/1.0.7/indexSuperise.js?20190508180304"></script>
+<script>
+window.csdn.indexSuperise({
+zIndex:11000,
+      smallMoveImg: '//img-ads.csdn.net/2019/201905051104467314.png',
+      bigMoveImg: '//img-ads.csdn.net/2019/201905051104363598.png',
+     link:'//edu.csdn.net/topic/ai30?utm_source=blogpopup',
+boxStyle:140,
+trackSuperId:476,
+smallMove:'notMove',  
+trackSId:923
+    });
+</script></div><link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/blog_code-c3a0c33d5c.css">
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.css">
+<script type="text/javascript">
+	var NEWS_FEED = function(){}
+</script>
+
+<link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/chart-3456820cac.css" />
+<div class="container clearfix" id="mainBox">
+			<div class="recommend-right">
+  <ul class="recommend-fixed-box">
+    
+  </ul>
+</div>	    <main>
+        <div class="blog-content-box">
+  <div class="article-header-box">
+    <div class="article-header">
+      <div class="article-title-box">
+        <span class="article-type type-1 float-left">原</span>        <h1 class="title-article">深度学习中parameters个数和FLOPS计算（以CNN中经典的AlexNet网络结构为例）</h1>
+      </div>
+      <div class="article-info-box">
+        <div class="article-bar-top">
+                                                  <span class="time">2019年01月30日 11:53:58</span>
+          <a class="follow-nickName" href="https://me.csdn.net/qq_36653505" target="_blank">Never-Giveup</a>
+          <span class="read-count">阅读数：1506</span>
+                  </div>
+        <div class="operating">
+                  </div>
+      </div>
+    </div>
+  </div>
+  <article class="baidu_pl">
+    <div id="article_content" class="article_content clearfix csdn-tracking-statistics" data-pid="blog" data-mod=popu_307 data-dsm="post">
+            <link rel="stylesheet" href="https://csdnimg.cn/release/phoenix/template/css/ck_htmledit_views-f57960eb32.css" />
+                              <div id="content_views" class="markdown_views prism-atom-one-dark">
+            <!-- flowchart 箭头图标 勿删 -->
+            <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+              <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+            </svg>
+            <p>面试时遇到过计算神经网路的参数个数以及FLOPS计算，当时对FLOPS计算比较蒙圈，这两天又看到了美团发布的技术博客对深度学习计算量的解决方案中又出现了FLOPS相关概念，所以通过查阅好多大佬的博客把FLOPS的计算问题理解清楚。</p>
+<h5><a id="_1"></a>前言</h5>
+<h6><a id="_2"></a>深度学习的计算量</h6>
+<p><img src="https://img-blog.csdnimg.cn/20190130114708808.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>上表列举了，ImageNet图像识别中常见算法的模型大小以及单张图片一次训练（One Pass）所需要的计算量。</p>
+<p>自2012年，Hinton的学生Alex Krizhevsky提出AlexNet，一举摘下ILSVRC 2012的桂冠后，ILSVRC比赛冠军的准确率越来越高。与此同时，其中使用到的深度学习算法也越来越复杂，所需要的计算量也越来越大。SENet与AlexNet相比，计算量多了近30倍。我们知道，ImageNet大概有120万张图片，以SENet为例，如果要完成100个epoch的完整训练，将需要2.52 * 10^18的计算量。如此庞大的计算量，已经远远超出传统的机器学习算法的范畴。更别说，Google在论文《Revisiting Unreasonable Effectiveness of Data in Deep Learning Era》中提及的、比ImageNet大300倍的数据集。</p>
+<h6><a id="_9"></a>物理计算性能</h6>
+<p>面对如此庞大的计算量，那么，我们业界当前常用的计算单元的计算力是多少呢？</p>
+<ul>
+<li>CPU 物理核：一般浮点运算能力在10^10 FLOPS量级。一台16 Cores的服务器，大致上有200 GFLOPS的运算能力。实际运行，CPU 大概能用到80%的性能，那就160 GFLOPS的运算能力。完成上述SENet运行，需要182天。</li>
+<li>NVIDIA GPGPU： 目前的V100，单精度浮点运算的峰值大概为14 TFLOPS， 实际运行中，我们假设能用到50%的峰值性能，那就是7 TFLOPS，需要4天。</li>
+</ul>
+<p>根据以上数据结果可以看出：在深度学习领域，GPU训练数据集所需要耗费的时间，远远少于CPU，这也是当前深度学习训练都是采用GPU的重要原因。</p>
+<h5><a id="1_AlexNet_17"></a>1. AlexNet网络结构回顾</h5>
+<p>2012年AlexNet在ImageNet大赛上一举夺魁，开启了深度学习的时代，虽然后来大量比AlexNet更快速更准确的卷积神经网络结构相继出现，但是AlexNet作为开创者依旧有着很多值得学习参考的地方，它为后续的CNN甚至是R-CNN等其他网络都定下了基调，所以下面我们将从AlexNet入手，理解卷积神经网络的一般结构。</p>
+<h6><a id="_20"></a>基本结构</h6>
+<p>先给出AlexNet的一些参数和结构图：</p>
+<ul>
+<li>卷积层：5层</li>
+<li>全连接层：3层</li>
+<li>深度：8层</li>
+<li>参数个数：60M</li>
+<li>神经元个数：650k</li>
+<li>分类数目：1000类</li>
+</ul>
+<p>AlexNet结构图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190130105552321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>由于当时的显卡容量问题，AlexNet 的60M个参数无法全部放在一张显卡上操作，所以采用了两张显卡分开操作的形式，其中在C3，R1，R2，R3层上出现交互，所谓的交互就是通道的合并，是一种串接操作。</p>
+<h6><a id="AlexNet_35"></a>AlexNet中的卷积层</h6>
+<p>在AlexNet中，卷积层是上图所示的C1……C5，一共5层。而每次卷积后的结果在上图中可以看到，比如经过卷积层C1后，原始的图像变成了55*55的尺寸，一共有96个通道，分布在2张3G的显卡上，所以上图中一个立方体的尺寸是<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>55</mn><mo>×</mo><mn>55</mn><mo>×</mo><mn>48</mn></mrow><annotation encoding="application/x-tex">55×55×48</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">4</span><span class="mord">8</span></span></span></span></span>，48是通道数目（后面会详细的说明），而在这个立方体里面还有一个<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>5</mn><mo>×</mo><mn>5</mn><mo>×</mo><mn>48</mn></mrow><annotation encoding="application/x-tex">5×5×48</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">4</span><span class="mord">8</span></span></span></span></span>的小立方体，这个就是C2卷积层的核尺寸，48是核的厚度（后面会详细说明）。这样我们就能看到它每一层的卷积核尺寸以及每一层卷积之后的尺寸。我们按照上面的说明，推到下每一层的卷积操作：</p>
+<p>需要说明的是，虽然AlexNet网络都用上图的结构来表示，但是其实输入图像的尺寸不是<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>224</mn><mo>×</mo><mn>224</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">224×224×3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mord">4</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mord">4</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">3</span></span></span></span></span>，而应该是<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>227</mn><mo>×</mo><mn>227</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">227×227×3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mord">7</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">2</span><span class="mord">7</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">3</span></span></span></span></span>，大家可以用244的尺寸推导下，会发现边界填充的结果是小数，这显然是不对的，在这里就不做推导了。</p>
+<p>输入层：227×227×3<br>
+C1：96×11×11×3 （卷积核个数/宽/高/厚度）<br>
+C2：256×5×5×48（卷积核个数/宽/高/厚度）<br>
+C3：384×3×3×256（卷积核个数/宽/高/厚度）<br>
+C4：384×3×3×192（卷积核个数/宽/高/厚度）<br>
+C5：256×3×3×192（卷积核个数/宽/高/厚度）</p>
+<p>针对这五层卷积，说明一下三点：<br>
+1.推导下C1后的输出是什么：<br>
+用11×11×3的卷积核卷积227×227×3的图像，卷积后的尺寸是55×55×1。这是因为：<br>
+<span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mfrac><mrow><mo fence="true">(</mo><mn>227</mn><mo>−</mo><mn>11</mn><mo>+</mo><mn>2</mn><mo>×</mo><mn>0</mn><mo fence="true">)</mo></mrow><mn>4</mn></mfrac><mo>+</mo><mn>1</mn><mo>=</mo><mn>55</mn></mrow><annotation encoding="application/x-tex">\frac{\left ( 227-11+2\times0 \right )}{4}+1=55</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 2.113em; vertical-align: -0.686em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.427em;"><span class="" style="top: -2.314em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord">4</span></span></span><span class="" style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span class="" style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="minner"><span class="mopen delimcenter" style="top: 0em;">(</span><span class="mord">2</span><span class="mord">2</span><span class="mord">7</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mord">0</span><span class="mclose delimcenter" style="top: 0em;">)</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.686em;"><span class=""></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">5</span><span class="mord">5</span></span></span></span></span></span></p>
+<p>卷积核的个数为96，但是48个在一张显卡上，剩余48个在另一张显卡上。所以单张显卡上的通道数为48，2为显卡个数。<br>
+最后的输出：55×55×48×255×55×48×2<br>
+而剩下的层数与上述推导式相同的，我们可以逐层确定输出是什么。<br>
+2.注意推到过程中的池化操作<br>
+在C1，C2，C5的卷积操作后，图像做了最大池化（后面会说），这会影响输出图片的尺寸。<br>
+3.C3卷积层的特殊性<br>
+<img src="https://img-blog.csdnimg.cn/20190130110627484.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>看下上面这张图，由于分显卡操作，上一层的输出通道数（也就是卷积核的个数）总会是下一层卷积层卷积核厚度的2倍。但是C3是特殊的，这是为啥呢？？？？？<br>
+<img src="https://img-blog.csdnimg.cn/20190130110652275.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+因为在这里做了通道的合并，也就是一种串接操作，所以一个卷积核卷积的不再是单张显卡上的图像，而是两张显卡的图像串在一起之后的图像，串在一起之后的通道数就是256，所以卷积核的厚度为256。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190130110721144.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>这也就是为什么，在这个图上要画两个3<em>3</em>128的卷积核，他想表达的意思就是实际的卷积核尺寸是3×3×256！（上面这个结论是我猜的）</p>
+<h5><a id="2_AlexNet_60M_69"></a>2. AlexNet 中60M参数</h5>
+<p>AlexNet只有8层，但是它需要学习的参数有60000000个，相比如他的层数，这是一个很可怕的数字了，我们来计算下这些参数都是怎么来的：<br>
+C1：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>96</mn><mo>×</mo><mn>11</mn><mo>×</mo><mn>11</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">96×11×11×3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">3</span></span></span></span></span>(卷积核个数/宽/高/厚度) 34848个<br>
+C2：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>256</mn><mo>×</mo><mn>5</mn><mo>×</mo><mn>5</mn><mo>×</mo><mn>48</mn></mrow><annotation encoding="application/x-tex">256×5×5×48</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">4</span><span class="mord">8</span></span></span></span></span>（卷积核个数/宽/高/厚度） 307200个<br>
+C3：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>384</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">384×3×3×256</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span></span></span></span></span>（卷积核个数/宽/高/厚度） 884736个<br>
+C4：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>384</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>192</mn></mrow><annotation encoding="application/x-tex">384×3×3×192</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mord">8</span><span class="mord">4</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">2</span></span></span></span></span>（卷积核个数/宽/高/厚度） 663552个<br>
+C5：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>256</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>3</mn><mo>×</mo><mn>192</mn></mrow><annotation encoding="application/x-tex">256×3×3×192</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord">9</span><span class="mord">2</span></span></span></span></span>（卷积核个数/宽/高/厚度） 442368个<br>
+R1：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4096</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>6</mn><mo>×</mo><mn>256</mn></mrow><annotation encoding="application/x-tex">4096×6×6×256</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">2</span><span class="mord">5</span><span class="mord">6</span></span></span></span></span>（卷积核个数/宽/高/厚度） 37748736个<br>
+R2：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4096</mn><mo>×</mo><mn>4096</mn></mrow><annotation encoding="application/x-tex">4096×4096</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span></span></span></span></span> 16777216个<br>
+R3：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mn>4096</mn><mo>×</mo><mn>1000</mn></mrow><annotation encoding="application/x-tex">4096×1000</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">4</span><span class="mord">0</span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span> 4096000个</p>
+<p>在R1中卷积核尺寸是6×6×256而不是13×13×256是因为经过了最大池化。可以看到，全连接层（尤其是第一层）参数数量占了绝大部分。</p>
+<p><img src="https://img-blog.csdnimg.cn/20190130111459575.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/20190130111519339.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+<img src="https://img-blog.csdnimg.cn/201901301115550.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5><a id="3_FLOPS_86"></a>3. FLOPS计算</h5>
+<h6><a id="FLOPS_87"></a>有关FLOPS的定义与计算</h6>
+<p>FLOPS（即“每秒浮点运算次数”，“每秒峰值速度”），是“每秒所执行的浮点运算次数”（floating-point operations per second）的缩写。它常被用来估算电脑的执行效能，尤其是在使用到大量浮点运算的科学计算领域中。正因为FLOPS字尾的那个S，代表秒，而不是复数，所以不能省略掉。</p>
+<ul>
+<li>
+<p>一个MFLOPS（megaFLOPS）等于每秒一佰万（=10^6）次的浮点运算，</p>
+</li>
+<li>
+<p>一个GFLOPS（gigaFLOPS）等于每秒十亿（=10^9）次的浮点运算，</p>
+</li>
+<li>
+<p>一个TFLOPS（teraFLOPS）等于每秒一万亿（=10^12）次的浮点运算，(1太拉)</p>
+</li>
+<li>
+<p>一个PFLOPS（petaFLOPS）等于每秒一千万亿（=10^15）次的浮点运算，</p>
+</li>
+<li>
+<p>一个EFLOPS（exaFLOPS）等于每秒一佰京（=10^18）次的浮点运算。</p>
+</li>
+</ul>
+<p>浮点计算峰值＝处理器个数×处理器主频×每秒可进行的最高浮点运算次数（FMAD,乘加指令）</p>
+<h6><a id="CPUFLOPS_103"></a>CPU主频和浮点运算能力FLOPS的关系</h6>
+<p>有很多人认为CPU的主频就是其运行速度，其实不然。CPU的主频，即CPU内核工作的时钟频率（CPU Clock Speed）。CPU的主频表示在CPU内数字脉冲信号震荡的速度，与CPU实际的运算能力并没有直接关系。主频和实际的运算速度存在一定的关系，但至今还没有一个确定的公式能够定量两者的数值关系，因为CPU的运算速度还要看CPU的流水线的各方面的性能指标（缓存、指令集、CPU的位数等等）。</p>
+<p>由于主频并不直接代表运算速度，所以在一定情况下，很可能会出现主频较高的CPU实际运算速度较低的现象。比如AMD公司的AthlonXP系列CPU大多都能以较低的主频，达到英特尔公司的Pentium 4系列CPU较高主频的CPU性能，所以AthlonXP系列CPU才以PR值的方式来命名。因此主频仅是CPU性能表现的一个方面，而不代表CPU的整体性能。CPU的主频不代表CPU的速度，但提高主频对于提高CPU运算速度却是至关重要的。</p>
+<h6><a id="_108"></a>矩阵乘法的浮点运算次数如何计算</h6>
+<p>假设有m * n的矩阵A, 和n * o的矩阵B, 则最终会形成m * o的矩阵C (C = A * B)<br>
+其中n是A的宽度, 也是B的高度.</p>
+<p>最终总的运算量需要m * o * n次乘加.<br>
+将1次乘加看成两次运算(一次乘法, 一次加法),<br>
+则最终需要 2 * m * o * n次运算, 这是总的浮点数运算量</p>
+<h6><a id="AlexNet_116"></a>AlexNet的需要的浮点能力计算</h6>
+<p>同样从Andrew的前向传播PPT中，我们也可以看到，这里的浮点运算主要就是W相关的乘法，以及b相关的加法，每一个W对应W中元素个数个乘法，每一个b对应一个加法，因此好像FLOPs个数和parameters是相同的。</p>
+<p>但其实有一个地方我们忽略了，那就是每个feature map上每个点的权值是共享，这是CNN的一个重要特性，也可以说是优势（因此才获得特征不变性，以及大幅减少参数数量），所以我们在计算FLOPs是只需在parameters的基础上再乘以feature map的大小即可，即对于某个卷积层，它的FLOPs数量为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mo>(</mo><msub><mi>K</mi><mi>h</mi></msub><mo>∗</mo><msub><mi>K</mi><mi>w</mi></msub><mo>∗</mo><msub><mi>C</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>)</mo><mo>∗</mo><msub><mi>C</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>C</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>]</mo><mo>∗</mo><mo>(</mo><mi>H</mi><mo>∗</mo><mi>W</mi><mo>)</mo><mo>=</mo><mi>n</mi><mi>u</mi><mi>m</mi><mi mathvariant="normal">_</mi><mi>p</mi><mi>a</mi><mi>r</mi><mi>a</mi><mi>m</mi><mi>s</mi><mo>∗</mo><mo>(</mo><mi>H</mi><mo>∗</mo><mi>W</mi><mo>)</mo></mrow><annotation encoding="application/x-tex">[(K_h * K_w * C_{in}) * C_{out} + C_{out}] * (H * W) = num\_params * (H * W)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mopen">(</span><span class="mord"><span class="mord mathit" style="margin-right: 0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.336108em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight">h</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.07153em;">K</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.151392em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathit mtight" style="margin-right: 0.02691em;">w</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">i</span><span class="mord mathit mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">o</span><span class="mord mathit mtight">u</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.07153em;">C</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: -0.07153em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">o</span><span class="mord mathit mtight">u</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mclose">]</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathit" style="margin-right: 0.08125em;">H</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathit" style="margin-right: 0.13889em;">W</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.77528em; vertical-align: -0.31em;"></span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord" style="margin-right: 0.02778em;">_</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right: 0.02778em;">r</span><span class="mord mathit">a</span><span class="mord mathit">m</span><span class="mord mathit">s</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathit" style="margin-right: 0.08125em;">H</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathit" style="margin-right: 0.13889em;">W</span><span class="mclose">)</span></span></span></span></span>，其中<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>n</mi><mi>u</mi><mi>m</mi><mi mathvariant="normal">_</mi><mi>p</mi><mi>a</mi><mi>r</mi><mi>a</mi><mi>m</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">num\_params</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.74056em; vertical-align: -0.31em;"></span><span class="mord mathit">n</span><span class="mord mathit">u</span><span class="mord mathit">m</span><span class="mord" style="margin-right: 0.02778em;">_</span><span class="mord mathit">p</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right: 0.02778em;">r</span><span class="mord mathit">a</span><span class="mord mathit">m</span><span class="mord mathit">s</span></span></span></span></span>表示该层参数的数目。</p>
+<p><strong>以AlexNet网络第一卷积层为例，它的FLOPS数目为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo>[</mo><mo>(</mo><mn>11</mn><mo>∗</mo><mn>11</mn><mo>∗</mo><mn>3</mn><mo>)</mo><mo>∗</mo><mn>96</mn><mo>+</mo><mn>96</mn><mo>]</mo><mo>∗</mo><mo>(</mo><mn>55</mn><mo>∗</mo><mn>55</mn><mo>)</mo><mo>=</mo><mn>105</mn><mo separator="true">,</mo><mn>705</mn><mo separator="true">,</mo><mn>600</mn></mrow><annotation encoding="application/x-tex">[(11 * 11 * 3) * 96 + 96] * (55 * 55) = 105,705,600</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[</span><span class="mopen">(</span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.64444em; vertical-align: 0em;"></span><span class="mord">1</span><span class="mord">1</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.72777em; vertical-align: -0.08333em;"></span><span class="mord">9</span><span class="mord">6</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">9</span><span class="mord">6</span><span class="mclose">]</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">5</span><span class="mord">5</span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">5</span><span class="mord">5</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.277778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right: 0.277778em;"></span></span><span class="base"><span class="strut" style="height: 0.83888em; vertical-align: -0.19444em;"></span><span class="mord">1</span><span class="mord">0</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">7</span><span class="mord">0</span><span class="mord">5</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.166667em;"></span><span class="mord">6</span><span class="mord">0</span><span class="mord">0</span></span></span></span></span> 。</strong></p>
+<p>对于全连接层，由于不存在权值共享，它的FLOPs数目即是该层参数数目：<span class="katex--inline"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>N</mi><mrow><mi>i</mi><mi>n</mi></mrow></msub><mo>∗</mo><msub><mi>N</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub><mo>+</mo><msub><mi>N</mi><mrow><mi>o</mi><mi>u</mi><mi>t</mi></mrow></msub></mrow><annotation encoding="application/x-tex">N_{in} * N_{out} + N_{out}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.311664em;"><span class="" style="top: -2.55em; margin-left: -0.10903em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">i</span><span class="mord mathit mtight">n</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: -0.10903em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">o</span><span class="mord mathit mtight">u</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.222222em;"></span></span><span class="base"><span class="strut" style="height: 0.83333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathit" style="margin-right: 0.10903em;">N</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.280556em;"><span class="" style="top: -2.55em; margin-left: -0.10903em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathit mtight">o</span><span class="mord mathit mtight">u</span><span class="mord mathit mtight">t</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"><span class=""></span></span></span></span></span></span></span></span></span></span>。</p>
+<p>运用上面的规律，我们便可以很轻松地计算出AlexNet网络的parameters和FLOPs数目，如下图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190130113000542.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM2NjUzNTA1,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<h5><a id="_132"></a>参考</h5>
+<ol>
+<li><a href="https://blog.csdn.net/chaipp0607/article/details/72847422" rel="nofollow">https://blog.csdn.net/chaipp0607/article/details/72847422</a> （从AlexNet理解卷积神经网络的一般结构）</li>
+<li><a href="https://blog.csdn.net/qq_28372387/article/details/50890553" rel="nofollow">https://blog.csdn.net/qq_28372387/article/details/50890553</a> （有关FLOPS的定义与计算）</li>
+<li><a href="https://blog.csdn.net/sinat_34460960/article/details/84779219" rel="nofollow">https://blog.csdn.net/sinat_34460960/article/details/84779219</a> （CNN中parameters和FLOPs计算）</li>
+<li><a href="https://blog.csdn.net/u011501388/article/details/81061024" rel="nofollow">https://blog.csdn.net/u011501388/article/details/81061024</a> （深度卷机网络（Deep CNNs）的GFLOPS与参数量计算）</li>
+</ol>
+
+          </div>
+          <link href="https://csdnimg.cn/release/phoenix/mdeditor/markdown_views-258a4616f7.css" rel="stylesheet">
+                  </div>
+  </article>
+</div>
+
+<div class="hide-article-box hide-article-pos text-center">
+      <a class="" id="btn-readmore" data-track-view='{"mod":"popu_376","con":",https://blog.csdn.net/qq_36653505/article/details/86700885,"}' data-track-click='{"mod":"popu_376","con":",https://blog.csdn.net/qq_36653505/article/details/86700885,"}'>
+    展开阅读全文
+    <svg class="icon chevrondown" aria-hidden="true">
+        <use xlink:href="#csdnc-chevrondown"></use>
+      </svg>
+    </a>
+    </div>
+<script>
+  $(".MathJax").remove();
+  if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+    $('div.markdown_views')[0].className = 'markdown_views';
+  }
+</script>        <div id="dmp_ad_58"><div id="kp_box_58" data-pid="58" data-track-view='{"mod":"kp_popu_58-386","con":",,"}' data-track-click='{"mod":"kp_popu_58-386","con":",,"}'><div style="width:100%;background:#fff;">
+<script type="text/javascript" src="//rabc1.iteye.com/production/resource/web/6xwm4l.js?lg=ydmpioh"></script>
+</div></div></div>        <a id="commentBox"></a>
+<div class="comment-box">
+	
+	<div class="comment-edit-box d-flex">
+		<a id="commentsedit"></a>
+		<div class="user-img">
+			<a href="//me.csdn.net/sinat_31299297" target="_blank">
+				<img class="" src="https://avatar.csdn.net/E/D/B/3_sinat_31299297.jpg">
+			</a>
+		</div>
+		<form id="commentform">
+			<input type="hidden" id="comment_replyId">
+			<textarea class="comment-content" name="comment_content" id="comment_content" placeholder="想对作者说点什么"></textarea>
+			<div class="opt-box"> <!-- d-flex -->
+				<div id="ubbtools" class="add_code">
+					<a href="#insertcode" code="code" target="_self"><i class="icon iconfont icon-daima"></i></a>
+				</div>
+				<input type="hidden" id="comment_replyId" name="comment_replyId">
+				<input type="hidden" id="article_id" name="article_id" value="86700885">
+				<input type="hidden" id="comment_userId" name="comment_userId" value="">
+				<input type="hidden" id="commentId" name="commentId" value="">
+				<div style="display: none;" class="csdn-tracking-statistics tracking-click" data-mod="popu_384"><a href="#" target="_blank" class="comment_area_btn">发表评论</a></div>
+				<div class="dropdown" id="myDrap">
+					<a class="dropdown-face d-flex align-items-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+					<div class="txt-selected text-truncate">添加代码片</div>
+					<svg class="icon d-block" aria-hidden="true">
+						<use xlink:href="#csdnc-triangledown"></use>
+					</svg>
+					</a>
+					<ul class="dropdown-menu" id="commentCode" aria-labelledby="drop4">
+						<li><a data-code="html">HTML/XML</a></li>
+						<li><a data-code="objc">objective-c</a></li>
+						<li><a data-code="ruby">Ruby</a></li>
+						<li><a data-code="php">PHP</a></li>
+						<li><a data-code="csharp">C</a></li>
+						<li><a data-code="cpp">C++</a></li>
+						<li><a data-code="javascript">JavaScript</a></li>
+						<li><a data-code="python">Python</a></li>
+						<li><a data-code="java">Java</a></li>
+						<li><a data-code="css">CSS</a></li>
+						<li><a data-code="sql">SQL</a></li>
+						<li><a data-code="plain">其它</a></li>
+					</ul>
+				</div>  
+				<div class="right-box">
+					<span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+					<input type="submit" class="btn btn-sm btn-red btn-comment" value="发表评论">
+				</div>
+			</div>
+		</form>
+	</div>
+
+		<div class="comment-list-container">
+		<a id="comments"></a>
+		<div class="comment-list-box">
+		</div>
+		<div id="commentPage" class="pagination-box d-none"></div>
+		<div class="opt-box text-center">
+			<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+		</div>
+	</div>
+</div>
+        <div class="recommend-box">
+                            <div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/shwan_ma/article/details/84924142,BlogCommendFromThirdServiceFilterFiled_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/shwan_ma/article/details/84924142,BlogCommendFromThirdServiceFilterFiled_3"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/shwan_ma/article/details/84924142" target="_blank" title="【深度学习】关于CNN网络的FLOPs的计算">
+		<h4 class="text-truncate oneline">
+				【<em>深度学习</em>】关于<em>CNN</em>网络的<em>FLOPs</em>的<em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1759</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/shwan_ma/article/details/84924142" target="_blank" title="【深度学习】关于CNN网络的FLOPs的计算">
+				<span class="desc oneline">在评估一个CNN网络的计算复杂度时，浮点数运算（floatpointoperation）是一个常用的衡量指标。在常规的计算中，通常不考虑非线性函数的计算量（thenonlinearity），对于卷积操...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/shwan_ma">来自：	<span class="blog_title"> Shwan_ma的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_34460960/article/details/84779219,BlogCommendFromThirdServiceFilterFiled_1"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sinat_34460960/article/details/84779219,BlogCommendFromThirdServiceFilterFiled_1"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/sinat_34460960/article/details/84779219" target="_blank" title="CNN中parameters和FLOPs计算">
+		<h4 class="text-truncate oneline">
+				<em>CNN</em>中<em>parameters</em>和<em>FLOPs</em><em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-03</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					4002</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/sinat_34460960/article/details/84779219" target="_blank" title="CNN中parameters和FLOPs计算">
+				<span class="desc oneline">在这之前我们先看一下CNN的前向传播计算公式，便于理解什么是parameters和FLOPs，这里参考Andrew老师课堂上的课件，如下：前向传播过程其实就是将输入或上层输出左乘以一个，然后加上一个，...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/sinat_34460960">来自：	<span class="blog_title"> sinat_34460960的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_37753215/article/details/81901069,BlogCommendFromBaidu_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_37753215/article/details/81901069,BlogCommendFromBaidu_8"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/weixin_37753215/article/details/81901069" target="_blank" title="AlexNet">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-21</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					914</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/weixin_37753215/article/details/81901069" target="_blank" title="AlexNet">
+				<span class="desc oneline">人物：Geoffrey和他的学生Alex。事件：2012年ILSVRC竞赛（LargeScaleVisualRecognitionChallenge）中，AlexNet模型赢得第一名。意义：AlexN...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/weixin_37753215">来自：	<span class="blog_title"> 户县原野的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_36474809/article/details/85675504,BlogCommendFromThirdServiceFilterFiled_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/weixin_36474809/article/details/85675504,BlogCommendFromThirdServiceFilterFiled_0"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/weixin_36474809/article/details/85675504" target="_blank" title="FLOPS与GOPS：各平台及神经网络算力算量调研">
+		<h4 class="text-truncate oneline">
+				<em>FLOPS</em>与GOPS：各平台及神经网络算力算量调研		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">01-03</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2076</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/weixin_36474809/article/details/85675504" target="_blank" title="FLOPS与GOPS：各平台及神经网络算力算量调研">
+				<span class="desc oneline">目录一、GOPS与FLOPS1.1FLOPSFLOPS定义FLOPS换算前标的十进制与二进制显卡FLOPS值1.2GOPS1.3FLOP与GOPS之间的换算二、常规神经网络算力2.1AlexNet2....</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/weixin_36474809">来自：	<span class="blog_title"> 邢翔瑞的技术博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_59" data-pid="59" data-track-view='{"mod":"kp_popu_59-851","con":",,深度学习"}' data-track-click='{"mod":"kp_popu_59-851","con":",,深度学习"}'><iframe src="https://kunpeng-sc.csdnimg.cn/#/preview/61?positionId=59&queryWord=深度学习" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xrh003/article/details/80323498,BlogCommendFromThirdServiceFilterFiled_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xrh003/article/details/80323498,BlogCommendFromThirdServiceFilterFiled_2"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/xrh003/article/details/80323498" target="_blank" title="GFLOPS和GMACS概念">
+		<h4 class="text-truncate oneline">
+				G<em>FLOPS</em>和GMACS概念		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">05-15</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1406</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/xrh003/article/details/80323498" target="_blank" title="GFLOPS和GMACS概念">
+				<span class="desc oneline">FLOPS是Floating-pointOperationsPerSecond每秒所执行的浮点运算次数的英文缩写。它是一个衡量计算机计算能力的量，这个量经常使用在那些需要大量浮点运算的科学运算中。有时...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/xrh003">来自：	<span class="blog_title"> xrh003的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zwqjoy/article/details/83539439,BlogCommendFromThirdServiceFilterFiled_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zwqjoy/article/details/83539439,BlogCommendFromThirdServiceFilterFiled_4"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zwqjoy/article/details/83539439" target="_blank" title="FLOPS的理解">
+		<h4 class="text-truncate oneline">
+				<em>FLOPS</em>的理解		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-30</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1135</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zwqjoy/article/details/83539439" target="_blank" title="FLOPS的理解">
+				<span class="desc oneline">       在描述GPU的性能的时候，我们常常用到FLOPS进行描述。FLOPS是Floating-pointOperationsPerSecond的简写，即每秒所能够进行的浮点运算数目（每秒浮点运...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zwqjoy">来自：	<span class="blog_title"> 努力奋斗的小墨鱼专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/drilistbox/article/details/79727357,BlogCommendFromBaidu_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/drilistbox/article/details/79727357,BlogCommendFromBaidu_5"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/drilistbox/article/details/79727357" target="_blank" title="TensorFlow入门深度学习–08.AlexNet（对MNIST数据分类）">
+		<h4 class="text-truncate oneline">
+				TensorFlow入门<em>深度学习</em>–08.<em>AlexNet</em>（对MNIST数据分类）		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-28</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1458</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/drilistbox/article/details/79727357" target="_blank" title="TensorFlow入门深度学习–08.AlexNet（对MNIST数据分类）">
+				<span class="desc oneline">文章列表1.TensorFlow入门深度学习–01.基础知识..2.TensorFlow入门深度学习–02.基础知识..3.TensorFlow入门深度学习–03.softmax-regression...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/drilistbox">来自：	<span class="blog_title"> drilistbox的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37733057/article/details/70232378,BlogCommendFromBaidu_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/m0_37733057/article/details/70232378,BlogCommendFromBaidu_6"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/m0_37733057/article/details/70232378" target="_blank" title="经典的卷积网络结构：AlexNet，VGGNet，Google Inception Net，ResNet（ＨＲ）">
+		<h4 class="text-truncate oneline">
+				<em>经典</em>的卷积<em>网络结构</em>：<em>AlexNet</em>，VGGNet，Google Inception Net，ResNet（ＨＲ）		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">04-18</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/m0_37733057/article/details/70232378" target="_blank" title="经典的卷积网络结构：AlexNet，VGGNet，Google Inception Net，ResNet（ＨＲ）">
+				<span class="desc oneline">原文卷积网络LeNet5LeNet5 诞生于1994年，是最早的深层卷积神经网络之一，并且推动了深度学习的发展。从1988年开始，在多次成功的迭代后，这项由Yann LeCun完成的开拓性成果被命名为...</span>
+			</a>
+			<span class="blog_title_box oneline no-title">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_24695385/article/details/80368618,BlogCommendFromBaidu_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_24695385/article/details/80368618,BlogCommendFromBaidu_7"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/qq_24695385/article/details/80368618" target="_blank" title="AlexNet详细解读">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>详细解读		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">05-19</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_24695385/article/details/80368618" target="_blank" title="AlexNet详细解读">
+				<span class="desc oneline">目前在自学计算机视觉与深度学习方向的论文，今天给大家带来的是很经典的一篇文章：《ImageNetClassificationwithDeepConvolutionalNeuralNetworks》。纯...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/qq_24695385">来自：	<span class="blog_title"> 学思行仁的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_60" data-pid="60" data-track-view='{"mod":"kp_popu_60-894","con":"3488765615980867572,https://edu.csdn.net/course/detail/6849,"}' data-track-click='{"mod":"kp_popu_60-894","con":"3488765615980867572,https://edu.csdn.net/course/detail/6849,"}'><link rel="stylesheet" href="https://www.csdn.net/company/css/edu-recommend-1.0.1.css">
+  <div class="edu-ad-list">
+    <div class="recommend-item-box type_blog clearfix">
+      <div class="content">
+        <a href="https://edu.csdn.net/course/detail/6849?utm_source=baidutj" target="_blank" title="<em>深度学习</em>之卷积神经网络<em>CNN</em>以及python案例图片中文本的识别">
+          <h4 class="text-truncate oneline"><em>深度学习</em>之卷积神经网络<em>CNN</em>以及python案例图片中文本的识别</h4>
+        </a>
+        <p class="content">
+          <a href="https://edu.csdn.net/course/detail/6849?utm_source=baidutj" target="_blank" title="<em>深度学习</em>之卷积神经网络<em>CNN</em>以及python案例图片中文本的识别">
+            <span class="desc oneline">卷积神经网络是深度学习技术中极具代表的网络结构之一，在图像处理领域取得了很大的成功。本课程将会讲解：CNN、卷基层、卷积计算、池化层、池化、全连接等概念。重点讲解如何进行卷积计算？如何进行池化计算？CNN如何训练以及优缺点？什么全连接和激励层？后python图片文本识别的案例。</span>
+          </a>
+          <span class="blog_title_box oneline ">
+            <span class="type-show type-show-edu type-show-after">学院</span>
+            讲师： <span class="blog_title"> 王而川</span>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012428391/article/details/47813039,BlogCommendFromBaidu_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012428391/article/details/47813039,BlogCommendFromBaidu_9"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u012428391/article/details/47813039" target="_blank" title="Alex / OverFeat / VGG 中的卷积参数">
+		<h4 class="text-truncate oneline">
+				Alex / OverFeat / VGG 中的卷积参数		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-20</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012428391/article/details/47813039" target="_blank" title="Alex / OverFeat / VGG 中的卷积参数">
+				<span class="desc oneline">研究需要，统计了一些经典CNN结构的卷积层参数。AlexnetLayerInputKernelOutputStridePad1256*3*227*22748*3*11*11256*48*55*5540...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u012428391">来自：	<span class="blog_title"> 程引的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendFromThirdServiceFilterFiled_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yu_xiaofei/article/details/13287899,BlogCommendFromThirdServiceFilterFiled_10"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+		<h4 class="text-truncate oneline">
+				SNMP协议详解&lt;二&gt;		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-29</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					15万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/yu_xiaofei/article/details/13287899" target="_blank" title="SNMP协议详解&lt;二&gt;">
+				<span class="desc oneline">上一篇文章讲解了SNMP的基本架构，本篇文章将重点分析SNMP报文，并对不同版本（SNMPv1、v2c、v3）进行区别！四、SNMP协议数据单元在SNMP管理中，管理站（NMS）和代理（Agent）之...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/yu_xiaofei">来自：	<span class="blog_title"> 假装在纽约</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+			<div class="recommend-item-box blog-expert-recommend-box">
+			<div class="d-flex">
+				<div class="blog-expert-recommend">
+					<div class="blog-expert">
+						<div class="blog-expert-flexbox"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendFromThirdServiceFilterFiled_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_36892341/article/details/73918672,BlogCommendFromThirdServiceFilterFiled_11"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+		<h4 class="text-truncate oneline">
+				linux上安装Docker(非常简单的安装方法)		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">06-29</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					27万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_36892341/article/details/73918672" target="_blank" title="linux上安装Docker(非常简单的安装方法)">
+				<span class="desc oneline">最近比较有空，大四出来实习几个月了，作为实习狗的我，被叫去研究Docker了，汗汗！Docker的三大核心概念：镜像、容器、仓库镜像：类似虚拟机的镜像、用俗话说就是安装文件。容器：类似一个轻量级的沙箱...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/qq_36892341">来自：	<span class="blog_title"> 我走小路的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lubiaopan/article/details/6233517,BlogCommendFromThirdServiceFilterFiled_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lubiaopan/article/details/6233517,BlogCommendFromThirdServiceFilterFiled_12"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/lubiaopan/article/details/6233517" target="_blank" title=".NET和java的RSA互通，仅此而已">
+		<h4 class="text-truncate oneline">
+				.NET和java的RSA互通，仅此而已		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					6万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/lubiaopan/article/details/6233517" target="_blank" title=".NET和java的RSA互通，仅此而已">
+				<span class="desc oneline">RSA.netjva互通解决不能互通的问题</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/lubiaopan">来自：	<span class="blog_title"> lubiaopan的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xbinworld/article/details/77587406,BlogCommendFromThirdServiceFilterFiled_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xbinworld/article/details/77587406,BlogCommendFromThirdServiceFilterFiled_13"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/xbinworld/article/details/77587406" target="_blank" title="深度学习方法（十四）：轻量级CNN网络设计——MobileNet，ShuffleNet，文末有思考">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>方法（十四）：轻量级<em>CNN</em>网络设计——MobileNet，ShuffleNet，文末有思考		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-25</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/xbinworld/article/details/77587406" target="_blank" title="深度学习方法（十四）：轻量级CNN网络设计——MobileNet，ShuffleNet，文末有思考">
+				<span class="desc oneline">本系列前面介绍了非常多卷积网络结构设计，事实上，在inception和resnet网络提出并相对完善以后，网络结构的设计就不再爆发式出现了，这两大类网路涵盖了大部分应用的卷积网络结构。在本文中，我们来...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/xbinworld">来自：	<span class="blog_title"> Bin 的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><script type="text/javascript" src="//rabc1.iteye.com/production/res/rxjg.js?pkcgstj=jm"></script></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/chenyuping333/article/details/82178335,BlogCommendFromThirdServiceFilterFiled_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/chenyuping333/article/details/82178335,BlogCommendFromThirdServiceFilterFiled_14"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/chenyuping333/article/details/82178335" target="_blank" title="详解深度学习之经典网络架构（二）：AlexNet">
+		<h4 class="text-truncate oneline">
+				详解<em>深度学习</em>之<em>经典</em>网络架构（二）：<em>AlexNet</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-29</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2729</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/chenyuping333/article/details/82178335" target="_blank" title="详解深度学习之经典网络架构（二）：AlexNet">
+				<span class="desc oneline">目录一、简介二、网络结构1.使用了Relu激活函数。2.标准化（LocalResponseNormalization）3.Dropout4.数据增强（dataaugmentation）三、tensor...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/chenyuping333">来自：	<span class="blog_title"> chenyuping333的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/smallhujiu/article/details/80876875,BlogCommendFromBaidu_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/smallhujiu/article/details/80876875,BlogCommendFromBaidu_15"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/smallhujiu/article/details/80876875" target="_blank" title="FLOPS理解">
+		<h4 class="text-truncate oneline">
+				<em>FLOPS</em>理解		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-01</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3876</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/smallhujiu/article/details/80876875" target="_blank" title="FLOPS理解">
+				<span class="desc oneline">  在描述GPU的性能的时候，我们常常用到FLOPS进行描述。FLOPS是Floating-pointOperationsPerSecond的简写，即每秒所能够进行的浮点运算数目。在以往形容GPU的运...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/smallhujiu">来自：	<span class="blog_title"> James的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_28372387/article/details/50890553,BlogCommendFromBaidu_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_28372387/article/details/50890553,BlogCommendFromBaidu_16"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/qq_28372387/article/details/50890553" target="_blank" title="有关FLOPS的定义与计算">
+		<h4 class="text-truncate oneline">
+				有关<em>FLOPS</em>的定义与<em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-14</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_28372387/article/details/50890553" target="_blank" title="有关FLOPS的定义与计算">
+				<span class="desc oneline">FLOPS（即“每秒浮点运算次数”，“每秒峰值速度”），是“每秒所执行的浮点运算次数”（floating-pointoperationspersecond）的缩写。它常被用来估算电脑的执行效能，尤其是...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/qq_28372387">来自：	<span class="blog_title"> 收拾行囊重新出发</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/twinkle_star1314/article/details/53448186,BlogCommendFromBaidu_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/twinkle_star1314/article/details/53448186,BlogCommendFromBaidu_17"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/twinkle_star1314/article/details/53448186" target="_blank" title="深度学习的五个能力级别 深度学习">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>的五个能力级别 <em>深度学习</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-03</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1285</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/twinkle_star1314/article/details/53448186" target="_blank" title="深度学习的五个能力级别 深度学习">
+				<span class="desc oneline">【导语】本文作者在读完“理解AI四种类型”一文后，对深度学习进行了更加细致的能力分类，以下为译文：ArendHintze写了一篇很好的短文，叫《理解AI的四种类型》，分别是反应机器（ReactiveM...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/twinkle_star1314">来自：	<span class="blog_title"> twinkle_star1314的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Gavinlib/article/details/72458595,BlogCommendFromBaidu_18"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Gavinlib/article/details/72458595,BlogCommendFromBaidu_18"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Gavinlib/article/details/72458595" target="_blank" title="深度学习硬件这件事，GPU、CPU、FPGA到底谁最合适？">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>硬件这件事，GPU、CPU、FPGA到底谁最合适？		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">05-18</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Gavinlib/article/details/72458595" target="_blank" title="深度学习硬件这件事，GPU、CPU、FPGA到底谁最合适？">
+				<span class="desc oneline">二、数据的训练：CPU与GPU之争2.1、现状在如今的深度学习平台上，CPU面临着一个很尴尬的处境：它很重要又不是太重要。它很重要，是因为它依旧是主流深度学习平台的重要组成部分：现百度首席科学家吴恩达...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Gavinlib">来自：	<span class="blog_title"> Gavinlib的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_62" data-pid="62" data-track-view='{"mod":"kp_popu_62-1062","con":",,"}' data-track-click='{"mod":"kp_popu_62-1062","con":",,"}'><iframe  src="https://kunpeng-sc.csdnimg.cn/#/preview/237?positionId=62&queryWord=" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/liusandian/article/details/79069926,BlogCommendFromBaidu_19"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/liusandian/article/details/79069926,BlogCommendFromBaidu_19"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/liusandian/article/details/79069926" target="_blank" title="科普帖：深度学习中GPU和显存分析">
+		<h4 class="text-truncate oneline">
+				科普帖：<em>深度学习</em>中GPU和显存分析		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">01-15</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					5562</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/liusandian/article/details/79069926" target="_blank" title="科普帖：深度学习中GPU和显存分析">
+				<span class="desc oneline">深度学习最吃机器，耗资源，在本文，我将来科普一下在深度学习中：何为“资源”不同操作都耗费什么资源如何充分的利用有限的资源如何合理选择显卡并纠正几个误区：显存和GPU等价，使用GPU主要看显存的使用？B...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/liusandian">来自：	<span class="blog_title"> 傅斯年的写字台</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/crazy1235/article/details/42614603,BlogCommendFromThirdServiceFilterFiled_20"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/crazy1235/article/details/42614603,BlogCommendFromThirdServiceFilterFiled_20"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/crazy1235/article/details/42614603" target="_blank" title="Android百度地图开发（一）之初体验">
+		<h4 class="text-truncate oneline">
+				Android百度地图开发（一）之初体验		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">01-11</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					11万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/crazy1235/article/details/42614603" target="_blank" title="Android百度地图开发（一）之初体验">
+				<span class="desc oneline">转载请注明出处：   做关于位置或者定位的app的时候免不了使用地图功能，本人最近由于项目的需求需要使用百度地图的一些功能，所以这几天研究了一下，现写一下blog记录一下，欢迎大家评论指正！一、申请A...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/crazy1235">来自：	<span class="blog_title"> crazy_jack</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Lily_9/article/details/81448888,BlogCommendFromThirdServiceFilterFiled_21"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Lily_9/article/details/81448888,BlogCommendFromThirdServiceFilterFiled_21"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Lily_9/article/details/81448888" target="_blank" title="【深度学习——评估指标】：FLOPS与SIMD">
+		<h4 class="text-truncate oneline">
+				【<em>深度学习</em>——评估指标】：<em>FLOPS</em>与SIMD		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-06</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					575</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Lily_9/article/details/81448888" target="_blank" title="【深度学习——评估指标】：FLOPS与SIMD">
+				<span class="desc oneline">一、FLOPSFLOPS(FloatOperationsPerSecond):每秒浮点运算量，是衡量吞吐率的一个单位，通过折算到具体的浮点操作数量上。所谓，吞吐率——就如同水管，每秒可以流出多少立方的...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Lily_9">来自：	<span class="blog_title"> Lily_9的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/kofsky/article/details/2863590,BlogCommendFromThirdServiceFilterFiled_22"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/kofsky/article/details/2863590,BlogCommendFromThirdServiceFilterFiled_22"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/kofsky/article/details/2863590" target="_blank" title="蚂蚁爬橡皮筋问题 之一">
+		<h4 class="text-truncate oneline">
+				蚂蚁爬橡皮筋问题 之一		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">09-01</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/kofsky/article/details/2863590" target="_blank" title="蚂蚁爬橡皮筋问题 之一">
+				<span class="desc oneline">一条可以均匀拉伸无限拉伸的橡皮筋，初始长度为1米，一个累不死的蚂蚁，从橡皮筋的一端爬到另一端，蚂蚁爬行速度为1厘米每秒，橡皮筋拉伸的速度为10厘米每秒！问：蚂蚁可以爬到橡皮的另一端吗？如果可以要用多久...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/kofsky">来自：	<span class="blog_title"> 重剑无锋</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/oppo62258801/article/details/73525505,BlogCommendFromThirdServiceFilterFiled_23"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/oppo62258801/article/details/73525505,BlogCommendFromThirdServiceFilterFiled_23"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/oppo62258801/article/details/73525505" target="_blank" title="深度学习方法：卷积神经网络CNN经典模型整理Lenet，Alexnet，Googlenet，VGG，ResNet">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>方法：卷积神经网络<em>CNN</em><em>经典</em>模型整理Lenet，<em>Alexnet</em>，Googlenet，VGG，ResNet		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">06-21</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3666</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/oppo62258801/article/details/73525505" target="_blank" title="深度学习方法：卷积神经网络CNN经典模型整理Lenet，Alexnet，Googlenet，VGG，ResNet">
+				<span class="desc oneline">欢迎转载，转载请注明：本文出自Bin的专栏blog.csdn.net/xbinworld。 技术交流QQ群：433250724，欢迎对算法、技术感兴趣的同学加入。关于卷积神经网络CNN，网络和文献中有...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/oppo62258801">来自：	<span class="blog_title"> 数据之美的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_63" data-pid="63" data-track-view='{"mod":"kp_popu_63-1059","con":",,"}' data-track-click='{"mod":"kp_popu_63-1059","con":",,"}'><iframe  src="https://kunpeng-sc.csdnimg.cn/#/preview/234?positionId=63&queryWord=" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhaoyin214/article/details/83616164,BlogCommendFromThirdServiceFilterFiled_24"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhaoyin214/article/details/83616164,BlogCommendFromThirdServiceFilterFiled_24"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zhaoyin214/article/details/83616164" target="_blank" title="神经网络计算量FLOPs">
+		<h4 class="text-truncate oneline">
+				神经网络<em>计算</em>量<em>FLOPs</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-01</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2142</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zhaoyin214/article/details/83616164" target="_blank" title="神经网络计算量FLOPs">
+				<span class="desc oneline">FLOPS：floatingpointoperationspersecond的缩写，意指每秒浮点运算次数，理解为计算速度。是一个衡量硬件性能的指标。FLOPs：floatingpointoperati...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zhaoyin214">来自：	<span class="blog_title"> on the way</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/qq_38282225/article/details/70140817,BlogCommendFromBaidu_25"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/qq_38282225/article/details/70140817,BlogCommendFromBaidu_25"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/qq_38282225/article/details/70140817" target="_blank" title="机器学习大热—— LINKZOL深度学习GPU工作站、服务器主机配置深度学习技术">
+		<h4 class="text-truncate oneline">
+				机器学习大热—— LINKZOL<em>深度学习</em>GPU工作站、服务器主机配置<em>深度学习</em>技术		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">04-12</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					4279</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/qq_38282225/article/details/70140817" target="_blank" title="机器学习大热—— LINKZOL深度学习GPU工作站、服务器主机配置深度学习技术">
+				<span class="desc oneline">机器学习大热——LINKZOL深度学习GPU工作站、服务器主机配置深度学习技术 深度学习是近几年热度非常高的的计算应用方向，其目的在于建立，模拟人脑进行分析学习的神经网络，它模仿人脑的机制来解析数据，...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/qq_38282225">来自：	<span class="blog_title"> qq_38282225的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/lien0906/article/details/78863118,BlogCommendFromBaidu_26"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/lien0906/article/details/78863118,BlogCommendFromBaidu_26"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/lien0906/article/details/78863118" target="_blank" title="深度学习中 GPU 和显存分析">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>中 GPU 和显存分析		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-21</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/lien0906/article/details/78863118" target="_blank" title="深度学习中 GPU 和显存分析">
+				<span class="desc oneline">深度学习最吃机器，耗资源，在本文，我将来科普一下在深度学习中：何为“资源”不同操作都耗费什么资源如何充分的利用有限的资源如何合理选择显卡并纠正几个误区：显存和GPU等价，使用GPU主要看显存的使用？B...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/lien0906">来自：	<span class="blog_title"> lien0906的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012679707/article/details/80793916,BlogCommendFromBaidu_27"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012679707/article/details/80793916,BlogCommendFromBaidu_27"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u012679707/article/details/80793916" target="_blank" title="【深度学习】AlexNet原理解析及实现">
+		<h4 class="text-truncate oneline">
+				【<em>深度学习</em>】<em>AlexNet</em>原理解析及实现		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">06-24</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012679707/article/details/80793916" target="_blank" title="【深度学习】AlexNet原理解析及实现">
+				<span class="desc oneline">【深度学习】AlexNet原理解析及实现    Alex提出的alexnet网络结构模型，在imagenet2012图像分类challenge上赢得了冠军。    要研究CNN类型DL网络模型在图像分...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u012679707">来自：	<span class="blog_title"> gogo小Sa的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Dominic_S/article/details/81749670,BlogCommendFromBaidu_28"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Dominic_S/article/details/81749670,BlogCommendFromBaidu_28"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Dominic_S/article/details/81749670" target="_blank" title="AlexNet网络解析">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>网络解析		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-16</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					590</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Dominic_S/article/details/81749670" target="_blank" title="AlexNet网络解析">
+				<span class="desc oneline">AlexNet网络解析1简介  AlexNet是2012年由Hinton学生AlexKrizhevsky提出的深度卷积网络模型，并在2012的ImageNet大赛上获得了飞跃性成果，以碾压性的优势超过...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Dominic_S">来自：	<span class="blog_title"> Dominic_S的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_64" data-pid="64" data-track-view='{"mod":"kp_popu_64-1060","con":",,"}' data-track-click='{"mod":"kp_popu_64-1060","con":",,"}'><iframe  src="https://kunpeng-sc.csdnimg.cn/#/preview/235?positionId=64&queryWord=" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Rasin_Wu/article/details/80017920,BlogCommendFromBaidu_29"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Rasin_Wu/article/details/80017920,BlogCommendFromBaidu_29"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Rasin_Wu/article/details/80017920" target="_blank" title="AlexNet网络详解及各层作用">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>网络详解及各层作用		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">04-20</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					8623</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Rasin_Wu/article/details/80017920" target="_blank" title="AlexNet网络详解及各层作用">
+				<span class="desc oneline">AlexNet​图中所给关于卷积核的尺寸来自于Alex在2012年发表的经典文章。Alex在2012年提出的alexnet网络结构模型引爆了神经网络的应用热潮，并赢得了2012届图像识别大赛的冠军，使...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Rasin_Wu">来自：	<span class="blog_title"> Rasin_Wu的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zztfj/article/details/10103621,BlogCommendFromThirdServiceFilterFiled_30"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zztfj/article/details/10103621,BlogCommendFromThirdServiceFilterFiled_30"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zztfj/article/details/10103621" target="_blank" title="单机最大的TCP连接数及其修改">
+		<h4 class="text-truncate oneline">
+				单机最大的TCP连接数及其修改		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-20</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zztfj/article/details/10103621" target="_blank" title="单机最大的TCP连接数及其修改">
+				<span class="desc oneline">单机最大的TCP连接数及其修改一个误解:单个服务器程序可承受最大连接数“理论”上是“65535”.  65535这个数字的由来，很多人想当然地将它与port最大值联系起来。的确，TCP的端口数，最大值...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zztfj">来自：	<span class="blog_title"> 田发江的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/SzM21C11U68n04vdcLmJ/article/details/78579042,BlogCommendFromThirdServiceFilterFiled_31"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/SzM21C11U68n04vdcLmJ/article/details/78579042,BlogCommendFromThirdServiceFilterFiled_31"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/SzM21C11U68n04vdcLmJ/article/details/78579042" target="_blank" title="从AlexNet剖析-卷积网络CNN的一般结构">
+		<h4 class="text-truncate oneline">
+				从<em>AlexNet</em>剖析-卷积网络<em>CNN</em>的一般结构		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-19</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3584</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/SzM21C11U68n04vdcLmJ/article/details/78579042" target="_blank" title="从AlexNet剖析-卷积网络CNN的一般结构">
+				<span class="desc oneline">作者：张旭      编辑：王抒伟 本文4794字27图，阅读约11分钟  算了想看多久看多久零参考目录：一、卷积层        1.CNN中卷积层的作用        2.卷积层如何工作     ...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/SzM21C11U68n04vdcLmJ">来自：	<span class="blog_title"> 燕哥带你学算法</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/imj060336/article/details/2032765,BlogCommendFromThirdServiceFilterFiled_32"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/imj060336/article/details/2032765,BlogCommendFromThirdServiceFilterFiled_32"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+		<h4 class="text-truncate oneline">
+				用C语言实现有限状态机--读《C专家编程》		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">01-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/imj060336/article/details/2032765" target="_blank" title="用C语言实现有限状态机--读《C专家编程》">
+				<span class="desc oneline">       有限状态机(finitestatemachine)是一个数学概念，如果把它运用于程序中，可以发挥很大的作用。它是一种协议，用于有限数量的子程序(&quot;状态&quot;)的发展变化。每个子程序进行一些处...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/imj060336">来自：	<span class="blog_title"> Stay Hungry,Stay Foolish的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zw__chen/article/details/84258775,BlogCommendFromThirdServiceFilterFiled_33"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zw__chen/article/details/84258775,BlogCommendFromThirdServiceFilterFiled_33"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zw__chen/article/details/84258775" target="_blank" title="FLOPS">
+		<h4 class="text-truncate oneline">
+				<em>FLOPS</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-19</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					273</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zw__chen/article/details/84258775" target="_blank" title="FLOPS">
+				<span class="desc oneline">FLOPS全称为：floatingpointoperationspersecond翻译为每秒所能够进行的浮点运算数目。FLOPS是用来描述GPU的性能的标注。...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zw__chen">来自：	<span class="blog_title"> 嘿芝麻的树洞</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_65" data-pid="65" data-track-view='{"mod":"kp_popu_65-1061","con":",,"}' data-track-click='{"mod":"kp_popu_65-1061","con":",,"}'><iframe  src="https://kunpeng-sc.csdnimg.cn/#/preview/236?positionId=65&queryWord=" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yangyangye/article/details/19814653,BlogCommendFromThirdServiceFilterFiled_34"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yangyangye/article/details/19814653,BlogCommendFromThirdServiceFilterFiled_34"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/yangyangye/article/details/19814653" target="_blank" title="Redis集群方案">
+		<h4 class="text-truncate oneline">
+				Redis集群方案		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">02-24</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					9668</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/yangyangye/article/details/19814653" target="_blank" title="Redis集群方案">
+				<span class="desc oneline">Redis集群方案根据一些测试整理出来的一份方案：1.Redis性能对于redis的一些简单测试，仅供参考：测试环境：Redhat6.2,XeonE5520(4核)*2/8G，1000M网卡Redis...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/yangyangye">来自：	<span class="blog_title"> zzhongcy的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/op07p6Aaqo9u71/article/details/78295819,BlogCommendFromBaidu_35"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/op07p6Aaqo9u71/article/details/78295819,BlogCommendFromBaidu_35"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/op07p6Aaqo9u71/article/details/78295819" target="_blank" title="AlexNet 网络详解及Tensorflow实现源码">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em> 网络详解及Tensorflow实现源码		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-20</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/op07p6Aaqo9u71/article/details/78295819" target="_blank" title="AlexNet 网络详解及Tensorflow实现源码">
+				<span class="desc oneline">作者：行动派Xdpie1.图片数据处理一张图片是由一个个像素组成，每个像素的颜色常常用RGB、HSB、CYMK、RGBA等颜色值来表示，每个颜色值的取值范围不一样，但都代表了一个像素点数据信息。对图片...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/op07p6Aaqo9u71">来自：	<span class="blog_title"> 36大数据</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/sam0535/article/details/81296617,BlogCommendFromBaidu_36"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/sam0535/article/details/81296617,BlogCommendFromBaidu_36"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/sam0535/article/details/81296617" target="_blank" title="Alexnet网络结构">
+		<h4 class="text-truncate oneline">
+				<em>Alexnet</em><em>网络结构</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-31</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1524</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/sam0535/article/details/81296617" target="_blank" title="Alexnet网络结构">
+				<span class="desc oneline">在2012年的时候，Geoffrey和他学生Alex为了回应质疑者，在ImageNet的竞赛中出手了，刷新了imageclassification的记录，一举奠定了deeplearning在计算机视觉...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/sam0535">来自：	<span class="blog_title"> sam0535的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/duanmuji/article/details/83118443,BlogCommendFromBaidu_37"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/duanmuji/article/details/83118443,BlogCommendFromBaidu_37"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/duanmuji/article/details/83118443" target="_blank" title="AlexNet笔记">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>笔记		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-18</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					481</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/duanmuji/article/details/83118443" target="_blank" title="AlexNet笔记">
+				<span class="desc oneline">AlexNet的一些参数：卷积层：5层全连接层：3层深度：8层参数个数：60M神经元个数：650k分类数目：1000类由于当时的显卡容量问题，AlexNet的60M个参数无法全部放在一张显卡上操作，所...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/duanmuji">来自：	<span class="blog_title"> duanmuji的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/ziyouyi111/article/details/81037950,BlogCommendFromBaidu_38"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/ziyouyi111/article/details/81037950,BlogCommendFromBaidu_38"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/ziyouyi111/article/details/81037950" target="_blank" title="PSPNet网络要点">
+		<h4 class="text-truncate oneline">
+				PSPNet网络要点		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-13</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1592</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/ziyouyi111/article/details/81037950" target="_blank" title="PSPNet网络要点">
+				<span class="desc oneline">基础层经过预训练的模型(ResNet101)和空洞卷积策略提取featuremap,提取后的featuremap是输入的1/8大小featuremap经过PyramidPoolingModule得到融...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/ziyouyi111">来自：	<span class="blog_title"> ziyouyi111的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_66" data-pid="66" data-track-view='{"mod":"kp_popu_66-881","con":",,"}' data-track-click='{"mod":"kp_popu_66-881","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T38_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T38  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T38_render", "T38");
+</script></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/XYYHLark01/article/details/79655880,BlogCommendFromThirdServiceFilterFiled_39"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/XYYHLark01/article/details/79655880,BlogCommendFromThirdServiceFilterFiled_39"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/XYYHLark01/article/details/79655880" target="_blank" title="AlexNet中的参数数量">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em>中的参数数量		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-22</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2296</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/XYYHLark01/article/details/79655880" target="_blank" title="AlexNet中的参数数量">
+				<span class="desc oneline">参考：https://vimsky.com/article/3664.html</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/XYYHLark01">来自：	<span class="blog_title"> XYYHLark01的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/superyang198608/article/details/82876445,BlogCommendFromThirdServiceFilterFiled_40"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/superyang198608/article/details/82876445,BlogCommendFromThirdServiceFilterFiled_40"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/superyang198608/article/details/82876445" target="_blank" title="AlexNet 参数计算">
+		<h4 class="text-truncate oneline">
+				<em>AlexNet</em> 参数<em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">09-28</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1252</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/superyang198608/article/details/82876445" target="_blank" title="AlexNet 参数计算">
+				<span class="desc oneline">FeatureMap大小计算公式：NoPadding：长=（Input长-过滤器长+1）/步长，上取整宽=（Input宽-过滤器宽+1）/步长，上取整Padding：长=Input长/步长，上取整宽=...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/superyang198608">来自：	<span class="blog_title"> superyang198608的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zchang81/article/details/70160223,BlogCommendFromThirdServiceFilterFiled_41"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zchang81/article/details/70160223,BlogCommendFromThirdServiceFilterFiled_41"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zchang81/article/details/70160223" target="_blank" title="深度学习——CNN经典网络总结">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>——<em>CNN</em><em>经典</em>网络总结		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">04-13</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					5727</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zchang81/article/details/70160223" target="_blank" title="深度学习——CNN经典网络总结">
+				<span class="desc oneline">在CNN网络结构的进化过程中，出现过许多优秀的CNN网络，如：LeNet，AlexNet，VGG-Net，GoogLeNet，ResNet，他们对CNN的发展进化起着至关重要的作用。...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zchang81">来自：	<span class="blog_title"> zchang81的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/niaonao/article/details/51167533,BlogCommendFromThirdServiceFilterFiled_42"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/niaonao/article/details/51167533,BlogCommendFromThirdServiceFilterFiled_42"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/niaonao/article/details/51167533" target="_blank" title="Java WEB 分页实现">
+		<h4 class="text-truncate oneline">
+				Java WEB 分页实现		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">04-16</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/niaonao/article/details/51167533" target="_blank" title="Java WEB 分页实现">
+				<span class="desc oneline">分页实现的效果：   /**/组图0-1.分页实现效果图一    /**/组图0-2.分页实现效果图二一、从效果可以看出内容由两部分组成：1.学生信息  数据库中插入一些记录，此处以学生对象为例。通过...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/niaonao">来自：	<span class="blog_title"> niaonao</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yycdaizi/article/details/43341239,BlogCommendFromThirdServiceFilterFiled_43"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yycdaizi/article/details/43341239,BlogCommendFromThirdServiceFilterFiled_43"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/yycdaizi/article/details/43341239" target="_blank" title="Hive小文件合并">
+		<h4 class="text-truncate oneline">
+				Hive小文件合并		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">01-31</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					4万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/yycdaizi/article/details/43341239" target="_blank" title="Hive小文件合并">
+				<span class="desc oneline">Hive的后端存储是HDFS，它对大文件的处理是非常高效的，如果合理配置文件系统的块大小，NameNode可以支持很大的数据量。但是在数据仓库中，越是上层的表其汇总程度就越高，数据量也就越小。而且这些...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/yycdaizi">来自：	<span class="blog_title"> yycdaizi的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_67" data-pid="67" data-track-view='{"mod":"kp_popu_67-882","con":",,"}' data-track-click='{"mod":"kp_popu_67-882","con":",,"}'><script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T43_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T43  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T43_render", "T43");
+</script></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u011501388/article/details/81061024,BlogCommendFromBaidu_44"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u011501388/article/details/81061024,BlogCommendFromBaidu_44"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u011501388/article/details/81061024" target="_blank" title="深度卷机网络（Deep CNNs）的GFLOPS与参数量计算">
+		<h4 class="text-truncate oneline">
+				深度卷机网络（Deep <em>CNN</em>s）的G<em>FLOPS</em>与参数量<em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-16</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3389</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u011501388/article/details/81061024" target="_blank" title="深度卷机网络（Deep CNNs）的GFLOPS与参数量计算">
+				<span class="desc oneline">转载来源：深度学习分类网络关于model参数量计算：1.CNN学习笔记——理解结构，LeNet5介绍1VGG-16VGG16[1]是非常经典的模型，好用，是2014 ImageNet的亚军(有可能是v...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u011501388">来自：	<span class="blog_title"> 鹊踏枝-码农的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/leayc/article/details/81001801,BlogCommendFromBaidu_45"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/leayc/article/details/81001801,BlogCommendFromBaidu_45"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/leayc/article/details/81001801" target="_blank" title="我的模型有多快？——深度学习网络模型的运算复杂度、空间占用和内存访问情况计算">
+		<h4 class="text-truncate oneline">
+				我的模型有多快？——<em>深度学习</em>网络模型的运算复杂度、空间占用和内存访问情况<em>计算</em>		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-11</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					7395</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/leayc/article/details/81001801" target="_blank" title="我的模型有多快？——深度学习网络模型的运算复杂度、空间占用和内存访问情况计算">
+				<span class="desc oneline">前段时间看了几个笔试题，涉及DNN的模型复杂度，主要是参数量和计算复杂度的问题。当时搜了一下感觉中文网上的内容比较乱。刚好本文是对神经网络模型资源消耗情况的一篇介绍，就不自己写了，把关键内容做了一下编...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/leayc">来自：	<span class="blog_title"> AsherLee's blog</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010402786/article/details/51435735,BlogCommendFromBaidu_46"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010402786/article/details/51435735,BlogCommendFromBaidu_46"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u010402786/article/details/51435735" target="_blank" title="一文搞懂算法的时间复杂度与空间复杂度">
+		<h4 class="text-truncate oneline">
+				一文搞懂算法的时间复杂度与空间复杂度		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">05-17</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					7019</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010402786/article/details/51435735" target="_blank" title="一文搞懂算法的时间复杂度与空间复杂度">
+				<span class="desc oneline">时间复杂度分析　空间复杂度</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u010402786">来自：	<span class="blog_title"> 深度学习思考者</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/abc200941410128/article/details/79269386,BlogCommendFromBaidu_47"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/abc200941410128/article/details/79269386,BlogCommendFromBaidu_47"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/abc200941410128/article/details/79269386" target="_blank" title="深度学习常见算法的介绍和比较">
+		<h4 class="text-truncate oneline">
+				<em>深度学习</em>常见算法的介绍和比较		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">02-08</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/abc200941410128/article/details/79269386" target="_blank" title="深度学习常见算法的介绍和比较">
+				<span class="desc oneline">很多人都有误解，以为深度学习比机器学习先进。其实深度学习是机器学习的一个分支。可以理解为具有多层结构的模型。具体的话，深度学习是机器学习中的具有深层结构的神经网络算法，即机器学习&gt;神经网络算法&gt;深度神...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/abc200941410128">来自：	<span class="blog_title"> abc200941410128的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/luopeiyuan1990/article/details/81561262,BlogCommendFromBaidu_48"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/luopeiyuan1990/article/details/81561262,BlogCommendFromBaidu_48"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/luopeiyuan1990/article/details/81561262" target="_blank" title="神经网络时间复杂度和空间复杂度（参数量计算和计算量计算）">
+		<h4 class="text-truncate oneline">
+				神经网络时间复杂度和空间复杂度（参数量<em>计算</em>和<em>计算</em>量<em>计算</em>）		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-10</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					8783</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/luopeiyuan1990/article/details/81561262" target="_blank" title="神经网络时间复杂度和空间复杂度（参数量计算和计算量计算）">
+				<span class="desc oneline"> 在梳理CNN经典模型的过程中，我理解到其实经典模型演进中的很多创新点都与改善模型计算复杂度紧密相关，因此今天就让我们对卷积神经网络的复杂度分析简单总结一下下。本文主要关注的是针对模型本身的复杂度分析...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/luopeiyuan1990">来自：	<span class="blog_title"> 固本培元的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	<div class="recommend-item-box recommend-ad-box"><div id="kp_box_68" data-pid="68" data-track-view='{"mod":"kp_popu_68-883","con":",,"}' data-track-click='{"mod":"kp_popu_68-883","con":",,"}'><!-- T48 位置 -->
+<script src="https://nbrecsys.4paradigm.com/resource/cus/csdn/sdk-csdn-render.js"></script>
+<div
+  id="_4paradigm_T48_render"
+  class="_paradigm_T_ads_render _4paradigm_box recommend-item-box clearfix"
+></div>
+<script>
+  //  渲染T48  传入 渲染位置的id和渲染位置的标记
+  p4CSDNRender_T("_4paradigm_T48_render", "T48");
+</script></div></div>
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zhmxy555/article/details/40955607,BlogCommendFromThirdServiceFilterFiled_49"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zhmxy555/article/details/40955607,BlogCommendFromThirdServiceFilterFiled_49"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zhmxy555/article/details/40955607" target="_blank" title="【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质">
+		<h4 class="text-truncate oneline">
+				【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					8万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zhmxy555/article/details/40955607" target="_blank" title="【Unity3D Shader编程】之二 雪山飞狐篇：Unity的基本Shader框架写法&amp;颜色、光照与材质">
+				<span class="desc oneline">本篇文章中，我们学习了UnityShader的基本写法框架，以及学习了Shader中Properties（属性）的详细写法，光照、材质与颜色的具体写法。写了6个Shader作为本文Shader讲解的实...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zhmxy555">来自：	<span class="blog_title"> 【浅墨的游戏编程Blog】毛星云（浅墨）的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/53052993,BlogCommendHotData_0"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/53052993,BlogCommendHotData_0"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/xu__cg/article/details/53052993" target="_blank" title="JVM学习05——内存分配与回收">
+		<h4 class="text-truncate oneline">
+				JVM学习05——内存分配与回收		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-06</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					5680</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/xu__cg/article/details/53052993" target="_blank" title="JVM学习05——内存分配与回收">
+				<span class="desc oneline">对象的内存分配从大方向上将，就是在堆上分配（但也可能经过JIT编译后被拆散为标量类型并间接在栈上分配），对象主要分配在新生代的Eden区上，如果启动了本地线程分配缓冲，将按线程优先在TLAB（转换后援...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/xu__cg">来自：	<span class="blog_title"> 小小本科生成长之路</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_2"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/silentpebble/article/details/41279285,BlogCommendHotData_2"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+		<h4 class="text-truncate oneline">
+				centos 查看命令源码		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-19</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					12万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/silentpebble/article/details/41279285" target="_blank" title="centos 查看命令源码">
+				<span class="desc oneline"># yum install yum-utils
+
+
+设置源:
+[base-src]
+name=CentOS-5.4 - Base src -
+baseurl=http://vault.ce...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/silentpebble">来自：	<span class="blog_title"> linux/unix</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_3"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/VBcom/article/details/7245186,BlogCommendHotData_3"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+		<h4 class="text-truncate oneline">
+				DirectX修复工具增强版		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">02-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					203万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/VBcom/article/details/7245186" target="_blank" title="DirectX修复工具增强版">
+				<span class="desc oneline">最后更新：2018-12-20
+
+DirectX修复工具最新版：DirectX Repair V3.8 增强版NEW!
+
+版本号：V3.8.0.11638
+
+大小: 107MB/7z格式压缩，189M...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/VBcom">来自：	<span class="blog_title"> VBcom的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/roguesir/article/details/77104246,BlogCommendHotData_4"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/roguesir/article/details/77104246,BlogCommendHotData_4"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/roguesir/article/details/77104246" target="_blank" title="人脸检测工具face_recognition的安装与应用">
+		<h4 class="text-truncate oneline">
+				人脸检测工具face_recognition的安装与应用		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">08-11</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					8万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/roguesir/article/details/77104246" target="_blank" title="人脸检测工具face_recognition的安装与应用">
+				<span class="desc oneline">人脸检测工具face_recognition的安装与应用</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/roguesir">来自：	<span class="blog_title"> roguesir的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Yan_Chou/article/details/53406095,BlogCommendHotData_5"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Yan_Chou/article/details/53406095,BlogCommendHotData_5"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Yan_Chou/article/details/53406095" target="_blank" title="frp配置本地服务端口到服务器80端口">
+		<h4 class="text-truncate oneline">
+				frp配置本地服务端口到服务器80端口		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-30</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Yan_Chou/article/details/53406095" target="_blank" title="frp配置本地服务端口到服务器80端口">
+				<span class="desc oneline">搭建环境：
+ubuntu 16.04 LTS （本地服务计算机） ubuntu 14.04 LTS(阿里云服务器)
+apache tomcat 7
+java 7 
+frp 0.8.1 linux
+搭建...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Yan_Chou">来自：	<span class="blog_title"> Anteoy的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/tutuxs/article/details/54891548,BlogCommendHotData_6"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/tutuxs/article/details/54891548,BlogCommendHotData_6"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/tutuxs/article/details/54891548" target="_blank" title="利用栈实现中缀表达式转前缀表达式">
+		<h4 class="text-truncate oneline">
+				利用栈实现中缀表达式转前缀表达式		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">02-06</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					6953</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/tutuxs/article/details/54891548" target="_blank" title="利用栈实现中缀表达式转前缀表达式">
+				<span class="desc oneline">前面既然写了中缀转后缀的，那么现在说下中缀转前缀的，至于后缀（前缀）转中缀，可以根据相关的转换规则自行转换。目的将中缀表达式（即标准的表达式）转换为前缀表达式例如：1+2*3+(4*5+6)7 转换成...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/tutuxs">来自：	<span class="blog_title"> Xefvan的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u010258235/article/details/45666851,BlogCommendHotData_7"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u010258235/article/details/45666851,BlogCommendHotData_7"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u010258235/article/details/45666851" target="_blank" title="C语言函数操作大全----(超详细)">
+		<h4 class="text-truncate oneline">
+				C语言函数操作大全----(超详细)		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">05-12</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					3万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u010258235/article/details/45666851" target="_blank" title="C语言函数操作大全----(超详细)">
+				<span class="desc oneline">fopen（打开文件）
+相关函数 open，fclose
+表头文件 #include
+定义函数 FILE * fopen(const char * path,const char * mode)...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u010258235">来自：	<span class="blog_title"> 独旅天涯</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_8"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/gefangshuai/article/details/50328451,BlogCommendHotData_8"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+		<h4 class="text-truncate oneline">
+				关于SpringBoot bean无法注入的问题（与文件包位置有关）		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-16</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					24万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/gefangshuai/article/details/50328451" target="_blank" title="关于SpringBoot bean无法注入的问题（与文件包位置有关）">
+				<span class="desc oneline">问题场景描述整个项目通过Maven构建，大致结构如下：
+核心Spring框架一个module spring-boot-base
+service和dao一个module server-core
+提供系统...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/gefangshuai">来自：	<span class="blog_title"> 开发随笔</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/u012987546/article/details/53020916,BlogCommendHotData_9"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/u012987546/article/details/53020916,BlogCommendHotData_9"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/u012987546/article/details/53020916" target="_blank" title="即时通讯-Android推送方案（MQTT）">
+		<h4 class="text-truncate oneline">
+				即时通讯-Android推送方案（MQTT）		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-03</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					7583</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/u012987546/article/details/53020916" target="_blank" title="即时通讯-Android推送方案（MQTT）">
+				<span class="desc oneline">1.什么是MQTT协议MQTT（Message Queuing Telemetry Transport，消息队列遥测传输）是IBM开发的一个即时通讯协议。有可能成为物联网的重要组成部分。该协议支持所有...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/u012987546">来自：	<span class="blog_title"> liujun2son</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_10"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/wuchengzeng/article/details/50037611,BlogCommendHotData_10"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+		<h4 class="text-truncate oneline">
+				jquery/js实现一个网页同时调用多个倒计时(最新的)		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">11-25</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					52万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/wuchengzeng/article/details/50037611" target="_blank" title="jquery/js实现一个网页同时调用多个倒计时(最新的)">
+				<span class="desc oneline">jquery/js实现一个网页同时调用多个倒计时(最新的)
+
+最近需要网页添加多个倒计时. 查阅网络,基本上都是千遍一律的不好用. 自己按需写了个.希望对大家有用. 有用请赞一个哦!
+
+
+
+//js
+...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/wuchengzeng">来自：	<span class="blog_title"> Websites</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/l185979505/article/details/52856101,BlogCommendHotData_11"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/l185979505/article/details/52856101,BlogCommendHotData_11"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/l185979505/article/details/52856101" target="_blank" title="ubuntu16.04 通过命令，修改屏幕分辨率">
+		<h4 class="text-truncate oneline">
+				ubuntu16.04 通过命令，修改屏幕分辨率		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-19</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/l185979505/article/details/52856101" target="_blank" title="ubuntu16.04 通过命令，修改屏幕分辨率">
+				<span class="desc oneline">ubuntu16.04 通过命令，修改屏幕分辨率</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/l185979505">来自：	<span class="blog_title"> l185979505的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/eric_e/article/details/79570454,BlogCommendHotData_12"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/eric_e/article/details/79570454,BlogCommendHotData_12"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/eric_e/article/details/79570454" target="_blank" title="OpenCV生成标定图(棋盘格)">
+		<h4 class="text-truncate oneline">
+				OpenCV生成标定图(棋盘格)		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-15</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					7067</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/eric_e/article/details/79570454" target="_blank" title="OpenCV生成标定图(棋盘格)">
+				<span class="desc oneline">   网上查了一下工业视觉标定板，少则几百大洋，多则几千大洋，就想在A4纸上山寨打印一个标定图，就是黑白方格相间的那种。A4纸的标准大小为210*297mm。搞了个把小时，其实想明白了之后很简单。从每...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/eric_e">来自：	<span class="blog_title"> eric_e的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/Smile_qiqi/article/details/32724931,BlogCommendHotData_13"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/Smile_qiqi/article/details/32724931,BlogCommendHotData_13"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/Smile_qiqi/article/details/32724931" target="_blank" title="魔兽争霸3冰封王座1.24e 多开联机补丁 信息发布与收集点">
+		<h4 class="text-truncate oneline">
+				魔兽争霸3冰封王座1.24e 多开联机补丁 信息发布与收集点		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">06-20</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					5万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/Smile_qiqi/article/details/32724931" target="_blank" title="魔兽争霸3冰封王座1.24e 多开联机补丁 信息发布与收集点">
+				<span class="desc oneline">畅所欲言！</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/Smile_qiqi">来自：	<span class="blog_title"> Smile_qiqi的专栏</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/fgf00/article/details/50965686,BlogCommendHotData_14"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/fgf00/article/details/50965686,BlogCommendHotData_14"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/fgf00/article/details/50965686" target="_blank" title="Xmanager 5 远程连接linux图形界面">
+		<h4 class="text-truncate oneline">
+				Xmanager 5 远程连接linux图形界面		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">03-23</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					4万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/fgf00/article/details/50965686" target="_blank" title="Xmanager 5 远程连接linux图形界面">
+				<span class="desc oneline">准备环境：Windows客户端安装 Xmanager 软件我用的Xmanager Enterprise 5 
+Linux系统环境[root@localhost ~]# cat /etc/issue
+C...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/fgf00">来自：	<span class="blog_title"> 人生就是一场修行</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/zd0303/article/details/7058457,BlogCommendHotData_15"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/zd0303/article/details/7058457,BlogCommendHotData_15"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/zd0303/article/details/7058457" target="_blank" title="MATLAB中注释一段程序">
+		<h4 class="text-truncate oneline">
+				MATLAB中注释一段程序		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">12-09</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					4万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/zd0303/article/details/7058457" target="_blank" title="MATLAB中注释一段程序">
+				<span class="desc oneline">在MATLAB中，可以注释一段程序。
+使用“%{”和“%}”。
+例如
+%{
+。。。
+%}
+即可。
+经典方法是用 if 0，但缺点是不够直观，注释掉的内容仍然保持代码的颜色。现在可以用
+...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/zd0303">来自：	<span class="blog_title"> 知识小屋</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/52970885,BlogCommendHotData_16"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/xu__cg/article/details/52970885,BlogCommendHotData_16"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/xu__cg/article/details/52970885" target="_blank" title="Java设计模式学习06——静态代理与动态代理">
+		<h4 class="text-truncate oneline">
+				Java设计模式学习06——静态代理与动态代理		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">10-30</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					2万+</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/xu__cg/article/details/52970885" target="_blank" title="Java设计模式学习06——静态代理与动态代理">
+				<span class="desc oneline">一、代理模式为某个对象提供一个代理，从而控制这个代理的访问。代理类和委托类具有共同的父类或父接口，这样在任何使用委托类对象的地方都可以使用代理类对象替代。代理类负责请求的预处理、过滤、将请求分配给委托...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/xu__cg">来自：	<span class="blog_title"> 小小本科生成长之路</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+<div class="recommend-item-box type_blog clearfix" data-track-view='{"mod":"popu_387","con":",https://blog.csdn.net/yovven/article/details/75252871,BlogCommendHotData_17"}' data-track-click='{"mod":"popu_387","con":",https://blog.csdn.net/yovven/article/details/75252871,BlogCommendHotData_17"}'>
+	<div class="content">
+		<a href="https://blog.csdn.net/yovven/article/details/75252871" target="_blank" title="利用CSS设置背景图片不显示的问题">
+		<h4 class="text-truncate oneline">
+				利用CSS设置背景图片不显示的问题		</h4>
+		<div class="info-box d-flex align-content-center">
+			<p class="date-and-readNum oneline">
+				<span class="date hover-show">07-17</span>
+				<span class="read-num hover-hide">
+					阅读数 
+					1618</span>
+				</p>
+			</div>
+		</a>
+		<p class="content">
+			<a href="https://blog.csdn.net/yovven/article/details/75252871" target="_blank" title="利用CSS设置背景图片不显示的问题">
+				<span class="desc oneline">用CSS写背景图片，background-image:url(&quot;1.jpg&quot;); 但是一直都不显示图片，只有原本写好的div的边框。
+一般不显示都是路径写错的问题，（图片的相对路径是指相对于写这条c...</span>
+			</a>
+			<span class="blog_title_box oneline ">
+									<span class="type-show type-show-blog type-show-after">博文</span>
+											<a target="_blank" href="https://blog.csdn.net/yovven">来自：	<span class="blog_title"> yovven的博客</span></a>
+												</span>
+		</p>
+	</div>
+	</div>
+
+	
+	
+                <div class="recommend-item-box type_hot_word">
+                                <div class="content clearfix">
+                    <div class="word float-left">
+                                                            <span>
+                        <a href="https://edu.csdn.net/combos/o363_l0_t " target="_blank">
+                        设计制作学习                    </a></span>
+                                                                                <span>
+                        <a href="https://edu.csdn.net/courses/o5329_s5330_k " target="_blank">
+                        机器学习教程                    </a></span>
+                                                                                <span>
+                        <a href="https://edu.csdn.net/courses/o280_s351_k " target="_blank">
+                        Objective-C培训                    </a></span>
+                                                                                <span>
+                        <a href="https://edu.csdn.net/combos/o7115_s388_l0_t " target="_blank">
+                        交互设计视频教程                    </a></span>
+                                                                                <span>
+                        <a href="https://edu.csdn.net/course/play/5599/104252 " target="_blank">
+                        颜色模型                    </a></span>
+                                                            </div>
+                </div>
+                                                <div class="content clearfix">
+                    <div class="float-left">
+                                        <span>
+                        <a href="https://www.csdn.net/gather_24/MtTaEg3sMDM5MS1ibG9n.html" target="_blank">
+                        mysql关联查询两次本表</a>
+                    </span>
+                                        <span>
+                        <a href="https://www.csdn.net/gather_10/MtjaIg3sMTUzMy1kb3dubG9hZAO0O0OO0O0O.html" target="_blank">
+                        native底部 react</a>
+                    </span>
+                                        <span>
+                        <a href="https://www.csdn.net/gather_1b/Ntzagg1sOTU3LWRvd25sb2Fk.html" target="_blank">
+                        extjs glyph 图标</a>
+                    </span>
+                                        <span>
+                        <a href="https://www.csdn.net/gather_4a/MtzaggxsMDctZWR1.html" target="_blank">
+                        深度学习经典教程</a>
+                    </span>
+                                        <span>
+                        <a href="https://www.csdn.net/gather_4a/NtDaYg4sNjUtZWR1.html" target="_blank">
+                        深度学习中的大数据</a>
+                    </span>
+                                        </div>
+                </div>
+                                </div>
+                            <div class="recommend-loading-box">
+                <img src='https://csdnimg.cn/release/phoenix/images/feedLoading.gif'>
+            </div>
+            <div class="recommend-end-box">
+                <p class="text-center">没有更多推荐了，<a href="https://blog.csdn.net/" class="c-blue c-blue-hover c-blue-focus">返回首页</a></p>
+            </div>
+        </div>
+    </main>
+
+    <aside>
+		    <div id="asideProfile" class="aside-box">
+    <!-- <h3 class="aside-title">个人资料</h3> -->
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/qq_36653505">
+              <img src="https://avatar.csdn.net/3/2/0/3_qq_36653505.jpg" class="avatar_pic">
+                              <img src="https://g.csdnimg.cn/static/user-reg-year/1x/3.png" class="user-years">
+                          </a>
+            
+        </div>
+        <div class="user-info d-flex justify-content-center flex-column">
+            <p class="name csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a href="https://blog.csdn.net/qq_36653505" target="_blank" class="" id="uid">Never-Giveup</a>
+            </p>
+                    </div>
+                <div class="opt-box d-flex justify-content-center flex-column">
+            <span  class="csdn-tracking-statistics tracking-click" data-mod="popu_379">
+                <a class="btn btn-sm btn-red-hollow attention" id="btnAttent">关注</a>
+            </span>
+        </div>
+            </div>
+    <div class="data-info d-flex item-tiling">
+                <dl class="text-center" title="131">
+                        <dt><a href="https://blog.csdn.net/qq_36653505?t=1">原创</a></dt>
+            <dd><a href="https://blog.csdn.net/qq_36653505?t=1"><span class="count">131</span></a></dd>
+                    </dl>
+        <dl class="text-center" id="fanBox" title="43">
+            <dt>粉丝</dt>
+            <dd><span class="count" id="fan">43</span></dd>
+        </dl>
+        <dl class="text-center" title="57">
+            <dt>喜欢</dt>
+            <dd><span class="count">57</span></dd>
+        </dl>
+        <dl class="text-center" title="29">
+            <dt>评论</dt>
+            <dd><span class="count">29</span></dd>
+        </dl>
+    </div>
+    <div class="grade-box clearfix">
+        <dl>
+            <dt>等级：</dt>
+            <dd>
+                <a href="https://blog.csdn.net/home/help.html#level" title="5级,点击查看等级说明" target="_blank">
+                    <svg class="icon icon-level" aria-hidden="true">
+                        <use xlink:href="#csdnc-bloglevel-5"></use>
+                    </svg>
+                </a>
+            </dd>
+        </dl>
+        <dl>
+            <dt>访问：</dt>
+            <dd title="81614">
+                8万+            </dd>
+        </dl>
+        <dl>
+            <dt>积分：</dt>
+            <dd title="2154">
+                2154            </dd>
+        </dl>
+        <dl title="29999">
+            <dt>排名：</dt>
+            <dd>2万+</dd>
+        </dl>
+    </div>
+        <div class="badge-box d-flex">
+        <span>勋章：</span>
+        <div class="badge d-flex">
+                                                        <div class="icon-badge" title="持之以恒">
+                       <div class="mouse-box">
+                          <img src="https://g.csdnimg.cn/static/user-medal/chizhiyiheng.svg" alt="">
+                          <div class="icon-arrow"></div>
+                       </div>
+                       <div class="grade-detail-box">
+                           <div class="pos-box">
+                               <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                                    <img src="https://g.csdnimg.cn/static/user-medal/chizhiyiheng.svg" alt="">
+                                   <p>持之以恒</p>
+                               </div>
+                               <div class="right-box">
+                                   授予每个自然月内发布4篇或4篇以上原创或翻译IT博文的用户。不积跬步无以至千里，不积小流无以成江海，程序人生的精彩需要坚持不懈地积累！                               </div>
+                           </div>
+                       </div>
+                   </div>
+                                                             <div class="icon-badge" title="1024勋章">
+                       <div class="mouse-box">
+                          <img src="https://g.csdnimg.cn/static/user-medal/1024huodong.svg" alt="">
+                          <div class="icon-arrow"></div>
+                       </div>
+                       <div class="grade-detail-box">
+                           <div class="pos-box">
+                               <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                                    <img src="https://g.csdnimg.cn/static/user-medal/1024huodong.svg" alt="">
+                                   <p>1024勋章</p>
+                               </div>
+                               <div class="right-box">
+                                   #1024程序员节#活动勋章，当日发布原创博客即可获得                               </div>
+                           </div>
+                       </div>
+                   </div>
+                                                             <div class="icon-badge" title="勤写标兵Lv1">
+                       <div class="mouse-box">
+                          <img src="https://g.csdnimg.cn/static/user-medal/qinxiebiaobing_l1_t2.svg" alt="">
+                          <div class="icon-arrow"></div>
+                       </div>
+                       <div class="grade-detail-box">
+                           <div class="pos-box">
+                               <div class="left-box d-flex justify-content-center align-items-center flex-column">
+                                    <img src="https://g.csdnimg.cn/static/user-medal/qinxiebiaobing_l1_t2.svg" alt="">
+                                   <p>勤写标兵Lv1</p>
+                               </div>
+                               <div class="right-box">
+                                   授予每个自然周发布1篇到3篇原创IT博文的用户。本勋章将于次周上午根据用户上周的博文发布情况由系统自动颁发。                               </div>
+                           </div>
+                       </div>
+                   </div>
+                                             </div>
+        <script>
+            (function ($) {
+                setTimeout(function(){
+                    $('div.icon-badge.show-moment').removeClass('show-moment');
+                }, 5000);
+            })(window.jQuery)
+        </script>
+    </div>
+    </div>
+		    <div class="csdn-tracking-statistics mb8 box-shadow" data-pid="blog" data-mod="popu_4" style="height:250px;">
+    <div class="aside-content text-center" id="cpro_u2734133">
+      <div id="kp_box_56" data-pid="56" data-track-view='{"mod":"kp_popu_56-876","con":",,"}' data-track-click='{"mod":"kp_popu_56-876","con":",,"}'><!-- 广告位：PC-博客内页左上视窗 -->
+<script>
+(function() {
+    var s = "_" + Math.random().toString(36).slice(2);
+    document.write('<div id="' + s + '"></div>');
+    (window.slotbydup=window.slotbydup || []).push({
+        id: '6096221',
+        container: s,
+        size: '300,250',
+        display: 'inlay-fix'
+    });
+})();
+</script>
+<script src="//dup.baidustatic.com/js/os.js"></script></div>    </div>
+</div>
+		    <div id="asideNewArticle" class="aside-box">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix csdn-tracking-statistics tracking-click" data-mod="popu_382">
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/qq_36653505/article/details/90299415" target="_blank">Linux过滤掉文本中的乱码</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/qq_36653505/article/details/90046145" target="_blank">记住，永远不要在MySQL中使用“utf8”</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/qq_36653505/article/details/90026373" target="_blank">关于 pytorch inplace operation需要注意的问题（data和detach方法的区别）</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/qq_36653505/article/details/89556895" target="_blank">LeetCode-329：矩阵中的最长递增路径（动态规划）</a>
+            </li>
+                        <li class="clearfix">
+                <a href="https://blog.csdn.net/qq_36653505/article/details/89457689" target="_blank">周志华老师的《机器学习》中假设空间和版本空间的理解</a>
+            </li>
+                    </ul>
+    </div>
+</div>
+		    <div id="asideColumn" class="aside-box">
+    <h3 class="aside-title">博主专栏</h3>
+    <div class="aside-content">
+        <ul class="column-box csdn-tracking-statistics tracking-click" data-mod="popu_520" >
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/qq_36653505/column/info/25917">
+                            <img src="//img-blog.csdn.net/20180807212010100?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/qq_36653505/column/info/25917">并行计算学习</a></p>
+                        <div class="data">文章数：<span class="count">0 篇</span> 访问量：<span>67</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/qq_36653505/column/info/26581">
+                            <img src="//img-blog.csdn.net/column?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/qq_36653505/column/info/26581">线性代数的几何意义</a></p>
+                        <div class="data">文章数：<span class="count">0 篇</span> 访问量：<span>96</span></div>
+                    </div>
+                </li>
+                            <li class="clearfix">
+                    <div class="img-box float-left">
+                        <a class="d-flex align-items-center" href="https://blog.csdn.net/qq_36653505/column/info/29413">
+                            <img src="//img-blog.csdn.net/column?imageView2/5/w/120/h/120" alt="">
+                        </a>
+                    </div>
+                    <div class="info">
+                        <p class="title"><a href="https://blog.csdn.net/qq_36653505/column/info/29413">机器学习1000问</a></p>
+                        <div class="data">文章数：<span class="count">2 篇</span> 访问量：<span>129</span></div>
+                    </div>
+                </li>
+                    </ul>
+    </div>
+    </div>
+		    <div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">个人分类</h3>
+    <div class="aside-content">
+        <ul>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8564971">
+                    <span class="title oneline">C语言</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7676913">
+                    <span class="title oneline">爬虫</span>
+                    <span class="count float-right">12篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7809547">
+                    <span class="title oneline">编程算法</span>
+                    <span class="count float-right">21篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7812132">
+                    <span class="title oneline">tensorflow函数用法随笔</span>
+                    <span class="count float-right">13篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7813483">
+                    <span class="title oneline">Python</span>
+                    <span class="count float-right">13篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7829852">
+                    <span class="title oneline">机器学习</span>
+                    <span class="count float-right">14篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7840611">
+                    <span class="title oneline">tensorflow实战练习</span>
+                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7891028">
+                    <span class="title oneline">深度学习</span>
+                    <span class="count float-right">8篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7912720">
+                    <span class="title oneline">CUDA并行编程模型学习笔记</span>
+                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7923719">
+                    <span class="title oneline">代理服务器配置</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7989597">
+                    <span class="title oneline">计算机视觉</span>
+                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/7993168">
+                    <span class="title oneline">Linux</span>
+                    <span class="count float-right">11篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8058745">
+                    <span class="title oneline">Git学习</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8109121">
+                    <span class="title oneline">Pytorch框架</span>
+                    <span class="count float-right">15篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8479686">
+                    <span class="title oneline">Socket编程（python）</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8490945">
+                    <span class="title oneline">大数据PySpark学习笔记</span>
+                    <span class="count float-right">5篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8506170">
+                    <span class="title oneline">Hadoop学习</span>
+                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8710503">
+                    <span class="title oneline">杂记</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <li>
+                <a class="clearfix" href="https://blog.csdn.net/qq_36653505/article/category/8934081">
+                    <span class="title oneline">数据库</span>
+                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideArchive" class="aside-box flexible-box">
+    <h3 class="aside-title">归档</h3>
+    <div class="aside-content">
+        <ul class="archive-list">
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2019/05">
+                    2019年5月                    <span class="count float-right">4篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2019/04">
+                    2019年4月                    <span class="count float-right">7篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2019/03">
+                    2019年3月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2019/02">
+                    2019年2月                    <span class="count float-right">3篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2019/01">
+                    2019年1月                    <span class="count float-right">18篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/12">
+                    2018年12月                    <span class="count float-right">19篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/11">
+                    2018年11月                    <span class="count float-right">6篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/10">
+                    2018年10月                    <span class="count float-right">10篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/09">
+                    2018年9月                    <span class="count float-right">16篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/08">
+                    2018年8月                    <span class="count float-right">27篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/07">
+                    2018年7月                    <span class="count float-right">19篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/06">
+                    2018年6月                    <span class="count float-right">2篇</span>
+                </a>
+            </li>
+                        <!--归档统计-->
+            <li>
+                <a href="https://blog.csdn.net/qq_36653505/article/month/2018/05">
+                    2018年5月                    <span class="count float-right">1篇</span>
+                </a>
+            </li>
+                    </ul>
+    </div>
+        <p class="text-center">
+        <a class="btn btn-link-blue flexible-btn" data-fbox="aside-archive">展开</a>
+    </p>
+    </div>
+		    <div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list csdn-tracking-statistics tracking-click" data-mod="popu_521">
+							<li>
+					<a href="https://blog.csdn.net/qq_36653505/article/details/81701181">哈夫曼编码的理解(Huffman Coding)</a>
+					<p class="read">阅读数 <span>9646</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/qq_36653505/article/details/81161106">TensorFlow中用于评估模型在训练集和测试集上的准确度的几个常用函数说明</a>
+					<p class="read">阅读数 <span>6832</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/qq_36653505/article/details/83473943">卷积神经网络中感受野的理解和计算</a>
+					<p class="read">阅读数 <span>4047</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/qq_36653505/article/details/84728489">Pytorch的net.train 和 net.eval的使用</a>
+					<p class="read">阅读数 <span>3773</span></p>
+				</li>
+							<li>
+					<a href="https://blog.csdn.net/qq_36653505/article/details/81368376">CUDA学习笔记（一）：浅析GPU计算——CPU和GPU的选择</a>
+					<p class="read">阅读数 <span>3052</span></p>
+				</li>
+					</ul>
+	</div>
+</div>
+		    <div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_36653505/article/details/83473943#comments">卷积神经网络中感受野的理解和计算</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/qq_34606546" class="user-name" target="_blank">qq_34606546：</a>[reply]qq_36653505[/reply]
+好哒 非常感谢                </p>
+            </li>
+                        <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/qq_36653505/article/details/83473943#comments">卷积神经网络中感受野的理解和计算</a>
+                <p class="comment ellipsis">
+                    <a href="https://my.csdn.net/qq_36653505" class="user-name" target="_blank">qq_36653505：</a>[reply]qq_34606546[/reply]
+已经放到文章最后，可以查看                </p>
+            </li>
+                    </ul>
+    </div>
+</div>
+		<div id="asideFooter">
+			
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57" data-track-view='{"mod":"kp_popu_57-77","con":",,"}' data-track-click='{"mod":"kp_popu_57-77","con":",,"}'><script type="text/javascript">
+    (function() {
+        var s = "_" + Math.random().toString(36).slice(2);
+        document.write('<div style="" id="' + s + '"></div>');
+        (window.slotbydup = window.slotbydup || []).push({
+            id: "u3163270",
+            container:  s
+        });
+    })();
+</script>
+<!-- 多条广告如下脚本只需引入一次 -->
+<script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></div>		</div>
+				<div class="aside-box">
+			<div class="persion_article">
+			</div>
+		</div>
+	</div>
+</aside>
+<script src="https://csdnimg.cn/pubfooter/js/publib_footer-1.0.3.js" data-isfootertrack="false" type="text/javascript"></script>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).remove();
+	})
+</script>
+</div>
+<div class="mask-dark"></div>
+<div class="tool-box">
+	<ul class="meau-list">
+		<li class="btn-like-box long-width">
+			<button class=" long-height hover-box btn-like " title="点赞">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-thumbsup"></use>
+				</svg>
+				<span class="hover-show text-box text">
+					<span class="no-active">点赞</span>
+					<span class="active">取消点赞</span>
+				</span>
+				<p>2</p>
+			</button>
+		</li>
+		<li class="">
+						<a class="btn-comments low-height hover-box" title="写评论" href="#commentBox">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-comments"></use>
+				</svg>
+				<span class="hover-show text">评论</span>
+				<p class="">
+										</p>
+			</a>
+		</li>
+		<li class="toc-container-box" id="liTocBox">
+			<button class="btn-toc low-height hover-box" title="目录">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-contents"></use>
+				</svg>
+				<span class="hover-show text">目录</span>
+			</button>
+			<div class="toc-container">
+				<div class="pos-box">
+					<div class="icon-arrow"></div>
+					<div class="scroll-box">
+						<div class="toc-box"></div>
+					</div>
+				</div>
+				<div class="opt-box">
+					<button class="btn-opt prev nomore" title="向上">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronup"></use>
+						</svg>
+					</button>
+					<button class="btn-opt next">
+						<svg class="icon" aria-hidden="true">
+							<use xlink:href="#csdnc-chevrondown"></use>
+						</svg>
+					</button>
+				</div>
+			</div>
+		</li>
+		<li>
+			<button class="btn-bookmark low-height hover-box" title="收藏">
+				<svg class="icon active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark-ok"></use>
+				</svg>
+				<svg class="icon no-active hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-bookmark"></use>
+				</svg>
+					<span class="hover-show text">收藏</span>
+				<!-- <span class="hover-show text-box text">
+					<span class="no-active">收藏</span>
+					<span class="active">取消收藏</span>
+				</span> -->
+			</button>
+		</li>
+		<li class="bdsharebuttonbox">
+			<div class="weixin-qr btn-comments low-height hover-box" >
+        <a href="#" class="bds_weixin clear-share-style" data-cmd="weixin" title="手机看"></a>
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-usephone"></use>
+				</svg>
+				<span class="hover-show text text3">
+					手机看
+				</span>
+			</div>
+		</li>
+							<li class="widescreen-hide">
+				<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/qq_36653505/article/details/86693148" title="详解scikit-learn计算ROC/AUC曲线">
+					<svg class="icon hover-hide" aria-hidden="true">
+						<use xlink:href="#csdnc-chevronleft"></use>
+					</svg>
+					<span class="hover-show text text3">上一篇</span>
+				</a>
+			</li>
+								<li class="widescreen-hide">
+			<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/qq_36653505/article/details/86704717" title="Spark作业提交的方式">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-chevronright"></use>
+				</svg>
+				<span class="hover-show text text3">下一篇</span>
+			</a>
+		</li>
+						<!-- 宽屏更多按钮 -->
+		<li class="widescreen-more">
+			<a class="btn-comments chat-ask-button low-height hover-box" title="快问" href="#chatqa">
+				<svg class="icon hover-hide" aria-hidden="true">
+					<use xlink:href="#csdnc-more"></use>
+				</svg>
+				<span class="hover-show text">更多</span>
+				
+			</a>
+			<ul class="widescreen-more-box">
+													<li class="widescreen-more">
+						<a class="btn-comments low-height hover-box" href="https://blog.csdn.net/qq_36653505/article/details/86693148" title="详解scikit-learn计算ROC/AUC曲线">
+							<svg class="icon hover-hide" aria-hidden="true">
+								<use xlink:href="#csdnc-chevronleft"></use>
+							</svg>
+							<span class="hover-show text text3">上一篇</span>
+						</a>
+					</li>
+																<li class="widescreen-more">
+					<a class="btn-comments hover-box low-height" href="https://blog.csdn.net/qq_36653505/article/details/86704717" title="Spark作业提交的方式">
+						<svg class="icon hover-hide" aria-hidden="true">
+							<use xlink:href="#csdnc-chevronright"></use>
+						</svg>
+						<span class="hover-show text text3">下一篇</span>
+					</a>
+				</li>
+							</ul>
+		</li>
+	</ul>
+</div>
+<script>window._bd_share_config = { "common": { "bdSnsKey": {}, "bdText": "", "bdMini": "1", "bdMiniList": false, "bdPic": "", "bdStyle": "0", "bdSize": "16" }, "share": {} }; with (document) 0[(getElementsByTagName('head')[0] || body).appendChild(createElement('script')).src = 'https://csdnimg.cn/static/api/js/share.js?v=89860594'];</script>
+<script>
+    var recommendCount = 67;
+    recommendCount = recommendCount > 1 ? (recommendCount + (recommendCount>6 ? 2 : 1)) : recommendCount;
+    var ChannelId = 28;
+    var articleId = "86700885";
+    var commentscount = 0;
+    var islock = false;
+    var curentUrl = "https://blog.csdn.net/qq_36653505/article/details/86700885";
+    var myUrl = "https://my.csdn.net/";
+    //1禁止评论，2正常
+    var commentAuth = 2;
+    //百度搜索
+    var baiduKey = "深度学习中parameters个数和FLOPS计算（以CNN中经典的AlexNet网络结构为例） - Never-Giveup的博客";
+    var needInsertBaidu = true;
+    // 代码段样式
+    var codeStyle = 'atom-one-dark';
+	var highlight = ["\u6df1\u5ea6\u5b66\u4e60","parameters","\u4e2a\u6570","flops","\u8ba1\u7b97","cnn","\u7ecf\u5178","alexnet","\u7f51\u7edc\u7ed3\u6784"];//高亮数组
+
+    var RecommendBlogExpertList = [];
+	var articleType = 1;
+	var CopyrightContent = '';
+</script>
+<script src="https://csdnimg.cn/public/sandalstrap/1.4/js/sandalstrap.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/vendor/pagination/paging.js"></script>
+<script src="https://csdnimg.cn/public/common/gotop/js/goTop-v1.0.min.js?v201904241615"></script><script>
+    GoTop({
+        right: 8,
+        hasReport: true,
+        reportFun: function() {
+            showReport(false,articleTitles);
+        }
+    })
+</script>
+<div style="display:none;">
+	<img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+</div>
+</body>
+
+<!-- 高亮未与 markdown兼容  -->
+	<link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.3.9/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+	<script type="text/javascript" src="https://csdnimg.cn/release/phoenix/production/pc_wap_common-45af74a22e.js" /></script>
+
+<script src="https://csdnimg.cn/release/phoenix/template/js/common-0100d9c3da.min.js"></script>
+<script src="https://csdnimg.cn/release/phoenix/template/js/detail-a8a55c8dd3.min.js"></script>
+
+	<script src="https://csdnimg.cn/release/phoenix/themes/skin3-template/skin3-template-fc7383b956.min.js"></script>
+
+    <script src="//g.csdnimg.cn/??login-box/1.0.5/login-box.js,login-box/1.0.5/login-auto.js,copyright/1.0.3/copyright.js,baidu-search/1.0.0/baidu-search.js?t=20190307095522"  type="text/javascript"></script>
+
+<script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+            "HTML-CSS": {
+                    linebreaks: { automatic: true, width: "94%container" },
+                    imageFont: null
+            },
+            tex2jax: {
+                preview: "none"
+            },
+            mml2jax: {
+                preview: 'none'
+            }
+    });
+</script>
+<script type="text/javascript">
+    </script>
+<script src="https://gh.bdstatic.com/static/gh/js/sdk/bword.min.js"></script>
+</html>
